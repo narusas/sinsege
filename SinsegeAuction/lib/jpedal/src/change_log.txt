@@ -1,0 +1,391 @@
+20070314	Allow for tab as dictionary deliminator
+		Map non-chars over 40 to bullet in WIN encoding
+
+20070312        Allow non-continuous ranges for printing
+20070308        Javascript message only once per file
+20070307        Debugged drawAdditionalObjects method and added tutorial at http://www.jpedal.org/overlay_tut.php
+20070306        getPDFflag(Integer i) with possible values in org.jpedal.constants.PDFflags
+
+20070305        Allow for / character in colorArray
+20070226        New method in PDFDecoder public int getPDFflag(Integer i).
+                Current input  PDFflags.USER_ACCESS_PERMISSIONS will return value for P
+20070225        Changed setFoundTextAreas(Rectangle area) to setFoundTextArea(Rectangle area)
+                and added setFoundTextAreas(Rectangle[] area) to PdfDecoder
+20070215        Fix bug in DeviceN jpegs when mapped onto CMYK
+20070209        Improve space detection on narrow spaces in PdfGrouping routines
+20070208        Allow for escaped chars in colorspace string
+20070206        Allow for Dest stored in NAME in Annotation
+================3.00b21
+20070125        setEncryptionPassword() now throws PDFexception if file not opened
+20070124        Fix bug in T1 flex code where subroutine misguessed as Flex.
+                Add in HTMx table to OTF
+================3.00.10
+20070109        Change setTTFontDirs to setFontDirs()
+                JVM flags
+                org.jpedal.fontdirs
+                org.jpedal.memory
+                org.jpedal.hires
+                org.jpedal.page
+                org.jpedal.bookmark
+                org.jpedal.thumbnail
+                org.jpedal.jai
+
+                See http://www.jpedal.org/flags.php
+
+                New method addFontFile(currentFont, fontPath);
+
+20070108        Apply TR function on images
+20070105        Support for GraphicsState TR function
+20070104        Use JAI for rescaling images
+20070102        Include FontMatrix sheer in rendering text
+                Ensure Color appears on type3 fonts using images
+                Make Type3 glyphs transparent
+20061220		New question on FAQ at http://www.jpedal.org/faq.php#font5 covering improving type3 fonts
+				Fix Image Snapshot on windows, image scaling is now correct
+				Shortcuts update to work correctly,
+				ctrl shift N == GoTo
+				firstPage == Home
+				End == END
+				Previous Document == ALT SHIFT Left
+				Next Document == ALT SHIFT Right
+				back page == Left
+				forward page = Right
+20061211        Type3 fonts use hires for better quality
+20061207        Allow for Resources object on Type3 font
+20061201        Fixed bug in reading XFA streams
+                Fixed search window
+                Recoded Predictor
+====================================================================
+	Release 3.00b06 (24-Nov 2006)
+====================================================================
+20061122        Allow for Indexed colorstream as encrypted String
+                Implement OPM and fix transparency issue in CMYK images
+20061121        Allow for CID data encoded as Octal stream in TJ
+                Fix bug in type1 glyph code where glyph name contains end
+                Fix for transparency on form images and color on forms
+                Fix for positioning on multipages with crop box
+20061120        Fix for lines disappearing due to clip narrower than 1
+                Ignore zero bytes at end of file in first 1024 bytes
+                Fix search not working if text extraction not allowed
+====================================================================
+	Release 3.00b03 (15-Nov 2006)
+====================================================================
+20061113        FIx for clipping
+20061103        Fix bug with hintmask in CFF fonts
+20061102        Now reads FDArray/FDSelect value in CFF font
+20061027        Fix font bug in CMAP on sample file from Tex
+20061017		Allow for \\\) in Annots
+20061013		Allow for hex escape chars in passwords
+20061009        Allow for Components with identical names
+20060928		Allow for hex values in Dictionary keys and translate
+20060927		Fix rotation bug in some images on PowerPoint files
+====================================================================
+	Release 2.80b15 (22-Sept 2006)
+====================================================================
+20060908		Fix for some ICCcolorspaces not correctly handled
+				Text now uses GS transparency setting
+20060907		Allow for alternate names with embedded images
+				Fix bug with substituted arial on Windows
+				Use Alt colorspace if ICC data not usable
+20060904		Fix for rotated type3 fonts
+				Select default form item
+20060824        Stop white outline on highlighted text - use Grey
+				public Integer getTypeValueByName(String fieldName) to DefaultAcroRenderer
+
+which returns one of LIST,COMBOBOX ,SINGLELINETEXT, SINGLELINEPASSWORD, MULTILINETEXT ,MULTILINEPASSWORD,PUSHBUTTON,RADIOBUTTON, CHECKBOXBUTTON, ANNOTATION,SIGNATURE - all Constants in FormFractory
+====================================================================
+	Release 2.80b11 (11-Aug 2006)
+====================================================================
+20060810		Changed scaling to match Acrobat on Windows
+20060808		Text now highlights in accelerated
+20060726		Full screen mode
+
+20060710		Allow for no space in keys after ID object in Catalog
+20060706		Move parser and renderer classes into org.jpedal 
+20060704        Remove spurious all option for deleting pages
+                Ensure typing number in delete page range brings up selection
+20060703        Add support for StructElement
+20060628		Invisible popups now correctly handled
+20060627		Fix form field transparency
+				Allow Mouse Events for Annotations
+====================================================================
+	Release 2.75b31 (27-June 2006)
+====================================================================
+
+20060626		Fix bug in fonts in Annotations
+				Allow for zero size Xform object in Annotations
+				Stamp command now supported
+				Support for external fdf files
+====================================================================
+	Release 2.75b30 (23-June 2006)
+====================================================================
+
+20060622		Fix xforms with scaling
+				PdfDecoder no longer final
+				Make PdfObjectReader an interface
+				Fix diffs for type3 fonts encoded as hex pairs
+20060619        Add method setPrintIndent(int oddPages,int evenPages) to indent printing
+				Add method decode_pdf.drawAdditionalObjectsOverPage allows users to add own content over PDF in Ent version
+				with example code in org.jpedal.examples.simpleviewer.gui.SwingGUI
+20060614		Fixed CIDtoGID
+				Fixed image problem
+20060525		Moved Message.java,BroswerLauncher and SwingWorker classes into org.jpedal.utils so examples can be deleted
+20060516		Fix outlines where Destination is named location
+				Fix bug with 4 bit images and stop substituting RGB for ICC if alt
+20060510        Image shape in PDF now clipped path
+20060504        Add font path to FOnt info if substituted
+20060407        Add isOpen() method to PdfDecoder
+                Allow for 1.000000 as well as 1 and 1.0 in Xform sizes
+20060403        Fix bug with ' in processText
+                Masked Images now given a white background
+                Ensure multi-line forms overflow correctly
+20060330        Alter decode array so handles CMYK and RGB correctly.
+20060329        Smoother painting
+                GenericColorSpace.setICCProfile(ICC_Profile ICCProfile) - must be called as first command
+
+20060328		PdfDecoder method hasOutline() now returns false if empty outline present
+				Fix bug not displaying some Outlines
+20060327        Messages to warn on hardware acceleration and JAI not present
+                getSelectedRectangleOnscreen() values altered to getSelectedRectangleOnscreen() to floats
+                Rewrite thumbnail code
+                Ensure memory/hires correctly selected
+				Display Thumbnails in Viewer now default
+                Deprecated thumbnails.setThumbnailsEnabled() and added thumbnails.setThumbnailsEnabled(boolean)
+20060323		Add showErrorMEssages statis flag to PdfDecoder - false is default
+20060321        Toggle bookmark removed
+20060320        Nup option
+                Default for scaled pages now CENTERED
+                Image caching improved
+20060313		Fix CID2 text extraction with unicode tables
+				stopDecoding will now exit openFile() setting status to closed
+=====================================================================
+20060308		Message translations.
+				Re-enable annotations
+20060307        Fix bug in displaying annotations
+====================================================================
+20060228        Better international languages
+                new external API
+20060227        Release eclipse plugin
+                Fix bug with accented characters in Viewer
+20060222        Fix memory leak in JPEG code if code cannot handle JPEG
+                Fix problem with thin lines
+====================================================================
+	Release 2.73b15 (22-February 2006)
+====================================================================
+20060220		Improve detection of WIN encoding on TT fonts
+20060216		PrinterOptions now holds static values
+                Add suppport for rotate and use PDF page size
+                Support for MissingWidth
+20060215        Add rotate_scale flag to printing
+                Detect if Javascript present
+====================================================================
+	Release 2.72b08 (10-February 2006)
+====================================================================
+20060210		Change classloader to solve security issues when embedding
+20060207        Confirmation on itext exports
+                Fix scaling issue with Mac images
+20060206		Fix sizing on Search window in Applet
+20060201		Fix for setLength in object being too short
+20060130		Fix scaling bug from FAB file in mac and memory version
+=====================================================================
+20060124	Correctly handle CID CMAPs in OS version if no pjes.jar
+=====================================================================
+20060111		Rewrite of examples
+			FDF in pjes.jar
+====================================================================
+	Release 2.71b05 (06-January 2005)
+====================================================================
+20060106		isDecoding() internally used
+20060105		website link, URL now works, new menu options in Viewer,
+			SimpleViewer code cleaned up
+20060103		Separate out printing and messages from viewer
+			SetPrintPageScalingMode(int i) getPrintPageScalingMode() 
+			and set of Static values in PDFDecoder starting PAGE_SCALING
+			enableScaledPrinting(boolean scalePrinting) and getScaleForPrinting() deprecated
+			overridePageOrientationCheckForPrinting(boolean checkOrientation) deprecated
+			Simon's XML rewrite and properties file.
+			Recent documents
+20051229		Remove txt files from final jars
+			Alter text testing so resets baseline figure if faster
+20051223		Message to tell user can save Forms
+			Alert user if unsaved forms and offer to save
+			Stop exit on close window if user says no
+			* on title bar if forms changed
+====================================================================
+	Release 2.70b10 (21-December 2005) - not GPL
+====================================================================
+20051220		Form names now fully resolved
+20051218		Multiple views.
+			setDisplayView(int displayView) and values SINGLE_PAGE,CONTINUOUS,FACING,CONTINUOUS_FACING
+			SimpleViewer options menu replaced by view. Added in code for views
+20051215		Examples now open encypted files with null passwords
+			Fix Annots printing
+			Fix annotations resizing
+			Annotations retain values switchign between pages (not currently saved)
+			Swing components now include stateToCheck in swing name of object
+			Fix encoding bug in some Annotations text
+			Fix printing bug with Annotations on thumbnails
+20051214		Change so only redraws at end of decoding. 
+			Added method setDrawInteractively(boolean drawInteractively) to restore old way
+			clearScreen() bug fixed
+			Faster text searching. Spurious XML chars removed
+			stopDecoding() method to terminate decoding prematurely
+====================================================================
+	Release 2.61b15 (13-November 2005) - included GPL
+====================================================================
+20051213		Add AppletViewer.java
+20051212		Fix mac hi res and landscape printing
+20051209		Separation colours now correctly interpolated
+20051208		Fix forms signature field 
+			Add in image code
+			Fix issue with scrolling if display not accelerated
+			Fix bug in XML extraction of partial lines
+			Fix bugs in ContentExtractor
+			Throw exception is pjes.jar on classpath in commercial version
+20051207		Improved error messages in SimpleViewer
+			
+20051206		Throw exception if user tries to decode page once file closed.
+			ExtractFormData example rewritten
+			Fix CalRGB
+			Fix bug in shading with scrolling
+20051126	Throw exception if imageio.jar not present for JPEG2000
+20051118		Fix 4 bit gray images with odd widths
+			Speed up scrolling
+			Combobox in Viewer to choose image quality or memory
+================
+20051109		Work on text performance
+20051108		Fix performance glitch on files
+20051104		Add image caching of hires images
+			Fix color bug with Mil file
+20051103		Add image support to SimpleViewer
+====================================================================
+	Release 2.60b05 (27-October 2005) - included GPL
+====================================================================
+20051017		Fix type6 format problem in chinese_chars.pdf
+20051010		new method public void setPagePrintRange(SetOfIntegerSyntax range)
+			deprecated public void setPagePrintRange(int start,int end)
+20051005		New method in PDFDecoder getPDFVersion() returns version
+20051004		Fixes for shading
+20050929		Work around to deal with bug in Java drawing very small shapes
+			General code cleanup and removal of unused imports
+20050928		Make setTTFonrDirs() is now static
+20040927		Improvements to t1 and tt font handling
+20050921		Fix bug in CMAP where format 6 used but not ID 1
+20050920		Fix search on rotatated pages
+			Check xrefs valid more carefully
+20050915		Reduced memory usage on large files.
+			Speed improvements (varies from files)
+			Thumbnail viewer now redraws on scroll and no exception. 
+====================================================================
+	Release 2.50b32 (14-September 2005) - included GPL
+====================================================================
+20050912		Better handling of null objects
+20050911		Alter vertical handling code for type1C fonts
+20050909		Make Pattern live. Improve use of embedded CMAPs
+20050907		Remove ExtractImages2 and put functions in ExtractImages. 
+20050906		Add ability to extract OPI data - code in ExtractImages -Dopi flag
+20050905		Fixes for search and displays page number
+			New example to extract text from area of page
+20050902		Search now highlights if scrolling
+20050901		Tweak find code to work with spaces and give better output
+20050829		Fix TR issues with stroke not being set correctly for direct draw
+			Output co-ordinates for images in xml file in ExtractImages example
+20050827		Fix bug in MASK with indexed colorspace
+			Fix bug in TR command with text
+20050818		Improved handling of non-embedded fonts with encoding in font file
+20050817		ExtractTextAsTable now saves as xml not htmml. Flags added to extraction examples to make them easier to use.
+			Fixed bug with ICC indexed colorspaces not setting components to 3
+20050816		Fix bug in char mapping
+20050812		Pjes.jar will return version number if called with no paramters (ie java -jar pjes.jar)
+				Add external dpi flag to ExtractPagesAsThumbnails
+20050811		Improved ExtractPagesAsThumbnails example wwith scaling option
+20050810		Add support for TR 3 mode
+				Add support for SMask
+20050809		Add method PDFContainsEmbeddedFonts() and new example to use it
+				New example ShowIfFileUsesEmbeddedFonts.java
+20050808		Fix bug in extractTextInRectangle with co-ords
+				Add option to output as text in extractTextInRectangle
+20050728		Add support for Mask
+20050727		Add new method getImageAsTransparentPage(int pageNumber)
+			setThumbnaiImageTransparency(boolean b) deprecated
+20050726		New forms methods.
+20050725		Forms. FormFactory to extend display
+20050724		DeviceN colorspace
+20050721		Clean up ExtractFormData example
+			Add object reference to raw forms data in obj field.
+			New method getCurrentFormRenderer()
+====================================================================
+	Release 2.40b38 (20-July 2005)
+====================================================================
+20050719		Improved findTextInRectangle - handles spaces better
+20050718		Add -Ddebug to generate log
+20050715		Improve bookmarks
+20050714		Speed improvements
+			Fix Dingbats
+			Ascii85 speedup
+20050713		Search window
+20050711		Improved Japanese text
+20050705		Move font code into new classes. Debug.
+			Add test for pjes.jar and cid.jar
+			Updated gpl build.xml
+20050704		Move font code from org.jpedal.fonts to com.idrsolutions.pdf.fonts
+			Remove attributes from SimpleViewer.java (printDialog)
+20050628		Add SWTViewer - extends SimpleViewer in SWT.
+			New code for CMAP handling of WIN fonts
+			Change SimpleViewer to make it easier to add SWT Viewer
+====================================================================
+	Release 2.40b38 (20-June 2005)
+====================================================================
+20050615		Fix truetype code for CIDs.
+			Allow for 1 bit CCITT image
+20050614		Fix Truetype code for complex glyfs
+			Improved form options cover
+			Log started for Unimplemented forms to find files
+20050607		New GPL build file
+			Fix Separation colorspaces
+			Fix font mapping so not over-ridden by defaults.
+20050605		Fix memory leak. 
+			Fix bug in Separation colorspace code
+20050603		Allow for \f in password
+			Allow for font of same name (ie F1) in  xform
+20050527		New tiff code
+20050526		Alter naming convention for files with xxx-
+20050525		Font fixes
+			Speed tweaks in Font code
+20050524		Fix Zapf font bug
+20050523		Fix bug in Post table code
+20050519		Fix CMYK color in printing to avoid JPS bug
+20050517		Allow for DA encrypted in forms.
+			Allow for (\\) value
+====================================================================
+	Release 2.40b30 (16-May 2005)
+====================================================================
+20050516		Put Auto-scrolling in ContentExtractor.
+			Smoother scrolling at edge of SimpleViewer/ContentExtractor window
+			Correctly handle mutliple (()) in TJ streams
+			Ensure any images cached on disk deleted.
+			Content windows in SimpleViewer/ContentExtractor now resizable
+20050511		Regression test font changes.
+			 Improve forms with fonts, escape chars and alignment
+20050510		Make sure Symbol fonts sybstitute correctly on non-embedded fonts
+			Recode WIN, MAC, Symbol tables to ensure non-Windows glyphs all work correctly.
+			Improve Latin2 support
+20050509		Fix bug when files with compressed streams with non-standard W entries read.
+			Ensure font called Symbol uses Symbol encoding
+			Allow for octal values less than 3 digits long
+20050504		Clean up | and replace with || in some classes to improve speed
+20050503		Alter way passwords handle to provent corruption on some text values. 
+			PdfFont.setStandardFontMappings() call no longer needed and removed from examples.
+			Examples now defined in javadoc format
+20050502		Remove enableHighQualityMode(),disableHighQualityMode()
+			Methods getGroupingObject(), getBackgroundGroupingObject() to replace usage of getPdfBackgroundData(),getPdfData().
+20050429		Move useUnrotatedCoords from PdfDecoder to PdfGrouping class
+			Move PDfdata from examples into internals of library
+20050428	Work on appearance streams for FDFforms.
+			ObjectStore made non-static to avoid possible class if called from threads.
+			Fixed BufferedReader not being closed
+20050427	Remove unused pageContent object in PdfDecoder/PdfStreamDecoder.
+			Make methods in PdfStreamDecoder protected to reduce access.
+			Fixed bug with page incorrect in ContentExtractor example.
+			Convert ObjectStore to non-static object to avoid multi-threading issue and alter examples.
+			Clean up imports.

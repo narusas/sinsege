@@ -1,0 +1,53 @@
+le>
+              <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
+                <tr bgcolor="#E3E3E3">
+                  <td width="8%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">점유자의<br>성명</td>
+                  <td width="12%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">점유부분</td>
+                  <td width="8%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">정보출처<br>구분</td>
+                  <td width="7%"  align="center" height="26" bgcolor="#EEEEEE" valign="middle">점유의<br>권원</td>
+                  <td width="13%" align="center" height="22" bgcolor="#EEEEEE">임대차기간<br>(점유기간)</td>
+                  <td width="12%" align="center" height="22" bgcolor="#EEEEEE">보증금</td>
+                  <td width="10%" align="center" height="26" bgcolor="#EEEEEE">차임</td>
+                  <td width="9%" align="center" height="30" bgcolor="#EEEEEE" valign="middle">전입신고일자·사업자등록신청일자</td>
+                  <td width="9%" align="center" height="30" bgcolor="#EEEEEE" valign="middle">확정일자</td>
+                  <td width="12%" align="center" height="26" bgcolor="#EEEEEE" valign="middle">배당요구여부<br>(배당요구일자)</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+
+                  <td rowspan="1" align="center" height="30" bgcolor="#FFFFFF" valign="middle">강영희&nbsp;</td>
+
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">지상6층 3평&nbsp;</td>
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">권리신고&nbsp;</td>
+                  <td  align="center" height="26" bgcolor="#FFFFFF" valign="middle">임차인&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">1998.8.28-&nbsp;</td>
+                  <td align="center" height="30" valign="middle">1,900만원&nbsp;</td>
+                  <td align="center" height="30" valign="middle">6만원&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+                  <td align="center" height="26" valign="middle">&nbsp;</td>
+                  <td align="center" height="26" valign="middle">2003.07.22&nbsp;</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+
+                  <td rowspan="1" align="center" height="30" bgcolor="#FFFFFF" valign="middle">고미자&nbsp;</td>
+
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">6층 148호&nbsp;</td>
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">현황조사&nbsp;</td>
+                  <td  align="center" height="26" bgcolor="#FFFFFF" valign="middle">임차인&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">2002. 12. 16.~&nbsp;</td>
+                  <td align="center" height="30" valign="middle">540만원&nbsp;</td>
+                  <td align="center" height="30" valign="middle">45만원&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">없음&nbsp;</td>
+                  <td align="center" height="26" valign="middle">없음&nbsp;</td>
+                  <td align="center" height="26" valign="middle">&nbsp;</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+				  <td colspan=10 width="10%" align="left" height="30" bgcolor="#FFFFFF" valign="middle">
+                    &nbsp;< 비고 ><br>
+
+				  &nbsp;강영희 : 신청채권자에 의하면, 임차인은 강영희이며 고미자는 전차인이라고 함.<br>
+
+                </tr>
+              

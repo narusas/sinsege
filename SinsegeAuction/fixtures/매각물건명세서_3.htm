@@ -1,0 +1,267 @@
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>매각물건명세서</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+
+// 부동산표시목록 Loading
+function LoadEstateList( sa_no )	
+{
+	document.estateForm.sa_no.value = sa_no;
+	if ( navigator.appName == " Netscape" )
+		document.estateForm.browser.value = "2";
+	else
+	{
+		ver = navigator.appVersion.split("; ");
+		if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+			document.estateForm.browser.value = "1";
+		else
+			document.estateForm.browser.value = "2";
+	}
+	document.estateForm.submit();
+}
+
+function PrintMove()
+{
+	var browser = "1";
+	if ( navigator.appName == " Netscape" )
+		browser = "2";
+	else
+	{
+		ver = navigator.appVersion.split("; ");
+		if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+			browser = "1";
+		else
+			browser = "2";
+	}
+
+	url = '/au/SuperServlet?target_command=au.command.auc.C101PrintCommand&bub_cd=000210&sa_no=20030130008078&maemul_no=6&browser='+browser;
+	window.open( url, 'print_win', 'left=0,top=0, width=670, height=600, toolbar=no, menubar=no, status=no, scrollbars=yes, resizable=yes' );
+}
+
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF"  text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
+  onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="99%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td height="510" valign="top">
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+
+            <td class="title" height="24" width="200"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+              <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="10" colspan="2"><img src="/au/images/spacer.gif" width="830" height="4"></td>
+          </tr>
+        </table>
+
+
+       <!------------------------------  본문 시작 --------------------------------------->
+        <table width="99%" border="0" cellspacing="1" cellpadding="1" bgcolor="#999999">
+          <tr>
+            <td align="center" bgcolor="#FFFFFF" class="td_link">
+              <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                <tr bgcolor="#D5E0EA" >
+                  <td align="center" valign="bottom" bgcolor="#D5E0EA" height="35" class="print" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b><font color="#000000" size="4">서울중앙지방법원 </font></b>
+                  </td>
+                  <td align="right" valign="top" width="115" bgcolor="#D5E0EA" height="35" ><a href="javascript:PrintMove();" id="a1"><font color="#003399">[출력]</font></a>&nbsp;<a href="javascript:history.back()" id="a1"><font color="#003399"><b><span class="list">[이전화면→]</span></b></font></a></td>
+                </tr>
+                <tr >
+                  <td align="center" valign="top" height="37"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b><font size="4">매각물건명세서</font></b><br>
+                  </td>
+                  <td align="right" valign="top" width="115" height="37" ></td>
+                </tr>
+              </table>
+
+              <table width="99%" border="0" cellspacing="0" cellpadding="1" >
+                <tr align="left">
+                  <td colspan="9" valign="top">
+
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                      <tr>
+                        <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+                <tr align="center" valign="center">
+                  <td height="33" width="5%" bgcolor="#EEEEEE">사건</td>
+                  <td colspan="2" width="31%" align="left" valign="bottom">&nbsp;<b>2003타경8078</b>
+                    &nbsp;부동산임의경매<br>&nbsp;</td>
+                  <td width="10%" bgcolor="#EEEEEE">매각물건번호</td>
+                  <td width="7%">&nbsp;6</td>
+                  <td width="13%" bgcolor="#EEEEEE">작성일자</td>
+                  <td width="13%">&nbsp;2007.03.05</td>
+                  <td width="8%" bgcolor="#EEEEEE">담임법관</td>
+                  <td width="10%">&nbsp;</td>
+                </tr>
+                <tr align="left">
+                  <td colspan="9" valign="top">
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                      <tr>
+                        <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr align="center" valign="middle">
+                  <td colspan="2" height="33" width="17%" valign="bottom" bgcolor="#EEEEEE">부동산 및 감정평가액<br>최저매각가격의 표시</td>
+                  <td width="20%">부동산표시목록 참조<br></td>
+                  <td colspan="2" width="13%" bgcolor="#EEEEEE">최선순위 설정 일자</td>
+                  <td colspan="4" width="13%" align="left">&nbsp;토지,건물: 2002.5.6.(근저당권)</td>
+                </tr>
+                <tr align="left">
+                  <td colspan="9" valign="top">
+                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                      <tr>
+                        <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr align="left">
+                  <td height="33" colspan="9" valign="top" align="left"><br>
+                    부동산의 점유자와 점유의 권원, 점유할 수 있는 기간, 차임 또는 보증금에 관한 관계인의 진술 및 임차인이 있는
+                    경우 배당요구 여부와 그 일자, 전입신고일자 또는 사업자등록신청일자와 확정일자의 유무와 그 일자<br>&nbsp;</td>
+                </tr>
+              </table>
+              <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#CCCCCC">
+                <tr bgcolor="#E3E3E3">
+                  <td width="8%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">점유자의<br>성명</td>
+                  <td width="12%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">점유부분</td>
+                  <td width="8%"  align="center" height="30" bgcolor="#EEEEEE" valign="middle">정보출처<br>구분</td>
+                  <td width="7%"  align="center" height="26" bgcolor="#EEEEEE" valign="middle">점유의<br>권원</td>
+                  <td width="13%" align="center" height="22" bgcolor="#EEEEEE">임대차기간<br>(점유기간)</td>
+                  <td width="12%" align="center" height="22" bgcolor="#EEEEEE">보증금</td>
+                  <td width="10%" align="center" height="26" bgcolor="#EEEEEE">차임</td>
+                  <td width="9%" align="center" height="30" bgcolor="#EEEEEE" valign="middle">전입신고일자·사업자등록신청일자</td>
+                  <td width="9%" align="center" height="30" bgcolor="#EEEEEE" valign="middle">확정일자</td>
+                  <td width="12%" align="center" height="26" bgcolor="#EEEEEE" valign="middle">배당요구여부<br>(배당요구일자)</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+
+                  <td rowspan="2" align="center" height="30" bgcolor="#FFFFFF" valign="middle">송남순&nbsp;</td>
+
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">5층 144호&nbsp;</td>
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">현황조사&nbsp;</td>
+                  <td  align="center" height="26" bgcolor="#FFFFFF" valign="middle">임차인&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">1999. 10 .~&nbsp;</td>
+                  <td align="center" height="30" valign="middle">1,000만원&nbsp;</td>
+                  <td align="center" height="30" valign="middle">90만원&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">없음&nbsp;</td>
+                  <td align="center" height="26" valign="middle">없음&nbsp;</td>
+                  <td align="center" height="26" valign="middle">&nbsp;</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">지상5층 3평&nbsp;</td>
+				  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">권리신고&nbsp;</td>
+                  <td  align="center" height="26" bgcolor="#FFFFFF" valign="middle">임차인&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">1998.8.28.-&nbsp;</td>
+                  <td align="center" height="30" valign="middle">2,500만원&nbsp;</td>
+                  <td align="center" height="30" valign="middle">10만원&nbsp;</td>
+                  <td align="center" height="30" bgcolor="#FFFFFF" valign="middle">&nbsp;</td>
+                  <td align="center" height="26" valign="middle">&nbsp;</td>
+                  <td align="center" height="26" valign="middle">2003.05.26&nbsp;</td>
+                </tr>
+
+                <tr bgcolor="#FFFFFF">
+				  <td colspan=10 width="10%" align="left" height="30" bgcolor="#FFFFFF" valign="middle">
+                    &nbsp;< 비고 ><br>
+
+                </tr>
+              </table>
+
+              <br>
+              <table width="99%" border="0" cellspacing="0" cellpadding="7">
+                <tr>
+                  <td colspan="2"><font color="#FF0000">※ 최선순위 설정일자보다 대항요건을 먼저 갖춘 주택·상가건물 임차인의 임차보증금은
+                    매수인에게 인수되는 경우가 발생할 수 있고, 대항력과 우선변제권이 있는 주택·상가건물 임차인이 배당요구를 하였으나 보증금 전액에
+                    관하여 배당을 받지 아니한 경우에는 배당받지 못한 잔액이 매수인에게 인수되게 됨을 주의하시기 바랍니다.</font>
+                  </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#EFF3F8" >▒ 등기된 부동산에 관한 권리 또는 가처분으로  매각허가에 의하여 그 효력이 소멸되지 아니하는 것</td></tr>
+                <tr>
+                  <td>&nbsp;&nbsp;해당사항 없음</td></tr>
+
+
+                <tr>
+                  <td bgcolor="#EFF3F8" >▒ 매각허가에 의하여 설정된 것으로 보는 지상권의 개요</td></tr>
+                <tr>
+                  <td colspan="2">&nbsp;&nbsp;해당사항 없음</td></tr>
+                <tr>
+
+
+                  <td bgcolor="#EFF3F8" >▒ 비고란</td></tr>
+                <tr>
+                  <td colspan="2">&nbsp;&nbsp;본건 매각대상 목적물 중 건물은 대지권없이 건물만이 매각대상이며, 감정평가서, 신청채권자에 의하면 본건 건물은 본건 토지지분 및 같은 토지 갑구순위 제314호 402.8분의 0.01지분(본건 매각대상 아님)과 함께 거래되고 있으며, 별도로 본건 건물과 관련한 토지사용계약은 체결되어 있지 않다고 함.</td></tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="98%" border="0" cellspacing="3" cellpadding="0">
+    <tr>
+      <td width="10"></td>
+      <td align="left" valign="top" width="50">※ 주1 : </td>
+      <td align="left" valign="top" >경매, 매각목적물에서 제외되는 미등기건물 등이 있을  경우에는 그 취지를 명확히 기재한다.</td>
+    </tr>
+    <tr>
+      <td width="10"></td>
+      <td align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 : </td>
+      <td align="left" valign="top">최선순위 설정보다 먼저 설정된 가등기담보권, 가압류
+        또는 소멸되는 전세권이 있는 경우에는 그 담보가등기, 가압류 또는 전세권 등기일자를 기재한다.</td>
+    </tr>
+  </table>
+  <br>
+</form>
+
+<script language="javascript">
+	init();
+</script>
+
+</body>
+</html>
+

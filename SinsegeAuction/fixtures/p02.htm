@@ -1,0 +1,2025 @@
+
+
+
+
+
+
+
+<!-- (2003.01.23.IT.OH) ------------------------------>
+
+<!---------------------------------------------------->
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>물건검색결과</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+    /* 쿠키 가져오기 */
+	function getCookieVal(offset){
+   		var endstr = document.cookie.indexOf (";", offset);
+	   	if (endstr == -1)
+   			endstr = document.cookie.length;
+	   	return unescape(document.cookie.substring(offset, endstr));
+	}
+
+	function GetCookie(name) {
+   		var arg = name + "=";
+	   	var alen = arg.length;
+   		var clen = document.cookie.length;
+	   	var	i = 0;
+   		while (i < clen){
+   			var j = i + alen;
+
+	   		if (document.cookie.substring(i, j ) == arg)
+   				return getCookieVal (j);
+
+   			i = document.cookie.indexOf(" ", i) + 1;
+	   		if (i == 0) break;
+   		}
+
+   		return null;
+	}
+
+	/* 쿠키 세팅하기 */
+	function SetCookie( name, value ){
+   		var argv = SetCookie.arguments;
+  		var argc = SetCookie.arguments.length;
+  		var expires_date = (argc > 2 )? argv[2] : null;
+  		var path = (argc > 3 )? argv[3] : null;
+	   	var domain = (argc > 4 )? argv[4] : null;
+  		var secure = (argc > 5 )? argv[5] : false;
+
+  		// 유효기간 계산
+  		var currentDate = new Date();
+   		var expires = new Date();
+	   	expires.setTime (expires.getTime() + expires_date * (24 * 60 * 60 * 1000));
+
+   		document.cookie = name + "=" + escape (value) +
+   			((expires == null)? "" : ("; expires=" + expires.toGMTString())) +
+	   		((path == null)? "" : ("; path=" + path)) +
+   			((domain == null)? "" : ("; domain=" + domain)) +
+   			((secure == null)? "; secure" : "");
+	}
+
+	// 쿠키 삭제 처리 부분
+	function DeleteCookie(name){
+   		var exp = new Date();
+	   	exp.setTime (exp.getTime() - 1);
+		var cval = GetCookie(name);
+	   	document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+	}
+
+	function cookie_process()
+	{
+   		var c_string = GetCookie('c_string');
+      	var i, j, str, flag, v_num = 0;
+      	var v_new = '';
+
+	   	for( i = 0; i < 30 ; i++ )
+   		{
+   			str = document.listForm.checkid[i].value;
+	   		flag = document.listForm.checkid[i].checked;
+   			if ( str == 'start' ) continue;
+   			if ( str == 'end' ) break;
+	   		if (!flag) continue;
+
+   			c_string = DelItem(c_string, str);
+
+   			if ( v_new == '')
+      		v_new = str;
+      	else
+      		v_new = v_new + '*' + str;
+
+				v_num++
+ 	   	}
+
+	   	if (v_new == '')
+   		{
+   			alert('선택하신 목록이 없습니다.');
+	   		return;
+   		}
+
+	   	if ((c_string == null)||(c_string == ''))
+   		{
+   			SetCookie('c_string', v_new, 100, '/');
+	   		alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+   			return;
+	   	}
+
+	   	var v_split = c_string.split('*');
+   		for( j = 0 ; j < 30 - v_num; j++)
+  		{
+  			if ( j >= v_split.length ) break;
+  			v_new = v_new + '*' + v_split[j];
+	   	}
+
+  		SetCookie('c_string', v_new, 100, '/');
+	   	alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+  		return;
+  	}
+
+	function DelItem( e_cookie, e_target )
+	{
+		var i;
+		var flag = 1;
+		var result;
+
+		if (( e_cookie == null)||( e_cookie == '')) return '';
+
+		var v_split = e_cookie.split('*');
+
+		for( i = 0 ; i < 29 ; i++)
+		{
+			if ( i >= v_split.length ) break;
+
+			if ( e_target != v_split[i]	)
+			{
+				if( flag )
+				{
+					result = v_split[i];
+					flag = 0;
+				}
+				else
+					result = result + '*' + v_split[i];
+			}
+		}
+		return result;
+	}
+
+	// 페이지 번호 클릭시 해당 페이지 Loading
+	function goMove( page )
+	{
+		document.iMove.page.value = page;
+		document.iMove.submit();
+	}
+
+	// 이전검색화면으로 이동
+	function loadSearch( flag ) {
+		if ( flag == 1 )
+			command = "au.command.aua.A210ListCommand";
+		else if ( flag == 2 )
+			command = "au.command.auc.C110ListCommand";
+		else if ( flag == 3 )
+			command = "au.command.auc.C120SearchCommand";
+		else if ( flag == 4 )
+			command = "au.command.aue.E210SearchCommand";
+
+		document.searchForm.target_command.value = command;
+
+		if ( navigator.appName == " Netscape" )
+			document.searchForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.searchForm.browser.value = "1";
+			else
+				document.searchForm.browser.value = "2";
+		}
+		document.searchForm.submit();
+	}
+
+	// 사건상세정보(경매사건검색)로 이동
+	function loadSaDetail( bub_cd, sa_no ) {
+		document.detailForm.bub_cd.value = bub_cd;
+		document.detailForm.sa_no.value = sa_no;
+
+        if ( navigator.appName == " Netscape" )
+			document.detailForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.detailForm.browser.value = "1";
+			else
+				document.detailForm.browser.value = "2";
+		}
+		document.detailForm.submit();
+	}
+
+	// 매각물건명세서 Loading
+	function loadMyung( bub_cd, sa_no, maemul_no )	{
+		document.myungForm.bub_cd.value = bub_cd;
+		document.myungForm.sa_no.value = sa_no;
+		document.myungForm.maemul_no.value = maemul_no;
+
+		if ( navigator.appName == " Netscape" )
+			document.myungForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.myungForm.browser.value = "1";
+			else
+				document.myungForm.browser.value = "2";
+		}
+		document.myungForm.submit();
+	}
+
+	// 현황조사서 Loading
+	function loadHyun( bub_cd, sa_no, mo_sa_no, relsaInfo, saList_HasHyunjo, userSaList_HasHyunjo, sano_HasHyunjo )
+	{
+		document.hyunForm.bub_cd.value = bub_cd;
+		document.hyunForm.sa_no.value = sa_no;
+		document.hyunForm.saList_HasHyunjo.value = saList_HasHyunjo;
+		document.hyunForm.userSaList_HasHyunjo.value = userSaList_HasHyunjo;
+		document.hyunForm.sano_HasHyunjo.value = sano_HasHyunjo;
+
+		if ( relsaInfo.length > 0 )
+			jf_processRelsaInfo(mo_sa_no,relsaInfo,'hyun');
+
+		if ( navigator.appName == " Netscape" )
+			document.hyunForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.hyunForm.browser.value = "1";
+			else
+				document.hyunForm.browser.value = "2";
+		}
+
+		if( mo_sa_no.indexOf("(이송전)",0) > 0 )
+			document.hyunForm.IHsa_no.value = mo_sa_no;
+
+		document.hyunForm.submit();
+	}
+
+	// 감정평가서 Loading
+	function loadGam( bub_cd, sa_no, mo_sa_no, relsaInfo, saList_HasGam, userSaList_HasGam, sano_HasGam, userSano_HasGam, ibub_nm, mae_giil, gam_no )
+	{
+		document.gamForm.bub_cd.value = bub_cd;
+		document.gamForm.bub_nm.value = '서울중앙지방법원 ';
+
+		//자동차 이송전사건 법원
+		if( ibub_nm != "" )
+			document.gamForm.bub_nm.value = ibub_nm;
+
+		if( userSano_HasGam == "" )
+			document.gamForm.user_mo_sa_no.value = mo_sa_no;
+		else 
+			document.gamForm.user_mo_sa_no.value = userSano_HasGam;
+
+		document.gamForm.sa_no.value = sa_no;
+		document.gamForm.displaySaList_RelSa.value = relsaInfo;
+		document.gamForm.saList_HasGam.value = saList_HasGam;
+		document.gamForm.userSaList_HasGam.value = userSaList_HasGam;
+		document.gamForm.sano_HasGam.value = sano_HasGam;
+		//userSano_HasGam
+		document.gamForm.mae_giil.value = mae_giil;
+		document.gamForm.gam_no.value = gam_no;
+
+		//자동차 이송전사건
+		//document.gamForm.ibub_cd.value = ibub_cd;
+		//document.gamForm.isa_no.value = isa_no;
+		//document.gamForm.userIsa_no.value = userIsa_no;
+
+		if ( relsaInfo.length > 0 )
+			jf_processRelsaInfo(mo_sa_no,relsaInfo,'gam');
+
+		if ( navigator.appName == " Netscape" )
+			document.gamForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.gamForm.browser.value = "1";
+			else
+				document.gamForm.browser.value = "2";
+		}
+		//document.gamForm.submit();
+
+		window.open( "/au/auc/C103Frame.jsp?bub_cd="+bub_cd+"&sa_no="+sa_no+"&mae_giil="+mae_giil+"&sano_HasGam="+sano_HasGam+"&gam_no="+gam_no, "gam", "width=800, height=620, top=50, left=150, resizable=yes" );
+		//window.open( "http://210.98.146.20/main.asp?bub_cd=" + bub_cd + "&sa_no=" + sa_no, "gam", "width=800, height=600" );
+	}
+
+	// 관련사건번호 재가공
+	// Parameters : 모사건사용자번호 2001타경2003
+	//							원관련사용자사건번호 <br>2001타경80913<br>2002타경22587<br>(중복)
+	//							gubun - 'hyun' or 'gam' 현황조사서/감정평가서의 구분
+	// Return 값 	: 2001타경2003#2001타경80913(중복)#2002타경22587(중복)
+	// 							2001타경2003#2001타경80913#2002타경22587
+	//							두 값을 form에 셋팅
+	function jf_processRelsaInfo( user_mo_sa_no, relsaInfo, gubun )
+	{
+		var array_relsaInfo = relsaInfo.substring(4).split("<br>");
+		var new_array_displaySaList_RelSa = new Array();
+		var new_array_userSaList_RelSa = new Array();
+		var temp = 0;
+		var new_array_count = 1;
+
+		new_array_displaySaList_RelSa[0] = user_mo_sa_no;
+		new_array_userSaList_RelSa[0] = user_mo_sa_no;
+
+		for ( var i=0; i < array_relsaInfo.length; i++ )
+		{
+			if ( array_relsaInfo[i].indexOf('(') != -1 )
+			{
+				for ( var j=temp; j < i; j++ )
+				{
+					new_array_displaySaList_RelSa[new_array_count] = array_relsaInfo[j] + array_relsaInfo[i];
+					new_array_userSaList_RelSa[new_array_count] = array_relsaInfo[j];
+					new_array_count++;
+				}
+				temp = i+1;
+			}
+		}
+
+		var displaySaList_RelSa = '';
+		var userSaList_RelSa = '';
+
+		for ( var h=0; h < new_array_displaySaList_RelSa.length; h++ )
+		{
+			if ( h != (new_array_displaySaList_RelSa.length-1) )
+			{
+				displaySaList_RelSa += new_array_displaySaList_RelSa[h] + "#";
+				userSaList_RelSa += new_array_userSaList_RelSa[h] + "#";
+			}
+			else
+			{
+				displaySaList_RelSa += new_array_displaySaList_RelSa[h];
+				userSaList_RelSa += new_array_userSaList_RelSa[h];
+			}
+		}
+
+		if (gubun == 'hyun')
+		{
+			document.hyunForm.displaySaList_RelSa.value = displaySaList_RelSa;
+			document.hyunForm.userSaList_RelSa.value = userSaList_RelSa;
+		}
+		else
+		{
+			document.gamForm.displaySaList_RelSa.value = displaySaList_RelSa;
+			document.gamForm.userSaList_RelSa.value = userSaList_RelSa;
+		}
+	}
+
+
+/*//--------------알림------------------------------------------------------------------------------------
+function getCookie( name )
+{
+        var nameOfCookie = name + "=";
+        var x = 0;
+        while ( x <= document.cookie.length )
+        {
+                var y = (x+nameOfCookie.length);
+                if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+                        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+                                endOfCookie = document.cookie.length;
+                        return unescape( document.cookie.substring( y, endOfCookie ) );
+                }
+                x = document.cookie.indexOf( " ", x ) + 1;
+                if ( x == 0 )
+                        break;
+        }
+        return "";
+}
+function setCookie( name, value, expiredays ) {
+  var todayDate = new Date();
+  todayDate.setDate( todayDate.getDate() + expiredays );
+  document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + "; domain=" + ".courtauction.go.kr"+";";
+}
+var cookieval = new Date();
+cookieval = cookieval.getTime();
+var rStr_1 = "" + Math.random();
+var rStr_2 = "" + Math.random();
+var rStr_3 = "" + Math.random();
+var rStr_4 = "" + Math.random();
+var rStr_5 = "" + Math.random();
+rStr_1 = rStr_1.charAt(2);
+rStr_2 = rStr_2.charAt(2);
+rStr_3 = rStr_3.charAt(2);
+rStr_4 = rStr_4.charAt(2);
+rStr_5 = rStr_5.charAt(2);
+
+cookieval = cookieval + rStr_1 + rStr_2 + rStr_3 + rStr_4 + rStr_5;
+
+if(getCookie("pcid") == null || getCookie("pcid") == "") {
+  setCookie("pcid", cookieval , 3650);
+}
+
+if ( getCookie( "Notice" ) != "done" )
+{
+        noticeWindow  =  window.open('/au/notice.jsp','notice','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,top=0,left=0,width=350,height=334');
+        noticeWindow.opener = self;
+}
+
+//--------------알림------------------------------------------------------------------------------------
+*/
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+
+            <td class="title" height="24" width="200"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+              <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="4" colspan="2"><img src="/au/images/spacer.gif" width="830" height="4"></td>
+          </tr>
+        </table>
+
+
+        <!----------------------  상세내역  ----------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="8">
+
+
+<!-- 출력/검색을 두줄로 하기위해 이동 (2003.01.23. IT.OH) ------------------------------------------------------------------------------>
+          <tr valign="bottom">
+
+			<td align="right" height="38" width="25%"><a href="javascript:PrintMove();" id="a1"><b><font color="#003399">[ 출력 ] </font></b></a>
+
+
+            <a href="javascript:loadSearch( 2 );" id="a1"><b><font color="#003399">[ 검색화면→]</font></b></a></td>
+
+          </tr>		  
+<!------------------------------------------------------------------------------------------------------------------------------------->
+
+
+          <tr valign="bottom">
+            <td align="left" height="23">법원 :<b> 서울중앙지방법원 &nbsp;&nbsp;&gt;&nbsp;&nbsp;</b>
+
+
+매각기일 :<b> 2007.03.22 (10:00,&nbsp;경매법정) &nbsp;&nbsp;&gt;&nbsp;&nbsp;</b>
+
+
+
+<!------------------------------------------------------------------------------------------------------------------------------>
+
+담당계 :<b> 경매7계 &nbsp;&nbsp;</b>
+
+
+              <b>[ 총 <font color="#CC0000">46 </font>건 ]</b>
+            </td>
+
+<!-- 출력/검색을 두줄로 하기위해 위쪽으로 이동 (2003.01.23. IT.OH) ------------------------------------------------------------------------------
+
+			<td align="right" height="38" width="25%"><a href="javascript:PrintMove();" id="a1"><b><font color="#003399">[ 출력 ] </font></b></a>
+
+
+            <a href="javascript:loadSearch( 2 );" id="a1"><b><font color="#003399">[ 검색화면→]</font></b></a></td>
+
+------------------------------------------------------------------------------------------------------------------------------------------------>
+          </tr>
+
+        </table>
+
+        <table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#BBBBBB">
+          <tr>
+            <td colspan="7" align="center" bgcolor="#FFFFFF">
+
+        <!----------------------  리스트 안내  ----------------------------->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td colspan="2" align="left" height="30" valign="middle">&nbsp;<a href="javascript:cookie_process();" id="a1"><img src="/au/images/but_chak.gif" width="105" height="22" align="absbottom" border="0"></a></td>
+                  <td width="50%" align="right" height="30"><font color="#664500">
+                  <img src="/au/images/i_list.gif" align="absmiddle"> 매각물건명세서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_report.gif" align="absmiddle"> 현황조사서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_valuation.gif" align="absmiddle"> 감정평가서&nbsp;&nbsp; </font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+<form name="listForm" >
+<input type=hidden name="checkid" value="start">
+
+        <!----------------------  리스트 ----------------------------->
+<!--              <table width="100%" border="0" cellspacing="1" cellpadding="2" bgcolor="#999999">-->
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="1%"  align="center" height="30" rowspan="2"><font color="#333333">등록</font></td>
+                  <td width="14%" align="center" height="30" rowspan="2"><font color="#333333">사건번호</font></td>
+                  <td colspan="2" align="center" height="22" valign="bottom"><font color="#333333">매각물건</font></td>
+                  <td width="12%"  align="center" height="30" rowspan="2"><font color="#333333">비고</font></td>
+                  <td width="12%" align="center" height="30" rowspan="2"><font color="#333333">감정평가액<br> 최저매각가격<br>(단위 : 원)</font></td>
+                  <td width="8%" align="center" height="30" rowspan="2"><font color="#333333">매각기일<br> 담당계<br>(관련서류)</font></td>
+                </tr>
+
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="7%"  align="center" height="22" bgcolor="#D5E0EA">물건번호</td>
+                  <td width="46%" align="center" height="22" bgcolor="#D5E0EA">소재지 및 상세내역</td>
+<!--                  <td width="20%" align="center" height="22" bgcolor="#D5E0EA">상세내역</td> -->
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="5"><input type="checkbox" name="checkid" value="000210 20050130026728"></td>
+                  <td rowspan="5"><a href="javascript:loadSaDetail( '000210', '20050130026728' );" id="a1">
+
+                  서울중앙지방법원<br><b>2005타경26728 </b></a></td>
+                  <td rowspan="5" bgcolor="#EFF3F8">3
+
+                    <br>기타
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 강남구 논현동  237-11파크랜드빌딩 지하2층 10호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근철근콘크리트조 스라브
+15층 업무시설
+1층 491.92㎡ 2층 492.84㎡
+3층 491.94㎡ 4층 540.24㎡
+5층 568.32㎡ 6층 568.32㎡
+7층 568.32㎡ 8층 568.32㎡
+9층 568.32㎡ 10층 568.32㎡
+11층 568.32㎡ 12층 568.32㎡
+13층 568.32㎡ 14층 568.32㎡
+15층 568.32㎡
+지하5층 721.70㎡
+지하중5층 615.24㎡
+지하4층 1001.17㎡
+지하3층 1001.17㎡
+지하중3층 471.74㎡
+지하2층 1005.05㎡
+지하1층 1025.03㎡
+층별용도
+지하5층:기계실 276.36
+전기실 247.95
+창고 134.48
+계단,엘레베이터 62.91
+지하중5층:주차장 497.24
+휀룸 35.25
+계단,엘레베이터 82.75
+지하4층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하3층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하중3층:주차장 458.42
+휀룸 13.32
+지하2층:근린생활시설(다방)
+116.83(소매점)73.35
+사무실 386.96
+복도 179.09
+계단,엘레베이터191.62
+휀룸및 공조실 57.2
+지하1층:근린생활시설(소매점)
+119.34(의원)85.09
+사무실 164.66
+주차장 352.93
+계단,엘레베이터113.96 복도 143.03
+공조실 46.02
+1층:업무시설 사무실(은행)
+289.92 로비 99.68
+경비실 27.6
+계단및 엘레베이터 74.72
+2층:업무시설 사무실(은행)
+295.46 로비 83.99
+공조실 38.67
+계단및 엘리베이터 74.72
+3층:업무시설 사무실 365.99
+계단및 엘리베이터 125.95
+4층:업무시설 사무실 408.11
+계단및 엘리베이터 132.13
+5층-15층:업무시설 각층
+사무실 436.09
+각층 계단및 엘레베이터 132.23<br>전유부분의건물의표시: 철근콘크리트조
+31.48㎡
+사무실   (경매할지분 전 공유자 조병윤,조병남 지분 각 전부(100분의64)) <br><br>
+                  </td>
+                  <td rowspan="5" align="left"bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연 2할
+-임대차 : 물건명세서와 같음
+-일괄매각</td>
+                  <td rowspan="5" bgcolor="#EFF3F8">482,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  80,866,000</td>
+
+                  <td rowspan="5">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20050130026728', 
+												  '2005타경26728', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20050130026728', 
+												 '2005타경26728', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '28970' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 논현동  237-11파크랜드빌딩 지하2층 11호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근철근콘크리트조 스라브
+15층 업무시설
+1층 491.92㎡ 2층 492.84㎡
+3층 491.94㎡ 4층 540.24㎡
+5층 568.32㎡ 6층 568.32㎡
+7층 568.32㎡ 8층 568.32㎡
+9층 568.32㎡ 10층 568.32㎡
+11층 568.32㎡ 12층 568.32㎡
+13층 568.32㎡ 14층 568.32㎡
+15층 568.32㎡
+지하5층 721.70㎡
+지하중5층 615.24㎡
+지하4층 1001.17㎡
+지하3층 1001.17㎡
+지하중3층 471.74㎡
+지하2층 1005.05㎡
+지하1층 1025.03㎡
+층별용도
+지하5층:기계실 276.36
+전기실 247.95
+창고 134.48
+계단,엘레베이터 62.91
+지하중5층:주차장 497.24
+휀룸 35.25
+계단,엘레베이터 82.75
+지하4층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하3층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하중3층:주차장 458.42
+휀룸 13.32
+지하2층:근린생활시설(다방)
+116.83(소매점)73.35
+사무실 386.96
+복도 179.09
+계단,엘레베이터191.62
+휀룸및 공조실 57.2
+지하1층:근린생활시설(소매점)
+119.34(의원)85.09
+사무실 164.66
+주차장 352.93
+계단,엘레베이터113.96 복도 143.03
+공조실 46.02
+1층:업무시설 사무실(은행)
+289.92 로비 99.68
+경비실 27.6
+계단및 엘레베이터 74.72
+2층:업무시설 사무실(은행)
+295.46 로비 83.99
+공조실 38.67
+계단및 엘리베이터 74.72
+3층:업무시설 사무실 365.99
+계단및 엘리베이터 125.95
+4층:업무시설 사무실 408.11
+계단및 엘리베이터 132.13
+5층-15층:업무시설 각층
+사무실 436.09
+각층 계단및 엘레베이터 132.23<br>전유부분의건물의표시: 철근콘크리트조
+31.48㎡
+사무실   (경매할지분 전 공유자 조병윤,조병남 지분 각 전부(100분의64)) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 논현동  237-11파크랜드빌딩 지하2층 13호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근철근콘크리트조 스라브
+15층 업무시설
+1층 491.92㎡ 2층 492.84㎡
+3층 491.94㎡ 4층 540.24㎡
+5층 568.32㎡ 6층 568.32㎡
+7층 568.32㎡ 8층 568.32㎡
+9층 568.32㎡ 10층 568.32㎡
+11층 568.32㎡ 12층 568.32㎡
+13층 568.32㎡ 14층 568.32㎡
+15층 568.32㎡
+지하5층 721.70㎡
+지하중5층 615.24㎡
+지하4층 1001.17㎡
+지하3층 1001.17㎡
+지하중3층 471.74㎡
+지하2층 1005.05㎡
+지하1층 1025.03㎡
+층별용도
+지하5층:기계실 276.36
+전기실 247.95
+창고 134.48
+계단,엘레베이터 62.91
+지하중5층:주차장 497.24
+휀룸 35.25
+계단,엘레베이터 82.75
+지하4층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하3층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하중3층:주차장 458.42
+휀룸 13.32
+지하2층:근린생활시설(다방)
+116.83(소매점)73.35
+사무실 386.96
+복도 179.09
+계단,엘레베이터191.62
+휀룸및 공조실 57.2
+지하1층:근린생활시설(소매점)
+119.34(의원)85.09
+사무실 164.66
+주차장 352.93
+계단,엘레베이터113.96 복도 143.03
+공조실 46.02
+1층:업무시설 사무실(은행)
+289.92 로비 99.68
+경비실 27.6
+계단및 엘레베이터 74.72
+2층:업무시설 사무실(은행)
+295.46 로비 83.99
+공조실 38.67
+계단및 엘리베이터 74.72
+3층:업무시설 사무실 365.99
+계단및 엘리베이터 125.95
+4층:업무시설 사무실 408.11
+계단및 엘리베이터 132.13
+5층-15층:업무시설 각층
+사무실 436.09
+각층 계단및 엘레베이터 132.23<br>전유부분의건물의표시: 철근콘크리트조
+31.03㎡
+사무실   (경매할지분 전 공유자 조병윤,조병남 지분 각 전부(100분의64)) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 논현동  237-11파크랜드빌딩 지하2층 14호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근철근콘크리트조 스라브
+15층 업무시설
+1층 491.92㎡ 2층 492.84㎡
+3층 491.94㎡ 4층 540.24㎡
+5층 568.32㎡ 6층 568.32㎡
+7층 568.32㎡ 8층 568.32㎡
+9층 568.32㎡ 10층 568.32㎡
+11층 568.32㎡ 12층 568.32㎡
+13층 568.32㎡ 14층 568.32㎡
+15층 568.32㎡
+지하5층 721.70㎡
+지하중5층 615.24㎡
+지하4층 1001.17㎡
+지하3층 1001.17㎡
+지하중3층 471.74㎡
+지하2층 1005.05㎡
+지하1층 1025.03㎡
+층별용도
+지하5층:기계실 276.36
+전기실 247.95
+창고 134.48
+계단,엘레베이터 62.91
+지하중5층:주차장 497.24
+휀룸 35.25
+계단,엘레베이터 82.75
+지하4층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하3층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하중3층:주차장 458.42
+휀룸 13.32
+지하2층:근린생활시설(다방)
+116.83(소매점)73.35
+사무실 386.96
+복도 179.09
+계단,엘레베이터191.62
+휀룸및 공조실 57.2
+지하1층:근린생활시설(소매점)
+119.34(의원)85.09
+사무실 164.66
+주차장 352.93
+계단,엘레베이터113.96 복도 143.03
+공조실 46.02
+1층:업무시설 사무실(은행)
+289.92 로비 99.68
+경비실 27.6
+계단및 엘레베이터 74.72
+2층:업무시설 사무실(은행)
+295.46 로비 83.99
+공조실 38.67
+계단및 엘리베이터 74.72
+3층:업무시설 사무실 365.99
+계단및 엘리베이터 125.95
+4층:업무시설 사무실 408.11
+계단및 엘리베이터 132.13
+5층-15층:업무시설 각층
+사무실 436.09
+각층 계단및 엘레베이터 132.23<br>전유부분의건물의표시: 철근콘크리트조
+31.03㎡
+사무실   (경매할지분 전 공유자 조병윤,조병남 지분 각 전부(100분의64)) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 논현동  237-11파크랜드빌딩 지하2층 15호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근철근콘크리트조 스라브
+15층 업무시설
+1층 491.92㎡ 2층 492.84㎡
+3층 491.94㎡ 4층 540.24㎡
+5층 568.32㎡ 6층 568.32㎡
+7층 568.32㎡ 8층 568.32㎡
+9층 568.32㎡ 10층 568.32㎡
+11층 568.32㎡ 12층 568.32㎡
+13층 568.32㎡ 14층 568.32㎡
+15층 568.32㎡
+지하5층 721.70㎡
+지하중5층 615.24㎡
+지하4층 1001.17㎡
+지하3층 1001.17㎡
+지하중3층 471.74㎡
+지하2층 1005.05㎡
+지하1층 1025.03㎡
+층별용도
+지하5층:기계실 276.36
+전기실 247.95
+창고 134.48
+계단,엘레베이터 62.91
+지하중5층:주차장 497.24
+휀룸 35.25
+계단,엘레베이터 82.75
+지하4층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하3층:주차장 892.74
+휀룸 29.61
+계단,엘레베이터 78.82
+지하중3층:주차장 458.42
+휀룸 13.32
+지하2층:근린생활시설(다방)
+116.83(소매점)73.35
+사무실 386.96
+복도 179.09
+계단,엘레베이터191.62
+휀룸및 공조실 57.2
+지하1층:근린생활시설(소매점)
+119.34(의원)85.09
+사무실 164.66
+주차장 352.93
+계단,엘레베이터113.96 복도 143.03
+공조실 46.02
+1층:업무시설 사무실(은행)
+289.92 로비 99.68
+경비실 27.6
+계단및 엘레베이터 74.72
+2층:업무시설 사무실(은행)
+295.46 로비 83.99
+공조실 38.67
+계단및 엘리베이터 74.72
+3층:업무시설 사무실 365.99
+계단및 엘리베이터 125.95
+4층:업무시설 사무실 408.11
+계단및 엘리베이터 132.13
+5층-15층:업무시설 각층
+사무실 436.09
+각층 계단및 엘레베이터 132.23<br>전유부분의건물의표시: 철근콘크리트조
+31.03㎡
+사무실   (경매할지분 전 공유자 조병윤,조병남 지분 각 전부(100분의64)) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20050130033993"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20050130033993' );" id="a1">
+
+                  서울중앙지방법원<br><b>2005타경33993 </b></a></td>
+                  <td rowspan="1" bgcolor="#E7E7E7">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7"><!--10:00-->
+                    서울특별시 중구 신당동  200-5외 12필지누죤빌딩 지하2층 134호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철골철근콘크리트조 평슬래브지붕 15층
+판매시설, 근린생활시설 및 업무시설
+    1층 2734.46㎡
+    2층 2195.93㎡
+    3층 2195.93㎡
+    4층 2195.93㎡
+    5층 2195.93㎡
+    6층 2195.93㎡
+    7층 1998.43㎡
+    8층 1716.52㎡
+    9층 1351.46㎡
+   10층 1244.11㎡
+   11층  651.93㎡
+   12층  625.78㎡
+   13층  625.78㎡
+   14층  625.78㎡
+   15층  625.78㎡
+지하1층 3267.00㎡
+지하2층 3267.00㎡
+지하3층 3267.00㎡
+지하4층 3267.00㎡
+지하5층 3267.00㎡
+지하6층 3081.22㎡ <br>전유부분의건물의표시: 철골철근콘크리트조 5.040㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 : 연 2할
+-임대차 : 물건명세서와 같음
+-대지권 : 미등기</td>
+                  <td rowspan="1" bgcolor="#E7E7E7">60,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  10,066,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20050130033993', 
+												  '2005타경33993', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20050130033993', 
+												 '2005타경33993', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '36235' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20050130042850"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20050130042850' );" id="a1">
+
+                  서울중앙지방법원<br><b>2005타경42850 </b></a></td>
+                  <td rowspan="1" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 서초구 서초동  1445-3외 1필지국제전자센터 지1층 지1082호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철골,철근콘크리트조 스라브지붕
+24층 복합상가
+지하7층 6345.93㎡
+지하6층 6341.99㎡
+지하5층 6307.63㎡
+지하4층 6640.80㎡
+지하3층 4721.61㎡
+지하2층 6929.59㎡
+지하1층 6799.74㎡
+1층 2817.52㎡
+2층 3573.89㎡
+3층 3595.88㎡
+4층 3739.82㎡
+5층 3739.82㎡
+6층 3739.82㎡
+7층 3739.82㎡
+8층 3739.82㎡
+9층 3739.82㎡
+10층 3739.82㎡
+11층 3739.82㎡
+12층 1891.72㎡
+13층 1859.24㎡
+14층 1707.20㎡
+15층 1707.20㎡
+16층 1707.20㎡
+17층 1707.20㎡
+18층 1707.20㎡
+19층 1707.20㎡
+20층 1707.20㎡
+21층 1707.20㎡
+22층 1707.20㎡
+23층 1707.20㎡
+24층 1707.20㎡
+옥탑층 984.91㎡ <br>전유부분의건물의표시: 철골.철근콘크리트조
+11.96㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">56,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  22,938,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20050130042850', 
+												  '2005타경42850', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20050130042850', 
+												 '2005타경42850', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '45092' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20050130049240"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20050130049240' );" id="a1">
+
+                  서울중앙지방법원<br><b>2005타경49240 </b></a></td>
+                  <td rowspan="1" bgcolor="#E7E7E7">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7"><!--10:00-->
+                    서울특별시 중구 남창동  52-1코코클럽 3층 351호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 1층 430.96㎡
+2층 389.96㎡
+3층 389.96㎡
+4층 389.96㎡
+5층 389.96㎡
+6층 384.20㎡
+7층 236.60㎡
+8층 199.92㎡
+지하1층 487.96㎡
+지하2층 492.46㎡
+옥탑 45.45㎡ <br>전유부분의건물의표시: 철근콘크리트조 
+1.71㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#E7E7E7">65,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  17,039,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20050130049240', 
+												  '2005타경49240', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20050130049240', 
+												 '2005타경49240', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '51482' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20060130002064"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20060130002064' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경2064 </b></a></td>
+                  <td rowspan="1" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 서초구 서초동  1445-3외 1필지국제전자센터 9층 9065호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철골,철근콘크리트조 스라브지붕
+24층 복합상가
+지하7층 6345.93㎡
+지하6층 6341.99㎡
+지하5층 6307.63㎡
+지하4층 6640.80㎡
+지하3층 4721.61㎡
+지하2층 6929.59㎡
+지하1층 6799.74㎡
+1층 2817.52㎡
+2층 3573.89㎡
+3층 3595.88㎡
+4층 3739.82㎡
+5층 3739.82㎡
+6층 3739.82㎡
+7층 3739.82㎡
+8층 3739.82㎡
+9층 3739.82㎡
+10층 3739.82㎡
+11층 3739.82㎡
+12층 1891.72㎡
+13층 1859.24㎡
+14층 1707.20㎡
+15층 1707.20㎡
+16층 1707.20㎡
+17층 1707.20㎡
+18층 1707.20㎡
+19층 1707.20㎡
+20층 1707.20㎡
+21층 1707.20㎡
+22층 1707.20㎡
+23층 1707.20㎡
+24층 1707.20㎡
+옥탑층 984.91㎡ <br>전유부분의건물의표시: 철골.철근콘크리트조
+12.10㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#EFF3F8">대금지급기일(기한)이후 지연이자율 연2할
+임대차: 물건명세서와 같음
+-재매각임(보증금 2할)</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">50,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  20,480,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130002064', 
+												  '2006타경2064', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130002064', 
+												 '2006타경2064', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '4306' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="5"><input type="checkbox" name="checkid" value="000210 20060130004770"></td>
+                  <td rowspan="5"><a href="javascript:loadSaDetail( '000210', '20060130004770' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경4770 </b><br>2006타경815<br>2007타경4241<br>(중복)</a></td>
+                  <td rowspan="2" bgcolor="#E7E7E7">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7"><!--10:00-->
+                    서울특별시 강남구 개포동  12-4석탑프라자 지하1층 108호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트 라멘조 평슬래브지붕
+9층 근린생활시설 및 일반업무시설
+1층 1124.85㎡
+2층 1124.85㎡
+3층 1110.75㎡
+4층 1110.75㎡
+5층 1110.75㎡
+6층 1038.21㎡
+7층 1124.85㎡
+8층 1152.45㎡
+9층 176.61㎡
+지1층 1874.44㎡
+지2층 1985.21㎡
+지3층 1156.00㎡
+지4층 1985.21㎡<br>전유부분의건물의표시: 철근콘크리트 라멘조
+171.92㎡    <br><br>
+                  </td>
+                  <td rowspan="2" align="left"bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-일괄매각</td>
+                  <td rowspan="2" bgcolor="#E7E7E7">1,090,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  558,080,000</td>
+
+                  <td rowspan="5">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130004770', 
+												  '2006타경4770', 
+												  '<br>2006타경815<br>2007타경4241<br>(중복)', 
+												  '20060130000815#', 
+												  '2006타경815#', 
+												  '20060130000815' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130004770', 
+												 '2006타경4770', 
+												 '<br>2006타경815<br>2007타경4241<br>(중복)', 
+												 '20060130000815#', 
+												 '2006타경815#', 
+												 '20060130000815', 
+												 '2006타경815', 
+												 '', 
+												 '2007.03.22', 
+												 '7012' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#E7E7E7">
+                    서울특별시 강남구 개포동  12-4석탑프라자 지하1층 109호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트 라멘조 평슬래브지붕
+9층 근린생활시설 및 일반업무시설
+1층 1124.85㎡
+2층 1124.85㎡
+3층 1110.75㎡
+4층 1110.75㎡
+5층 1110.75㎡
+6층 1038.21㎡
+7층 1124.85㎡
+8층 1152.45㎡
+9층 176.61㎡
+지1층 1874.44㎡
+지2층 1985.21㎡
+지3층 1156.00㎡
+지4층 1985.21㎡<br>전유부분의건물의표시: 철근콘크리트 라멘조
+126.84㎡    <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="1" bgcolor="#E7E7E7">2
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7">
+                    서울특별시 강남구 개포동  12-4석탑프라자 지하1층 110호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트 라멘조 평슬래브지붕
+9층 근린생활시설 및 일반업무시설
+1층 1124.85㎡
+2층 1124.85㎡
+3층 1110.75㎡
+4층 1110.75㎡
+5층 1110.75㎡
+6층 1038.21㎡
+7층 1124.85㎡
+8층 1152.45㎡
+9층 176.61㎡
+지1층 1874.44㎡
+지2층 1985.21㎡
+지3층 1156.00㎡
+지4층 1985.21㎡<br>전유부분의건물의표시: 철근콘크리트 라멘조
+100.42㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음</td>
+                  <td rowspan="1" bgcolor="#E7E7E7">310,000,000<br><font color="#999999">---------</font><br>
+	
+				  158,720,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="2" bgcolor="#E7E7E7">3
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7">
+                    서울특별시 강남구 개포동  12-4석탑프라자 지하1층 111호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트 라멘조 평슬래브지붕
+9층 근린생활시설 및 일반업무시설
+1층 1124.85㎡
+2층 1124.85㎡
+3층 1110.75㎡
+4층 1110.75㎡
+5층 1110.75㎡
+6층 1038.21㎡
+7층 1124.85㎡
+8층 1152.45㎡
+9층 176.61㎡
+지1층 1874.44㎡
+지2층 1985.21㎡
+지3층 1156.00㎡
+지4층 1985.21㎡<br>전유부분의건물의표시: 철근콘크리트 라멘조
+308.25㎡    <br><br>
+                  </td>
+                  <td rowspan="2" align="left" bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-일괄매각</td>
+                  <td rowspan="2" bgcolor="#E7E7E7">1,480,000,000<br><font color="#999999">---------</font><br>
+	
+				  757,760,000</td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#E7E7E7">
+                    서울특별시 강남구 개포동  12-4석탑프라자 지하1층 112호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트 라멘조 평슬래브지붕
+9층 근린생활시설 및 일반업무시설
+1층 1124.85㎡
+2층 1124.85㎡
+3층 1110.75㎡
+4층 1110.75㎡
+5층 1110.75㎡
+6층 1038.21㎡
+7층 1124.85㎡
+8층 1152.45㎡
+9층 176.61㎡
+지1층 1874.44㎡
+지2층 1985.21㎡
+지3층 1156.00㎡
+지4층 1985.21㎡<br>전유부분의건물의표시: 철근콘크리트 라멘조
+100.44㎡    <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="6"><input type="checkbox" name="checkid" value="000210 20060130009522"></td>
+                  <td rowspan="6"><a href="javascript:loadSaDetail( '000210', '20060130009522' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경9522 </b></a></td>
+                  <td rowspan="6" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 강남구 개포동  186-15 내제지하1층1호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층1내
+철근콩크리트조 스라브 6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하1층 651.69㎡
+지하2층 513.46㎡
+층별용도
+지하2층:주차장357.39㎡
+기계실 및 보이라실
+78.79㎡ 오일탱크실
+38.28㎡ 계단실 및
+통로 39.0㎡
+지하1층:수리점133.38㎡
+대중음식점380.68㎡
+계단실 화장실 통로기타
+137.63㎡
+1층:점포324.45㎡
+계단실 화장실 통고 기타
+131.02㎡
+2층:이발소69.57㎡사무
+소117.45㎡의원
+47.88㎡금융업소95.76㎡
+점포21.06㎡계단실,화장실,통로
+기타 93.84㎡
+3층:미용실47.88㎡,의원
+213.21㎡,유도장71.82㎡,점포21.06㎡,
+계단실,화장실,통로 기타 86.07㎡
+4층:유도장71.82㎡,점포
+21.06㎡,의원261.09㎡,계단실,화장실,
+복도 기타 86.07㎡
+5층:목욕탕 348.51㎡
+미장원16.38㎡계단실
+복도 기타 75.15㎡
+6층:목욕탕 348.51㎡,
+이발소 16.38㎡,계단실,
+복도 기타75.15㎡
+내 지하실1층1호
+지하1층 195.17㎡
+구분내역:지하1층 수리점
+133.38㎡
+계단실,화장실,통로,복도
+기타35.71㎡
+주차장,기계실,보이라실
+오일탱크실26.08㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                  <td rowspan="6" align="left"bgcolor="#EFF3F8">-일괄매각
+-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음</td>
+                  <td rowspan="6" bgcolor="#EFF3F8">20,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  10,240,000</td>
+
+                  <td rowspan="6">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130009522', 
+												  '2006타경9522', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130009522', 
+												 '2006타경9522', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '11764' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 개포동  186-15 내제지하1층2호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층2내
+철근콩크리트조 스라브 6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하1층 651.69㎡
+지하2층 513.46㎡
+층별용도
+지하2층:주차장 357.39㎡
+기계실 및 보이라실
+78.79㎡ 오일탱크실
+38.28㎡ 계단실 및
+통로 39.0㎡
+지하1층:수리점 133.38㎡ 
+대중음식점 380.68㎡
+계단실 화장실 통로 
+기타 137.63㎡
+1층: 점포 324.45㎡
+계단실 화장실 통고 기타
+131.02㎡
+2층:이발소 69.57㎡ 사무소
+117.45㎡ 의원 
+47.88㎡ 금융업소 95.76㎡
+점포 21.06㎡
+계단실,화장실,통로,기타
+93.84㎡
+3층:미용실 47.88㎡,의원
+213.21㎡,유도장 71.82㎡,점포 21.06㎡
+계단실,화장실,통로 기타
+86.07㎡
+4층:유도장 71.82㎡,점포 
+21.06㎡,의원261.09㎡,계단실,화장실,
+복도 기타 86.07㎡
+5층:목욕탕 348.51㎡
+미장원 16.38㎡ 계단실
+복도 기타 75.15㎡
+6층:목욕탕 348.51㎡,
+이발소 16.38㎡,계단실,
+복도 기타 75.15㎡
+내 지하1층 2호
+지하1층 139.72㎡
+구분내역:지하1층 대중음식점
+95.50㎡
+계단실,화장실,통로,복도
+기타 25.57㎡
+주차장,기계실,보이라실
+오일탱크실 18.65㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 개포동  186-15 내제지하1층3호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층3내
+철근콩크리트조 스라브6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하1층 651.69㎡
+지하2층 513.46㎡
+층별용도
+지하2층:주차장 357.39㎡
+기계실 및 보이라실 78.79㎡
+오일탱크실 38.28㎡
+계단실및 통로 39.0㎡
+지하1층:수리점 133.38㎡
+대중음식점 380.68㎡
+계단실 화장실 통로기타 137.63㎡
+1층:점포 324.45㎡
+계단실 화장실 통고 기타 131.02㎡
+2층:이발소 69.57㎡
+사무소 117.45㎡
+의원 47.88㎡ 금융업소 95.76㎡
+점포 21.06㎡ 계단실,화장실,통로 
+기타 93.84㎡
+3층:미용실 47.88㎡,의원 213.21㎡,
+유도장 71.82㎡,점포 21.06㎡,
+계단실,화장실,통로 기타 86.07㎡
+4층:유도장 71.82㎡,점포 21.06㎡,
+의원 261.09㎡,계단실,화장실,복도 
+기타 86.07㎡
+5층:목욕탕 348.51㎡
+미장원 16.38㎡ 계단실
+복도 기타 75.15㎡
+6층:목욕탕 348.51㎡,
+이발소 16.38㎡,계단실,
+복도 기타 75.15㎡
+내 지하1층 3호
+지하1층 121.66㎡
+구분내역:지하1층 대중음식점83.16㎡
+계단실,화장실,통로,복도
+기타 22.26㎡
+주차장,기계실,보이라실 
+오일탱크실 16.24㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 개포동  186-15 내제지하1층4호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층4내
+철근콩크리트조 스라브6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하1층 651.69㎡
+지하2층 513.46㎡
+층별용도
+지하2층:주차장 357.39㎡ 
+기계실및보이라실78.79㎡
+오일탱크실38.28㎡ 계단실 및 통로39.0㎡
+지하1층:수리점133.38㎡
+대중음식점380.68㎡
+계단실 화장실 통로기타137.63㎡
+1층:점포324.45㎡
+계단실 화장실 통고 기타131.02㎡
+2층:이발소 69.57㎡ 사무소 117.45㎡
+의원47.88㎡ 금융업소95.76㎡점포21.06㎡
+계단실,화장실,통로기타93.84㎡
+3층:미용실47.88㎡,의원213.21㎡,유도장71.82㎡,
+점포21.06㎡,계단실,화장실,통로기타86.07㎡
+4층:유도장71.82㎡,점포21.06㎡,의원261.09㎡,
+계단실,화장실,복도기타86.07㎡
+5층:목욕탕348.51㎡
+미장원16.38㎡계단실
+복도기타75.15㎡
+6층:목욕탕348.51㎡,
+이발소16.38㎡,계단실,
+복도기타75.15㎡
+내지하1층4호
+지하1층105.08㎡
+구분내역:지하1층대중음식점
+71.82㎡
+계단실,화장실,통로,복도
+기타19.23㎡
+주차장,기계실,보이라실
+오일탱크실14.03㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 개포동  186-15 내제지하1층5호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층5내
+철근콩크리트조 스라브6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하1층 651.69㎡
+지하2층 513.46㎡
+층별용도
+지하2층:주차장 357.39㎡
+기계실 및 보이라실 78.79㎡
+오일탱크실 38.28㎡ 계단실 및 통로 39.0㎡
+지하1층:수리점 133.38㎡ 대중음식점 380.68㎡
+계단실 화장실 통로 기타 137.63㎡
+1층:점포 324.45㎡ 
+계단실 화장실 통고 기타 131.02㎡
+2층:이발소 69.57㎡ 사무실 117.45㎡
+의원 47.88㎡ 금융업소 95.76㎡
+점포 21.06㎡ 계단실,화장실,통로기타 93.84㎡
+3층:미용실 47.88㎡, 의원 213.21㎡,
+유도장 71.8㎡ 점포 21.06㎡,
+계단실,화장실,통로 기타 86.07㎡
+4층:유도장 71.82㎡, 점포 21.06㎡,
+의원 261.09㎡,계단실,화장실,복도,기타 86.07㎡
+5층:목욕탕 348.51㎡ 미장원 16.38㎡
+계단실 복도 기타 75.15㎡
+6층:목욕탕 348.51㎡, 이발소 16.38㎡,
+계단실,복도 기타 75.15㎡
+내지하1층5호
+지하1층 105.08㎡
+구분내역:지하1층 대중음식점 71.82㎡
+계단실,화장실,통로,복도
+기타 19.23㎡
+주차장,기계실,보이라실
+오일탱크실 14.03㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 강남구 개포동  186-15 내제지하1층6호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>지하1층6내
+철근콩크리트조 스라브 6층
+판매시설 및 근린생활시설
+1층 455.47㎡
+2층 445.56㎡
+3층 440.04㎡
+4층 440.04㎡
+5층 440.04㎡
+6층 440.04㎡
+지하 1층 651.69㎡
+지하 2층 513.46㎡
+층별용도
+지하2층:주차장 357.39㎡
+     기계실 및 보이라실
+     78.79㎡ 오일탱크실
+     38.28㎡ 계단실 및
+     통로 39.0㎡
+지하1층: 수리점 133.38㎡
+     대중음식점 380.68㎡
+     계단실 화장실 통로
+     기타 137.63㎡
+1층: 점포 324.45㎡
+     계단실 화장실 통고 기타
+     131.02㎡
+2층: 이발소 69.57㎡ 사무소
+     117.45㎡의원
+     47.88㎡ 금융업소 95.76㎡
+     점포 21.06㎡
+     계단실,화장실,통로 기타
+     93.84㎡
+3층: 미용실 47.88㎡,의원
+     213.21㎡,유도장71.82㎡,
+     점포 21.06㎡,
+     계단실,화장실,통로 기타
+     86.07㎡
+4층:유도장 71.82㎡,점포 21.06㎡,
+    의원261.09㎡,
+    계단실,화장실,
+    복도 기타 86.07㎡
+5층:목욕탕 348.51㎡
+    미장원 16.38㎡ 계단실
+    복도 기타 75.15㎡
+6층:목욕탕 348.51㎡,
+    이발소 16.38㎡,계단실,
+    복도 기타 75.15㎡
+내 지하1층 6호
+지하1층 85.42㎡
+구분내역:지하1층 대중음식점
+         58.38㎡
+계단실,화장실,통로,복도
+기타 15.63㎡
+주차장,기계실,보이라실
+오일탱크실 11.41㎡   (경매할지분 김영철 지분 752.13분의 8.43 전부) <br><br>
+                  </td>
+                </tr>
+
+<input type=hidden name="checkid" value="end">
+</form>
+
+	<!--관심사건등록--------------------------------------------------------------------------------------------------------->
+		  <tr>
+            <td colspan="7" align="center" bgcolor="#FFFFFF">
+              <table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td colspan="2" align="left" height="30" valign="middle">&nbsp;<a href="javascript:cookie_process();" id="a1"><img src="/au/images/but_chak.gif" width="105" height="22" align="absbottom" border="0"></a></td>
+                  <td width="50%" align="right" height="30"><font color="#664500">
+                  <img src="/au/images/i_list.gif" align="absmiddle"> 매각물건명세서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_report.gif" align="absmiddle"> 현황조사서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_valuation.gif" align="absmiddle"> 감정평가서&nbsp;&nbsp; </font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+	<!----------------------------------------------------------------------------------------------------------------------->
+
+        </table>
+
+
+
+		<br>
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="40" valign="middle" align="center"><span class="bbs">
+            <font color="#006699"><A HREF='javascript:goMove(1);' id='a1'>◀◀</a>  &nbsp;<a href='javascript:document.bMove.submit();' id='a1'>◀</a> <A HREF='javascript:goMove(1);' id='a1'> [1] </A> <b>[2]</b> <A HREF='javascript:goMove(3);' id='a1'> [3] </A><A HREF='javascript:goMove(4);' id='a1'> [4] </A><A HREF='javascript:goMove(5);' id='a1'> [5] </A><A HREF='javascript:goMove(6);' id='a1'> [6] </A> <a href='javascript:document.nMove.submit();' id='a1'>▶</a> &nbsp;<A HREF='javascript:goMove(6);' id='a1'>▶▶</a></font></span></a></td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr valign="top">
+      <td width="30"></td>
+      <td height="40" width="40"> <b><font color="D38600">주의)<br></font></b></td>
+      <td>조회된 물건번호 및 그 정보는 법원 경매계에서 처리하고 있는 실제 물건의 정보와 일치하지 않을 수 있습니다.
+      <br>매각물건의 정확한 내용은 담당 경매계를 방문하거나 법원에 비치된 물건명세서를 열람하여 반드시 재확인하기 바랍니다.
+      <br>인터넷으로 서비스하는 정보만으로 참여한 입찰과 관련하여 발생하는 문제에 대해서 법원은 법적 책임을 지지 않습니다.
+	  </td>
+    </tr>
+  </table>
+  <br>
+
+<!-- 이전페이지 링크 이동 -->
+<form name=bMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="1">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 페이지 링크 이동 -->
+<form name=iMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 다음페이지 링크 이동 -->
+<form name=nMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="3">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 이전검색화면으로 이동 -->
+<form name=searchForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=condition value="1">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 경매사건검색으로 이동 -->
+<form name=detailForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C311ListCommand">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="2">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=allbub value="000210">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 매각물건명세서로 이동 -->
+<form name=myungForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C101MyungCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=maemul_no value="">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 현황조사서로 이동 -->
+<form name=hyunForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C102HyunCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="2">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=allbub value="000210">
+<input type=hidden name=browser value="">
+<input type=hidden name=displaySaList_RelSa value="">
+<input type=hidden name=userSaList_RelSa value="">
+<input type=hidden name=saList_HasHyunjo value="">
+<input type=hidden name=userSaList_HasHyunjo value="">
+<input type=hidden name=sano_HasHyunjo value="">
+<input type=hidden name=check_msg value="">
+<input type=hidden name=IHsa_no value="">
+</form>
+<!-- 감정평가서로 이동(현재 팝업창 띄우는 것으로 변경됨, 그래도 이 form을 일부 이용함) -->
+<form name=gamForm method=post action="">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=bub_nm value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=user_mo_sa_no value="">
+<input type=hidden name=gubun value="02">
+<input type=hidden name=browser value="">
+<input type=hidden name=displaySaList_RelSa value="">
+<input type=hidden name=userSaList_RelSa value="">
+<input type=hidden name=saList_HasGam value="">
+<input type=hidden name=userSaList_HasGam value="">
+<input type=hidden name=sano_HasGam value="">
+<input type=hidden name=mae_giil value="">
+<input type=hidden name=gam_no value="">
+</form>
+
+
+<script language="javascript">
+	init();
+
+function PrintMove()
+{
+	url = '/au/SuperServlet?target_command=au.command.auc.C100ListCommand&page=2&totalRows=104&saCount=46&search_flg=2&bub_cd=000210&mae_giil=2007.03.22&jp_cd=1007&dam_nm=경매7계&mulutil_cd=&amt_flg=&level=&addr1=&addr2=&addr3=&amt=&print_flg=1';
+	window.open( url, 'print_win', 'left=0,top=0, width=690, height=600, toolbar=no, menubar=no, status=no, scrollbars=yes, resizable=yes' );
+}
+
+</script>
+
+</body>
+</html>

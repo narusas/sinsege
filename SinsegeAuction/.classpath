@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.6.0_07"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.0.1/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1/commons-logging-1.1-ide.zip"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1/commons-logging-adapters-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/filterbuilder.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/htmllexer.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/htmlparser.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/sax2.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser1_6/lib/thumbelina.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.3/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/narusas_util.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/ant.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/bcmail-jdk14-132.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/bcprov-jdk14-132.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/checkstyle-all-4.2.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/FontBox-0.1.0-dev.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/junit.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/lucene-core-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/lucene-demos-2.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.5/mysql-connector-java-5.0.5-bin.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/lib/PDFBox-0.7.3.jar"/>
+	<classpathentry kind="lib" path="lib/jpedal/jpedalSTD.jar"/>
+	<classpathentry exported="true" kind="lib" path="bin-groovy"/>
+	<classpathentry kind="lib" path="lib/Hibernate/ant-antlr-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/asm.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/Hibernate/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/iTextLib/itext-2.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/iTextLib/iTextAsian.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

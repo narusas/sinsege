@@ -1,0 +1,219 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<STYLE>
+	TABLE    { display: table }
+	TR       { display: table-row }
+	THEAD    { display: table-header-group }
+	TBODY    { display: table-row-group }
+	TFOOT    { display: table-footer-group }
+	COL      { display: table-column }
+	COLGROUP { display: table-column-group }
+	TD, TH   { display: table-cell }
+	CAPTION  { display: table-caption }
+	DIV.page { page-break-before: always }
+	</STYLE>
+<SCRIPT language="JavaScript">
+<!--
+
+	function goBack()
+	{
+		var xCoord =0;
+		var yCoord =0;
+
+		if (document.layers){ 
+			xCoord = e.x; 
+			yCoord = e.y; 
+		} 
+		else if (document.all){ 
+			xCoord = event.clientX; 
+			yCoord = event.clientY; 
+		} 
+		else if (document.getElementById){ 
+			xCoord = e.clientX; 
+			yCoord = e.clientY; 
+		}
+
+		if( xCoord<0 && yCoord<0 ){ history.back(); }	
+	}
+
+--></SCRIPT>
+</head>
+<body onunload="goBack();">
+<table align="center" border="0" width="95%">
+<tr>
+<td align="left">
+					[&nbsp;2005타경 38691&nbsp;]
+				
+			</td>
+</tr>
+</table>
+<table align="center" border="1" width="95%" cellpadding="10" cellspacing="0">
+<thead>
+<tr>
+<td colspan="4">
+<p align="center">
+<font size="5"><b>부 동 산 표 시 목 록</b></font>
+</p>
+</td>
+</tr>
+<tr>
+<td width="7%">
+<p align="center">
+<font size="3"><b>번호</b></font>
+</p>
+</td><td width="28%">
+<p align="center">
+<font size="3"><b>지   번</b></font>
+</p>
+</td><td width="40%">
+<p align="center">
+<font size="3"><b>용  도/ 구  조/ 면 적</b></font>
+</p>
+</td><td width="25%">
+<p align="center">
+<font size="3"><b>비    고</b></font>
+</p>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p align="center">
+<font size="2">1</font>
+</p>
+</td><td>
+<p align="left">
+<font size="2">서울특별시&nbsp;종로구&nbsp;청운동&nbsp;4-7외 3필지 신구파인힐 1층 102호</font>
+</p>
+</td><td>
+<pre align="left">
+<font size="2">&nbsp;1동의 건물의 표시
+    서울특별시 종로구 청운동 4-7
+    서울특별시 종로구 청운동 4-9
+    서울특별시 종로구 청운동 4-11
+    서울특별시 종로구 청운동 4-12
+    철근콘크리트조 경사슬래브지붕 3층연립주택
+    1층 433.08㎡
+    2층 430.11㎡
+    3층 430.11㎡
+    지하1층382.1㎡
+    지하2층608.28㎡ 
+    신구파인힐
+
+전유부분의 건물의 표시
+    건물의번호 : 1층 102호
+    구      조 : 철근콘크리트조
+    면      적 : 194.93㎡
+                 지1층14.28㎡
+
+대지권의 목적인 토지의 표시
+    토지 의 표시 : 1. 서울특별시종로구청운동4-7
+                    대 815.5㎡
+                   2. 서울특별시종로구청운동4-9
+                    대 461.2㎡
+                   3. 서울특별시종로구청운동4-11
+                    대 193.1㎡
+                   4. 서울특별시종로구청운동4-12
+                    대 63.1㎡
+    대지권의종류 : 1. 소유권
+                   2. 소유권
+                   3. 소유권
+                   4. 소유권
+    대지권의비율 : 1. 1532.9 분의 216
+                2. 1532.9 분의 216
+                3. 1532.9 분의 216
+                4. 1532.9 분의 216</font>
+</pre>
+</td><td>
+<p align="center">
+<font size="2"> --- </font>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">
+<font size="2">2</font>
+</p>
+</td><td>
+<p align="left">
+<font size="2">서울특별시&nbsp;종로구&nbsp;청운동&nbsp;4-7외 3필지 신구파인힐 지층 비02호</font>
+</p>
+</td><td>
+<pre align="left">
+<font size="2">&nbsp;1동의 건물의 표시
+    서울특별시 종로구 청운동 4-7
+    서울특별시 종로구 청운동 4-9
+    서울특별시 종로구 청운동 4-11
+    서울특별시 종로구 청운동 4-12
+    철근콘크리트조 경사슬래브지붕 3층연립주택
+    1층 433.08㎡
+    2층 430.11㎡
+    3층 430.11㎡
+    지하1층382.1㎡
+    지하2층608.28㎡ 
+    신구파인힐
+
+전유부분의 건물의 표시
+    건물의번호 : 지층 비02호
+    구      조 : 철근콘크리트조
+    면      적 : 90.72㎡
+
+대지권의 목적인 토지의 표시
+    토지 의 표시 : 1. 서울특별시종로구청운동4-7
+                    대 815.5㎡
+                   2. 서울특별시종로구청운동4-9
+                    대 461.2㎡
+                   3. 서울특별시종로구청운동4-11
+                    대 193.1㎡
+                   4. 서울특별시종로구청운동4-12
+                    대 63.1㎡
+    대지권의종류 : 1. 소유권
+                   2. 소유권
+                   3. 소유권
+                   4. 소유권
+    대지권의비율 : 1. 1532.9 분의 93.66
+                2. 1532.9 분의 93.66
+                3. 1532.9 분의 93.66
+                4. 1532.9 분의 93.66</font>
+</pre>
+</td><td>
+<p align="center">
+<font size="2"> --- </font>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">
+<font size="2">3</font>
+</p>
+</td><td>
+<p align="left">
+<font size="2">서울특별시&nbsp;성북구&nbsp;성북동&nbsp;산13-30</font>
+</p>
+</td><td>
+<pre align="left">
+<font size="2">&nbsp;임야 474㎡</font>
+</pre>
+</td><td>
+<p align="center">
+<font size="2"> --- </font>
+</p>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td colspan="4">
+<p align="right">
+<font size="3">부동산강제경매</font>
+</p>
+</td>
+</tr>
+</tfoot>
+</table>
+</body>
+</html>

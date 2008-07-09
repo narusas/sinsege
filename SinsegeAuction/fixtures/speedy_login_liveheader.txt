@@ -1,0 +1,127 @@
+http://www.speedauction.co.kr/cyosProc/login_form_proc.php
+
+POST /cyosProc/login_form_proc.php HTTP/1.1
+Host: www.speedauction.co.kr
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; ko; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip,deflate
+Accept-Charset: EUC-KR,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.speedauction.co.kr/v2/
+Cookie: login_cooki_id=smollkimbab; login_cooki_pw=qw7611; _EXEN=3; PHPSESSID=4e9e08f34666ec21aae914c7e342120c
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 54
+id=smollkimbab&pw=qw7611&x=30&y=13&idsave=on&pwsave=on
+HTTP/1.x 200 OK
+Date: Sat, 10 Mar 2007 05:55:21 GMT
+Server: Apache/2.0.55 (Unix)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 95
+Connection: close
+Content-Type: text/html
+----------------------------------------------------------
+http://www.speedauction.co.kr/cyosProc/session.php?member_code=133938&job=login&return_url=
+
+GET /cyosProc/session.php?member_code=133938&job=login&return_url= HTTP/1.1
+Host: www.speedauction.co.kr
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; ko; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip,deflate
+Accept-Charset: EUC-KR,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.speedauction.co.kr/cyosProc/login_form_proc.php
+Cookie: login_cooki_id=smollkimbab; login_cooki_pw=qw7611; _EXEN=3; PHPSESSID=4e9e08f34666ec21aae914c7e342120c
+
+HTTP/1.x 200 OK
+Date: Sat, 10 Mar 2007 05:55:21 GMT
+Server: Apache/2.0.55 (Unix)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 36
+Connection: close
+Content-Type: text/html
+----------------------------------------------------------
+http://www.speedauction.co.kr/v2
+
+GET /v2 HTTP/1.1
+Host: www.speedauction.co.kr
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; ko; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip,deflate
+Accept-Charset: EUC-KR,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.speedauction.co.kr/cyosProc/session.php?member_code=133938&job=login&return_url=
+Cookie: login_cooki_id=smollkimbab; login_cooki_pw=qw7611; _EXEN=3; PHPSESSID=4e9e08f34666ec21aae914c7e342120c
+
+HTTP/1.x 301 Moved Permanently
+Date: Sat, 10 Mar 2007 05:55:21 GMT
+Server: Apache/2.0.55 (Unix)
+Location: http://www.speedauction.co.kr/v2/
+Content-Length: 327
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+----------------------------------------------------------
+http://www.speedauction.co.kr/v2/
+
+GET /v2/ HTTP/1.1
+Host: www.speedauction.co.kr
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; ko; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2
+Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5
+Accept-Language: ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip,deflate
+Accept-Charset: EUC-KR,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.speedauction.co.kr/cyosProc/session.php?member_code=133938&job=login&return_url=
+Cookie: login_cooki_id=smollkimbab; login_cooki_pw=qw7611; _EXEN=3; PHPSESSID=4e9e08f34666ec21aae914c7e342120c
+
+HTTP/1.x 200 OK
+Date: Sat, 10 Mar 2007 05:55:21 GMT
+Server: Apache/2.0.55 (Unix)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html
+----------------------------------------------------------
+http://trk1.logger.co.kr/tracker.tsp?u=17716&XU=&EXEN=4&dr=http%3A%2F%2Fwww.speedauction.co.kr%2FcyosProc%2Fsession.php%3Fmember_code=133938%26job=login%26return_url=&XDR=&dt=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20NO.1%20%EB%B2%95%EC%9B%90%EA%B2%BD%EB%A7%A4%EC%A0%95%EB%B3%B4-%EC%8A%A4%ED%94%BC%EB%93%9C%EC%98%A5%EC%85%98&du=http%3A%2F%2Fwww.speedauction.co.kr%2Fv2%2F&js=Y&ss=1024x768&cd=32&ce=Y&je=Y&tzo=-540&tye=2007&tmo=3&tda=10&tho=14&tmi=55&tse=33
+
+GET /tracker.tsp?u=17716&XU=&EXEN=4&dr=http%3A%2F%2Fwww.speedauction.co.kr%2FcyosProc%2Fsession.php%3Fmember_code=133938%26job=login%26return_url=&XDR=&dt=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20NO.1%20%EB%B2%95%EC%9B%90%EA%B2%BD%EB%A7%A4%EC%A0%95%EB%B3%B4-%EC%8A%A4%ED%94%BC%EB%93%9C%EC%98%A5%EC%85%98&du=http%3A%2F%2Fwww.speedauction.co.kr%2Fv2%2F&js=Y&ss=1024x768&cd=32&ce=Y&je=Y&tzo=-540&tye=2007&tmo=3&tda=10&tho=14&tmi=55&tse=33 HTTP/1.1
+Host: trk1.logger.co.kr
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; ko; rv:1.8.1.2) Gecko/20070219 Firefox/2.0.0.2
+Accept: image/png,*/*;q=0.5
+Accept-Language: ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip,deflate
+Accept-Charset: EUC-KR,utf-8;q=0.7,*;q=0.7
+Keep-Alive: 300
+Connection: keep-alive
+Referer: http://www.speedauction.co.kr/v2/
+Cookie: TrkMonthlyUser=17716%3A; TrkDailyUser=17716%3A; TrkSession_17716=f1018d7ac0f20022fa6030fede38b813%3A1173506100%3A4; TrkWeeklyUser=17716%3A; TrkUser_17716=c51c1bf9559cd74da29509a74c5d413b%3A1%3A1173506100%3A0; TrkHDFAD_17716=WToxOTIuMTY4LjAuOTQ6dHJrNDI6MzozODU6c3BlZWRhdWN0aW9uLmNvLmtyOkw6MTQ6TjowOjo6MjAwNi0xMS0yMzo%3D; TrkCountry=POWERCOMM%3AKR%3A%BC%AD%BF%EF%3A%C1%D6%BD%C4%C8%B8%BB%E7%C6%C4%BF%F6%C4%DE%3A122.47.185.145
+
+HTTP/1.x 200 OK
+Date: Sat, 10 Mar 2007 05:55:16 GMT
+Server: bizSmart
+X-TRACKER: u=17716
+P3P: policyref="http://logger.co.kr/w3c/p3p.xml", CP="NOI DSP LAW NID PSA OUR IND NAV STA COM"
+Cache-Control: no-cache, must-revalidate
+Pragma: no-cache
+Expires: 0
+Set-Cookie: TrkUser_17716=c51c1bf9559cd74da29509a74c5d413b%3A1%3A1173506116%3A0; expires=Mon, 30-Dec-2030 15:00:00 GMT; path=/; domain=.logger.co.kr
+Set-Cookie: TrkSession_17716=f1018d7ac0f20022fa6030fede38b813%3A1173506116%3A4; expires=Sat, 10-Mar-2007 06:25:33 GMT; path=/; domain=.logger.co.kr
+Set-Cookie: TrkDailyUser=17716%3A; expires=Sat, 10-Mar-2007 14:59:59 GMT; path=/; domain=trk1.logger.co.kr
+Set-Cookie: TrkWeeklyUser=17716%3A; expires=Sat, 10-Mar-2007 14:59:59 GMT; path=/; domain=trk1.logger.co.kr
+Set-Cookie: TrkMonthlyUser=17716%3A; expires=Sat, 31-Mar-2007 14:59:59 GMT; path=/; domain=trk1.logger.co.kr
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html
+----------------------------------------------------------
