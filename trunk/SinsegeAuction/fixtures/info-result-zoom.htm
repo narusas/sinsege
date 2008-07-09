@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>대한민국 NO.1 법원경매정보 스피드옥션</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<style type="text/css">
+<!--
+@import url("css.css");
+-->
+</style>
+<script language='javascript' src='/cyosScript/cyos.js'></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_showHideLayers() { //v6.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+function zoom_view(send_file)
+{
+	var form = document.zoom_view_form;
+	
+	var style="top=0,left=0,width=910,height=650,scrollbars=yes,border=0";
+	window.open("about:blank",'zoom',style);
+	form.action=send_file;	
+	form.target="zoom";
+	
+	form.submit();
+}
+function fn_view_img(c_src) //오른쪽이미지클릭시
+{
+	var view_yn = 1; //회사로고보여짐
+	var imageWidth;   
+	var imageHeight; 
+	/*
+	imageList = new Image();
+	imageList.src = c_src;
+	imageWidth = imageList.width;
+	imageHeight = imageList.height; 
+	
+	if(imageWidth > 690) photo01.width = 690;
+	else photo01.width = imageWidth;
+	if(imageHeight > 500) photo01.height = 500;
+	else photo01.height = imageHeight;
+	*/
+	
+	photo01.src=c_src;
+	
+	//감평서사진 http://222.237.76.182/A02/2006/3300168_A02_10464_1.JPG
+	//수동감평서 http://www.speedauction.co.kr/courtfileroot/gamjungimg/D01/2005/48942/1.gif_1167876192
+	if(c_src.indexOf("222.237.76.182") > 0 && c_src.indexOf(":8003") < 0) view_yn = 0;
+	if(c_src.indexOf("gamjungimg") > 0) view_yn = 0;
+	
+	if(view_yn) //회사로고보여짐
+	{
+		Layer2.style.display = "block";
+		Layer3.style.display = "block";
+	}
+	else //회사로고삭제
+	{
+		Layer2.style.display = "none";
+		Layer3.style.display = "none";		
+	}
+}
+function img_onclick(filen) //원본이미지보기
+{
+	imgfrm = window.open('','img_onclick_pop',style);
+	imgfrm.close();
+	var style="top=0,left=0,scrollbars=yes,resizable=yes,border=0";
+	var filename = "info-result-zoom_onclick.htm?filename="+filen;
+	imgfrm = window.open(filename,'img_onclick_pop',style);
+	imgfrm.focus();
+}
+function init_img(c_src) //초기이미지
+{
+	var view_yn = 1; //회사로고보여짐
+	
+	if(c_src)
+	{
+		photo01.src=c_src;
+		
+		//감평서사진 http://222.237.76.182/A02/2006/3300168_A02_10464_1.JPG
+		//수동감평서 http://www.speedauction.co.kr/courtfileroot/gamjungimg/D01/2005/48942/1.gif_1167876192
+		if(c_src.indexOf("222.237.76.182") > 0 && c_src.indexOf(":8003") < 0) view_yn = 0;
+		if(c_src.indexOf("gamjungimg") > 0) view_yn = 0;
+		
+		if(view_yn) //회사로고보여짐
+		{
+			Layer2.style.display = "block";
+			Layer3.style.display = "block";			
+		}
+		else //회사로고삭제
+		{
+			Layer2.style.display = "none";
+			Layer3.style.display = "none";
+		}
+	}
+}
+
+function zoom_open(send_file,courtNo,eventNo1,eventNo2,objNo,obj_list)
+{
+	var form = document.resultfrm;
+	form.courtNo.value = courtNo;
+	form.eventNo1.value = eventNo1;
+	form.eventNo2.value = eventNo2;
+	form.objNo.value = objNo;
+	form.obj_list.value = obj_list;
+	
+	var style="top=0,left=0,width=850,height=680,scrollbars=yes,resizable=yes,border=0";
+	window.open("about:blank",'zoomopen',style);
+	form.action=send_file;	
+	form.target="zoomopen";
+	
+	form.submit();
+}    
+//-->
+</script>
+</head>
+<body leftmargin="10" topmargin="10" onload="init_img('');">
+<object id="factory" viewastext style="display:none" classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814" codebase="/cyosScript/smsx.cab"></object> 
+<form name=resultfrm method=post action=''>
+<input type=hidden name=courtNo value=''>
+<input type=hidden name=eventNo1 value=''>
+<input type=hidden name=eventNo2 value=''>
+<input type=hidden name=objNo value=''>
+<input type=hidden name=obj_list value=''>  	
+</form>
+<table width="100%" height=100% border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign=top>
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td>
+  	<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="C2D1DB">
+    <tr bgcolor="F0F9FF">
+    	<td width="10%" align="center"><font color="366AB3"><b>법원</b></font></td>
+      <td width="20%" bgcolor="white">&nbsp;&nbsp;법원전체 </td>
+      <td width="10%" align="center"><font color="366AB3"><b>사건번호</b></font></td>
+      <td width="20%" bgcolor="white">&nbsp;&nbsp; 타경 </td>
+      <td width="10%" bgcolor="F0F9FF" align="center"><font color="366AB3"><b>물건번호</b></font></td>
+      <td width="20%" bgcolor="white">&nbsp;&nbsp;</td>
+      <td width="10%" bgcolor="white" align=center rowspan=2>
+      	      		<a href='#' onclick='printWindow2(window,false);'><img src='/cyosImg/print3-1.gif'></a>
+      	      </td>
+    </tr>
+    <tr bgcolor="F0F9FF"> 
+    	<td width="10%" align="center"><font color="366AB3"><b>주소</b></font></td>
+          <td colspan="5" bgcolor="white">&nbsp;&nbsp;</td>
+        </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+  <td height="5"></td>
+</tr>
+<tr>
+  <td background="img/b_zoombg.gif">
+  	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    	<td width="1" bgcolor="#91CBEC"></td>
+     	<td width="5">&nbsp;</td>
+      <td width="65">
+      	<a href="javascript:zoom_view('/v2/info-result-zoom.htm');"><img src='img/b_zoom01-2.gif' border=0 onmouseover="this.src='img/b_zoom01-2.gif'"></a></td>      <td width="1"><img src="img/b_zoom00.gif" width="1" height="35" border="0"></td>
+                        <td width="97">
+      	<a href="javascript:zoom_view('/v2/info-result-zoom5.htm');"><img src='img/b_zoom05.gif' border=0 onmouseover="this.src='img/b_zoom05-2.gif'" onmouseout="this.src='img/b_zoom05.gif'"></a></td>      <td width="1"><img src="img/b_zoom00.gif" width="1" height="35" border="0"></td>
+      <td width="97">
+      	<a href="javascript:zoom_view('/v2/info-result-zoom6.htm');"><img src='img/b_zoom06.gif' border=0 onmouseover="this.src='img/b_zoom06-2.gif'" onmouseout="this.src='img/b_zoom06.gif'"></a></td>      <td width="1"><img src="img/b_zoom00.gif" width="1" height="35" border="0"></td>
+      <td width="108">
+      	<a href="javascript:zoom_view('/v2/info-result-zoom7.htm');"><img src='img/b_zoom07.gif' border=0 onmouseover="this.src='img/b_zoom07-2.gif'" onmouseout="this.src='img/b_zoom07.gif'"></a></td>      <td width="1"><img src="img/b_zoom00.gif" width="1" height="35" border="0"></td>
+      <td width="108">
+      	<a href="javascript:zoom_view('/v2/info-result-zoom8.htm');"><img src='img/b_zoom08.gif' border=0 onmouseover="this.src='img/b_zoom08-2.gif'" onmouseout="this.src='img/b_zoom08.gif'"></a></td>      <td align="right"><a href="http://www.speedauction.co.kr/download/AdbeRdr708_en_US.exe"><img src="img01/a02.gif" width="136" height="29"></a></td>
+      <td width="15">&nbsp;</td>
+      <td width="1" bgcolor="#91CBEC"></td>
+    </tr>
+    </table>    
+  </td>
+</tr>
+<tr> 
+  <td height="5" align="center"></td>
+</tr>
+</table>
+<form name=zoom_view_form method=post action=''>
+<input type=hidden name=courtNo value=''>
+<input type=hidden name=courtNo2 value=''>
+<input type=hidden name=eventNo1 value=''>
+<input type=hidden name=eventNo2 value=''>
+<input type=hidden name=objNo value=''>
+<input type=hidden name=obj_list value=''>
+<input type=hidden name=selldate value=''>
+<input type=hidden name=addr_text value=''>
+<input type=hidden name=view_gubun value=''>
+<input type=hidden name=r_url value='/v2/info-result-zoom.htm'>
+<input type=hidden name=serino value=''>
+<input type=hidden name=objuse value=''>
+<input type=hidden name=gamjungprice value=''>
+<input type=hidden name=lowprice value=''>
+<input type=hidden name=lowpricerate value=''>
+</form>    
+    </td>    
+  </tr>
+  <tr>
+  	<td align="center" valign=top height="100%" >
+    	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr> 
+        <td valign=top>
+        	<table width="100%" height="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#65B2E8">
+        	<tr>
+        		<td bgcolor="#FFFFFF" align=center valign=top>
+        			<table cellpadding=0 cellspacing=0 border=0 height="100%" width="100%">
+	          	<tr>
+	          		<td bgcolor="#FFFFFF">
+			          	<table width="100%" height="100%" border="0" cellspacing="1" cellpadding="5" bgcolor=#e3e3e3>
+		              <col width=><col width=27%>
+		              <tr>
+	                	<td valign="top" align=center bgcolor=#ffffff>
+		                	<div id=divMenu style="position:absolute;left=20;top=800;z-index:2;top:460px">
+		                	<table width="700" height="520" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999">
+	                    <tr> 
+	                      <td width="700" height="520" bgcolor="#FFFFFF" align=center>
+	                      	<!--div id="Layer2" style="position:absolute; z-index:2"><img src="/v2/img/iii.png" filter:alpha(opacity=65, style=0)></div-->
+	                      	<div id="Layer2" style="position:absolute; z-index:1; top:5px; left:5px;"><img src='/v2/img/zzz.gif' style="filter:alpha(opacity=50, style=0)"></div>
+	                      	<div id="Layer3" style="position:absolute; z-index:1; top:460px; left:470px;"><img src='/v2/img/zzz2.gif' style="filter:alpha(opacity=70, style=0)"></div>
+	                      	<img id=photo01 src="" onerror="this.src='img/noimg02.gif'" width=690 height=500 border=0 onclick="img_onclick(this.src);" style="cursor: hand" alt="클릭하시면 원본이미지를 보실 수 있습니다.">
+	                      </td>
+	                    </tr>
+	                    <tr><td align=center height=25 bgcolor=#ffffff><font color=red><b>☞ 클릭하시면 원본이미지를 보실 수 있습니다.</b> <a href="javascript:printWindow2(window,false);"><img src='/cyosImg/print3.gif' align=absmiddle></a></td></tr>                    
+                    </table>
+                    		                </td>
+		                <td valign="top" bgcolor=#ffffff  width="230"> 
+		                	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                    	                    <tr>
+					          		<td align=center height=34 valign=top>
+					          			<!--a href='#' style='cursor:hand' onClick="window.open('mapfrm.php?addr=','','width=1000,height=700,top=80,left=0,toolbars=no,scrollbars=no,menubar=no,resizable=no,status=no');"><img src=./img/map.gif-->
+					          			<a href="#" style='cursor:hand' onClick="javascript:zoom_view('info-result-zoom_map.htm','2');"><img src=./img/map.gif> <img src=/cyosImg/new10.gif align=absmiddle>
+					          		</td>
+					          	</tr>
+	                    <tr> 
+	                      <td height="25">
+	                      	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                          	                        </table>
+	                      </td>
+	                    </tr>
+	                    <tr> 
+	                      <td><a href="javascript:printWindow2(window,false);"><img src="img/b72.gif" width="188" height="30" border=0></a></td>
+	                    </tr>
+	                    <tr> 
+	                      <td><a href="javascript:self.close();"><img src="img/b73.gif" width="188" height="30" border=0></a></td>
+	                    </tr>
+		                  </table>
+		                </td>
+		              </tr>		              
+			            </table>
+			          </td>
+			        </tr>
+			        </table>
+			      </td>
+			    </tr>			    
+			  	</table>
+			  </td>
+      </tr>      
+      </table>
+    </td>
+  </tr>
+</table>
+
+<script language=javascript>
+<!--
+var bNetscape4plus = (navigator.appName == "Netscape" && navigator.appVersion.substring(0,1) >= "4");
+var bExplorer4plus = (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.substring(0,1) >= "4");
+function CheckUIElements(){
+        var yMenuFrom, yMenuTo, yButtonFrom, yButtonTo, yOffset, timeoutNextCheck;
+
+        if ( bNetscape4plus ) { 
+                yMenuFrom   = document["divMenu"].top;
+                yMenuTo     = top.pageYOffset + 120;
+        }
+        else if ( bExplorer4plus ) {
+                yMenuFrom   = parseInt (divMenu.style.top, 10);
+                yMenuTo     = document.body.scrollTop + 120;
+        }
+
+        timeoutNextCheck = 10;
+
+        if ( Math.abs (yButtonFrom - (yMenuTo + 152)) < 6 && yButtonTo < yButtonFrom ) {
+                setTimeout ("CheckUIElements()", timeoutNextCheck);
+                return;
+        }
+
+        if ( yButtonFrom != yButtonTo ) {
+                yOffset = Math.ceil( Math.abs( yButtonTo - yButtonFrom ) / 1 );
+                if ( yButtonTo < yButtonFrom )
+                        yOffset = -yOffset;
+
+                if ( bNetscape4plus )
+                        document["divLinkButton"].top += yOffset;
+                else if ( bExplorer4plus )
+                        divLinkButton.style.top = parseInt (divLinkButton.style.top, 10) + yOffset;
+
+                timeoutNextCheck = 10;
+        }
+        if ( yMenuFrom != yMenuTo ) {
+                yOffset = Math.ceil( Math.abs( yMenuTo - yMenuFrom ) / 1 );
+                if ( yMenuTo < yMenuFrom )
+                        yOffset = -yOffset;
+
+                if ( bNetscape4plus )
+                        document["divMenu"].top += yOffset;
+                else if ( bExplorer4plus )
+                        divMenu.style.top = parseInt (divMenu.style.top, 10) + yOffset;
+
+                timeoutNextCheck = 10;
+        }
+
+        setTimeout ("CheckUIElements()", timeoutNextCheck);
+}
+
+function OnLoad()
+{
+        var y;
+        if ( top.frames.length )
+        if ( bNetscape4plus ) {
+                document["divMenu"].top = top.pageYOffset + 100;
+                document["divMenu"].visibility = "visible";
+        }
+        else if ( bExplorer4plus ) {
+                divMenu.style.top = document.body.scrollTop + 100;
+                divMenu.style.visibility = "visible";
+        }
+        CheckUIElements();
+        return true;
+}
+OnLoad();
+//-->
+</script>
+<!-- LOGGER TRACKING SCRIPT V.30 FOR www.speedauction.co.kr / 17716 : FAIL-SAFE TYPE / DO NOT ALTER THIS SCRIPT. -->
+<!-- COPYRIGHT (C) 2002-2006 BIZSPRING INC. LOGGER(TM) ALL RIGHTS RESERVED. -->
+<script language="JavaScript">/* LOGGER TRACKING SCRIPT V.30a : 17716 *//*X*//* COPYRIGHT 2002-2006 BIZSPRING INC. *//*X*//* DO NOT MODIFY THIS SCRIPT. *//*X*/var _TRK_DOMAIN="logger.co.kr";var _trk_bMSIE=(document.all)?true:false;var _trk_bJS12=(window.screen)?true:false;function _trk_escape(_str) { var str, ch; var bEncURI = "N"; eval("try{bEncURI=encodeURI('Y');}catch(_e){ }" ); if( bEncURI == "Y" ) str=encodeURI(_str); else str = escape(_str); str=str.split("+").join("%2B"); str=str.split("/").join("%2F"); str=str.split("&").join("%26"); str=str.split("?").join("%3F"); str=str.split(":").join("%3A"); str=str.split("#").join("%23"); return str;}function _trk_setCookie(name,value,expire) { var today=new Date(); today.setTime(today.getTime()+ expire ); document.cookie=name+"="+value+"; path=/; expires="+today.toGMTString()+";";}function _trk_getCookie(name) { var cookieName=name+"="; var x=0; while(x<=document.cookie.length) { var y=(x+cookieName.length); if(document.cookie.substring(x,y)==cookieName) {  if((endOfCookie=document.cookie.indexOf(";",y))==-1) endOfCookie=document.cookie.length;  return unescape(document.cookie.substring(y,endOfCookie)); } x=document.cookie.indexOf(" ",x)+1; if(x == 0) break; } return "";}function _trk_getParameter(name) { var paraName=name+"="; var URL=""+self.document.location.search; var tURL=""; eval("try{ tURL=top.document.location.search; }catch(_e){}"); URL=URL+"&"+tURL; if(URL.indexOf(paraName)!=-1) { var x=URL.indexOf(paraName)+paraName.length; var y=URL.substr(x).indexOf("&"); if(y!=-1) return URL.substring(x,x+y); else return URL.substr(x); } return "";}function _trk_make_code(_TRK_SERVER,_TRK_U) { var dt=document.title.toString(); dt=dt.substr(0,128); var dr=self.document.referrer; var tdr=""; eval("try{ tdr=top.document.referrer; }catch(_e){}"); var tdu=""; eval("try{ tdu=top.document.location.href; }catch(_e){}"); var bFrm=false; if(dr==tdu) { dr=tdr; bFrm=true; } if(dr=="undefined") dr=""; var du=self.document.location.href; if(du.substr(0,4)=="file") return ""; var adKeyVal = ""; if(bFrm) { adKeyVal=_trk_getParameter("OVKEY"); if(adKeyVal!="" && du.indexOf("OVKEY=")<0) {  if(du.indexOf("?")!=-1) du=du+"&OVKEY="+adKeyVal; else du=du+"?OVKEY="+adKeyVal;  adKeyVal=_trk_getParameter("OVRAW");  if(adKeyVal!="" && du.indexOf("OVRAW=")<0 ) if(du.indexOf("?")!=-1) du=du+"&OVRAW="+adKeyVal; else du=du+"?OVRAW="+adKeyVal; } else {  adKeyVal=_trk_getParameter("netpia");  if(adKeyVal!="" && du.indexOf("netpia=")<0 ) if(du.indexOf("?")!=-1) du=du+"&netpia="+adKeyVal; else du=du+"?netpia="+adKeyVal; } adKeyVal=_trk_getParameter("logger_kw"); if(adKeyVal!="" && du.indexOf("logger_kw=")<0 )  if(du.indexOf("?")!=-1) du=du+"&logger_kw="+adKeyVal; else du=du+"?logger_kw="+adKeyVal; adKeyVal=_trk_getParameter("source"); if(adKeyVal!="" && du.indexOf("source=")<0 )  if(du.indexOf("?")!=-1) du=du+"&source="+adKeyVal; else du=du+"?source="+adKeyVal; } var ce=navigator.cookieEnabled?"Y":"N"; var je=navigator.javaEnabled()?"Y":"N"; var ss=""; var cd = ""; if(_trk_bJS12) { ss=screen.width+"x"+screen.height; cd=screen.colorDepth; } if(!dt) dt=""; if(!dr) dr=""; if(!du) du=""; if(!ce) ce=""; if(!je) je=""; var t = new Date; var tye=(_trk_bMSIE)?(t.getYear()):(t.getFullYear()); var tmo=t.getMonth()+1; var tda=t.getDate(); var tho=t.getHours(); var tmi=t.getMinutes(); var tse=t.getSeconds(); var tzo=t.getTimezoneOffset(); var tc = ""; var prtcl=document.location.protocol.indexOf("https")!=-1?"https://":"http://"; if(prtcl=="https://") _TRK_SERVER="ssl."+_TRK_DOMAIN; tc=tc+prtcl+_TRK_SERVER; var bPNF=((typeof _TRK_PI)!="undefined" && _TRK_PI=="PNF")?true:false; if(bPNF) tc=tc+"/tracker_click.tsp"; else tc=tc+"/tracker.tsp"; tc=tc+"?u="+_TRK_U+"&XU=&EXEN="+_EXEN; if(bPNF) { tc=tc+"&rnd="+Math.random()+"&CKFL="+_TRK_PI+"&CKDATA="+_trk_escape(du); } else { tc=tc+"&dr="+_trk_escape(dr)+"&XDR="+"&dt="+_trk_escape(dt)+"&du="+_trk_escape(du); if((typeof _TRK_CP)!="undefined" && _TRK_CP!="") tc=tc+"&CP="+_trk_escape(_TRK_CP)+"&XCP="; if((typeof _TRK_PI)!="undefined" && _TRK_PI!="") tc=tc+"&PI="+_TRK_PI; if((typeof _TRK_PN)!="undefined" && _TRK_PN!="") tc=tc+"&PN="+_trk_escape(_TRK_PN); if((typeof _TRK_MF)!="undefined" && _TRK_MF!="") tc=tc+"&MF="+_trk_escape(_TRK_MF); if((typeof _TRK_OA)!="undefined" && _TRK_OA!="") tc=tc+"&OA="+_TRK_OA; if((typeof _TRK_OP)!="undefined" && _TRK_OP!="") tc=tc+"&OP="+_trk_escape(_TRK_OP); if((typeof _TRK_OE)!="undefined" && _TRK_OE!="") tc=tc+"&OE="+_TRK_OE; if((typeof _TRK_CC)!="undefined" && _TRK_CC!="") tc=tc+"&CC="+_TRK_CC; if((typeof _TRK_RK)!="undefined" && _TRK_RK!="") tc=tc+"&RK="+_trk_escape(_TRK_RK); if((typeof _TRK_SX)!="undefined" && _TRK_SX!="") tc=tc+"&SX="+_TRK_SX; if((typeof _TRK_AG)!="undefined" && _TRK_AG!="") tc=tc+"&AG="+_TRK_AG; if((typeof _TRK_IK)!="undefined" && _TRK_IK!="") tc=tc+"&IK="+_trk_escape(_TRK_IK); tc=tc+"&js=Y"+"&ss="+escape(ss)+"&cd="+cd+"&ce="+ce+"&je="+je+"&tzo="+tzo+"&tye="+tye+"&tmo="+tmo+"&tda="+tda+"&tho="+tho+"&tmi="+tmi+"&tse="+tse; } return tc;}var _TRK_LIFE=_trk_getParameter("_L_");if(_TRK_LIFE=="") _TRK_LIFE=14;_TRK_LIFE = parseInt(_TRK_LIFE)*24*60*60*1000;var _TRK_U="";var _TRK_U_P=_trk_getParameter("_U_");var _TRK_U_C= _trk_getCookie("_TRK_U");if(_TRK_U_C!="") _TRK_U=_TRK_U_C;if(_TRK_U_P!="") _TRK_U=_TRK_U_P;if(_TRK_U!="" && _TRK_U_P!="") _trk_setCookie("_TRK_U",_TRK_U,_TRK_LIFE);var _TRK_CC_C=_trk_getCookie("_TRK_CC");var _TRK_CC_P=_trk_getParameter("_C_");if((typeof _TRK_CC)!="undefined" && _TRK_CC!="") _TRK_CC_P=_TRK_CC;if(_TRK_CC_C!="") _TRK_CC=_TRK_CC_C;if(_TRK_CC_P!="") _TRK_CC=_TRK_CC_P;if((typeof _TRK_CC)!="undefined" && _TRK_CC!="" && _TRK_CC_P!="") _trk_setCookie("_TRK_CC",_TRK_CC,_TRK_LIFE);var _TRK_RK_C=_trk_getCookie("_TRK_RK");var _TRK_RK_P=_trk_getParameter("_R_");if((typeof _TRK_RK)!="undefined" && _TRK_RK!="") _TRK_RK_P=_TRK_RK;if(_TRK_RK_C!="") _TRK_RK=_TRK_RK_C;if(_TRK_RK_P!="") _TRK_RK=_TRK_RK_P;if((typeof _TRK_RK)!="undefined" && _TRK_RK!="" && _TRK_RK_P!="") _trk_setCookie("_TRK_RK",_TRK_RK,_TRK_LIFE);var _SS_LIFE = 30*60*1000;var _EXEN = _trk_getCookie("_EXEN");if( _EXEN == "" ) _EXEN = 0; _EXEN ++;_trk_setCookie("_EXEN",_EXEN,_SS_LIFE);var _trk_code_base=_trk_make_code("trk1.logger.co.kr","17716");var _trk_code_chan="";if(_TRK_U!="") _trk_code_chan=_trk_code_base.replace(/\?u=17716&XU=/g,"?u="+_TRK_U+"&XU=");var _trk_img_base=new Image();var _trk_img_chan=new Image();var _trk_img_base_click=new Image();var _trk_img_chan_click=new Image();if(_trk_bJS12==true) { if(_trk_bMSIE) { _trk_img_base.src=_trk_code_base; if(_TRK_U!="") _trk_img_chan.src=_trk_code_chan; } else { setTimeout("_trk_img_base.src=_trk_code_base;",1); if(_TRK_U!="") setTimeout("_trk_img_chan.src=_trk_code_chan;",1); }} else { if(_trk_bMSIE) document.write('<div style=\"display: none\">'); document.write('<img src=\"'+_trk_code_base+'\" height=\"0\" width=\"0\">'); if(_TRK_U!="") document.write('<img src=\"'+_trk_code_chan+'\" height=\"0\" width=\"0\">'); if(_trk_bMSIE) document.write('</div>');}function _trk_flashContentsView(_TRK_CP) { var _trk_code_flash=_trk_code_base; _trk_code_flash=_trk_code_flash.replace(/&CP=.*&XCP=/g,"&XCP="); _trk_code_flash=_trk_code_flash.replace(/&dr=.*&XDR=/g,"&XDR="); _trk_img_base_click.src=_trk_code_flash+"&dr=&CP="+_trk_escape(_TRK_CP)+"&rnd="+Math.random(); if(_TRK_U!="") { _trk_code_flash=_trk_code_flash.replace(/\?u=17716&XU=/g,"?u="+_TRK_U+"&XU="); _trk_img_chan_click.src=_trk_code_flash+"&dr=&CP="+_trk_escape(_TRK_CP)+"&rnd="+Math.random(); }}function _trk_clickTrace(_TRK_CKFL,_TRK_CKDATA) { var _trk_code_click=_trk_code_base.substr(0,_trk_code_base.indexOf("tracker.tsp")); _trk_code_click=_trk_code_click+"tracker_click.tsp?rnd="+Math.random()+"&CKFL="+_TRK_CKFL+"&CKDATA="+_trk_escape(_TRK_CKDATA); _trk_img_base_click.src=_trk_code_click+"&u=17716"; if(_TRK_U!="") _trk_img_chan_click.src=_trk_code_click+"&u="+_TRK_U;}function _trk_adClick( adSvr, svcCode, adCode ) { var ac = ""; var prtcl=document.location.protocol.indexOf("https")!=-1?"https://":"http://"; if(prtcl=="https://") adSvr="ssl."+_TRK_DOMAIN; ac=ac+prtcl+adSvr; _trk_img_base_click.src=ac+"/tracker_ad.tsp?u="+svcCode+"&mode=C&adCode="+adCode;}</script>
+<noscript><img src="http://trk1.logger.co.kr/tracker.tsp?u=17716&js=N" width=0 height=0></noscript>
+<!-- END OF LOGGER TRACKING SCRIPT -->
+</body>
+</html>

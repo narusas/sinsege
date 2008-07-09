@@ -1,0 +1,310 @@
+DROP TABLE IF EXISTS `aceauction`.`ac_appoint_statement`;
+CREATE TABLE  `aceauction`.`ac_appoint_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `no` int(10) unsigned NOT NULL COMMENT '물건번호',
+  `goods_id` bigint(20) unsigned default NULL,
+  `fixed_date` date default NULL COMMENT '기일 일자, 시간',
+  `type` varchar(45) default NULL COMMENT '기일종류',
+  `location` varchar(45) default NULL COMMENT '기일장소',
+  `lowest_price` varchar(45) default NULL COMMENT '최저매각가격',
+  `result` varchar(255) default NULL COMMENT '기일결과',
+  `bid_start` date default NULL COMMENT '기간입찰 시작일',
+  `bid_end` date default NULL COMMENT '기간입찰 종료일',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='기일내역 현황 테이블';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_area`;
+CREATE TABLE  `aceauction`.`ac_area` (
+  `code` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `parent_code` int(10) unsigned NOT NULL default '0',
+  `ord` int(10) default NULL,
+  PRIMARY KEY  (`code`,`parent_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='지역 테이블';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_attested`;
+CREATE TABLE  `aceauction`.`ac_attested` (
+  `id` bigint(20) unsigned NOT NULL auto_increment,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `type` varchar(45) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='등기부등본';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_attested_statement`;
+CREATE TABLE  `aceauction`.`ac_attested_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `no` int(10) unsigned NOT NULL COMMENT '권리순위',
+  `attested_id` bigint(20) unsigned NOT NULL,
+  `right_type` varchar(45) NOT NULL COMMENT '권리종류',
+  `accept_date` varchar(45) NOT NULL COMMENT '접수일',
+  `right_person` varchar(45) NOT NULL COMMENT '권리자',
+  `right_price` varchar(45) NOT NULL COMMENT '금액',
+  `expiration` varchar(45) NOT NULL COMMENT '소멸기준',
+  `comment` varchar(255) NOT NULL COMMENT '비고',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='등기부등본 현황';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_bld_statement`;
+CREATE TABLE  `aceauction`.`ac_bld_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `no` int(10) unsigned NOT NULL,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `address` varchar(255) default NULL,
+  `floor` varchar(45) default NULL,
+  `structure` varchar(255) default NULL,
+  `area` varchar(20) default NULL,
+  `use_for` varchar(45) default NULL,
+  `unit_price` varchar(45) default NULL,
+  `pynghung` varchar(20) default NULL,
+  `price` bigint(20) unsigned default NULL,
+  `comment` varchar(255) default NULL,
+  `sell_area` varchar(45) default NULL,
+  `sell_comment` varchar(1024) default NULL,
+  PRIMARY KEY  (`id`,`goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='건물내역현황';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_charge`;
+CREATE TABLE  `aceauction`.`ac_charge` (
+  `no` int(10) unsigned NOT NULL auto_increment,
+  `charge_code` int(10) unsigned NOT NULL,
+  `court_code` int(10) unsigned NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `fixed_date` date NOT NULL,
+  `start_date` date default NULL,
+  `end_date` date default NULL,
+  `location` varchar(45) NOT NULL,
+  `method` varchar(45) NOT NULL,
+  `time` varchar(45) default NULL,
+  PRIMARY KEY  (`no`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='담당계';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_court`;
+CREATE TABLE  `aceauction`.`ac_court` (
+  `code` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `parent_code` int(10) unsigned default NULL,
+  `ord` int(10) unsigned default NULL,
+  PRIMARY KEY  (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='법원';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_event`;
+CREATE TABLE  `aceauction`.`ac_event` (
+  `id` bigint(20) unsigned NOT NULL auto_increment,
+  `no` bigint(20) unsigned NOT NULL default '0',
+  `court_code` int(10) unsigned NOT NULL,
+  `charge_id` int(10) unsigned NOT NULL,
+  `event_year` int(10) unsigned NOT NULL,
+  `event_no` int(10) unsigned NOT NULL,
+  `merged_to` varchar(600) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `accept_date` date NOT NULL,
+  `claim_price` bigint(20) unsigned NOT NULL,
+  `judgement_location` varchar(4096) default NULL COMMENT '감정평가서_위치관련',
+  `judgement_use` varchar(4096) default NULL COMMENT '감정평가서_이용상태관련',
+  `judgement_land` varchar(4096) default NULL COMMENT '감정평가서_토지관련',
+  `judgement_road` varchar(4096) default NULL COMMENT '감정평가서_도로관련',
+  `judgement_temp` varchar(4096) default NULL COMMENT '감정평가서_냉난방관련',
+  `pic_1` varchar(255) default NULL,
+  `pic_2` varchar(255) default NULL,
+  `has_gamjung` tinyint(1) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='사건';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_exclusion`;
+CREATE TABLE  `aceauction`.`ac_exclusion` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `goods_id` int(10) unsigned NOT NULL,
+  `no` int(10) unsigned NOT NULL COMMENT '순서',
+  `use_for` varchar(45) default NULL COMMENT '사용목적',
+  `structure` varchar(45) default NULL COMMENT '구조',
+  `area` varchar(45) default NULL COMMENT '면적',
+  `type` varchar(45) default NULL COMMENT '종류',
+  `floor` varchar(45) default NULL COMMENT '층형',
+  `address` varchar(100) default NULL COMMENT '주소',
+  `contains` varchar(10) default NULL COMMENT '포함/제외',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='제시외건물';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_favorite`;
+CREATE TABLE  `aceauction`.`ac_favorite` (
+  `idx` int(10) NOT NULL auto_increment,
+  `memid` varchar(10) default NULL,
+  `goods_id` int(11) default NULL,
+  `wdate` date default NULL,
+  `content` text,
+  PRIMARY KEY  (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=3658 DEFAULT CHARSET=euckr;
+
+DROP TABLE IF EXISTS `aceauction`.`ac_goods`;
+CREATE TABLE  `aceauction`.`ac_goods` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `court_code` int(10) unsigned NOT NULL,
+  `charge_id` int(10) unsigned NOT NULL,
+  `event_no` bigint(20) unsigned NOT NULL,
+  `area_code` int(10) unsigned NOT NULL default '0',
+  `area_code_2` int(10) unsigned default NULL COMMENT '지역코드2',
+  `area_code_3` int(10) unsigned default NULL COMMENT '지역코드3',
+  `address` varchar(200) default NULL COMMENT '주소',
+  `done` tinyint(1) NOT NULL default '0' COMMENT '완료여부',
+  `no` int(10) unsigned NOT NULL COMMENT '물건번호',
+  `type_code` int(10) unsigned default NULL COMMENT '물건종별',
+  `sell_target` varchar(45) default NULL COMMENT '매각대상',
+  `sell_price` bigint(20) NOT NULL COMMENT '감정가',
+  `lowest_price` bigint(20) unsigned NOT NULL COMMENT '최저가',
+  `guarantee_ratio` int(10) unsigned NOT NULL default '0',
+  `accept_date` date default NULL COMMENT '사건접수일',
+  `decision_date` date default NULL COMMENT '경매개시결정일',
+  `devidend_date` date default NULL COMMENT '배장요구종기일',
+  `view_count` int(10) unsigned NOT NULL default '0' COMMENT '조회수',
+  `comment` mediumtext COMMENT '비고',
+  `tools_addr` mediumtext COMMENT '기계기구_지번',
+  `tools_breakdown` mediumtext COMMENT '기계기구_내역',
+  `tools_comment` mediumtext COMMENT '기계기구_비고',
+  `goods_statememt_comment` mediumtext COMMENT '매각물건명세서_비고',
+  `goods_statememt_comment2` mediumtext COMMENT '매각물건명세서_비소멸권리',
+  `goods_statememt_comment3` mediumtext COMMENT '매각물건명세서_지상권개요',
+  `goods_statememt_comment4` mediumtext COMMENT '매각물건명세서_비고란',
+  `building_statement_comment` mediumtext COMMENT '건물현황_평가정리',
+  `land_statement_comment` mediumtext COMMENT '대지권현황_평가정리',
+  `appoint_statemet_comment` mediumtext COMMENT '기일내역_평가정리',
+  `judgement_office` varchar(45) default NULL COMMENT '감정평가서_기관',
+  `judgement_date` date default NULL COMMENT '감정평가서_시점',
+  `judgement_land_price` varchar(20) default NULL COMMENT '감정평가서_대지권가격',
+  `judgement_bld_price` varchar(20) default NULL COMMENT '감정평가서_건물가격',
+  `judgement_in_exclusion_price` varchar(20) default NULL COMMENT '감정평가서_제시외포함',
+  `judgement_out_exclusion_price` varchar(20) default NULL COMMENT '감정평가서_제시외미포함',
+  `judgement_tool_price` varchar(20) default NULL COMMENT '감정평가서_기계기구',
+  `judgement_price` varchar(20) default NULL COMMENT '감정평가서_합계',
+  `appoint_count` int(10) unsigned default NULL COMMENT '유찰회수',
+  `appoint_result` varchar(45) default NULL COMMENT '매각기일최종결과',
+  `pic_1` varchar(255) default NULL COMMENT '대표사진1',
+  `pic_2` varchar(255) default NULL COMMENT '대표사진2',
+  `last_sell_price` varchar(45) default NULL COMMENT '매각기일_매각가격',
+  `last_sell_result` varchar(45) default NULL COMMENT '매각기일_결과',
+  `appoint_result_date` varchar(45) default NULL COMMENT '매각기일현황_마지막날자',
+  `bid_start` date default NULL COMMENT '기간입찰_시작',
+  `bid_end` date default NULL COMMENT '기간입찰 종료',
+  `special_case` varchar(255) default NULL COMMENT '특별한 비고를 저장하는 필드',
+  `buyer` varchar(255) default NULL COMMENT '매각기일_매수인',
+  `bid_count` varchar(45) default NULL COMMENT '매각기일_입찰수',
+  `buy_price` varchar(45) default NULL COMMENT '매각기일_매각금액',
+  `buy_price_ratio` varchar(45) default NULL COMMENT '매각기일_금액비율',
+  PRIMARY KEY  USING BTREE (`id`,`court_code`,`charge_id`,`event_no`,`area_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='물건 테이블';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_goods_building`;
+CREATE TABLE  `aceauction`.`ac_goods_building` (
+  `id` bigint(20) unsigned NOT NULL auto_increment,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `no` int(10) unsigned NOT NULL COMMENT '순서',
+  `address` varchar(255) default NULL COMMENT '주소',
+  `comment` varchar(255) default NULL COMMENT '비고',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='대법원 물건현황';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_goods_statement`;
+CREATE TABLE  `aceauction`.`ac_goods_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `name` varchar(45) default NULL COMMENT '점유자의 성명',
+  `possessory` varchar(255) default NULL COMMENT '점유부분',
+  `info_source` varchar(45) default NULL COMMENT '정보출처 구분',
+  `ground_claim` varchar(45) default NULL COMMENT '점유의 권원',
+  `period` varchar(45) default NULL COMMENT '점유기간',
+  `guaranty_price` varchar(45) default NULL COMMENT '보증금',
+  `chaim` varchar(45) default NULL COMMENT '차임',
+  `report_date` varchar(45) default NULL COMMENT '신고일자',
+  `conclusion_date` varchar(45) default NULL COMMENT '확정일자',
+  `devidend_req_date` varchar(45) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='매각물건명세서';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_goods_type`;
+CREATE TABLE  `aceauction`.`ac_goods_type` (
+  `code` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY  (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='물건 종류 테이블';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_goods_usage`;
+CREATE TABLE  `aceauction`.`ac_goods_usage` (
+  `code` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `parent_code` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`code`,`parent_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='물건 사용 용도 테이블';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_land_right_statement`;
+CREATE TABLE  `aceauction`.`ac_land_right_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `no` int(10) unsigned NOT NULL,
+  `goods_id` bigint(20) unsigned NOT NULL,
+  `address` varchar(255) default NULL,
+  `right_ratio` varchar(100) default NULL,
+  `area` varchar(20) default NULL,
+  `price` bigint(20) unsigned default NULL,
+  `comment` varchar(255) default NULL,
+  `sell_area` varchar(45) default NULL,
+  `sell_comment` varchar(1024) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='대지권내역현황';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_land_statement`;
+CREATE TABLE  `aceauction`.`ac_land_statement` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `goods_id` int(10) unsigned NOT NULL,
+  `no` int(10) unsigned default NULL,
+  `address` varchar(255) default NULL,
+  `use_for` varchar(255) default NULL,
+  `use_for2` varchar(45) NOT NULL,
+  `std_price` varchar(45) default NULL,
+  `each_price` varchar(45) default NULL,
+  `test_price` varchar(45) default NULL,
+  `comment` varchar(255) default NULL,
+  `area` varchar(45) default NULL,
+  `sell_area` varchar(45) default NULL,
+  `sell_comment` varchar(1024) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='토지현황';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_participant`;
+CREATE TABLE  `aceauction`.`ac_participant` (
+  `no` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(45) NOT NULL,
+  `relation` varchar(45) NOT NULL,
+  `event_no` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY  (`no`,`event_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=euckr COMMENT='사건 관계자';
+
+DROP TABLE IF EXISTS `aceauction`.`ac_policy`;
+CREATE TABLE  `aceauction`.`ac_policy` (
+  `idx` int(4) NOT NULL auto_increment,
+  `area1_code` varchar(40) default NULL,
+  `area2_code` varchar(40) default NULL,
+  `dong` varchar(40) default NULL,
+  `ri` varchar(40) default NULL,
+  `policy` varchar(40) default NULL,
+  `bigo` varchar(40) default NULL,
+  KEY `idx` (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1877 DEFAULT CHARSET=euckr;
+
+DROP TABLE IF EXISTS `aceauction`.`ac_recom`;
+CREATE TABLE  `aceauction`.`ac_recom` (
+  `idx` int(10) NOT NULL auto_increment,
+  `memid` varchar(10) default NULL,
+  `goods_id` int(11) default NULL,
+  `wdate` date default NULL,
+  `content` text,
+  PRIMARY KEY  (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=euckr;
+
+DROP TABLE IF EXISTS `aceauction`.`ac_sample`;
+CREATE TABLE  `aceauction`.`ac_sample` (
+  `idx` int(10) NOT NULL auto_increment,
+  `memid` varchar(10) default NULL,
+  `goods_id` int(11) default NULL,
+  `wdate` date default NULL,
+  `content` text,
+  PRIMARY KEY  (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=euckr;

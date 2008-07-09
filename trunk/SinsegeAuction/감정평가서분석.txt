@@ -1,0 +1,41 @@
+﻿//downfiles/ef58035ad0eeba0d12d648572f2e9f3b
+
+2f2f646f776e66696c65732f6566353830333561643065656261306431326436343835373266326539663362
+
+
+
+Data: 3C48544D4C3E0A3C626F6479206267636F6C6F723D234436...
+
+<HTML>
+<body bgcolor=#D6D3CE>
+<OBJECT
+name="bird"
+  classid="clsid:6BB10E44-84DB-4A95-A18F-5F124909F902"
+  codebase="lib/kapa2.cab#version=1,0,119,0""
+width="685"
+height="535"
+align="center"
+hspace="0"
+vspace="0"
+>
+<br><br><br><br><br><center>Active-X     <b>(Y)</b>   .</center><param name="ssid" value="cc8fd38c0861f995254b43c8ef51f1a3">
+<param name="fsize" value="3726">
+<param name="gubun" value="21"> 
+<param name="address" value="http://210.98.146.41">
+</Object>
+</body>
+</HTML> 
+
+
+HTTP/1.1 302 Found
+Date: Mon, 28 Jan 2008 15:41:34 GMT
+Server: Apache/1.3.27 (Unix) PHP/4.3.6
+X-Powered-By: PHP/4.3.6
+Location: http://210.98.146.41//downfiles/6202155ee22f3722ca43beb43743b980
+Connection: close
+Content-Type: text/html; charset=euc-kr
+
+
+
+
+/down.asp?ssid=cc8fd38c0861f995254b43c8ef51f1a3&ftype=21&fsize=3726&rmk=

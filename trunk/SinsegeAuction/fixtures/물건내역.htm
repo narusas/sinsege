@@ -1,0 +1,609 @@
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>경매사건검색 - 물건내역</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+	function openWin(url, name) {
+  		popupWin = window.open(url, name, 'menubar=no,scrollbars=yes,resizable=no,status=no,width=615,height=450', true);
+		// focus window (only for > Navigator 3.0)
+		if ( (navigator.appName != "Microsoft Internet Explorer") && (navigator.appVersion.substring(0,1) == "3") )
+			popupWin.focus();
+	}
+
+	// 이전검색화면으로 이동
+	function loadSearch() {
+		if ( navigator.appName == " Netscape" )
+			document.searchForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.searchForm.browser.value = "1";
+			else
+				document.searchForm.browser.value = "2";
+		}
+		document.searchForm.submit();
+	}
+
+	// 각 링크 사건정보 Loading
+	function loadSaInfo( info_flg )	{
+		if ( info_flg == 1 )
+			command = "au.command.auc.C311ListCommand";
+		else if ( info_flg == 2 )
+			command = "au.command.auc.C312ListCommand";
+		else if ( info_flg == 3 )
+			command = "au.command.auc.C313ListCommand";
+		else if ( info_flg == 4 )
+			command = "au.command.auc.C314ListCommand";
+		else if ( info_flg == 5 )
+			command = "au.command.auc.C315ListCommand";
+		else if ( info_flg == 6 )
+			command = "au.command.auc.C316ListCommand";
+
+		document.sainfoForm.target_command.value = command;
+
+		if ( navigator.appName == " Netscape" )
+			document.sainfoForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.sainfoForm.browser.value = "1";
+			else
+				document.sainfoForm.browser.value = "2";
+		}
+		document.sainfoForm.submit();
+	}
+
+	// 매각물건명세서 Loading
+	function loadMyung( sa_no, maemul_no )	{
+		document.myungForm.sa_no.value = sa_no;
+		document.myungForm.maemul_no.value = maemul_no;
+
+		if ( navigator.appName == " Netscape" )
+			document.myungForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.myungForm.browser.value = "1";
+			else
+				document.myungForm.browser.value = "2";
+		}
+		document.myungForm.submit();
+	}
+
+	// 현황조사서 Loading
+	function loadHyun( sa_no, relsa_no ) {
+		document.hyunForm.sa_no.value = sa_no;
+		document.hyunForm.relsa_no.value = relsa_no;
+
+		if ( navigator.appName == " Netscape" )
+			document.hyunForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.hyunForm.browser.value = "1";
+			else
+				document.hyunForm.browser.value = "2";
+		}
+		document.hyunForm.submit();
+	}
+
+	// 감정평가서 Loading
+	function loadGam( sa_no ) {
+		document.gamForm.sa_no.value = sa_no;
+
+		if ( navigator.appName == " Netscape" )
+			document.gamForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.gamForm.browser.value = "1";
+			else
+				document.gamForm.browser.value = "2";
+		}
+		document.gamForm.submit();
+	}
+
+function setPrint() {
+	window.print();
+	window.close();
+}
+
+-->
+</script>
+</head>
+
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+
+            <td class="title" height="24" width="300"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+			  <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="4" colspan="2"><img src="/au/images/spacer.gif" width="830" height="4"></td>
+          </tr>
+        </table>
+
+
+
+      <!----------------------  상세내역  ----------------------------->
+      <table width="99%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="middle" align="left" height="40"> <img src="/au/images/i_yellow.gif" width="6" height="8">
+            법원 : <b>서울중앙지방법원 </b>&nbsp;&nbsp;&gt;&nbsp;&nbsp;사건번호 : <b>2003타경8078</b>&nbsp;</td>
+
+          <td valign="middle" align="right" height="40"><a href="javascript:PrintMove();"><b><font color="#003399">[ 출력 ]</font></b></a> <a href="javascript:loadSearch();" id="a1"><b><font color="#003399">[
+            검색화면→]</font></b></a></td>
+        </tr>
+      </table>
+      <table width="99%" border="0" cellspacing="0" cellpadding="0" >
+        <tr align="left">
+          <td valign="top" height="1" colspan="13">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr>
+                <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr align="center">
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 1 )" id="a1"><font color="#000000">기본내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#FFE0CE" width="25%" ><font color="#000000"><b>↓물건내역</b></font></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+
+
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 3 )" id="a1"><font color="#000000">기일내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 5 )" id="a1"><font color="#000000">문건처리내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+
+
+        </tr>
+        <tr align="left">
+          <td valign="top" colspan="13">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr>
+                <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br>
+
+        <!----------------------  물건내역 ----------------------------->
+      <b><img src="images/arrow_g.gif" width="18" height="17" align="absmiddle" vspace="5">
+      물건내역 </b>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">1</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">30,474,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">74,400,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">대금지급기일(기한)이후 지연이자율 연2할
+임대차: 물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 1</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 지하2층 30호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">2</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">42,496,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">66,400,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">대금지급기일(기한)이후 지연이자율 연2할
+임대차: 물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 2</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 지하2층 191호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">3</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">147,200,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">184,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">대금지급기일(기한)이후 지연이자율 연2할
+임대차: 물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 3</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 2층 113호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">4</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">39,322,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">120,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">일괄매각
+대금지급기일(기한)이후 지연이자율 연2할
+임대차:  물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 4</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 6층 148호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 12</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-184</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">토지</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">5</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">140,800,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">176,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">대금지급기일(기한)이후 지연이자율 연2할
+임대차: 물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 5</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 3층 15호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">6</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">39,322,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">120,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">일괄매각
+대금지급기일(기한)이후 지연이자율 연2할
+임대차:  물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 6</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 5층 144호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 9</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-17</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">토지</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">7</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">33,751,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">103,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">일괄매각
+대금지급기일(기한)이후 지연이자율 연2할
+임대차:  물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 7</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 7층 62호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 11</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-184</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">토지</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+      </table>
+      <br>
+
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건번호</font></td>
+          <td width="5%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">8</font></td>
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">물건용도</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF">상가,오피스텔,근린시설</td>
+<!--
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">최저매각가격</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">19,661,000</font></td>-->
+
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">감정평가액</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">60,000,000</font></td>
+
+        </tr>
+        <tr valign="middle">
+          <td width="10%" height="24" align="center" bgcolor="#E3E3E3"><font color="#333333">물건비고</font></td>
+          <td colspan="5" width="15%" height="24" bgcolor="#FFFFFF"><font color="#333333">일괄매각
+대금지급기일(기한)이후 지연이자율 연2할
+임대차:  물건명세서와 같음
+대지권 미등기임</font></td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 8</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-185외 3필지밀리오레 8층 111호</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">집합건물</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+        <tr valign="middle">
+          <td width="10%" align="center" height="24" bgcolor="#E3E3E3">목록 10</td>
+          <td colspan="3" align="center" height="24" bgcolor="#FFFFFF">서울특별시 중구 을지로6가  18-17</td>
+          <td width="15%" align="center" height="24" bgcolor="#E3E3E3"><font color="#333333">목록구분</font></td>
+          <td width="15%" align="center" height="24" bgcolor="#FFFFFF"><font color="#333333">토지</font></td>
+        </tr>
+
+          </td>
+        </tr>
+
+    </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr valign="top">
+      <td width="30"></td>
+      <td height="40" width="40"> <b><font color="D38600">주의)<br></font></b></td>
+      <td>
+		본 사이트에서 제공된 사건정보는 법적인 효력이 없으니 참고자료로만 활용하시기 바랍니다.<br>
+		보다 상세한 내용은 해당 법원에 문의하시기 바랍니다. 
+	  </td>
+    </tr>
+  </table>
+
+
+<form name=searchForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="1">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=mae_giil value="2007.03.20">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+
+<form name=sainfoForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="20030130008078">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+<input type=hidden name=jong_day value="">
+
+<input type=hidden name=page value="1">
+<input type=hidden name=mae_giil value="2007.03.20">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+
+</form>
+<form name=myungForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C101MyungCommand">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=maemul_no value="">
+<input type=hidden name=browser value="">
+</form>
+<form name=hyunForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=relsa_no value="">
+<input type=hidden name=browser value="">
+</form>
+<form name=gamForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=browser value="">
+</form>
+
+<script language="javascript">
+	init();
+
+
+
+function PrintMove()
+{
+	url = '/au/SuperServlet?target_command=au.command.auc.C312ListCommand&search_flg=2&bub_cd=000210&sa_no=20030130008078&Print=1&browser=&check_msg=';
+	window.open( url, 'print_win', 'left=0,top=0, width=660, height=600, toolbar=no, menubar=no, status=no, scrollbars=yes, resizable=yes' );
+}
+</script>
+
+</body>
+</html>

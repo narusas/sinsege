@@ -1,0 +1,15 @@
+java.io.IOException: Cannot run program "C:\Program": CreateProcess error=2, ??d?? Æ???; ?; ¼? ¾ø
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:459)
+	at java.lang.Runtime.exec(Runtime.java:593)
+	at java.lang.Runtime.exec(Runtime.java:431)
+	at java.lang.Runtime.exec(Runtime.java:328)
+	at net.narusas.aceauction.ui.등본Task.fetch사건등기부등본(등본Task.java:80)
+	at net.narusas.aceauction.ui.등본Task.run(등본Task.java:43)
+	at net.narusas.aceauction.ui.Command.execute(Command.java:18)
+	at net.narusas.aceauction.ui.Command.run(Command.java:35)
+Caused by: java.io.IOException: CreateProcess error=2, ??d?? Æ???; ?; ¼? ¾ø
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:81)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:30)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:452)
+	... 7 more
