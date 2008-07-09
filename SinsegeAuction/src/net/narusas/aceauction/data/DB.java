@@ -23,7 +23,7 @@ import net.narusas.util.lang.NFile;
  * The Class DB.
  */
 public class DB {
-	
+
 	/** The cfg. */
 	private static String cfg;
 
@@ -70,7 +70,8 @@ public class DB {
 	/**
 	 * Commit.
 	 * 
-	 * @throws SQLException the SQL exception
+	 * @throws SQLException
+	 *             the SQL exception
 	 */
 	public void commit() throws SQLException {
 		if (conn != null && conn.isClosed() == false) {
@@ -81,7 +82,8 @@ public class DB {
 	/**
 	 * Rollback.
 	 * 
-	 * @throws SQLException the SQL exception
+	 * @throws SQLException
+	 *             the SQL exception
 	 */
 	public void rollback() throws SQLException {
 		if (conn != null && conn.isClosed() == false) {
@@ -92,9 +94,11 @@ public class DB {
 	/**
 	 * Sets the auto commit.
 	 * 
-	 * @param b the new auto commit
+	 * @param b
+	 *            the new auto commit
 	 * 
-	 * @throws SQLException the SQL exception
+	 * @throws SQLException
+	 *             the SQL exception
 	 */
 	public void setAutoCommit(boolean b) throws SQLException {
 		if (conn != null && conn.isClosed() == false) {
@@ -105,7 +109,8 @@ public class DB {
 	/**
 	 * To area.
 	 * 
-	 * @param area the area
+	 * @param area
+	 *            the area
 	 * 
 	 * @return the string
 	 */
@@ -129,7 +134,8 @@ public class DB {
 	/**
 	 * To float.
 	 * 
-	 * @param area the area
+	 * @param area
+	 *            the area
 	 * 
 	 * @return the float
 	 */
@@ -143,7 +149,8 @@ public class DB {
 	/**
 	 * Reset connect.
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	protected void resetConnect() throws Exception {
 		if (conn != null && conn.isClosed() == false) {
@@ -155,7 +162,8 @@ public class DB {
 	/**
 	 * Cleanup.
 	 * 
-	 * @param stmt the stmt
+	 * @param stmt
+	 *            the stmt
 	 */
 	public static void cleanup(PreparedStatement stmt) {
 		if (stmt == null)
@@ -170,7 +178,8 @@ public class DB {
 	/**
 	 * Cleanup.
 	 * 
-	 * @param rs the rs
+	 * @param rs
+	 *            the rs
 	 */
 	public static void cleanup(ResultSet rs) {
 		if (rs == null)
@@ -186,18 +195,21 @@ public class DB {
 	/**
 	 * Cleanup.
 	 * 
-	 * @param rs the rs
-	 * @param stmt the stmt
+	 * @param rs
+	 *            the rs
+	 * @param stmt
+	 *            the stmt
 	 */
 	public static void cleanup(ResultSet rs, Statement stmt) {
 		cleanup(rs);
 		cleanup(stmt);
 	}
-	
+
 	/**
 	 * Cleanup.
 	 * 
-	 * @param stmt the stmt
+	 * @param stmt
+	 *            the stmt
 	 */
 	public static void cleanup(Statement stmt) {
 		if (stmt == null)
@@ -214,7 +226,8 @@ public class DB {
 	 * 
 	 * @return the statement
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static Statement createStatement() throws Exception {
 		reConnect();
@@ -226,11 +239,16 @@ public class DB {
 	 * 
 	 * @return the connection
 	 * 
-	 * @throws InstantiationException the instantiation exception
-	 * @throws IllegalAccessException the illegal access exception
-	 * @throws ClassNotFoundException the class not found exception
-	 * @throws SQLException the SQL exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws InstantiationException
+	 *             the instantiation exception
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws ClassNotFoundException
+	 *             the class not found exception
+	 * @throws SQLException
+	 *             the SQL exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public static Connection dbConnect() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException,
@@ -245,7 +263,8 @@ public class DB {
 	/**
 	 * Int token.
 	 * 
-	 * @param str the str
+	 * @param str
+	 *            the str
 	 * 
 	 * @return the string
 	 */
@@ -260,7 +279,8 @@ public class DB {
 	/**
 	 * Checks if is number.
 	 * 
-	 * @param no the no
+	 * @param no
+	 *            the no
 	 * 
 	 * @return true, if is number
 	 */
@@ -276,11 +296,13 @@ public class DB {
 	/**
 	 * Prepare statement.
 	 * 
-	 * @param sql the sql
+	 * @param sql
+	 *            the sql
 	 * 
 	 * @return the prepared statement
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static PreparedStatement prepareStatement(String sql)
 			throws Exception {
@@ -291,7 +313,8 @@ public class DB {
 	/**
 	 * Re connect.
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void reConnect() throws Exception {
 		if (conn == null) {
@@ -307,7 +330,8 @@ public class DB {
 	/**
 	 * To date.
 	 * 
-	 * @param 날자 the 날자
+	 * @param 날자
+	 *            the 날자
 	 * 
 	 * @return the date
 	 */
@@ -353,7 +377,8 @@ public class DB {
 	/**
 	 * To int.
 	 * 
-	 * @param code the code
+	 * @param code
+	 *            the code
 	 * 
 	 * @return the int
 	 */
@@ -367,9 +392,12 @@ public class DB {
 	/**
 	 * Token.
 	 * 
-	 * @param src the src
-	 * @param sp the sp
-	 * @param i the i
+	 * @param src
+	 *            the src
+	 * @param sp
+	 *            the sp
+	 * @param i
+	 *            the i
 	 * 
 	 * @return the string
 	 */
@@ -384,7 +412,8 @@ public class DB {
 	/**
 	 * To long.
 	 * 
-	 * @param v the v
+	 * @param v
+	 *            the v
 	 * 
 	 * @return the long
 	 */
@@ -398,7 +427,8 @@ public class DB {
 	/**
 	 * To price.
 	 * 
-	 * @param price the price
+	 * @param price
+	 *            the price
 	 * 
 	 * @return the long
 	 */
@@ -421,7 +451,8 @@ public class DB {
 	/**
 	 * To string.
 	 * 
-	 * @param date the date
+	 * @param date
+	 *            the date
 	 * 
 	 * @return the string
 	 */
