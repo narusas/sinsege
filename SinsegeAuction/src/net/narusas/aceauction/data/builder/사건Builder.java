@@ -21,6 +21,7 @@ import net.narusas.aceauction.data.FileUploaderBG;
 import net.narusas.aceauction.fetchers.대법원감정평가서Fetcher;
 import net.narusas.aceauction.fetchers.대법원기본내역Fetcher;
 import net.narusas.aceauction.fetchers.대법원기일내역Fetcher;
+import net.narusas.aceauction.fetchers.대법원문건처리내역Fetcher;
 import net.narusas.aceauction.fetchers.대법원사건Fetcher;
 import net.narusas.aceauction.fetchers.대법원제시외건물Fetcher;
 import net.narusas.aceauction.fetchers.대법원현황조사서Fetcher;
@@ -49,7 +50,8 @@ public class 사건Builder {
 	/**
 	 * Instantiates a new 사건 builder.
 	 * 
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 */
 	public 사건Builder(BuildProgressListener listener) {
 		this.listener = listener;
@@ -58,11 +60,15 @@ public class 사건Builder {
 	/**
 	 * Build사건.
 	 * 
-	 * @param 담당계No the 담당계No
-	 * @param 사건 the 사건
-	 * @param eventNos the event nos
+	 * @param 담당계No
+	 *            the 담당계No
+	 * @param 사건
+	 *            the 사건
+	 * @param eventNos
+	 *            the event nos
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	private void build사건(long 담당계No, 사건 사건, Long[] eventNos) throws Exception {
 		if (eventNos != null && 사건.isIn(eventNos) == false) {
@@ -78,6 +84,12 @@ public class 사건Builder {
 		logger.info("대법원에서 기일내역을 얻어옵니다");
 		대법원기일내역Fetcher f2 = new 대법원기일내역Fetcher();
 		f2.update(사건);
+
+		try {
+			대법원문건처리내역Fetcher temp = new 대법원문건처리내역Fetcher();
+			temp.update(사건);
+		} catch (Exception e) {
+		}
 
 		logger.info("대법원에서 물건내역(제시외건물)을 얻어옵니다");
 
@@ -107,7 +119,8 @@ public class 사건Builder {
 	/**
 	 * To string.
 	 * 
-	 * @param ex the ex
+	 * @param ex
+	 *            the ex
 	 * 
 	 * @return the string
 	 */
@@ -120,15 +133,20 @@ public class 사건Builder {
 	/**
 	 * Update db.
 	 * 
-	 * @param 담당계No the 담당계No
-	 * @param sagun the sagun
+	 * @param 담당계No
+	 *            the 담당계No
+	 * @param sagun
+	 *            the sagun
 	 * 
-	 * @throws SQLException the SQL exception
-	 * @throws HttpException the http exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SQLException
+	 *             the SQL exception
+	 * @throws HttpException
+	 *             the http exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	private void updateDB(long 담당계No, 사건 sagun) throws SQLException, HttpException,
-			IOException {
+	private void updateDB(long 담당계No, 사건 sagun) throws SQLException,
+			HttpException, IOException {
 		try {
 			logger.info("사건을 DB에 입력합니다. " + sagun.court.getName() + " "
 					+ sagun.charge.get담당계이름() + " " + sagun.get사건번호());
@@ -162,12 +180,17 @@ public class 사건Builder {
 	/**
 	 * Update물건.
 	 * 
-	 * @param 사건 the 사건
-	 * @param hasSagunPicture the has sagun picture
-	 * @param item the item
-	 * @param gamjungInfo the gamjung info
+	 * @param 사건
+	 *            the 사건
+	 * @param hasSagunPicture
+	 *            the has sagun picture
+	 * @param item
+	 *            the item
+	 * @param gamjungInfo
+	 *            the gamjung info
 	 * 
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	private void update물건(사건 사건, boolean hasSagunPicture, 부동산표시목록 item,
 			String[] gamjungInfo) throws Exception {
@@ -178,7 +201,8 @@ public class 사건Builder {
 	/**
 	 * Upload htm ls.
 	 * 
-	 * @param 사건 the 사건
+	 * @param 사건
+	 *            the 사건
 	 * 
 	 * @return the string[]
 	 */
@@ -210,11 +234,15 @@ public class 사건Builder {
 	/**
 	 * Build사건s.
 	 * 
-	 * @param 담당계 the 담당계
+	 * @param 담당계
+	 *            the 담당계
 	 * 
-	 * @throws HttpException the http exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserException the parser exception
+	 * @throws HttpException
+	 *             the http exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ParserException
+	 *             the parser exception
 	 */
 	void build사건s(담당계 담당계) throws HttpException, IOException, ParserException {
 		logger.info("사건 Fetcher를 생성합니다. ");
@@ -227,9 +255,12 @@ public class 사건Builder {
 	/**
 	 * Update사건 db.
 	 * 
-	 * @param 담당계No the l
-	 * @param sagun the sagun
-	 * @param eventNos the event nos
+	 * @param 담당계No
+	 *            the l
+	 * @param sagun
+	 *            the sagun
+	 * @param eventNos
+	 *            the event nos
 	 */
 	void update사건DB(long 담당계No, List<사건> sagun, Long[] eventNos) {
 		listener.update사건Size(sagun.size());

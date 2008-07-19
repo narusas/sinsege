@@ -1,0 +1,164 @@
+package net.narusas.aceauction.fetchers;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.sql.Date;
+import java.util.logging.Logger;
+
+import net.narusas.aceauction.model.사건;
+
+public class 대법원문건처리내역Fetcher {
+	/** The logger. */
+	Logger logger = Logger.getLogger("log");
+
+	/**
+	 * Gets the page.
+	 * 
+	 * @param 법원코드 the 법원코드
+	 * @param 담당자명 the 담당자명
+	 * @param 담당자코드 the 담당자코드
+	 * @param 날자 the 날자
+	 * @param 사건번호 the 사건번호
+	 * 
+	 * @return the page
+	 */
+	public String getPage(String 법원코드, String 담당자명, int 담당자코드, Date 날자,
+			long 사건번호) {
+		대법원Fetcher fetcher = 대법원Fetcher.getInstance();
+		try {
+			String res = get기일내역Page(법원코드, 담당자명, 담당자코드, 날자, 사건번호, fetcher);
+			if (fetcher.checkValidAccess(res)) {
+				return res;
+			}
+
+			getCookie(법원코드, 담당자명, 담당자코드, 날자, fetcher);
+
+			res = get기일내역Page(법원코드, 담당자명, 담당자코드, 날자, 사건번호, fetcher);
+			return res;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 사건에 해당하는 기일 내역을 대법원 사이트에서 얻어 와서 사건의 정보를 갱신한다.
+	 * 
+	 * @param s 갱신하고자 하는 사건.
+	 * 
+	 * @return the 사건
+	 */
+	public 사건 update(사건 s) {
+		return parse(getPage(s), s);
+	}
+
+	/**
+	 * Gets the cookie.
+	 * 
+	 * @param 법원코드 the 법원코드
+	 * @param 담당자명 the 담당자명
+	 * @param 담당자코드 the 담당자코드
+	 * @param 날자 the 날자
+	 * @param fetcher the fetcher
+	 * 
+	 * @return the cookie
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
+	private void getCookie(String 법원코드, String 담당자명, int 담당자코드, Date 날자,
+			PageFetcher fetcher) throws IOException,
+			UnsupportedEncodingException {
+		logger.info("세션정보가 잘못되어 쿠키를 다시 얻어 옵니다.");
+		fetcher
+				.fetch("/au/SuperServlet?target_command=au.command.auc.C100ListCommand&"
+						+ "bub_cd="
+						+ 법원코드
+						+ "&search_flg=2&"
+						+ "mae_giil="
+						+ 날자
+						+ "&"
+						+ "jp_cd="
+						+ 담당자코드
+						+ "&"
+						+ "dam_nm="
+						+ URLEncoder.encode(담당자명, "euc-kr")
+						+ "&browser=2&check_msg=");
+	}
+
+	/**
+	 * Gets the page.
+	 * 
+	 * @param s the s
+	 * 
+	 * @return the page
+	 */
+	private String getPage(사건 s) {
+		String page = getPage(s.court.getCode(), s.charge.get담당계이름(), s.charge
+				.get담당계코드(), s.charge.get매각기일(), s.사건번호);
+//		logger.info(page);
+		return page;
+	}
+
+	/**
+	 * Gets the 기일내역 page.
+	 * 
+	 * @param 법원코드 the 법원코드
+	 * @param 담당자명 the 담당자명
+	 * @param 담당자코드 the 담당자코드
+	 * @param 날자 the 날자
+	 * @param 사건번호 the 사건번호
+	 * @param fetcher the fetcher
+	 * 
+	 * @return the 기일내역 page
+	 * 
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
+	private String get기일내역Page(String 법원코드, String 담당자명, int 담당자코드, Date 날자,
+			long 사건번호, PageFetcher fetcher) throws IOException,
+			UnsupportedEncodingException {
+		logger.info("기일내역 페이지를 얻어옵니다.");
+		String res = fetcher
+				.fetch("/au/SuperServlet?target_command=au.command.auc.C315ListCommand&"
+						+ "sa_no="
+						+ 사건번호
+						+ "&"
+						+ "bub_cd="
+						+ 법원코드
+						+ "&search_flg=2&page=1&level=&addr1=&addr2=&addr3=&mulutil_cd=&amt_flg=&amt=&jong_day=&"
+						+ "mae_giil="
+						+ 날자
+						+ "&"
+						+ "jp_cd="
+						+ 담당자코드
+						+ "&"
+						+ "dam_nm="
+						+ URLEncoder.encode(담당자명, "euc-kr")
+						+ "&"
+						+ "allbub=" + 법원코드 + "&browser=2&check_msg=");
+		return res;
+	}
+
+	/**
+	 * Parses the.
+	 * 
+	 * @param src the src
+	 * @param s the s
+	 * 
+	 * @return the 사건
+	 */
+	private 사건 parse(String src, 사건 s) {
+		logger.info("문건내역의 분석을 시작합니다. ");
+		System.out.println(src);
+//		int startPos = src.indexOf("기일내역&nbsp;&nbsp;&nbsp;");
+//		if (startPos != -1) {
+//			int endPos = src.indexOf("</table>", startPos);
+//			s.set기일내역(TableParser.parseTable(src, startPos, endPos));
+//		}
+		return s;
+	}
+}
