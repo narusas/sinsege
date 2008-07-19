@@ -1,44 +1,37 @@
 package net.narusas.aceauction.fetchers.pregoods;
 
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.httpclient.HttpException;
 
-import net.narusas.aceauction.fetchers.PageFetcher;
-import junit.framework.TestCase;
-
 public class BeadangListFetcherTest extends TestCase {
 	public void testFetch() throws HttpException, IOException {
-//		PageFetcher fetcher = new PageFetcher(
-//		"http://www.courtauction.go.kr/au/SuperServlet?target_command=");
 
-		
-		PageFetcher fetcher = new PageFetcher(
-				"http://www.courtauction.go.kr/au/SuperServlet?target_command=");
-
-		String bub_cd = "00211";
+		String bub_cd = "000211";
 		String bub_name = "서울동부지방법원";
 		String jp_cd = "1001";
 		String dam_nm = "경매1계";
 
-		
-		fetcher.fetch("au.command.aua.A312SearchCommand&bub_cd="+bub_cd);
-		
-		String cookieName = "법원명-배당요구종기공고";
-		
-		fetcher.setCookie( cookieName +'='+bub_cd);
-		
-		//URLEncoder.encode(, "euc-kr")
-		String query = "bub_cd=" + URLEncoder.encode(bub_cd , "euc-kr")//
-				+ "&" + "bub_nm=" + URLEncoder.encode(bub_name, "euc-kr")//
-				+ "&" + "jp_cd=" + URLEncoder.encode(jp_cd, "euc-kr")//
-				+ "&" + "dam_nm=" + URLEncoder.encode(dam_nm, "euc-kr");
-		
-		
-		
-		String page = fetcher.fetch("au.command.aua.A312ListCommand&"+query);
-		System.out.println(page);
-		
+		BeadangListFetcher fetcher = new BeadangListFetcher();
+
+		List<SagunListItem> result = fetcher.fetch(bub_cd, bub_name, jp_cd,
+				dam_nm);
+
+		assertEquals(42, result.size());
+	}
+
+	public void testParseLink() {
+		String src = "<a href=\"javascript:loadSaDetail( '20080130005794', '2008.07.21' )\" id=\"a1\">2008타경5794</a>";
+		Pattern linkPattern = Pattern
+				.compile("javascript:loadSaDetail\\( '(\\d+)', '([^']+)' \\)");
+		Matcher m = linkPattern.matcher(src);
+		assertTrue(m.find());
+		assertEquals("20080130005794", m.group(1));
+		assertEquals("2008.07.21", m.group(2));
 	}
 }
