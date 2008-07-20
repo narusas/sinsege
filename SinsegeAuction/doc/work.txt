@@ -1,0 +1,50 @@
+1.
+Firefox이용
+Page navigation
+
+PC<- Server
+User click
+PC->Server
+
+
+
+HTML & javascript
+
+"summit, go_XXX"
+
+URL: 다음페이지, 정보요청페이지
+GET, POST(HTTP Protocol)
+
+parameter분석: code, page, index, name, location, XXXXX
+
+
+
+
+2.
+정보 분석
+Tag, 문자열을 검색
+**** 예외가 존재하는가 ?????
+Tabe은 TableParser를 이용하여 분석
+
+
+정규표현식 작성
+데이터클래스 작성
+
+
+
+3.DB입력
+sql관련 코드 작성
+
+
+
+
+http://www.onara.or.kr/ep/map/infoMapView.jsp?query=서울시노원구상계5동주공1단지805호
+http://www.onara.or.kr/ep/map/infoMapView.jsp?code=1&sub1=10&sub2=3
+
+
+과정
+http://www.onara.or.kr/ep/map/infoMapView.jsp?query=서울시노원구상계5동주공1단지805호
+code를 포함하는 페이지 반환
+http://www.onara.or.kr/ep/map/infoMapView.jsp?code=1&sub1=10&sub2=3
+
+
