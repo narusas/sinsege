@@ -24,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import net.narusas.aceauction.ui.commons.¹ý¿øListModel;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class ConsoleFrame.

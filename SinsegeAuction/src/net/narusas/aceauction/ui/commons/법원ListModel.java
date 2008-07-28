@@ -1,7 +1,7 @@
 /*
  * 
  */
-package net.narusas.aceauction.ui;
+package net.narusas.aceauction.ui.commons;
 
 import javax.swing.AbstractListModel;
 
