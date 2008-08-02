@@ -17,7 +17,7 @@ import net.narusas.util.lang.NInputStream;
 
 import org.apache.commons.httpclient.HttpException;
 
-public class OnaraLandFetcher {
+public class OnaraLand시군Fetcher {
 	public List<LandInfo> getSubLandInfos(String code) throws HttpException,
 			IOException {
 		List<LandInfo> result = new ArrayList<LandInfo>();
@@ -49,9 +49,9 @@ public class OnaraLandFetcher {
 	}
 
 	public static void main(String[] args) {
-		OnaraLandFetcher f = new OnaraLandFetcher();
+		OnaraLand시군Fetcher f = new OnaraLand시군Fetcher();
 		try {
-			String mapinfo = NInputStream.getText(OnaraLandFetcher.class
+			String mapinfo = NInputStream.getText(OnaraLand시군Fetcher.class
 					.getResourceAsStream("onara_map.txt"));
 
 			List<String> codes = parseCode(mapinfo);

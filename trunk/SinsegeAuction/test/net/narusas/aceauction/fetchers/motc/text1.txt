@@ -1,0 +1,1113 @@
+null
+<!--
+****************************************************************************
+* 업무 그룹명 : 토지이용계획열람
+* 서브 업무명 : 토지이용계획열람 목록
+* 설      명 : 토지이용계획열람 목록
+* 작  성  자 : 권영경
+* 작  성  일 : 2008. 02. 28
+****************************************************************************
+-->
+
+
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="euc-kr"?>
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!--
+****************************************************************************
+* HTML 코드 시작
+****************************************************************************
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>토지이용규제정보시스템에 오신것을 환영합니다.</title>
+<meta name="author" content="토지이용규제정보시스템" />
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no">
+<link rel="stylesheet" type="text/css" href="../../ext/css/style.css" />
+<style type="text/css">
+<!--
+.style1 {font-size: 13px}
+.style2{ color:#696969; font-size:12px; border:1px solid #AEAEAE;}
+-->
+</style>
+
+<!--
+****************************************************************************
+* 자바스크립트 코드 시작
+****************************************************************************
+-->
+<script type="text/javascript" src="../../ext/script/JValidation.js"></script>
+<script type="text/javascript" src="../../ext/script/JPopup.js"></script>
+<script type="text/javascript">
+<!--
+	function init() {
+	
+	
+	
+	
+	
+	
+		parent.document.getElementById("divArLandUsePrintHistory").innerHTML = document.getElementById("spanArLandUsePrintHistory").innerHTML;
+		setTimeout('printTimeout();', 360000);
+	}
+	
+	/**
+	 * 인쇄가능 시간 초과시
+	 * 
+	 */	
+	function printTimeout() {	
+		try {
+			document.getElementById("imgPrint1").style.display = "none";
+			document.getElementById("imgPrint2").style.display = "";
+		} catch ( e ) {
+		}
+	}	
+
+	/**
+	 * 열람이력 이동
+	 * historyParam : 이동할 열람이력
+	 */		
+	function goHistory(historyParam) {
+		if (historyParam!="") {
+			Loading_image();
+			historyParam = "./ArLandUsePrintFrame.jsp?" + historyParam + "&chk=0&ipaddr=116.67.106.49&mode=search&selGbn=umd";
+			window.location.reload(historyParam);
+		}
+	}
+
+	/**
+	 * 트리펴기/접기
+	 * id : 클릭한 id
+	 */		
+	function display(id) {
+		var parentDoc = parent.document;
+		var style = "";
+		var imgSrc = "../../ext/images/leftmenu/icn_minus.gif";
+		if (parentDoc.getElementById(id).style.display!="none") {
+			style = "none";
+			imgSrc = "../../ext/images/leftmenu/icn_plus.gif";		
+		} 
+		
+		parentDoc.getElementById(id).style.display= style;
+		parentDoc.getElementById("img_" + id).src = imgSrc;
+	}		
+	
+	function doAction(mode){
+        var Form = document.forms['frm'];
+        switch (mode){
+        case "SEARCH":
+        	var sidoCode=document.frm.selSido.value;       	
+        	
+        	if (Form.selSido.value == "00") {
+        		alert("시도를 선택하여 주십시오.");
+        		return;
+        	}
+        	if (Form.selSgg.value == "000") {
+        		alert("시군구를 선택하여 주십시오.");
+        		return;
+        	}
+        	if (Form.selUmd.value == "000") {
+        		alert("읍면동을 선택하여 주십시오.");
+        		return;
+        	}
+        	if (Form.selRi.value == "00" && Form.selRi.length > 1) {
+        		alert("리를 선택하여 주십시오.");
+        		return;
+        	}
+        	if (Form.bobn.value.length == 0) {
+        		alert("본번을 입력하여 주십시오.");
+        		Form.bobn.focus();
+        		return;
+        	}
+       	
+        	if (!new JNumber("본번", Form.bobn).validate()) { return; }
+        	
+        	if (Form.bubn.value == "부번") {
+        		Form.bubn.value="";
+        	} else if (!new JNumber("부번", Form.bubn).nullable().validate()) { return; }
+	        	
+        	var fullAddress = "";	 
+        	//fullAddress = Form.selSido.options[Form.selSido.selectedIndex].text " " + 
+     		fullAddress = Form.selSgg.options[Form.selSgg.selectedIndex].text
+						+ " " +  Form.selUmd.options[Form.selUmd.selectedIndex].text;
+			if (Form.selRi.selectedIndex>0) {	
+				fullAddress +=  " " +  Form.selRi.options[Form.selRi.selectedIndex].text;
+			}								
+			if (Form.landGbn.selectedIndex>0){// '일반'이 아니면
+				fullAddress +=  " " + Form.landGbn.options[Form.landGbn.selectedIndex].text;
+			}
+			fullAddress +=  " " + Form.bobn.value;
+			if (Form.bubn.value!=""){// '부번'이 비어있지 않으면
+				fullAddress += "-" + Form.bubn.value;
+			}        	     	
+        	
+        	var umdStr=Form.selUmd.value;
+        	var umd_cd=umdStr.substring(0,3);
+        	
+        	document.getElementById("openActImg").style.display = "none";
+        	
+        	Loading_image();
+        	
+        	
+        	
+        	
+        		Form.mode.value = "search";
+        	
+        	
+        	
+        	Form.selGbn.value = "umd";
+        	Form.fullAddress.value = fullAddress;
+        	Form.pnu.value = Form.selSido.value + Form.selSgg.value + 
+        					 umd_cd + Form.selRi.value +
+        					 Form.landGbn.value + getJibunFill(Form.bobn.value) +
+        					 getJibunFill(Form.bubn.value);
+    					 
+        	//alert(Form.pnu.value);
+        	Form.submit();	        
+        	break;
+	    }
+	    return;
+    }
+
+	function getJibunFill(jibunTxt) {
+		var len = jibunTxt.length;
+		if (len == 0)
+			return "0000";
+		for (var i = len; i < 4; i++)
+			jibunTxt = "0" + jibunTxt;
+		return jibunTxt;
+	}
+
+	function doScale(keyCode) {
+		if (keyCode != 13)
+			return;
+		if (frm.scale.value.length > 0 && frm.scale.value.search(/\D/g) < 0) {
+			doAction("SEARCH");
+			return;
+		}
+		alert("숫자만 입력 가능합니다.");
+		frm.scale.focus();
+	}
+
+	function lawPop(lawCd, byul, joNo, joSubNo, evalDate) {
+    	var width =750;
+    	var height = 500;
+		var x = (screen.availWidth- width)/2;
+		var y = (screen.availHeight- height)/2;
+		var winState = 'top=' + y + ',left=' + x + ',width=' +width +',height=' +height;
+		winState +=',menubar=no,scrollbars=yes,status=no,resizable=no';
+		popId = window.open("RgLawPreviewPopup.jsp?lawCd="+lawCd+"&byul="+byul+"&joNo="+joNo+"&joSubNo="+joSubNo+"&evalDate="+evalDate, '', winState);
+		popId.focus();
+	}
+ 
+	<!-- 양진호 추가 -->
+	function changeMapInfo(mapInfo){
+		
+		
+		var ff = document.forms[0];
+		ff.selSido.value = mapInfo;
+		ff.bobn.value = "";
+		ff.bubn.value = "";
+		ff.selSido.value = mapInfo;
+		ff.selGbn.value='sido';
+		ff.action="ArLandUsePrintFrame.jsp#mp";
+		ff.submit();
+	}
+	
+	function changeMapInfo1(mapInfo) {
+		var mapIn = document.frm.selSido.value;
+				
+		var ff = document.forms[0];
+		ff.selSgg.value = mapInfo;
+		ff.bobn.value = "";
+		ff.bubn.value = "";
+		ff.selGbn.value='sgg';
+		ff.action="ArLandUsePrintFrame.jsp#mp";
+		ff.submit();
+	}
+	
+	var locMap = "";
+	var locSubMap = "";
+	
+	function setMapInfo(locMap, locSubMap) {
+		this.locMap = locMap;
+		this.locSubMap = locSubMap;
+	}
+	
+	function getLayer(layertype) {
+		var locMap = "" ;
+		var locSubMap = "" ;
+		var subMapId = "";
+	
+		if(layertype == "11" ) {
+			locMap = "seoul.gif" ;
+			locSubMap = "seoul_01.gif" ;
+			subMapId = "seoul" ;
+		} else if(layertype == "26" ) {
+			locMap = "busan.gif" ;
+			locSubMap = "busan_01.gif" ;
+			subMapId = "busan" ;
+		} else if(layertype == "42" ) {
+			locMap = "kangwon.gif" ;
+			locSubMap = "kangwon_01.gif" ;
+			subMapId = "kangwon" ;
+		} else if(layertype == "45" ){
+			locMap = "jeonbuk.gif" ;
+			locSubMap = "jeonbuk_01.gif" ;
+			subMapId = "jeonbuk" ;
+		} else if(layertype == "46" ){
+			locMap = "jeonnam.gif" ;
+			locSubMap = "jeonnam_01.gif" ;
+			subMapId = "jeonnam" ;
+		} else if(layertype == "50" ){
+			locMap = "jeju.gif" ;
+			locSubMap = "jeju_01.gif" ;
+			subMapId = "jeju" ;
+		} else if(layertype == "43" ){
+			locMap = "chungbuk.gif" ;
+			locSubMap = "chungbuk_01.gif" ;
+			subMapId = "chungbuk" ;
+		} else if(layertype == "48" ){
+			locMap = "kyungnam.gif" ;
+			locSubMap = "kyungnam_01.gif" ;
+			subMapId = "kyungnam" ;
+		} else if(layertype == "47" ){
+			locMap = "kyungbuk.gif" ;
+			locSubMap = "kyungbuk_01.gif" ;
+			subMapId = "kyungbuk" ;
+		} else if(layertype == "28" ){
+			locMap = "incheon.gif" ;
+			locSubMap = "incheon_01.gif" ;
+			subMapId = "incheon" ;
+		} else if(layertype == "41" ){
+			locMap = "kyungki.gif" ;
+			locSubMap = "kyungki_01.gif" ;
+			subMapId = "kyungki" ;
+		} else if(layertype == "44" ){
+			locMap = "chungnam.gif" ;
+			locSubMap = "chungnam_01.gif" ;
+			subMapId = "chungnam" ;
+		} else if(layertype == "30" ){
+			locMap = "daejeon.gif" ;
+			locSubMap = "daejeon_01.gif" ;
+			subMapId = "daejeon" ;
+		} else if(layertype == "27" ){
+			locMap = "daeku.gif" ;
+			locSubMap = "daeku_01.gif" ;
+			subMapId = "daeku" ;
+		} else if(layertype == "31" ){
+			locMap = "ulsan.gif" ;
+			locSubMap = "ulsan_01.gif" ;
+			subMapId = "ulsan" ;
+		} else if(layertype == "29" ){
+			locMap = "kwangju.gif" ;
+			locSubMap = "kwangju_01.gif" ;
+			subMapId = "kwangju" ;
+		} else {
+			locMap = "seoul.gif" ;
+			locSubMap = "seoul_01.gif" ;
+			subMapId = "seoul" ;
+		}
+	
+		var tbSet1 = "<img src=\"../../ext/images/map/"
+			+ locMap
+			+ "\" width=\"290\" height=\"300\" border=\"0\" usemap=\"##koreaMap\">" ;
+	
+		var tbSet2 = "<img src=\"../../ext/images/map/"
+			+ locSubMap
+			+ "\" width=\"320\" height=\"300\" border=\"0\" usemap=\"#"
+			+ subMapId + "\">";
+	
+		setMapInfo(tbSet1, tbSet2);
+	}
+	
+	function loadImage(mapInfo) {
+		var layset = getLayer(mapInfo);
+		document.getElementById('koreaMap').innerHTML = locMap;
+		document.getElementById('koreaSubMap').innerHTML = locSubMap;
+	}
+	function sel_sido(){
+		var sidoCode=document.frm.selSido.value;
+				
+		for (i=0; i<document.frm.selSgg.options.length; i++ ) { 
+			document.frm.selSgg.options[i] = null; 
+		}
+		for (i=0; i<document.frm.selUmd.options.length; i++ ) { 
+			document.frm.selUmd.options[i] = null; 
+		}
+		for (i=0; i<document.frm.selRi.options.length; i++ ) { 
+			document.frm.selRi.options[i] = null; 
+		}
+		
+		document.frm.selSgg.options[0] = new Option("","선택");
+		document.frm.selUmd.options[0] = new Option("","선택");
+		document.frm.selRi.options[0] = new Option("","선택");
+		
+		document.frm.selSgg.selectedIndex = 0; 
+		document.frm.selUmd.selectedIndex = 0;
+		document.frm.selRi.selectedIndex = 0;
+		document.frm.landGbn.selectedIndex = 0;
+		
+		document.frm.bobn.value="";
+		document.frm.bubn.value="";
+		
+		document.frm.mode.value = "";
+		document.frm.selGbn.value='sido';
+		document.frm.submit();
+	}
+	
+	function sel_sgg(){
+		for (i=0; i<document.frm.selUmd.options.length; i++ ) { 
+			document.frm.selUmd.options[i] = null; 
+		}
+		for (i=0; i<document.frm.selRi.options.length; i++ ) { 
+			document.frm.selRi.options[i] = null; 
+		}
+		
+		var sidoCode=document.frm.selSido.value;
+	
+		document.frm.selUmd.options[0] = new Option("","선택");
+		document.frm.selRi.options[0] = new Option("","선택");
+		
+		document.frm.selUmd.selectedIndex = 0;
+		document.frm.selRi.selectedIndex = 0;
+		document.frm.landGbn.selectedIndex = 0;
+		
+		document.frm.bobn.value="";
+		document.frm.bubn.value="";
+			
+		document.frm.mode.value = "";
+		document.frm.selGbn.value='sgg';
+		document.frm.submit();
+	}
+	
+	function sel_umd(){
+		for (i=0; i<document.frm.selRi.options.length; i++ ) { 
+			document.frm.selRi.options[i] = null; 
+		}
+		
+		document.frm.selRi.options[0] = new Option("","선택");
+		
+		document.frm.selRi.selectedIndex = 0;
+		document.frm.landGbn.selectedIndex = 0;
+		
+		document.frm.bobn.value="";
+		document.frm.bubn.value="";
+			
+		document.frm.mode.value = "";
+		document.frm.selGbn.value='umd';
+		document.frm.submit();
+	}
+
+	/**
+	 * 프린트 팝업창 내용에 추가한다.
+	 * flag : null이 아니면 재시도안함
+	 */		
+	function insertPrintFrontData(flag) {
+		try {
+			document.getElementById("openActImg").style.display = "none";
+			printPopId.document.getElementById("printData").innerHTML = 
+					document.getElementById("printFrontData").innerHTML + printPopId.document.getElementById("printData").innerHTML;
+			document.getElementById("openActImg").style.display = "";		
+		} catch(e) {
+			document.getElementById("openActImg").style.display = "";
+			if (flag==null) {								
+				setTimeout('insertPrintFrontData(1)', 600);
+			}
+		}	
+	}
+	
+	function click() {
+		if (event.button==2) {
+			alert('이 페이지에서는 마우스 오른쪽 버튼 사용이 금지됩니다.');
+		}
+	}
+	document.onmousedown = click;
+	
+	function showMessages(){
+	
+	
+		var string = window.prompt('잘못된 접근입니다.', '');
+		if (string=="adminpass") {
+			alert(' err :  \n '
+				+ 'ucode :  \n '
+				+ 'jiga :  ');
+		}
+	
+	
+	}
+//-->
+</script>
+<!--
+****************************************************************************
+* 자바스크립트 코드 끝
+****************************************************************************
+-->
+</head>
+<!--
+****************************************************************************
+* BODY 코드 시작
+****************************************************************************
+-->
+<body topmargin="0" leftmargin="0" onLoad="loadImage(11); init();" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<!-- main frame start -->
+<!-- 여백start -->
+<table border="0" cellpadding="0" cellspacing="0" ><tr><td class="blank"></td></tr></table>
+<!-- 여백end -->	
+
+<form name="frm" method="get" action="ArLandUsePrintFrame.jsp" style="margin:0">
+<input type="hidden" name="pnu"/>
+<input type="hidden" name="mode"/>
+<input type="hidden" name="selGbn"/>
+<input type="hidden" name="fullAddress"/><!-- 열람이력 문구 -->
+
+<!-- 프린트  추가내용 start -->
+<span id="printFrontData">
+<!-- 검색 start -->
+<table width="735" border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td colspan="9" class="line_g2"></td>
+</tr>
+<tr>
+	<td colspan="9" class="line_gr2"></td>
+</tr>
+<tr>
+	<td class="intra_t3" width="70" valign=top><a name="top"></a>소재지</td>
+	<td class="line_h2" width="1" >&nbsp;</td>
+	<td>
+		<select name="selSido" class="input_S" onchange="javascript:sel_sido();">
+		<option value="00">시도선택</option>
+		
+		<option value="11" selected>서울특별시</option>
+		
+		<option value="26" >부산광역시</option>
+		
+		<option value="27" >대구광역시</option>
+		
+		<option value="28" >인천광역시</option>
+		
+		<option value="29" >광주광역시</option>
+		
+		<option value="30" >대전광역시</option>
+		
+		<option value="31" >울산광역시</option>
+		
+		<option value="41" >경기도</option>
+		
+		<option value="42" >강원도</option>
+		
+		<option value="43" >충청북도</option>
+		
+		<option value="44" >충청남도</option>
+		
+		<option value="45" >전라북도</option>
+		
+		<option value="46" >전라남도</option>
+		
+		<option value="47" >경상북도</option>
+		
+		<option value="48" >경상남도</option>
+		
+		<option value="50" >제주특별자치도</option>
+		
+		</select>
+	</td>
+	<td>
+		<select name="selSgg" class="input_S" onchange="javascript:sel_sgg();">
+		<option value="000">시군구선택</option>
+		
+		<option value="680" >강남구</option>
+		
+		<option value="740" >강동구</option>
+		
+		<option value="305" >강북구</option>
+		
+		<option value="500" >강서구</option>
+		
+		<option value="620" >관악구</option>
+		
+		<option value="215" >광진구</option>
+		
+		<option value="530" >구로구</option>
+		
+		<option value="545" >금천구</option>
+		
+		<option value="350" selected>노원구</option>
+		
+		<option value="320" >도봉구</option>
+		
+		<option value="230" >동대문구</option>
+		
+		<option value="590" >동작구</option>
+		
+		<option value="440" >마포구</option>
+		
+		<option value="410" >서대문구</option>
+		
+		<option value="650" >서초구</option>
+		
+		<option value="200" >성동구</option>
+		
+		<option value="290" >성북구</option>
+		
+		<option value="710" >송파구</option>
+		
+		<option value="470" >양천구</option>
+		
+		<option value="560" >영등포구</option>
+		
+		<option value="170" >용산구</option>
+		
+		<option value="380" >은평구</option>
+		
+		<option value="110" >종로구</option>
+		
+		<option value="140" >중구</option>
+		
+		<option value="260" >중랑구</option>
+		
+		</select>
+	</td>
+	<td>
+		<select name="selUmd" class="input_S" onchange="javascript:sel_umd();" >
+		<option value="000">읍면동선택</option>
+		
+		<option value="103_공릉동" >공릉동</option>
+		
+		<option value="105_상계동" selected>상계동</option>
+		
+		<option value="102_월계동" >월계동</option>
+		
+		<option value="106_중계동" >중계동</option>
+		
+		<option value="104_하계동" >하계동</option>
+		
+		</select>
+	</td>
+	<td>
+		<select name="selRi" class="input_SS" >
+		<option value="00">리선택</option>
+		
+		</select>
+	</td>
+	<td>
+		<select name="landGbn" class="input_SS" >
+		<option value="1" selected>일반</option>
+		<option value="2" >산</option>
+		</select>
+	</td>
+	<td>
+		
+		<input type="text" name="bobn" class="input_SS2" value="136" onFocus="this.value=''" >
+		
+
+		
+		- 
+		
+		<input type="text" name="bubn" class="input_SS2" value="1" onFocus="this.value=''" >
+		
+
+		
+	</td>	
+	<td width=72><a href="javascript:doAction('SEARCH')"><img src="../../ext/images/button/openAct.gif" border="0" id=openActImg /></a></td>
+</tr>
+<tr>
+	<td class="line_g2" onClick="javascript:showMessages();"></td>
+	<td colspan="8" class="line_g2" ></td>
+</tr>
+</table>
+<!-- 여백start -->
+<table border="0" cellpadding="0" cellspacing="0" >
+<tr><td class="blank"></td></tr></table>
+<!-- 여백end -->
+</span>
+<!-- 프린트  추가내용 end -->
+
+<table width="735" border="0" cellpadding="0" cellspacing="0" >
+<tr>
+	<td>
+		<div id="LayerMap" style="">
+		<table width="700" border="0" cellspacing="0" cellpadding="0" align=center>
+		<tr>
+			<td width="340">
+				<!--------------------- 전국지도  테이블 시작 ---------------------------------------->
+				<table width="340" height="320" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="10" height="10"><img src="../../ext/images/map/cor_t_l.gif" width="10" height="10"></td>
+					<td width="320" background="../../ext/images/map/cor_t.gif"></td>
+					<td width="10"><img src="../../ext/images/map/cor_t_r.gif" width="10" height="10"></td>
+				</tr>
+				<tr>
+					<td height="300" background="../../ext/images/map/cor_l.gif">&nbsp;</td>
+					<td align="center" id="koreaMap">
+					<!----------------------- 전국지도 이미지------------------------------->
+
+
+					</td>
+					<td background="../../ext/images/map/cor_r.gif">&nbsp;</td>
+				</tr>
+				<tr>
+					<td height="10"><img src="../../ext/images/map/cor_b_l.gif" width="10" height="10"></td>
+					<td background="../../ext/images/map/cor_b.gif"></td>
+					<td><img src="../../ext/images/map/cor_b_r.gif" width="10" height="10"></td>
+				</tr>
+				</table>
+				<!------------------------ 전국지도  테이블 끝 ---------------------------------------->
+			</td>
+			<td>&nbsp;</td>
+			<td width="340">
+				<!-----------------------  지역상세 테이블  시작 --------------------------------->
+				<table width="340" height="320" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="10" height="10"><img src="../../ext/images/map/cor_t_l.gif" width="10" height="10"></td>
+					<td width="320" background="../../ext/images/map/cor_t.gif"></td>
+					<td width="10"><img src="../../ext/images/map/cor_t_r.gif" width="10" height="10"></td>
+				</tr>
+				<tr>
+					<td height="300" background="../../ext/images/map/cor_l.gif">&nbsp;</td>
+					<td align="center" id="koreaSubMap">
+					  <!------------------- 지도상세 이미지 --------------------->
+					</td>
+					<td background="../../ext/images/map/cor_r.gif">&nbsp;</td>
+				</tr>
+				<tr>
+					<td height="10"><img src="../../ext/images/map/cor_b_l.gif" width="10" height="10"></td>
+					<td background="../../ext/images/map/cor_b.gif"></td>
+					<td><img src="../../ext/images/map/cor_b_r.gif" width="10" height="10"></td>
+				</tr>
+				</table>
+				<!-----------------------  지역상세 테이블  끝--------------------------------->
+			</td>
+		</tr>
+		</table>
+		</div>
+	</td>
+</tr>
+</table>
+<!-- 검색 end -->
+<!-- 여백start -->
+<table border="0" cellpadding="0" cellspacing="0" >
+<tr><td class="blank"></td></tr></table>
+<!-- 여백end -->
+
+
+
+<!-- 열람이력 start -->
+<span id="spanArLandUsePrintHistory" style="display:none">	
+	
+	
+		
+</span>
+<!-- 열람이력 end -->	
+<!-- KLIS담당부서 연락처  start -->	
+<span id="spanKLISChrgDeptInfo" style="display:none">	
+		
+</span>
+<!-- KLIS담당부서 연락처 end -->
+
+
+
+<!-- main frame end -->
+</form>
+
+<!----------------- 전국 지도 맵  시작 --------------------------------->
+<map name="#koreaMap">
+	<area shape="rect" coords="51,264,106,288" href="javascript:changeMapInfo(50)" alt="제주도">
+	<area shape="rect" coords="71,222,134,243" href="javascript:changeMapInfo(46)" alt="전라남도">
+	<area shape="rect" coords="15,204,100,225" href="javascript:changeMapInfo(29)" alt="광주광역시">
+	<area shape="rect" coords="128,192,186,219" href="javascript:changeMapInfo(48)" alt="경상남도">
+	<area shape="rect" coords="191,187,274,208" href="javascript:changeMapInfo(31)" alt="울산광역시">
+	<area shape="rect" coords="158,167,243,187" href="javascript:changeMapInfo(27)" alt="대구광역시">
+	<area shape="rect" coords="151,144,214,163" href="javascript:changeMapInfo(47)" alt="경상북도">
+	<area shape="rect" coords="214,99,250,120" href="javascript:changeMapInfo(47)" alt="경상북도">
+	<area shape="rect" coords="39,150,121,171" href="javascript:changeMapInfo(30)" alt="대전광역시">
+	<area shape="rect" coords="57,125,109,148" href="javascript:changeMapInfo(44)" alt="충청남도">
+	<area shape="rect" coords="110,121,166,145" href="javascript:changeMapInfo(43)" alt="충청북도">
+	<area shape="rect" coords="95,92,134,112" href="javascript:changeMapInfo(41)" alt="경기도">
+	<area shape="rect" coords="16,86,94,108" href="javascript:changeMapInfo(28)" alt="인천광역시">
+	<area shape="rect" coords="127,58,177,90" href="javascript:changeMapInfo(42)" alt="강원도">
+	<area shape="rect" coords="37,57,109,85" href="javascript:changeMapInfo(11)" alt="서울특별시">
+	<area shape="rect" coords="63,180,124,200" href="javascript:changeMapInfo(45)" alt="전라북도">
+	<area shape="rect" coords="195,207,269,225" href="javascript:changeMapInfo(26)" alt="부산광역시">
+</map>
+  <!----------------- 전국 지도 맵  끝 --------------------------------->
+
+
+<!------------------- 서울특별시 맵 시작 ------------------------------->
+<map name="seoul">
+  <area shape="rect" coords="198,38,222,60" href="javascript:changeMapInfo1(320)" alt="도봉">
+  <area shape="rect" coords="225,40,251,65" href="javascript:changeMapInfo1(350)" alt="노원">
+  <area shape="rect" coords="181,63,211,85" href="javascript:changeMapInfo1(305)" alt="강북">
+  <area shape="rect" coords="129,74,158,95" href="javascript:changeMapInfo1(380)" alt="은평">
+  <area shape="rect" coords="124,114,162,134" href="javascript:changeMapInfo1(410)" alt="서대문">
+  <area shape="rect" coords="164,108,190,129" href="javascript:changeMapInfo1(110)" alt="종로">
+  <area shape="rect" coords="183,93,211,114" href="javascript:changeMapInfo1(290)" alt="성북">
+  <area shape="rect" coords="240,97,266,119" href="javascript:changeMapInfo1(260)" alt="중량">
+  <area shape="rect" coords="210,109,241,130" href="javascript:changeMapInfo1(230)" alt="동대문">
+  <area shape="rect" coords="177,129,202,144" href="javascript:changeMapInfo1(140)" alt="중구">
+  <area shape="rect" coords="112,130,140,152" href="javascript:changeMapInfo1(440)" alt="마포">
+  <area shape="rect" coords="55,130,87,152" href="javascript:changeMapInfo1(500)" alt="강서">
+  <area shape="rect" coords="78,168,101,192" href="javascript:changeMapInfo1(470)" alt="양천">
+  <area shape="rect" coords="110,170,143,190" href="javascript:changeMapInfo1(560)" alt="영등포">
+  <area shape="rect" coords="202,139,232,155" href="javascript:changeMapInfo1(200)" alt="성동">
+  <area shape="rect" coords="235,140,257,163" href="javascript:changeMapInfo1(215)" alt="광진">
+  <area shape="rect" coords="266,144,294,167" href="javascript:changeMapInfo1(740)" alt="강동">
+  <area shape="rect" coords="252,179,282,201" href="javascript:changeMapInfo1(710)" alt="송파">
+  <area shape="rect" coords="205,184,234,206" href="javascript:changeMapInfo1(680)" alt="강남">
+  <area shape="rect" coords="183,197,206,225" href="javascript:changeMapInfo1(650)" alt="서초">
+  <area shape="rect" coords="143,184,165,204" href="javascript:changeMapInfo1(590)" alt="동작">
+  <area shape="rect" coords="140,217,167,240" href="javascript:changeMapInfo1(620)" alt="관악">
+  <area shape="rect" coords="106,212,132,242" href="javascript:changeMapInfo1(545)" alt="금천">
+  <area shape="rect" coords="74,192,101,214" href="javascript:changeMapInfo1(530)" alt="구로">
+  <area shape="rect" coords="160,155,191,176" href="javascript:changeMapInfo1(170)" alt="용산">
+</map>
+<!------------------- 서울특별시 맵 끝------------------------------->
+
+<!----------------------- 충청북도 맵 시작 ------------------------->
+<map name="chungbuk">
+  <area shape="rect" coords="137,87,176,107" href="javascript:changeMapInfo1(130)" alt="충주시">
+  <area shape="rect" coords="79,98,120,118" href="javascript:changeMapInfo1(770)" alt="음성군">
+  <area shape="rect" coords="66,120,101,135" href="javascript:changeMapInfo1(750)" alt="진천군">
+  <area shape="rect" coords="97,135,125,153" href="javascript:changeMapInfo1(745)" alt="증평군">
+  <area shape="rect" coords="128,133,161,151" href="javascript:changeMapInfo1(760)" alt="괴산군">
+  <area shape="rect" coords="187,101,227,119" href="javascript:changeMapInfo1(150)" alt="제천시">
+  <area shape="rect" coords="230,89,268,110" href="javascript:changeMapInfo1(800)" alt="단양군">
+  <area shape="rect" coords="65,161,102,178" href="javascript:changeMapInfo1(110)" alt="청주시">
+  <area shape="rect" coords="104,157,140,178" href="javascript:changeMapInfo1(710)" alt="청원군">
+  <area shape="rect" coords="120,182,159,204" href="javascript:changeMapInfo1(720)" alt="보은군">
+  <area shape="rect" coords="101,213,146,232" href="javascript:changeMapInfo1(730)" alt="옥천군">
+  <area shape="rect" coords="136,240,179,259" href="javascript:changeMapInfo1(740)" alt="영동군">
+</map>
+<!----------------------- 충청북도 맵 끝 ------------------------->
+
+<!--------------------- 경기도 맵 시작  ----------------------------->
+<map name="kyungki">
+ <area shape="rect" coords="132,54,162,74" href="javascript:changeMapInfo1(800)" alt="연천">
+  <area shape="rect" coords="133,85,173,107" href="javascript:changeMapInfo1(250)" alt="동두천">
+  <area shape="rect" coords="166,68,201,89" href="javascript:changeMapInfo1(650)" alt="포천">
+  <area shape="rect" coords="92,107,119,125" href="javascript:changeMapInfo1(480)" alt="파주">
+  <area shape="rect" coords="126,107,152,122" href="javascript:changeMapInfo1(630)" alt="양주">
+  <area shape="rect" coords="137,124,175,139" href="javascript:changeMapInfo1(150)" alt="의정부">
+  <area shape="rect" coords="168,138,201,152" href="javascript:changeMapInfo1(360)" alt="남양주">
+  <area shape="rect" coords="204,108,235,126" href="javascript:changeMapInfo1(820)" alt="가평">
+  <area shape="rect" coords="239,162,273,181" href="javascript:changeMapInfo1(830)" alt="양평">
+  <area shape="rect" coords="238,204,269,225" href="javascript:changeMapInfo1(730)" alt="여주">
+  <area shape="rect" coords="206,208,233,229" href="javascript:changeMapInfo1(500)" alt="이천">
+  <area shape="rect" coords="95,142,123,158" href="javascript:changeMapInfo1(280)" alt="고양">
+  <area shape="rect" coords="80,135,40,155" href="javascript:changeMapInfo1(570)" alt="김포">
+  <area shape="rect" coords="101,178,126,192" href="javascript:changeMapInfo1(210)" alt="광명">
+  <area shape="rect" coords="89,165,113,178" href="javascript:changeMapInfo1(190)" alt="부천">
+  <area shape="rect" coords="114,189,136,201" href="javascript:changeMapInfo1(170)" alt="안양">
+  <area shape="rect" coords="129,179,152,191" href="javascript:changeMapInfo1(290)" alt="과천">
+  <area shape="rect" coords="151,150,176,167" href="javascript:changeMapInfo1(310)" alt="구리">
+  <area shape="rect" coords="167,162,191,182" href="javascript:changeMapInfo1(450)" alt="하남">
+   <area shape="rect" coords="146,185,173,198" href="javascript:changeMapInfo1(130)" alt="성남">
+  <area shape="rect" coords="130,195,151,209" href="javascript:changeMapInfo1(430)" alt="의왕">
+  <area shape="rect" coords="110,199,131,215" href="javascript:changeMapInfo1(410)" alt="군포">
+  <area shape="rect" coords="90,188,113,202" href="javascript:changeMapInfo1(390)" alt="시흥">
+   <area shape="rect" coords="103,225,131,244" href="javascript:changeMapInfo1(590)" alt="화성">
+  <area shape="rect" coords="132,208,151,222" href="javascript:changeMapInfo1(110)" alt="수원">
+  <area shape="rect" coords="138,228,163,244" href="javascript:changeMapInfo1(370)" alt="오산">
+  <area shape="rect" coords="165,212,189,228" href="javascript:changeMapInfo1(460)" alt="용인">
+  <area shape="rect" coords="178,248,210,265" href="javascript:changeMapInfo1(550)" alt="안성">
+  <area shape="rect" coords="128,250,156,271" href="javascript:changeMapInfo1(220)" alt="평택">
+  <area shape="rect" coords="88,200,111,214" href="javascript:changeMapInfo1(270)" alt="안산">
+  <area shape="rect" coords="182,181,207,197" href="javascript:changeMapInfo1(610)" alt="광주">
+</map>
+<!--------------------- 경기도 맵 끝 ----------------------------->
+
+<!------------------------- 인천광역시 맵 시작 ------------------------>
+<map name="incheon">
+ <area shape="rect" coords="128,86,178,121" href="javascript:changeMapInfo1(710)" alt="강화군">
+  <area shape="rect" coords="124,194,161,221" href="javascript:changeMapInfo1(110)" alt="중구">
+  <area shape="rect" coords="36,234,73,265" href="javascript:changeMapInfo1(720)" alt="옹진군">
+  <area shape="rect" coords="209,153,248,176" href="javascript:changeMapInfo1(260)" alt="서구">
+  <area shape="rect" coords="252,152,289,178" href="javascript:changeMapInfo1(245)" alt="계양구">
+  <area shape="rect" coords="248,189,285,209" href="javascript:changeMapInfo1(237)" alt="부평구">
+  <area shape="rect" coords="258,217,291,236" href="javascript:changeMapInfo1(200)" alt="남동구">
+  <area shape="rect" coords="224,239,263,257" href="javascript:changeMapInfo1(185)" alt="연수구 ">
+  <area shape="rect" coords="229,215,253,235" href="javascript:changeMapInfo1(170)" alt="남구">
+  <area shape="rect" coords="219,196,247,212" href="javascript:changeMapInfo1(140)" alt="동구">
+  <area shape="rect" coords="203,211,228,229" href="javascript:changeMapInfo1(110)" alt="중구">
+</map>
+
+<!------------------------- 인천광역시 맵 끝 ------------------------>
+
+<!------------------------- 강원도 맵 시작 --------------------------->
+<map name="kangwon">
+  <area shape="rect" coords="181,60,218,87" href="javascript:changeMapInfo1(820)" alt="고성군">
+  <area shape="rect" coords="194,95,238,116" href="javascript:changeMapInfo1(210)" alt="속초시">
+  <area shape="rect" coords="199,119,245,138" href="javascript:changeMapInfo1(830)" alt="양양군">
+  <area shape="rect" coords="231,149,274,173" href="javascript:changeMapInfo1(150)" alt="강릉시">
+  <area shape="rect" coords="257,181,300,200" href="javascript:changeMapInfo1(170)" alt="동해시 ">
+  <area shape="rect" coords="256,213,293,235" href="javascript:changeMapInfo1(230)" alt="삼척시">
+  <area shape="rect" coords="247,238,283,260" href="javascript:changeMapInfo1(190)" alt="태백시">
+  <area shape="rect" coords="210,197,246,221" href="javascript:changeMapInfo1(770)" alt="정선군">
+  <area shape="rect" coords="179,170,213,191" href="javascript:changeMapInfo1(760)" alt="평창군">
+  <area shape="rect" coords="155,106,191,131" href="javascript:changeMapInfo1(810)" alt="인제군">
+  <area shape="rect" coords="126,80,160,100" href="javascript:changeMapInfo1(800)" alt="양구군">
+  <area shape="rect" coords="95,88,125,111" href="javascript:changeMapInfo1(790)" alt="화천군">
+  <area shape="rect" coords="49,71,89,96" href="javascript:changeMapInfo1(780)" alt="철원군">
+  <area shape="rect" coords="96,123,136,143" href="javascript:changeMapInfo1(110)" alt="춘천시">
+  <area shape="rect" coords="126,143,168,165" href="javascript:changeMapInfo1(720)" alt="홍천군">
+  <area shape="rect" coords="134,175,175,197" href="javascript:changeMapInfo1(730)" alt="횡성군">
+  <area shape="rect" coords="108,205,147,225" href="javascript:changeMapInfo1(130)" alt="원주시">
+  <area shape="rect" coords="178,224,213,248" href="javascript:changeMapInfo1(750)" alt="영월군">
+</map>
+<!------------------------- 강원도 맵 끝--------------------------->
+
+<!------------------------ 충남 맵 시작 ------------------------->
+<map name="chungnam">
+  <area shape="rect" coords="101,78,141,100" href="javascript:changeMapInfo1(830)" alt="당진군">
+  <area shape="rect" coords="160,99,196,121" href="javascript:changeMapInfo1(200)" alt="아산시">
+  <area shape="rect" coords="206,88,239,115" href="javascript:changeMapInfo1(130)" alt="천안시">
+  <area shape="rect" coords="34,91,71,109" href="javascript:changeMapInfo1(825)" alt="태안군">
+  <area shape="rect" coords="73,104,104,124" href="javascript:changeMapInfo1(210)" alt="서산시">
+  <area shape="rect" coords="125,118,166,136" href="javascript:changeMapInfo1(810)" alt="예산군">
+  <area shape="rect" coords="94,143,141,165" href="javascript:changeMapInfo1(800)" alt="홍성군">
+  <area shape="rect" coords="130,168,170,192" href="javascript:changeMapInfo1(790)" alt="청양군">
+  <area shape="rect" coords="178,161,217,183" href="javascript:changeMapInfo1(150)" alt="공주시">
+  <area shape="rect" coords="198,210,238,226" href="javascript:changeMapInfo1(250)" alt="계룡시">
+  <area shape="rect" coords="235,245,271,266" href="javascript:changeMapInfo1(710)" alt="금산군">
+  <area shape="rect" coords="183,223,222,243" href="javascript:changeMapInfo1(230)" alt="논산시">
+  <area shape="rect" coords="128,209,167,230" href="javascript:changeMapInfo1(760)" alt="부여">
+  <area shape="rect" coords="88,191,127,211" href="javascript:changeMapInfo1(180)" alt="보령시">
+  <area shape="rect" coords="92,235,130,261" href="javascript:changeMapInfo1(770)" alt="서천군">
+  <area shape="rect" coords="212,142,250,165" href="javascript:changeMapInfo1(730)" alt="연기군">
+</map>
+<!------------------------ 충남 맵 끝------------------------->
+
+<!----------------------------- 충북 맵 시작 -------------------------->
+<map name="chungbuk">
+  <area shape="rect" coords="84,97,122,118" href="javascript:changeMapInfo1(770)" alt="음성군">
+  <area shape="rect" coords="62,120,103,139" href="javascript:changeMapInfo1(750)" alt="진천군">
+  <area shape="rect" coords="134,87,175,107" href="javascript:changeMapInfo1(130)" alt="충주시">
+  <area shape="rect" coords="188,99,227,122" href="javascript:changeMapInfo1(150)" alt="제천시">
+  <area shape="rect" coords="230,90,266,112" href="javascript:changeMapInfo1(800)" alt="단양군">
+  <area shape="rect" coords="124,130,161,155" href="javascript:changeMapInfo1(760)" alt="괴산군">
+  <area shape="rect" coords="100,158,141,181" href="javascript:changeMapInfo1(710)" alt="청원군">
+  <area shape="rect" coords="65,157,100,182" href="javascript:changeMapInfo1(130)" alt="청주시">
+  <area shape="rect" coords="117,181,157,201" href="javascript:changeMapInfo1(720)" alt="보은군">
+  <area shape="rect" coords="99,212,151,232" href="javascript:changeMapInfo1(730)" alt="옥천군">
+  <area shape="rect" coords="138,240,176,263" href="javascript:changeMapInfo1(740)" alt="영동군">
+</map>
+<!----------------------------- 충북 맵 끝 -------------------------->
+
+<!------------------------- 대전 광역시 맵 시작 ------------------->
+<map name="daejeon">
+  <area shape="rect" coords="115,103,167,131" href="javascript:changeMapInfo1(200)" alt="유성구">
+  <area shape="rect" coords="218,117,264,149" href="javascript:changeMapInfo1(230)" alt="대덕구">
+  <area shape="rect" coords="154,182,193,214" href="javascript:changeMapInfo1(140)" alt="중구">
+  <area shape="rect" coords="199,196,244,228" href="javascript:changeMapInfo1(110)" alt="동구">
+  <area shape="rect" coords="96,201,132,242" href="javascript:changeMapInfo1(170)" alt="서구 ">
+</map>
+<!------------------------- 대전 광역시 맵 끝 ------------------->
+
+<!--------------------------- 전라북도 맵 시작  --------------------->
+<map name="jeonbuk">
+  <area shape="rect" coords="114,76,152,102" href="javascript:changeMapInfo1(140)" alt="익산시">
+  <area shape="rect" coords="155,93,196,117" href="javascript:changeMapInfo1(710)" alt="완주군">
+  <area shape="rect" coords="74,91,111,116" href="javascript:changeMapInfo1(130)" alt="군산시">
+  <area shape="rect" coords="89,122,124,146" href="javascript:changeMapInfo1(210)" alt="김제시">
+  <area shape="rect" coords="131,124,171,148" href="javascript:changeMapInfo1(110)" alt="전주시">
+  <area shape="rect" coords="190,125,231,153" href="javascript:changeMapInfo1(720)" alt="진안군">
+  <area shape="rect" coords="242,97,283,125" href="javascript:changeMapInfo1(730)" alt="무주군">
+  <area shape="rect" coords="219,163,249,187" href="javascript:changeMapInfo1(740)" alt="장수군">
+  <area shape="rect" coords="193,221,245,250" href="javascript:changeMapInfo1(190)" alt="남원시">
+  <area shape="rect" coords="153,181,196,208" href="javascript:changeMapInfo1(750)" alt="임실군">
+  <area shape="rect" coords="125,213,167,245" href="javascript:changeMapInfo1(770)" alt="순창군">
+  <area shape="rect" coords="94,173,133,202" href="javascript:changeMapInfo1(180)" alt="정읍시">
+  <area shape="rect" coords="53,153,92,185" href="javascript:changeMapInfo1(800)" alt="부안군">
+  <area shape="rect" coords="31,217,76,244" href="javascript:changeMapInfo1(790)" alt="고창군">
+</map>
+<!--------------------------- 전라북도 맵 끝  --------------------->
+
+<!---------------------- 전라남도 맵 시작 -------------------------->
+<map name="jeonnam">
+  <area shape="rect" coords="86,70,130,92" href="javascript:changeMapInfo1(870)" alt="영광군">
+  <area shape="rect" coords="133,69,170,93" href="javascript:changeMapInfo1(880)" alt="장성군">
+  <area shape="rect" coords="170,68,208,93" href="javascript:changeMapInfo1(710)" alt="담양군">
+  <area shape="rect" coords="221,87,254,106" href="javascript:changeMapInfo1(720)" alt="곡성군">
+  <area shape="rect" coords="255,85,287,106" href="javascript:changeMapInfo1(730)" alt="구례군">
+  <area shape="rect" coords="91,100,131,124" href="javascript:changeMapInfo1(860)" alt="함평군">
+  <area shape="rect" coords="128,126,163,145" href="javascript:changeMapInfo1(170)" alt="나주시">
+  <area shape="rect" coords="174,124,214,149" href="javascript:changeMapInfo1(790)" alt="화순군">
+  <area shape="rect" coords="239,127,278,150" href="javascript:changeMapInfo1(150)" alt="순천시">
+  <area shape="rect" coords="282,121,317,147" href="javascript:changeMapInfo1(230)" alt="광양시">
+  <area shape="rect" coords="269,166,314,190" href="javascript:changeMapInfo1(130)" alt="여수시">
+<!-- <area shape="rect" coords="279,183,313,208" href="javascript:changeMapInfo1(130)" alt="여천군"> -->
+  <area shape="rect" coords="208,154,250,174" href="javascript:changeMapInfo1(780)" alt="보성군">
+  <area shape="rect" coords="217,198,267,218" href="javascript:changeMapInfo1(770)" alt="고흥군">
+  <area shape="rect" coords="163,165,197,193" href="javascript:changeMapInfo1(800)" alt="장흥군">
+  <area shape="rect" coords="137,191,173,212" href="javascript:changeMapInfo1(810)" alt="강진군">
+  <area shape="rect" coords="123,256,167,275" href="javascript:changeMapInfo1(890)" alt="완도군">
+  <area shape="rect" coords="104,210,144,230" href="javascript:changeMapInfo1(820)" alt="해남군">
+  <area shape="rect" coords="112,160,159,178" href="javascript:changeMapInfo1(830)" alt="영암군">
+  <area shape="rect" coords="85,128,117,150" href="javascript:changeMapInfo1(840)" alt="무안군">
+  <area shape="rect" coords="52,152,90,174" href="javascript:changeMapInfo1(110)" alt="목포시">
+  <area shape="rect" coords="19,163,56,190" href="javascript:changeMapInfo1(910)" alt="신안군">
+  <area shape="rect" coords="46,233,82,255" href="javascript:changeMapInfo1(900)" alt="진도군">
+</map>
+<!---------------------- 전라남도 맵 끝 -------------------------->
+
+<!---------------- 경상남도 맵 시작 --------------------------------->
+<map name="kyungnam">
+  <area shape="rect" coords="48,68,88,90" href="javascript:changeMapInfo1(880)" alt="거창군">
+  <area shape="rect" coords="24,100,66,120" href="javascript:changeMapInfo1(870)" alt="함양군">
+  <area shape="rect" coords="88,106,130,126" href="javascript:changeMapInfo1(890)" alt="합천군">
+  <area shape="rect" coords="50,140,90,159" href="javascript:changeMapInfo1(860)" alt="산청군">
+  <area shape="rect" coords="106,135,147,157" href="javascript:changeMapInfo1(720)" alt="의령군">
+  <area shape="rect" coords="142,107,177,127" href="javascript:changeMapInfo1(740)" alt="창녕군">
+  <area shape="rect" coords="186,120,221,137" href="javascript:changeMapInfo1(270)" alt="밀양시">
+  <area shape="rect" coords="225,136,264,158" href="javascript:changeMapInfo1(330)" alt="양산시">
+  <area shape="rect" coords="132,163,166,184" href="javascript:changeMapInfo1(730)" alt="함안군">
+  <area shape="rect" coords="170,157,201,181" href="javascript:changeMapInfo1(110)" alt="창원시">
+  <area shape="rect" coords="199,162,235,184" href="javascript:changeMapInfo1(250)" alt="김해시">
+  <area shape="rect" coords="185,192,227,213" href="javascript:changeMapInfo1(190)" alt="진해시">
+  <area shape="rect" coords="143,189,178,209" href="javascript:changeMapInfo1(160)" alt="마산시">
+  <area shape="rect" coords="86,181,123,204" href="javascript:changeMapInfo1(170)" alt="진주시">
+  <area shape="rect" coords="31,185,71,209" href="javascript:changeMapInfo1(850)" alt="하동군">
+  <area shape="rect" coords="81,211,119,235" href="javascript:changeMapInfo1(240)" alt="사천시">
+  <area shape="rect" coords="114,205,149,228" href="javascript:changeMapInfo1(820)" alt="고성군">
+  <area shape="rect" coords="107,260,142,278" href="javascript:changeMapInfo1(220)" alt="통영시">
+  <area shape="rect" coords="176,248,210,267" href="javascript:changeMapInfo1(310)" alt="거제시">
+  <area shape="rect" coords="58,260,98,278" href="javascript:changeMapInfo1(840)" alt="남해시">
+</map>
+<!---------------- 경상남도 맵 끝 --------------------------------->
+
+<!-------------------- 경상북도 맵 시작 ------------------------------>
+<map name="kyungbuk">
+  <area shape="rect" coords="201,62,238,88" href="javascript:changeMapInfo1(930)" alt="울진군">
+  <area shape="rect" coords="152,65,196,92" href="javascript:changeMapInfo1(920)" alt="봉화군">
+  <area shape="rect" coords="109,72,148,102" href="javascript:changeMapInfo1(210)" alt="영주시">
+  <area shape="rect" coords="98,104,135,127" href="javascript:changeMapInfo1(900)" alt="예천군">
+  <area shape="rect" coords="56,101,95,129" href="javascript:changeMapInfo1(280)" alt="문경시">
+  <area shape="rect" coords="53,141,94,162" href="javascript:changeMapInfo1(250)" alt="상주시">
+  <area shape="rect" coords="140,117,179,141" href="javascript:changeMapInfo1(170)" alt="안동시">
+  <area shape="rect" coords="184,99,224,121" href="javascript:changeMapInfo1(760)" alt="영양군">
+  <area shape="rect" coords="219,127,265,148" href="javascript:changeMapInfo1(770)" alt="영덕군">
+  <area shape="rect" coords="203,174,243,194" href="javascript:changeMapInfo1(110)" alt="포항군">
+  <area shape="rect" coords="268,110,314,125" href="javascript:changeMapInfo1(940)" alt="울릉군">
+  <area shape="rect" coords="273,125,309,144" href="./ArLandUsePrintFrame.jsp?selGbn=umd&selSido=47&selSgg=940&selUmd=250_%BF%EF%B8%AA%C0%BE&selRi=27" alt="독도리">
+  <area shape="rect" coords="184,145,221,169" href="javascript:changeMapInfo1(750)" alt="청송군">
+  <area shape="rect" coords="208,216,249,242" href="javascript:changeMapInfo1(130)" alt="경주시">
+  <area shape="rect" coords="169,193,206,216" href="javascript:changeMapInfo1(230)" alt="영천시">
+  <area shape="rect" coords="156,223,193,241" href="javascript:changeMapInfo1(290)" alt="경산시 ">
+  <area shape="rect" coords="153,241,194,265" href="javascript:changeMapInfo1(820)" alt="청도군">
+  <area shape="rect" coords="122,150,162,170" href="javascript:changeMapInfo1(730)" alt="의성군">
+  <area shape="rect" coords="131,176,167,196" href="javascript:changeMapInfo1(720)" alt="군위군">
+  <area shape="rect" coords="88,169,126,188" href="javascript:changeMapInfo1(190)" alt="구미시">
+  <area shape="rect" coords="104,197,144,216" href="javascript:changeMapInfo1(850)" alt="칠곡군">
+  <area shape="rect" coords="77,215,116,236" href="javascript:changeMapInfo1(840)" alt="성주군">
+  <area shape="rect" coords="52,187,93,208" href="javascript:changeMapInfo1(150)" alt="김천시">
+  <area shape="rect" coords="77,239,122,258" href="javascript:changeMapInfo1(830)" alt="고령군">
+</map>
+<!-------------------- 경상북도 맵 끝------------------------------>
+
+<!------------------------- 울산광역시 맵 시작 -------------------------->
+<map name="ulsan">
+  <area shape="rect" coords="102,112,154,149" href="javascript:changeMapInfo1(710)" alt="울주군">
+  <area shape="rect" coords="194,121,237,151" href="javascript:changeMapInfo1(110)" alt="중구">
+  <area shape="rect" coords="241,103,279,132" href="javascript:changeMapInfo1(200)" alt="북구">
+  <area shape="rect" coords="268,136,301,172" href="javascript:changeMapInfo1(170)" alt="동구">
+  <area shape="rect" coords="209,152,251,183" href="javascript:changeMapInfo1(140)" alt="남구">
+</map>
+<!------------------------- 울산광역시 맵 끝 -------------------------->
+
+<!------------------------- 부산광역시 맵 시작 -------------------------->
+<map name="busan">
+  <area shape="rect" coords="31,186,80,216" href="javascript:changeMapInfo1(440)" alt="강서구">
+  <area shape="rect" coords="86,175,132,198" href="javascript:changeMapInfo1(530)" alt="사상구">
+  <area shape="rect" coords="134,129,168,157" href="javascript:changeMapInfo1(320)" alt="북구">
+  <area shape="rect" coords="172,114,208,134" href="javascript:changeMapInfo1(410)" alt="금정구">
+  <area shape="rect" coords="224,86,273,113" href="javascript:changeMapInfo1(710)" alt="기장군">
+  <area shape="rect" coords="170,140,202,159" href="javascript:changeMapInfo1(260)" alt="동래구">
+  <area shape="rect" coords="175,161,207,176" href="javascript:changeMapInfo1(470)" alt="연제구">
+  <area shape="rect" coords="209,150,252,174" href="javascript:changeMapInfo1(350)" alt="해운대구">
+  <area shape="rect" coords="190,177,225,194" href="javascript:changeMapInfo1(500)" alt="수영구">
+  <area shape="rect" coords="141,173,183,191" href="javascript:changeMapInfo1(230)" alt="부산진구">
+  <area shape="rect" coords="151,191,175,215" href="javascript:changeMapInfo1(170)" alt="동구 ">
+  <area shape="rect" coords="180,196,207,221" href="javascript:changeMapInfo1(290)" alt="남구">
+  <area shape="rect" coords="128,197,151,217" href="javascript:changeMapInfo1(140)" alt="서구">
+  <area shape="rect" coords="138,215,168,235" href="javascript:changeMapInfo1(110)" alt="중구 ">
+  <area shape="rect" coords="163,234,204,258" href="javascript:changeMapInfo1(200)" alt="영도구">
+  <area shape="rect" coords="98,232,139,254" href="javascript:changeMapInfo1(380)" alt="사하구 ">
+</map>
+<!------------------------- 부산광역시 맵 끝 -------------------------->
+
+<!-------------------------- 제주시 맵 시작 ------------------------------->
+<map name="jeju">
+  <!-- <area shape="rect" coords="43,216,104,243" href="javascript:changeMapInfo1(720)" alt="남제주군"> -->
+  <area shape="rect" coords="151,170,200,201" href="javascript:changeMapInfo1(130)" alt="서귀포시 ">
+  <!-- <area shape="rect" coords="201,149,261,180" href="javascript:changeMapInfo1(720)" alt="남제주군">
+  <area shape="rect" coords="210,72,263,104" href="javascript:changeMapInfo1(710)" alt="북제주군"> -->
+  <area shape="rect" coords="134,118,179,149" href="javascript:changeMapInfo1(110)" alt="제주시">
+  <!-- <area shape="rect" coords="65,140,119,174" href="javascript:changeMapInfo1(710)" alt="북제주군"> -->
+</map>
+<!-------------------------- 제주시 맵 끝------------------------------->
+
+<!-------------------------- 대구광역시 맵 시작 --------------------------->
+<map name="daeku">
+  <area shape="rect" coords="150,81,186,113" href="javascript:changeMapInfo1(230)" alt="북구">
+  <area shape="rect" coords="203,79,242,108" href="javascript:changeMapInfo1(140)" alt="동구">
+  <area shape="rect" coords="193,139,234,159" href="javascript:changeMapInfo1(260)" alt="수성구 ">
+  <area shape="rect" coords="140,113,172,137" href="javascript:changeMapInfo1(170)" alt="서구">
+  <area shape="rect" coords="171,120,194,140" href="javascript:changeMapInfo1(110)" alt="중구 ">
+  <area shape="rect" coords="160,142,189,161" href="javascript:changeMapInfo1(200)" alt="남구">
+  <area shape="rect" coords="114,137,156,157" href="javascript:changeMapInfo1(290)" alt="달서구">
+  <area shape="rect" coords="102,181,150,210" href="javascript:changeMapInfo1(710)" alt="달성군">
+</map>
+<!-------------------------- 대구광역시 맵 끝 --------------------------->
+
+<!-----------------------------광주광역시 맵 시작 ------------------->
+<map name="kwangju">
+    <area shape="rect" coords="87,156,130,184" href="javascript:changeMapInfo1(200)" alt="광산구">
+  <area shape="rect" coords="157,154,205,178" href="javascript:changeMapInfo1(140)" alt="서구">
+  <area shape="rect" coords="201,107,236,133" href="javascript:changeMapInfo1(170)" alt="북구">
+  <area shape="rect" coords="234,194,272,226" href="javascript:changeMapInfo1(110)" alt="동구">
+  <area shape="rect" coords="194,205,229,236" href="javascript:changeMapInfo1(155)" alt="남구">
+ </map>
+<!-----------------------------광주광역시 맵 끝 ------------------->
+
+
+
+<div id=button></div>
+	<script language="javascript">
+	function Loading_image(){
+		LoadIMG.style.visibility = "visible";
+		button.style.visibility = "hidden";
+	}
+	function Close_image(){
+		LoadIMG.style.visibility = "hidden";
+		button.style.visibility = "visible";
+	}
+	</script>
+	<div id="LoadIMG" style="position:absolute; left:240px; top:170px; width:130px; height:64px; z-index:1; visibility:hidden;">
+	<img src="../../ext/images/common/file_sending.gif" width="186" height="50" border="0">
+	</div>
+
+
+
+</body>
+<!--
+****************************************************************************
+* BODY 코드 끝
+****************************************************************************
+-->
+</html>
+<!--
+****************************************************************************
+* HTML 코드 끝
+****************************************************************************
+-->
+

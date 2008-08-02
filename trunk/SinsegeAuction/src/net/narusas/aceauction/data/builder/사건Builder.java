@@ -221,8 +221,8 @@ public class 사건Builder {
 			NFile.write(file2, 부동산표시목록, "euc-kr");
 
 			FileUploader uploader = FileUploader.getInstance();
-			uploader.upload(사건.get사건Path(), "CurrentStatus", file1);
-			uploader.upload(사건.get사건Path(), "LandMark", file2);
+			uploader.upload(사건.get사건Path(), "CurrentStatus.html", file1);
+			uploader.upload(사건.get사건Path(), "LandMark.html", file2);
 			return new String[] { htmls[2], htmls[3] };
 		} catch (Exception ex) {
 			ex.printStackTrace();

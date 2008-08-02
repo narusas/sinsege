@@ -19,7 +19,7 @@ public class OnaraLandInfoRecursive {
 	static Map<String, LandInfo> infoMap = new HashMap<String, LandInfo>();
 
 	public static void main(String[] args) {
-		OnaraLandFetcher f = new OnaraLandFetcher();
+		OnaraLand시군Fetcher f = new OnaraLand시군Fetcher();
 		try {
 			List<LandInfo> infos = new ArrayList<LandInfo>();
 
@@ -57,7 +57,7 @@ public class OnaraLandInfoRecursive {
 
 	}
 
-	private static void workSub(OnaraLandFetcher f, Connection conn,
+	private static void workSub(OnaraLand시군Fetcher f, Connection conn,
 			List<LandInfo> alreadyExistInfos) throws HttpException,
 			IOException, SQLException {
 		for (int i = alreadyExistInfos.size() - 1; i >= 0; i--) {
