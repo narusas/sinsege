@@ -33,8 +33,3 @@ public class ChargeFetcherTest extends TestCase {
 
 }
 
-class Charge {
-
-	public Charge(String code, String name) {
-	}
-}
