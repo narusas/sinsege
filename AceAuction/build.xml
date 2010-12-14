@@ -1,0 +1,131 @@
+<project name="AceAuction" default="dist" basedir=".">
+	<description>
+        simple example build file
+    </description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+	<property name="sourcedir" value="${basedir}/src" />
+	<property name="targetdir" value="${basedir}/bin" />
+	<property name="librarydir" value="${basedir}/lib" />
+
+	<path id="libraries">
+		<fileset dir="${librarydir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="base.path">
+		<pathelement path="${classpath}" />
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="classes" />
+	</path>
+
+	<target name="init" depends="clean">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+		<copydir dest="${build}/xslt" src="${src}/xslt">
+		</copydir>
+	</target>
+
+	<target name="compile" depends="init,clean, copy-resources" description="compile the source ">
+		<taskdef name="jsmoothgen" classname="net.charabia.jsmoothgen.ant.JSmoothGen" />
+		<jsmoothgen project="atested.jsmooth" skeletonroot="skeletons" />
+		<jsmoothgen project="builder.jsmooth" skeletonroot="skeletons" />
+		<jsmoothgen project="updater.jsmooth" skeletonroot="skeletons" />
+
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="src2" destdir="${build}" target="1.6" classpathref="base.path" debug="true" encoding="utf-8" />
+
+		<!--<copy todir="${build}">
+			<fileset dir="bin">
+				<include name="**/*" />
+			</fileset>
+		</copy>-->
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/" />
+		<mkdir dir="${dist}/lib" />
+		<mkdir dir="${dist}/cfg" />
+		<copy todir="${build}">
+			<fileset dir="src2">
+				<include name="*.jfrm" />
+			</fileset>
+		</copy>
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/builder.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="net.narusas.si.auction.app.App" />
+			</manifest>
+		</jar>
+
+		<copy todir="${dist}/lib">
+			<fileset dir="lib">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="lib">
+				<include name="**/*.exe" />
+			</fileset>
+		</copy>
+		<copy todir="${dist}/hbm">
+			<fileset dir="hbm">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<copy todir="${dist}/cfg">
+			<fileset dir="${basedir}/cfg">
+				<include name="*.txt" />
+				<include name="*.cfg" />
+				<include name="*.xml" />
+				<include name="*.dat" />
+			</fileset>
+		</copy>
+		<copy file="builder.exe" todir="${dist}" />
+		<copy file="updater.exe" todir="${dist}" />
+		<copy file="atested.exe" todir="${dist}" />
+
+	</target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="images" />
+		<delete dir="jpgextractor" />
+		<delete file="build.log" />
+		<delete file="build.log.lck" />
+		<delete file="build.log.1" />
+		<delete file="build.log.1.lck" />
+		<delete dir="${targetdir}" />
+		<mkdir dir="${targetdir}" />
+	</target>
+
+
+	<target name="copy-resources">
+		<copy todir="${targetdir}">
+			<fileset dir="${sourcedir}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+
+	<target name="schemaupdate">
+		<taskdef name="schemaupdate" classname="org.hibernate.tool.hbm2ddl.SchemaUpdateTask" classpathref="class.path" />
+
+		<schemaupdate properties="hibernate.properties" quiet="no">
+			<fileset dir="src">
+				<include name="**/*.hbm.xml" />
+			</fileset>
+		</schemaupdate>
+	</target>
+</project>
