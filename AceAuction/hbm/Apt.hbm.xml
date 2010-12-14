@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="단지" table="ac_aptgroup" lazy="false">
+		<id name="code" column="code" type="long">
+			<generator class="assigned" />
+		</id>
+
+		<!--<bag name="평형목록" table="ac_aptgroup_area" cascade="all-delete-orphan"
+			lazy="true">
+			<key column="apt_group_code" />
+			<one-to-many class="단지평형" />
+		</bag>
+		
+		--><many-to-one name="지역_도" class="지역" column="area_code" lazy="false" />
+		<many-to-one name="지역_시군구" class="지역" column="area_code_2" lazy="false" />
+		<many-to-one name="지역_동읍면" class="지역" column="area_code_3" lazy="false" />		
+		
+		<property name="이름" column="APTS_NAME" />
+		<property name="단지규모" column="DANJI_AREA" />
+		<property name="사용승인월" column="COMPLT_MONTH" />
+		<property name="면적분포" column="SP_USEAREA" />
+		<property name="매매" column="SA_PRICE_M2" />
+		<property name="전세" column="RA_PRICE_M2" />
+		
+		
+		<property name="소재지" column="JUSO" />
+		<property name="시공사" column="APTS_COMP" />
+		<property name="난방방식" column="HEAT_CODE_NM" />
+		<property name="교통환경" column="APTS_BUS" />
+		<property name="교육환경" column="APTS_SCHOOL" />
+		<property name="주거환경" column="APTS_NEAR" />
+		<property name="단지특성" column="APT_CONT" />
+		<property name="관리사무소" column="MOFF_TEL" />
+		
+	</class>
+
+	<class name="단지평형" table="ac_aptgroup_area" lazy="true">
+		<id name="code" column="code" type="string">
+			<generator class="assigned" />
+		</id>
+
+		<many-to-one name="단지" class="단지" column="apt_group_code" cascade="save-update"/>
+
+		<!--<bag name="추이목록" table="ac_aptgroup_trend" cascade="all-delete-orphan" lazy="true">
+			<key column="apt_group_area_code" />
+			<one-to-many class="단지평형시세추이" />
+		</bag>
+		--><property name="전용면적" column="SP_USEAREA" />
+		<property name="세대수" column="SP_TOT_HOUSE" />
+		<property name="매매하한가" column="SL_PRICE" />
+		<property name="매매상한가" column="SU_PRICE" />
+		<property name="전세하한가" column="RL_PRICE" />
+		<property name="전세상한가" column="RU_PRICE" />
+
+
+		<property name="전용면적상세" column="SP_USEAREA_DETAIL" />
+		<property name="현관" column="APT_TYPE_NM" />
+		<property name="대지면적" column="SP_FLD_AREA" />
+		<property name="방" column="SP_ROOM" />
+		<property name="거실" column="SP_LIVING" />
+		<property name="방겸거실" column="SP_ROOMLIVING" />
+		<property name="욕실" column="SP_BATHROOM" />
+		<property name="주방" column="SP_LITCHEN" />
+		
+	
+	</class><!--
+
+	<class name="단지평형시세추이" table="ac_aptgroup_trend" lazy="true">
+		<id name="code" column="code" type="long">
+			<generator class="native" />
+		</id>
+
+		<many-to-one name="단지평형" class="단지평형" column="apt_group_area_code"
+			cascade="save-update" />
+		<property name="매매하한가" column="SL_PRICE" />
+		<property name="매매상한가" column="SU_PRICE" />
+		<property name="전세하한가" column="RL_PRICE" />
+		<property name="전세상한가" column="RU_PRICE" />
+		<property name="조사일" column="APTP_DATE" />
+		<property name="매매평균변동액" column="SU_CHANGE" />
+		<property name="전세평균변동액" column="RU_CHANGE" />
+	</class>
+
+	
+--></hibernate-mapping>

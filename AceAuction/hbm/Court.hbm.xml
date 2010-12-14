@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="법원" table="ac_court" lazy="false">
+		<id name="법원코드" column="code" type="int">
+			<generator class="assigned" />
+		</id>
+		<property name="법원명" column="name" />
+		<property name="스피드옥션_법원코드" column="speedauction_code" />
+		<property name="order" column="ord" />
+		<many-to-one name="상위법원" class="법원" column="parent_code" />
+		<many-to-one name="지역" class="지역" column="area_code" />
+	</class>
+
+</hibernate-mapping>

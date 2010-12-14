@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="물건" table="ac_goods">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+
+		<many-to-one name="법원" class="법원" column="court_code"
+			cascade="save-update" lazy="false" />
+		<many-to-one name="담당계" class="담당계" column="charge_id"
+			cascade="save-update" lazy="false" />
+		<many-to-one name="사건" class="사건" column="event_no"
+			cascade="save-update" lazy="false" />
+
+		<many-to-one name="지역_도" class="지역" column="area_code"
+			lazy="false" />
+		<many-to-one name="지역_시군구" class="지역" column="area_code_2"
+			lazy="false" />
+		<many-to-one name="지역_동읍면" class="지역" column="area_code_3"
+			lazy="false" />
+
+		<property name="소재지" column="address" />
+		<property name="완료여부" column="done" />
+		<property name="물건번호" column="no" />
+		<property name="물건종별" column="type_code" />
+
+
+		<!--
+
+			<many-to-one name="물건종별" column="type_code" class="물건종별" lazy="false"
+			/>
+		-->
+		<property name="매각대상" column="sell_target" />
+		<property name="감정가" column="sell_price" />
+		<property name="최저가" column="lowest_price" />
+		<property name="사건접수일" column="accept_date" />
+		<property name="경매개시결정일" column="decision_date" />
+		<property name="배당요구종기일" column="devidend_date" />
+		<property name="조회수" column="view_count" />
+		<property name="비고" column="comment" />
+		<property name="보증율" column="guarantee_ratio" />
+
+
+		<property name="매각가격" column="last_sell_price" />
+		<property name="유찰수" column="appoint_count" />
+		<property name="기일결과" column="appoint_result" />
+		<property name="기일날자" column="appoint_result_date" />
+		<property name="기일Start" column="bid_start" />
+		<property name="기일End" column="bid_end" />
+		
+		<property name="최선순위설정일자" column="order_decide_date" />
+
+
+		<component name="기계기구" class="기계기구">
+			<property name="지번" column="tools_addr" type="text" />
+			<property name="내역" column="tools_breakdown" type="text" />
+			<property name="지번" column="tools_comment" type="text" />
+		</component>
+
+
+		<component name="매각물건명세서비고" class="매각물건명세서비고">
+			<property name="비고" column="goods_statememt_comment" />
+			<property name="비소멸권리" column="goods_statememt_comment2"
+				type="text" />
+			<property name="지상권개요" column="goods_statememt_comment3"
+				type="text" />
+			<property name="비고란" column="goods_statememt_comment4" />
+		</component>
+
+		<component name="건물현황" class="건물현황">
+			<property name="평가정리" column="building_statement_comment" />
+		</component>
+
+		<bag name="건물목록" table="ac_bld_statement" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="건물" />
+		</bag>
+		<component name="대지권현황" class="대지권현황">
+			<property name="평가정리" column="land_statement_comment" />
+		</component>
+
+		<bag name="대지권목록" table="ac_land_right_statement" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="대지권" />
+		</bag>
+
+		<bag name="토지목록" table="ac_bld_statement" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="토지" />
+		</bag>
+
+		<bag name="자동차목록" table="ac_vehicle" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="자동차" />
+		</bag>
+
+		<bag name="선박목록" table="ac_vehicle" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="선박" />
+		</bag>
+
+		<bag name="제시외건물목록" table="ac_exclusion" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="제시외건물" />
+		</bag>
+
+
+		<component name="감정평가서" class="물건감정평가서">
+			<property name="평가기관" column="judgement_office" />
+			<property name="평가시점" column="judgement_date" />
+			<property name="대지권가격" column="judgement_land_price" />
+			<property name="건물가격" column="judgement_bld_price" />
+			<property name="제시외포함" column="judgement_in_exclusion_price" />
+			<property name="제시외미포함" column="judgement_out_exclusion_price" />
+			<property name="기계기구" column="judgement_tool_price" />
+			<property name="합계" column="judgement_price" />
+		</component>
+
+
+		<!--
+			<component name="매각기일결과" class="매각기일결과"> <property name="매각가격"
+			column="last_sell_price" /> <property name="매각결과"
+			column="last_sell_result" /> <property name="매각결과결정일"
+			column="appoint_result_date" /> <property name="매수인" column="buyer"
+			/> <property name="입찰수" column="bid_count" /> <property name="매각가격"
+			column="buy_price" /> <property name="금액비율" column="buy_price_ratio"
+			/> </component>
+		-->
+		<component name="기일내역" class="기일내역" lazy="false">
+			<property name="평가정리" column="appoint_statemet_comment" />
+
+			<bag name="기일목록" table="ac_appoint_statement" cascade="all-delete-orphan"
+				lazy="false">
+				<key column="goods_id" />
+				<one-to-many class="기일" />
+			</bag>
+		</component>
+
+		<!--
+			<bag name="매각물건명세목록" table="ac_goods_statement"
+			cascade="all-delete-orphan" lazy="false"> <key column="goods_id" />
+			<one-to-many class="매각물건명세서" /> </bag>
+		
+		-->		
+		
+		<bag name="인근매각통계" table="ac_goods_vicinity" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="goods_id" />
+			<one-to-many class="물건인근매각통계Item" />
+		</bag>
+
+	</class>
+
+	<class name="물건종별" table="ac_goods_usage">
+		<id name="id" column="code">
+			<generator class="identity" />
+		</id>
+		<property name="이름" column="name" />
+	</class>
+
+	<class name="기일" table="ac_appoint_statement">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id" />
+		<property name="물건번호" column="no" />
+		<property name="기일" column="fixed_date" />
+		<property name="기일종류" column="type" />
+		<property name="기일장소" column="location" />
+		<property name="최저매각가격" column="lowest_price" />
+		<property name="기일결과" column="result" />
+		<!--
+			<many-to-one name="물건" />
+		-->
+	</class>
+
+	<class name="건물" table="ac_bld_statement">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="save-update, delete" />
+		<property name="목록번호" column="no" />
+		<property name="주소" column="address" />
+		<property name="층형" column="floor" />
+		<property name="구조" column="structure" />
+		<property name="현황주소" column="area" />
+		<property name="비고" column="comment" />
+		<property name="매각지분비고" column="sell_comment" />
+
+	</class>
+
+	<class name="토지" table="ac_land_statement">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="save-update, delete" />
+		<property name="목록번호" column="no" />
+		<property name="주소" column="address" />
+		<property name="면적" column="area" />
+		<property name="목적" column="use_for" />
+		<property name="목적2" column="use_for2" />
+		<property name="매각지분" column="sell_comment" />
+	</class>
+
+	<class name="대지권" table="ac_land_right_statement">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="save-update, delete" />
+		<property name="목록번호" column="no" />
+		<property name="주소" column="address" />
+		<property name="건물번호" column="bld_no" />
+		<property name="지분비율" column="right_ratio" />
+		<property name="면적" column="area" />
+		<property name="가격" column="price" />
+		<property name="매각지분비고" column="sell_comment" />
+
+	</class>
+
+	<class name="제시외건물" table="ac_exclusion">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="all" />
+		<property name="목록번호" column="no" />
+		<property name="용도" column="use_for" />
+		<property name="구조" column="structure" />
+		<property name="면적" column="area" />
+		<property name="종류" column="type" />
+		<property name="층형" column="floor" />
+		<property name="포함여부" column="contains" />
+		<property name="주소" column="address" />
+
+
+	</class>
+
+	<class name="매각물건명세서" table="ac_goods_statement">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="none" />
+		<property name="점유인" column="name" />
+		<property name="당사자구분" column="ground_claim" />
+		<property name="점유부분" column="possessory" />
+		<property name="점유기간" column="period" />
+		<property name="보증금" column="guaranty_price" />
+		<property name="차임" column="chaim" />
+		<property name="전입일자" column="report_date" />
+		<property name="확정일자" column="conclusion_date" />
+		<property name="배당요구" column="devidend_req_date" />
+		<property name="정보출처" column="info_source" />
+
+	</class>
+
+	<class name="자동차" table="ac_vehicle">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="none" />
+
+		<property name="목록번호" column="no" />
+		<property name="감정가" column="cost" />
+		<property name="차명" column="name" />
+		<property name="차종" column="vehicle_type" />
+		<property name="등록번호" column="register_no" />
+		<property name="연식" column="year_type" />
+		<property name="제조사" column="vendor" />
+		<property name="연료종류" column="fuel_type" />
+		<property name="변속기" column="transmission" />
+		<property name="원동기형식" column="registerted_type" />
+		<property name="승인번호" column="approval_no" />
+		<property name="차대번호" column="frame_no" />
+		<property name="배기량" column="displacement" />
+		<property name="주행거리" column="running" />
+		<property name="상세내역" column="detail_info" />
+		<property name="보관장소" column="location" />
+	</class>
+
+	<class name="선박" table="ac_vehicle">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="none" />
+
+		<property name="목록번호" column="no" />
+		<property name="상세내역" column="detail_info" />
+	</class>
+
+	
+	<class name="물건인근매각통계Item" table="ac_goods_vicinity">
+		<id name="id" column="id">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="none" />
+		<property name="기간" column="timename" />
+		<property name="매각건수" column="sell_count" />
+		<property name="평균감정가" column="avr_judge" />
+		<property name="평균매각가" column="avr_sell" />
+		<property name="매각가율" column="ratio" />
+		<property name="평균유찰회수" column="bidding_fail_count" />
+	</class>
+
+
+</hibernate-mapping>

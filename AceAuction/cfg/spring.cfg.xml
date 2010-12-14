@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" 
+"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+
+	<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/ace_work?characterEncoding=UTF8" 
+			/> <property name="user" value="root" /> <property name="password" value="apmsetup" 
+			/> -->
+		<property name="jdbcUrl"
+			value="jdbc:mysql://58.230.118.122:3306/aceauction?characterEncoding=euckr&amp;zeroDateTimeBehavior=convertToNull" />
+		<property name="user" value="acea" />
+		<property name="password" value="aceone" />
+
+		<!--<property name="jdbcUrl" value="jdbc:mysql://192.168.0.132:3306/aceauction?characterEncoding=euckr&amp;zeroDateTimeBehavior=convertToNull" 
+			/> <property name="user" value="root" /> <property name="password" value="" 
+			/> -->
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>file:hbm/</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider
+				</prop>
+				<prop key="hibernate.show_sql">true
+				</prop>
+				<prop key="hibernate.use_sql_comments">true
+				</prop>
+
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+	<bean id="법원DAO" class="net.narusas.si.auction.model.dao.법원DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+
+	<bean id="담당계DAO" class="net.narusas.si.auction.model.dao.담당계DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="사건DAO" class="net.narusas.si.auction.model.dao.사건DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="물건DAO" class="net.narusas.si.auction.model.dao.물건DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+
+	<bean id="당사자DAO" class="net.narusas.si.auction.model.dao.당사자DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="지역DAO" class="net.narusas.si.auction.model.dao.지역DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="매각물건명세서DAO" class="net.narusas.si.auction.model.dao.매각물건명세서DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="기일내역DAO" class="net.narusas.si.auction.model.dao.기일내역DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="등기부등본DAO" class="net.narusas.si.auction.model.dao.등기부등본DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+
+	<bean id="등기부등본ItemDAO" class="net.narusas.si.auction.model.dao.등기부등본ItemDaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="단지DAO" class="net.narusas.si.auction.model.dao.단지DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="단지평형DAO" class="net.narusas.si.auction.model.dao.단지평형DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+
+	<bean id="공매DAO" class="net.narusas.si.auction.app.onbid.공매일정DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="공매물건DAO" class="net.narusas.si.auction.app.onbid.공매물건DaoHibernate">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<!-- <bean id="단지평형시세추이DAO" class="net.narusas.si.auction.model.dao.단지평형시세추이DaoHibernate"> 
+		<property name="hibernateTemplate" ref="hibernateTemplate" /> </bean> -->
+</beans>
