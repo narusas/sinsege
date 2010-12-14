@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="담당계" table="ac_charge" lazy="false">
+		<id name="id" column="no" type="long">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="소속법원" class="법원" column="court_code" />
+		<property name="담당계이름" column="name" />
+		<property name="담당계코드" column="charge_code" />
+		<property name="매각기일" column="fixed_date" type="date" />
+		<property name="입찰_시작날자" column="start_date" />
+		<property name="입찰_끝날자" column="end_date" />
+		<property name="장소" column="location" />
+		<property name="매각방법" column="method" />
+		<property name="time" />
+	</class>
+
+</hibernate-mapping>

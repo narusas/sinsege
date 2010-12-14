@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="지역" table="ac_area" lazy="false">
+		<id name="id" column="code">
+			<generator class="identity" />
+		</id>
+		<property name="지역명" column="name"/>
+		<property name="대체지역명" column="name_alt" />
+		<property name="상위지역Code" column="parent_code" />
+
+		<set name="하위지역" lazy="true">
+			<key column="parent_code" />
+			<one-to-many class="지역" />
+		</set>
+
+		<!--<many-to-one name="하위지역" class="지역" column="parent_code" />-->
+	</class>
+
+</hibernate-mapping>
