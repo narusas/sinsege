@@ -79,18 +79,18 @@ public class ONBIDUpdaterApp extends JFrame {
 			logg("물건을 얻어옵니다. ");
 			List<공매물건> list = new 공매결과물건Fetcher().fetch(schedule);
 			for (공매물건 공매물건 : list) {
-				logg("작업 물건:" + 공매물건.get물건관리번호() + " 개찰결과:" + 공매물건.get개찰결과() + " 낙찰가:" + 공매물건.get낙찰가());
-				logg(공매물건.get물건관리번호() + "이 이미 저장되었는지 확인합니다. ");
-				공매물건 old = dao2.find(공매물건);
+				logg("작업 물건:" + 공매물건.get입찰번호() + " 개찰결과:" + 공매물건.get개찰결과() + " 낙찰가:" + 공매물건.get낙찰가());
+				logg(공매물건.get입찰번호() + "이 이미 저장되었는지 확인합니다. ");
+				공매물건 old = dao2.findBy입찰번호(공매물건);
 				if (old == null) {
-					logg(공매물건.get물건관리번호() + "은 DB에 저장되어 있지 않습니다. ");
+					logg(공매물건.get입찰번호() + "은 DB에 저장되어 있지 않습니다. ");
 					continue;
 				}
-				logg(공매물건.get물건관리번호() + "의 정보를 최신 정보로 갱신합니다. ");
+				logg(공매물건.get입찰번호() + "의 정보를 최신 정보로 갱신합니다. ");
 				old.set개찰결과(공매물건.get개찰결과());
 				old.set낙찰가(공매물건.get낙찰가());
 				dao2.saveOrUpdate(old);
-				logg(공매물건.get물건관리번호() + "에 대한 작업을 완료했습니다. ");
+				logg(공매물건.get입찰번호() + "에 대한 작업을 완료했습니다. ");
 			}
 			logg("공매결과일정에 대한 작업을 완료합니다.");
 		} catch (BeansException e) {
