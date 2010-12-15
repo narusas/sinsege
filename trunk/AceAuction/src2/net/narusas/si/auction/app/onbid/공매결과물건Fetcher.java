@@ -31,6 +31,7 @@ public class 공매결과물건Fetcher {
 		int pageNo = 2;
 		do {
 			parse(result, page);
+			System.out.println(schedule.getLinke(pageNo) );
 			page = f.fetch(schedule.getLinke(pageNo));
 		} while (pageNo++ <= total);
 		return result;
@@ -51,7 +52,7 @@ public class 공매결과물건Fetcher {
 			Pattern itemNoPattern = Pattern.compile(">(\\d+-\\d+-\\d+)</td>");
 			Matcher itemMatcher = itemNoPattern.matcher(chunk);
 			itemMatcher.find();
-			item.set물건관리번호(itemMatcher.group(1));
+			item.set입찰번호(itemMatcher.group(1));
 
 			Pattern pricePattern = Pattern.compile("align=right>\\s*([\\d,]+)</td>");
 			Matcher priceMatcher = pricePattern.matcher(chunk);
