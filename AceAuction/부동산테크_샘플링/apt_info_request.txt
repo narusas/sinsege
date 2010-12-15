@@ -1,0 +1,25 @@
+POST /ret/dwr/call/plaincall/KabnetService.queryForObject.dwr HTTP/1.1
+Accept: */*
+Accept-Language: ko
+Referer: http://www.ret.co.kr/ret/price/price01_detail.jsp
+Content-Type: text/plain
+Accept-Encoding: gzip, deflate
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)
+Host: www.ret.co.kr
+Content-Length: 342
+Connection: Keep-Alive
+Cache-Control: no-cache
+Cookie: JSESSIONID_TW=00017dXvhKs6a7180FdybMmiv1N:13phbtjir; JSESSIONID=0001LD6150-SB1OhmvRBE1XpMlD:14l1rhbma
+
+callCount=1
+windowName=
+c0-scriptName=KabnetService
+c0-methodName=queryForObject
+c0-id=0
+c0-param0=string:APT.getAptInfo
+c0-e1=string:346
+c0-param1=Object_Object:{apts_code:reference:c0-e1}
+batchId=1
+page=%2Fret%2Fprice%2Fprice01_detail.jsp
+httpSessionId=0001LD6150-SB1OhmvRBE1XpMlD:14l1rhbma
+scriptSessionId=3843C92ACC6B14B8B7DE3C98A0E3E189

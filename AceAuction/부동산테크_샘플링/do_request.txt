@@ -1,0 +1,13 @@
+callCount=1
+windowName=
+c0-scriptName=KabnetService
+c0-methodName=queryForList
+c0-id=0
+c0-param0=string:ADDR.getDongList
+c0-e1=string:11
+c0-e2=string:68
+c0-param1=Object_Object:{do_code:reference:c0-e1, city_code:reference:c0-e2}
+batchId=4
+page=%2Fret%2Fprice%2Fprice01.jsp
+httpSessionId=0001opzMx5Hx7w_iIOB0zsVb-g2:14l1rhbma
+scriptSessionId=D68225330F104DE31575B77CCE77CE84

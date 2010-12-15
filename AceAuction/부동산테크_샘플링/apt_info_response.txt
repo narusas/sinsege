@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Content-Type: text/javascript; charset=utf-8
+Content-Language: ko-KR
+Content-Length: 807
+Date: Wed, 07 Apr 2010 13:26:16 GMT
+Server: On-Demand Router/1.0
+Via: On-Demand Router/1.0
+
+################################
+throw 'allowScriptTagRemoting is false.';
+//#DWR-INSERT
+//#DWR-REPLY
+dwr.engine.remote.handleCallback("0","0",{status:"OK",result:[{"APTIMG_YN":"Y","APTS_NEAR":"\uACBD\uD76C\uB300\uBD80\uC18D\uBCD1\uC6D0,\uC6B0\uCCB4\uAD6D,\uC18C\uBC29\uC11C,\uB3D9\uC0AC\uBB34\uC18C,\uD30C\uCD9C\uC18C,\uC11C\uC6B8\uADFC\uB9B0\uACF5\uC6D0","HEAT_CODE_NM":"\uAC1C\uBCC4\uB09C\uBC29",JUSO:"\uC11C\uC6B8 \uAC15\uB3D9\uAD6C \uACE0\uB355\uB3D9 492","APTS_COMP":"\uD604\uB300\uAC74\uC124,\uD55C\uB77C\uAC74\uC124","DANJI_AREA":"43\uAC1C\uB3D9 2500\uC138\uB300","APTS_BUS":null,"APT_CONT":"\uC7AC\uAC74\uCD95\uCD94\uC9C4\uC911(\uC548\uC804\uC9C4\uB2E8 2004.06.15)","APTS_CODE":346,"APTS_TOT_DONG":43,"APTS_H_NUM":2500,"TOWN_APT_CODE":1555,"FUEL_CODE_NM":"\uB3C4\uC2DC\uAC00\uC2A4","COMPLT_MONTH":"198405","MOFF_TEL":"02)429-6174","APTS_NAME":"\uACE0\uB355\uC2DC\uC601","APTS_SCHOOL":"\uBA85\uB355,\uBB18\uACE1\uCD08,\uBC30\uC7AC\uC911,\uACE0\uB355\uC911,\uAD11\uBB38\uACE0,\uBC30\uC7AC\uACE0,\uBA85\uC77C\uC5EC\uC911"}]});
