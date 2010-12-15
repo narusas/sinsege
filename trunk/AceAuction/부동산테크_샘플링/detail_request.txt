@@ -1,0 +1,14 @@
+POST /ret/price/price01_detail.jsp HTTP/1.1
+Accept: image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*
+Referer: http://www.ret.co.kr/ret/price/price01.jsp
+Accept-Language: ko
+User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322)
+Content-Type: application/x-www-form-urlencoded
+Accept-Encoding: gzip, deflate
+Host: www.ret.co.kr
+Content-Length: 159
+Connection: Keep-Alive
+Cache-Control: no-cache
+Cookie: JSESSIONID_TW=00017dXvhKs6a7180FdybMmiv1N:13phbtjir; JSESSIONID=0001LD6150-SB1OhmvRBE1XpMlD:14l1rhbma
+
+apts_code=346&town_apt_code=1555&addr_code=11740102&in_seq=&gubun=4&aptp_date=&do_code=11&city_code=74&dong_code=0102&do_combo=11&city_combo=74&dong_combo=0102

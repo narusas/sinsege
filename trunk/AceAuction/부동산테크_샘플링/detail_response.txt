@@ -1,0 +1,1008 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=EUC-KR
+Content-Language: ko-KR
+Content-Length: 32416
+Date: Wed, 07 Apr 2010 13:26:14 GMT
+Server: On-Demand Router/1.0
+Via: On-Demand Router/1.0
+
+
+ 
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>:::  :::</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+
+<link href='/ret/assets/css/price.css' rel='stylesheet' type='text/css' /> 
+
+<script language="JavaScript" type="text/javascript" src="/ret/dwr/engine.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/dwr/util.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/dwr/interface/KabnetService.js"></script>
+
+
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/ret_common.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/paging.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/dwr/common.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/dwr/town_img.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/dwr/addr.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/dwr/apt.js"></script>
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/dwr/retprice_pyong.js"></script>
+
+
+<script type="text/javascript">
+
+function init() {
+//  
+setAptInfo("346");
+//  
+setPriceList_area();
+
+ADDR.getDoList(null);
+//// 
+naviChange('1');
+//   
+$("town_apt_code").value = "1555";
+}
+
+function setAptInfo(apts_code) {
+
+var params = new Object();
+
+params.apts_code = apts_code;
+
+APT.getAptInfo(params);
+//
+RETPRICE_PYONG.getRetPricePyongList_info2(params);
+}
+
+function setSiseInfo(pyn_type, usearea){
+//alert("");
+//$("pyn").value = sp_usearea;
+dwr.util.setValue("usearea",usearea);
+
+var params = new Object();
+
+params.apts_code = "346";
+params.pyn_type = pyn_type;
+
+//
+RETPRICE_PYONG.getRetPricePyongList_info(params);
+
+//  
+RETPRICE_PYONG.getRetPricePyong_year(params);
+}
+
+
+// change event  
+function changeDoCombo(num) {
+
+var params = new Object();
+params.do_code = $("cbDoList").value;
+ADDR.getCityList(params);
+if(num==1){
+changeDongCombo(num);
+}
+}
+
+function changeCityCombo(num){
+var params = new Object();
+params.do_code = $("cbDoList").value;
+params.city_code = $("cbCityList").value;
+ADDR.getDongList(params);
+if(num==3){
+changeDongCombo(num);
+}
+}
+
+function changeDongCombo(num){
+//1   , 3 ,,   , 2 
+if(num==1){
+$("do_code").value = $("cbDoList").value;
+}else if(num==3){
+$("do_code").value = $("cbDoList").value;
+$("city_code").value = $("cbCityList").value;
+}else if(num==4){
+$("do_code").value = $("cbDoList").value;
+$("city_code").value = $("cbCityList").value;
+$("dong_code").value = $("cbDongList").value;
+}
+frm.action = "/ret/price/price01.jsp";
+frm.submit();
+
+}
+
+function changeYear(){
+//var params = new Object();
+//params.year = $("cbYear").value;
+//params.apts_code = "346";
+//RETPRICE_PYONG.getRetPricePyong_month(params);
+changeMonth();
+flex_sise_search("346",$("cbYear").value);
+}
+
+function changeMonth(){
+$("month_code").value = $("cbMonth").value;
+var params = new Object();
+params.year = $("cbYear").value;
+params.month = $("cbMonth").value;
+params.apts_code = "346";
+
+RETPRICE_PYONG.getRetPricePyongList_info3(params);
+}
+
+// callBack 
+function getDoList(data) {
+setComboBox("cbDoList", "DO_CODE", "DO_NAME", "11", {"":"/"}, data.result);
+changeDoCombo(2);
+}
+
+function getCityList(data){
+if("74"){
+setComboBox("cbCityList", "CITY_CODE", "CITY_NAME", "74", null, data.result);
+}else{
+setComboBox("cbCityList", "CITY_CODE", "CITY_NAME", "", {"":"//"}, data.result);
+}
+
+changeCityCombo(2);
+}
+
+function getDongList(data){
+if("0102"){
+setComboBox("cbDongList", "DONG_CODE", "DONG_NAME", "0102", null, data.result);
+}else{
+setComboBox("cbDongList", "DONG_CODE", "DONG_NAME", "", {"":"//"}, data.result);
+}
+}
+
+
+function getAptInfo(data) {
+
+var rs = data.result;
+
+if(rs != null){
+dwr.util.setValue("JUSO", rs["JUSO"]);
+dwr.util.setValue("APTS_NAME", rs["APTS_NAME"]);
+dwr.util.setValue("APTS_H_NUM", Util.addCommaStr(rs["APTS_H_NUM"]));
+dwr.util.setValue("APTS_TOT_DONG", rs["APTS_TOT_DONG"]);
+dwr.util.setValue("APTS_COMP", rs["APTS_COMP"]);
+dwr.util.setValue("COMPLT_MONTH", Util.addDateFormatStr(rs["COMPLT_MONTH"], '-'));
+dwr.util.setValue("HEAT_CODE_NM", rs["HEAT_CODE_NM"]);
+dwr.util.setValue("FUEL_CODE_NM", rs["FUEL_CODE_NM"]);
+dwr.util.setValue("APTS_BUS", rs["APTS_BUS"]);
+dwr.util.setValue("APTS_SCHOOL", rs["APTS_SCHOOL"]);
+dwr.util.setValue("APTS_NEAR", rs["APTS_NEAR"]);
+//dwr.util.setValue("APT_CONT", rs["APT_CONT"]);
+dwr.util.setValue("MOFF_TEL", rs["MOFF_TEL"]);
+dwr.util.setValue("apt_img", rs["APTIMG_YN"]);
+//dwr.util.setValue("town_apt_code", rs["TOWN_APT_CODE"]);
+
+setPhoto($("town_apt_code").value);
+
+}
+}
+
+
+function setPhoto(town_apt_code) {
+var params = new Object();
+
+params.apt_code = town_apt_code;
+
+TOWN_IMG.getThumbNailImgList(params, ($("skip").value -1) * $("max").value, $("max").value);
+}
+
+function getThumbNailImgList(data) {
+
+var dataList = data.result;
+
+$("end").value = dataList.length;
+
+
+util = new PageUtil();
+
+util.totalCnt= data.tot_cnt; 
+util.pageRows= eval($("max").value);     
+util.curPage= eval($("skip").value);  
+util.disPagepCnt= 1;     
+util.setTotalPage();
+
+var img_text = "";
+
+if(util.getPrev() != util.curPage) {
+img_text += "<li class='fl_le_first'><a href='javascript:go_page(" + util.getPrev() + ");'><img src='/ret/assets/images/common/btn_photo_prev.gif' height='58' /></a></li>";
+} else {
+img_text += "<li class='fl_le_first'><img src='/ret/assets/images/common/btn_photo_prev.gif' height='58' /></li>";
+}
+
+var seq_no;
+
+for(var i=0 ; i<util.pageRows ; i++) {
+
+num = $("skip").value + "" + i;
+
+if(dataList[i] != null) {
+var rs = dataList[i];
+img_text += "<li class='fl_le'><a href='javascript:selectThumb(" + num + ", "+rs.SEQ_NO+");'><img id='thumb" + num + "' src='" + rs.IMG_DATA + "' width='82' height='53' style='border: solid 1px #666666'/></a></li>";
+if(i == 0) seq_no = rs.SEQ_NO;
+} else {
+img_text += "<li class='fl_le'><img id='thumb" + num + "' src='/ret/assets/images/common/blank.png' width='88' height='53'/></li>";
+}
+
+}
+
+
+if(util.curPage < util.getNext()) {
+img_text += "<li class='fl_le'><a href='javascript:go_page(" + util.getNext() + ");'><img src='/ret/assets/images/common/btn_photo_next.gif' height='58' /></a></li>";
+} else {
+img_text += "<li class='fl_le'><img src='/ret/assets/images/common/btn_photo_next.gif' height='58' /></li>";
+}
+
+
+$("thumb").innerHTML = img_text;
+
+if(dataList.length > 0)
+selectThumb($("skip").value + "" + 0, seq_no);
+else {
+$("img_data").innerHTML = "<img src='/ret/assets/images/common/blank.png' width='375' height='240' />";
+}
+}
+
+function selectThumb(select_num, seq_no) {
+/*
+$("img_data").innerHTML = "<img src='" + $("thumb"+select_num).src + "' width='375' height='240' style='border: solid 0px #666666'/>";
+
+for(var i=0 ; i< $("end").value ; i++) {
+
+num = $("skip").value + "" + i;
+
+$("thumb"+num).style.borderColor = "#a7acb0";
+$("thumb"+num).style.borderWidth = "3";
+}
+
+$("thumb"+select_num).style.borderColor = "#4187c9";
+$("thumb"+select_num).style.borderWidth = "3";
+*/
+
+for(var i=0 ; i< $("end").value ; i++) {
+
+num = $("skip").value + "" + i;
+
+$("thumb"+num).style.borderColor = "#a7acb0";
+$("thumb"+num).style.borderWidth = "3";
+}
+
+$("thumb"+select_num).style.borderColor = "#4187c9";
+$("thumb"+select_num).style.borderWidth = "3";
+
+var params = new Object();
+
+params.apt_code = $("town_apt_code").value;// 
+params.seq_no = seq_no;
+TOWN_IMG.getImgData(params);
+}
+
+function getImgData(data) {
+
+var rs = data.result;
+
+$("img_data").innerHTML = "<img src='" + rs.IMG_DATA + "' width='375' height='240' style='border: solid 0px #666666'/>";
+
+
+}
+
+function go_page(skip) {
+
+dwr.util.setValue("skip", skip);
+
+var params = new Object();
+
+params.apt_code = $("town_apt_code").value;
+
+TOWN_IMG.getThumbNailImgList(params, ($("skip").value -1) * $("max").value, $("max").value);
+}
+
+function setPriceList_area() {
+var params = new Object();
+
+params.apts_code = "346";
+
+RETPRICE_PYONG.getRetPricePyongList_Area(params);
+}
+
+
+function getRetPricePyongList_Area(data) {
+// 
+var cellFuncs =
+[
+function(rs) { return rs.APTS_NAME; },
+function(rs) { return "<a href='javascript:setSiseInfo("+rs.PYN_TYPE+","+rs.SP_USEAREA+");flex_search(346,"+rs.PYN_TYPE+");'><span class='my_text_color'>" + rs.SP_USEAREA + "</span></a>"; },
+function(rs) { return rs.SP_TOT_HOUSE; },
+function(rs) { return Util.addCommaStr(rs.SL_PRICE); },
+function(rs) { return Util.addCommaStr(rs.SU_PRICE); },
+function(rs) { return Util.addCommaStr(rs.RL_PRICE); },
+function(rs) { return Util.addCommaStr(rs.RU_PRICE); }
+];
+
+setDataGrid("areaList", cellFuncs, data.result);
+
+var dataList = data.result;
+var recentlyDate = dataList.length-1;
+$("sise_date").innerHTML = Util.addDateFormatStr(dataList[recentlyDate].APTP_DATE,'-');
+
+var dataList = data.result;
+setSiseInfo(dataList[0].PYN_TYPE, dataList[0].SP_USEAREA);
+$("pyn_type").value = dataList[0].PYN_TYPE;
+//alert($("pyn_type").value);
+
+}
+
+
+function getRetPricePyongList_info(data){
+
+var cellFuncs =
+[
+function(rs) { return Util.addDateFormatStr(rs.APTP_DATE, '-'); },
+function(rs) { return rs.SL_PRICE; },
+function(rs) { return rs.SU_PRICE; },
+function(rs) { return "<img src='/ret/assets/images/price/" + rs.SU_COLOR + "_arrow.png'/>" +
+"<span class='" + rs.SU_COLOR + "_color'>" +Util.addCommaStr(rs.SU_CHANGE) + "</span>"; 
+},
+function(rs) { return rs.RL_PRICE; },
+function(rs) { return rs.RU_PRICE; },
+function(rs) { return "<img src='/ret/assets/images/price/" + rs.RU_COLOR + "_arrow.png'/>" +
+"<span class='" + rs.RU_COLOR + "_color'>" + Util.addCommaStr(rs.RU_CHANGE) + "</span>";}
+];
+
+setDataGrid("sise_info_list1", cellFuncs, data.result);
+}
+
+function getRetPricePyongList_info2(data){
+
+var dataList = data.result;
+var tbl_sise_info2 = "";
+if(dataList!=null){
+$("pyn_img").value = dataList.length
+tbl_sise_info2 += "<table border='0' cellspacing='0' cellpadding='0' class='grid_class2'>";
+tbl_sise_info2 += "<tr>";
+
+for(var i=0;i<dataList.length;i++){
+if (i == 0)
+tbl_sise_info2 += "<td>";
+else if(i == 1)
+tbl_sise_info2 += "<td style='border-left:1px solid #569ED7'>";
+else
+tbl_sise_info2 += !(i%2) ? "<td style='border-top:1px solid #569ED7'>" : "<td style='border-top:1px solid #569ED7;border-left:1px solid #569ED7'>";
+tbl_sise_info2 += "<table  border='0' cellspacing='0' cellpadding='0'>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+tbl_sise_info2 += "<td class='ltd2'>"+dataList[i].SP_USEAREA+"</td>";
+tbl_sise_info2 += "<td rowspan='7' style='text-align:center;'>";
+
+// 
+var pyn_img = ""; 
+
+if(dataList[i].PYNIMG_YN=='Y') { 
+//alert(dataList[i].PYNIMG_YN);
+if(dataList[i].PTYPE){
+pyn_img = "/ret/common/imgViewer.jsp?filepath=/SERVICE/diagram/" + "346" + "/" + dataList[i].PYN_TYPE + dataList[i].PTYPE + ".gif"; 
+}else{
+pyn_img = "/ret/common/imgViewer.jsp?filepath=/SERVICE/diagram/" + "346" + "/" + dataList[i].PYN_TYPE + ".gif"; 
+}
+} else { 
+pyn_img = "/ret/common/imgViewer.jsp?filepath=/SERVICE/diagram/image_ready.gif"; 
+}
+//alert(pyn_img);
+tbl_sise_info2 += "<img id='pyn_img_td"+i+"' width='250' height='220' border='0' style='cursor:hand;'"; 
+tbl_sise_info2 += "src='"+pyn_img+"' onClick='pyn_img_view(\""+pyn_img+"\")'>";
+tbl_sise_info2 += "</td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+tbl_sise_info2 += "<td class='ltd2'>"+dataList[i].SP_TOT_HOUSE+"</td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+if(dataList[i].SP_FLD_AREA=='0'){
+tbl_sise_info2 += "<td class='ltd2'></td>";
+}else{
+tbl_sise_info2 += "<td class='ltd2'>"+dataList[i].SP_FLD_AREA+"</td>";
+}
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+tbl_sise_info2 += "<td class='ltd2'>"+dataList[i].APT_TYPE_NM+"</td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'>////</td>";
+tbl_sise_info2 += "<td class='ltd2'>";
+
+var sp_all = "";
+if(dataList[i].SP_ROOM){
+sp_all += dataList[i].SP_ROOM+"/";
+}else{
+sp_all += "0/";
+}
+if(dataList[i].SP_LIVING){
+sp_all += dataList[i].SP_LIVING+"/";
+}else{
+sp_all += "0/";
+}
+if(dataList[i].SP_ROOMLIVING){
+sp_all += dataList[i].SP_ROOMLIVING+"/";
+}else{
+sp_all += "0/";
+}
+if(dataList[i].SP_BATHROOM){
+sp_all += dataList[i].SP_BATHROOM+"/";
+}else{
+sp_all += "0/";
+}
+if(dataList[i].SP_KITCHEN){
+sp_all += dataList[i].SP_KITCHEN+"/";
+}else{
+sp_all += "0/";
+}
+
+tbl_sise_info2 += sp_all;
+tbl_sise_info2 += "</td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+tbl_sise_info2 += "<td class='ltd2'></td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+tbl_sise_info2 += "<td class='ltd'></td>";
+tbl_sise_info2 += "<td class='ltd2'></td>";
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "</table>";
+tbl_sise_info2 += "</td>";
+
+if(i%2){
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "<tr>";
+}
+}
+if(dataList.length%2){
+tbl_sise_info2 += "<td style='border-top:1px solid #569ED7;border-left:1px solid #569ED7'>&nbsp;</td>";
+}
+tbl_sise_info2 += "</tr>";
+tbl_sise_info2 += "</table>";
+$("tbl_sise_info2").innerHTML = tbl_sise_info2;
+}
+
+}
+
+function getRetPricePyong_year(data){
+setComboBox("cbYear", "TRADE_YYYY", "TRADE_YYYY", null, null, data.result);
+changeYear();
+//changeMonth();
+}
+
+function getRetPricePyong_month(data){
+setComboBox("cbMonth", "TRADE_MM", "TRADE_MM", null, null, data.result);
+changeMonth();
+}
+
+function getRetPricePyongList_info3(data){
+
+if($("month_code").value){
+
+var month = $("month_code").value;
+dwr.util.setValue("mm1", month+"");
+dwr.util.setValue("mm2", (Number(month)+1)+"");
+dwr.util.setValue("mm3", (Number(month)+2)+"");
+}
+
+var cellFuncs =
+[
+function(rs) { return rs.DISP_PYN_TYPE; },
+function(rs) { return rs.TRADE_DATE; },
+function(rs) { return rs.M1; },
+function(rs) { return rs.M2; },
+function(rs) { return rs.M3; }
+];
+
+setDataGrid("sise_info_list3", cellFuncs, data.result);
+
+}
+
+function pop_danji_arrange(){
+// 
+var link = ""; 
+if($("apt_img").value=='Y'){ 
+link = "/ret/common/imgViewer.jsp?filepath=/SERVICE/diagram/"+$("apts_code").value+"/bachi.gif";
+
+var imgwin = window.open("",'WIN','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=550,height=450'); 
+
+imgwin.document.open(); 
+imgwin.document.write("<html><title></title>\n");
+imgwin.document.write("<img src='" + link + "' onClick=javascript:self.close(); style=cursor:hand>\n"); 
+ 
+}else{
+link = "";
+}
+}
+
+function pop_rewrite(){
+//window.open("/ret/board/board_write_sise.jsp?apt_code="+$("apts_code").value+"&apts_name="+document.getElementById('APTS_NAME').innerHTML+"&addr_name="+document.getElementById('JUSO').innerHTML, "win",  "toolbar=0, status=0, scrollbars=no, location=0, menubar=0, width=550, height=370");
+window.open("/ret/board/board_write.jsp?apt_code="+$("town_apt_code").value, "win",  "toolbar=0, status=0, scrollbars=no, location=0, menubar=0, width=550, height=370");
+}
+
+function pop_gis() {
+var url= "http://town.kab.co.kr/GIS/ret/retgis.jsp?apt_code=" + $("town_apt_code").value;
+var features= "width=600,height=600,top=160,left=160,status=yes,scrollbars=yes";
+
+jsPopup(url, "gis_popup", features);
+}
+
+function naviChange(gubun){
+if(gubun=='1'){
+$("sise_info1").style.display= "";//
+$("sise_info2").style.display= "";//
+$("sise_info3").style.display= "none";//
+$("sise_info4").style.display= "none";//
+$("tabs5_tab1").style.backgroundPosition = "100% -42px";
+$("tabs5_tab2").style.backgroundPosition = "";
+$("tabs5_tab3").style.backgroundPosition = "";
+$("tabs5_a1").style.backgroundPosition = "0% -42px";
+$("tabs5_a2").style.backgroundPosition = "";
+$("tabs5_a3").style.backgroundPosition = "";
+}else if(gubun=='2'){
+$("sise_info1").style.display= "none";
+$("sise_info2").style.display= "none";
+$("sise_info3").style.display= "";
+$("sise_info4").style.display= "none";
+$("tabs5_tab1").style.backgroundPosition = "";
+$("tabs5_tab2").style.backgroundPosition = "100% -42px";
+$("tabs5_tab3").style.backgroundPosition = "";
+$("tabs5_a1").style.backgroundPosition = "";
+$("tabs5_a2").style.backgroundPosition = "0% -42px";
+$("tabs5_a3").style.backgroundPosition = "";
+
+}else{
+$("sise_info1").style.display = "none";
+$("sise_info2").style.display = "none";
+$("sise_info3").style.display = "none";
+$("sise_info4").style.display = "";
+$("tabs5_tab1").style.backgroundPosition = "";
+$("tabs5_tab2").style.backgroundPosition = "";
+$("tabs5_tab3").style.backgroundPosition = "100% -42px";
+$("tabs5_a1").style.backgroundPosition = "";
+$("tabs5_a2").style.backgroundPosition = "";
+$("tabs5_a3").style.backgroundPosition = "0% -42px";
+
+//flex_sise_search($("town_apt_code").value,$("cbYear").value);
+}
+}
+
+function flex_search(apts_code, pyn_type){
+//swf 
+if(apts_code==null&&pyn_type==null){
+apts_code = "346";
+pyn_type = $("pyn_type").value;
+//alert(apts_code+";"+pyn_type);
+}
+mySwf = document.getElementById("price01_detail");
+//if(mySwf.search)
+mySwf.search(apts_code, pyn_type);
+}
+
+function flex_sise_search(apts_code, year){
+//swf 
+if(apts_code==null&&year==null){
+
+apts_code = "346";
+year = $("cbYear").value;
+}
+//alert(town_apt_code);
+mySwf = document.getElementById("price01_detail_sise");
+if(mySwf.search)
+mySwf.search(apts_code, year);
+}
+
+function pyn_img_view(src2) {
+//   
+
+var imgwin = window.open("",'WIN','scrollbars=no,status=no,toolbar=no,resizable=1,location=no,menu=no,width=550,height=450'); 
+
+imgwin.document.open(); 
+imgwin.document.write("<html><title></title>\n");
+imgwin.document.write("<img src='" + src2 + "' onClick=javascript:self.close(); style=cursor:hand>\n"); 
+
+}
+
+</script>
+
+</head>
+<body onload="init();"> 
+
+<form name="frm" method="post" action="">
+
+<input type="hidden" id="skip" name="skip" value="1" />
+<input type="hidden" id="max" name="max" value="4" />
+<input type="hidden" id="end" name="tot_cnt" value="" />
+
+<input type="hidden" id="apts_code" name="apts_code" value="346"/>
+<input type="hidden" id="town_apt_code" name="town_apt_code"/>
+<input type="hidden" id="apt_img" name="apt_img" />
+<input type="hidden" id="pyn_type" name="pyn_type" />
+<input type="hidden" id="pyn_img" name="pyn_img" />
+<input type="hidden" id="do_code" name="do_code" />
+<input type="hidden" id="city_code" name="city_code" />
+<input type="hidden" id="dong_code" name="dong_code" />
+<input type="hidden" id="month_code" name="month_code" />
+
+</form>
+<div id="subBody"> 
+<h2></h2>
+<div id="subheader_area">
+
+<script language="JavaScript" type="text/javascript" src="/ret/assets/js/ret_common.js"></script>
+<script type="text/javascript">
+function onLogin()
+{
+var myleft = (screen.width)?(screen.width-650)/2:100;
+var mytop = (screen.height)?(screen.height-400)/2:100;
+properties = "width=455,height=300, toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0, top="+mytop+",left="+myleft;
+//window.open("https://"+window.location.host+"/ret/login/login.jsp", "POP", properties); //ssl
+window.open("/ret/login/login.jsp", "POP", properties);
+}
+function memlog(){
+//location.href="https://"+window.location.host+"/ret/login/memberjoin.jsp";  //ssl
+location.href="/ret/login/memberjoin.jsp";
+}
+function onLogout()
+{
+location.href="/ret/login/logout.jsp";
+//window.open("/ret/login/logout.jsp", "LOGOUTPOP", "toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=0 ,width=300,height=150");
+}
+function mypage(){
+
+var answer = confirm (" .  ?");
+if(answer){
+onLogin();
+}
+
+}
+</script>
+
+<div id="logo_top">
+<div class="logo-area">
+    <a href="/ret">
+    <img src="/ret/assets/images/common/logo.gif" border="0" alt="" ></img>
+</a>
+</div>
+
+<!-- quick -->
+<div class="quick-area">
+    <img id="quick_img" src="/ret/assets/images/common/quick.gif"
+         border="0" usemap="#quickMap" alt=""></img>
+</div>
+</div>
+<map name="quickMap" id="quickMap">
+    
+    <area shape="rect" coords="9,6,71,18"
+          href="javascript:onLogin()" alt=""/>
+    <area shape="rect" coords="79,6,118,19"
+          href="javascript:memlog()" alt=""/>
+
+
+    <area shape="rect" coords="127,5,172,19" href="javascript:mypage()"
+          alt=""/>
+</map>
+
+<div id="navi-area">
+<!-- <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="930" height="60">
+  <param name="movie" value="/ret/assets/swf/mainNavi.swf" />
+  <param name="quality" value="high" />
+  <param name="wmode" value="transparent" />
+  <embed src="/ret/assets/swf/mainNavi.swf" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="930" height="60"></embed>
+</object> -->
+<script type="text/javascript">flash('/ret/assets/swf/mainNavi.swf','mainNavi','930','60')</script>
+</div>
+
+</div>
+
+<div id="submiddle_area">
+<div class="subtitle_area">
+<div id="title_area">
+<img src="/ret/assets/images/price/price04_title.gif"/>
+</div>
+<!-- <div id="location_area">
+<a href="/ret/index.jsp"></a> > <a href="javascript:changeDongCombo(4);"></a> > 
+</div> -->
+</div>
+<div id="subdanji_area">
+<div class='searchbox'>
+<table width="100%" height="100%" border="0" >
+<tr>
+<td style="padding-left:10px" width="270px">
+<select id="cbDoList" onChange="changeDoCombo(1);"></select>&nbsp;>&nbsp;
+<select id="cbCityList" onChange="changeCityCombo(3);"></select>&nbsp;>&nbsp;
+<select id="cbDongList" onChange="changeDongCombo(4);"></select>&nbsp;
+
+</td>
+<td>
+<a href="javascript:changeDongCombo(4);"><img src="/ret/assets/images/price/back_btn.png" /></a>
+</td>
+<td align="right" style="padding-right:10px;padding-top:6px">
+<a href="javascript:pop_gis();"><img src="/ret/assets/images/btn/view_btn2.png" height="20" /></a>
+<a href="javascript:pop_danji_arrange();"><img src="/ret/assets/images/btn/dan_btn.png" height="20" /></a>
+
+</td>
+</tr>
+</table>
+</div>
+
+<div class='danjibox'>
+<div class="danji">
+
+
+<table border="0" cellpadding="0" cellspacing="0" class="danji_class">
+<tr>
+<td class="ltd"></td>
+<td><span id="JUSO"></span> <!--  &nbsp;<a href="javascript:pop_gis();"><img src="/ret/assets/images/btn/view_btn.png" /></a> --> </td>
+</tr>
+<tr>
+<td width="100" class="ltd"></td>
+<td width="360"><span id="APTS_NAME"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="APTS_TOT_DONG"></span> <span id="APTS_H_NUM"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="COMPLT_MONTH"></span> [<span id="APTS_COMP"></span>]</td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="HEAT_CODE_NM"></span> [<span id="FUEL_CODE_NM"></span>]</td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="APTS_BUS"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="APTS_SCHOOL"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="APTS_NEAR"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="APT_CONT"></span></td>
+</tr>
+<tr class="pdLeft5">
+<td class="ltd"></td>
+<td><span id="MOFF_TEL"></span></td>
+</tr>
+</table>
+</div>
+<div class='photo'>
+<div id="img_data" class="img_data_class">
+<img src='/ret/assets/images/common/blank.png' width='375' height='240' />
+</div>
+<div class="thumb_data_class">
+<ul id="thumb" class="tabBody"></ul>
+</div>
+</div>
+</div>
+</div>
+<div id="tabs5">
+<ul>
+                <!-- CSS Tabs -->
+<li><a id="tabs5_a1" href="javascript:naviChange(1);"><span id="tabs5_tab1"></span></a></li>
+<li><a id="tabs5_a3" href="javascript:naviChange(3);" ><span id="tabs5_tab3"></span></a></li>
+<li><a id="tabs5_a2" href="javascript:naviChange(2);" ><span id="tabs5_tab2"></span></a></li>
+</ul>
+        </div>
+
+<!-- <div style="margin-left:20px;margin-bottom:20px;">
+<a href="javascript:naviChange(1);" ></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:naviChange(2);" ></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:naviChange(3);" ></a>
+</div> -->
+
+<div id="submiddle_area">
+<div id="sise_info1" style="width:100%;height:100%;">
+<div class="titlebox">
+<div style="width:370px;float:left;"><img src="/ret/assets/images/price/sise_viewTitle2.gif"/></div>
+<div class="r_title">: <span id="sise_date" class="date_text"></span>&nbsp;( : )</div>
+</div>
+
+ 
+
+<table id="tbl_area" border="0" cellspacing="0" cellpadding="0" summary="" class="grid_class1">
+<caption></caption>
+<colgroup>
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+</colgroup>
+
+<thead>
+<tr>
+<th scope="col" rowspan="2" class="rth"></th>
+<th scope="col" rowspan="2" class="rth"></th>
+<th scope="col" rowspan="2" class="rth"></th>
+<th scope="col" colspan="2" class="rth"></th>
+<th scope="col" colspan="2"></th>
+</tr>
+<tr>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" ></th>
+</tr>
+</thead>
+<tbody id="areaList">
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+</div>
+
+<div id="sise_info2" style="width:100%;height:100%;">
+<div class="titlebox">
+<div style="width:370px;float:left;">
+<img src="/ret/assets/images/price/sise_viewTitle1.gif"/>
+</div>
+</div>
+
+<div style="width:100%;height:20px;float:left;">
+<div style="margin-left:20px;">&nbsp;:&nbsp;<span id="usearea" class="select_text"></span>&nbsp;<font class="select_text"></font></div>
+</div>
+<div style="width:100%;height:230px;float:left;">
+<div class="mychartbox3">
+<script type="text/javascript">flash('/ret/retfx/price01_detail.swf','price01_detail','100%','200')</script>
+</div>
+</div>
+
+
+ 
+
+<table id="tbl_sise_info1" border="0" cellspacing="0" cellpadding="0" summary="" class="grid_class1">
+<caption></caption>
+<colgroup>
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+<col width="*" />
+</colgroup>
+
+<thead>
+<tr>
+<th scope="col" rowspan="2" class="rth"></th>
+<th scope="col" colspan="3" class="rth"></th>
+<th scope="col" colspan="3"></th>
+</tr>
+<tr>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+<th scope="col" class="rth"></th>
+</tr>
+</thead>
+<tbody id="sise_info_list1">
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="gridbox" id="sise_info3">
+<div class="titlebox">
+<div style="width:370px;float:left;"><img src="/ret/assets/images/price/sise_viewTitle4.gif"/></div>
+<div class="r_title">( : )</div>
+</div>
+<div id="tbl_sise_info2" style="width:100%">
+
+</div>
+</div>
+
+<div class="gridbox" id="sise_info4">
+<div class="titlebox">
+<div style="width:370px;float:left;"><img src="/ret/assets/images/price/sise_viewTitle3.gif"/></div>
+<div class="r_title">
+<select id="cbYear" onChange="changeYear();"></select>&nbsp;
+<select id="cbMonth" onChange="changeMonth();">
+<option value=1>1/4</option>
+<option value=4>2/4</option>
+<option value=7>3/4</option>
+<option value=10>4/4</option>
+</select>&nbsp;
+</div>
+</div>
+
+ 
+
+<table id="tbl_sise_info3" border="0" cellspacing="0" cellpadding="0" summary="" class="grid_class4">
+<caption></caption>
+<colgroup>
+<col width="80px" />
+<col width="100px" />
+<col width="250px" />
+<col width="250px" />
+<col width="250px" />
+</colgroup>
+
+<thead>
+<tr>
+<th scope="col" rowspan="2" class="rth">()</th>
+<th scope="col" rowspan="2" class="rth"></th>
+<th scope="col" colspan="3">[]</th>
+</tr>
+<tr>
+<th scope="col" class="rth"><span id="mm1">1</span></th>
+<th scope="col" class="rth"><span id="mm2">2</span></th>
+<th scope="col" ><span id="mm3">3</span></th>
+</tr>
+</thead>
+<tbody id="sise_info_list3">
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+<div style="width:100%;height:230px;float:left;">
+<div class="mychartbox3">
+<script type="text/javascript">flash('/ret/retfx/price01_detail_sise.swf','price01_detail_sise','100%','200')</script>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<div id="subfooter_area">
+
+
+<img id="bottm_img" src="/ret/assets/images/common/bottom_img.gif" border="0" usemap="#bottomMap"/>
+<map name="bottomMap" id="bottomMap">
+    <area shape="rect" coords="5,4,83,23" href="/ret/common/import/info_policy.jsp" title=""/>
+    <area shape="rect" coords="93,4,160,23" href="/ret/common/import/locationinfo.jsp" title=""/>
+</map>
+</div>
+</div>
+
+</body>
+</html>
+
+
+

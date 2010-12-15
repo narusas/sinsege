@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Content-Type: text/javascript; charset=utf-8
+Content-Language: ko-KR
+Content-Length: 471
+Date: Wed, 07 Apr 2010 13:26:17 GMT
+Server: On-Demand Router/1.0
+Via: On-Demand Router/1.0
+
+throw 'allowScriptTagRemoting is false.';
+//#DWR-INSERT
+//#DWR-REPLY
+dwr.engine.remote.handleCallback("8","0",{"tot_cnt":2,status:"OK",result:[{"SEQ_NO":1,"APT_CODE":1555,"IMG_DATA":'/ret/dwr/download/B2D2B220569D5A25AA5B46E0F5F74319',"THUMBNAIL_IMG":'/ret/dwr/download/255B62E7ED13E33E8A14A5319B592D12'},{"SEQ_NO":2,"APT_CODE":1555,"IMG_DATA":'/ret/dwr/download/6DF7C417B8FFC011370D676752418544',"THUMBNAIL_IMG":'/ret/dwr/download/DCC8971E7D963413EA561EF4621915A1'}]});

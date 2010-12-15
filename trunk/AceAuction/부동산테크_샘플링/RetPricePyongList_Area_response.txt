@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Content-Type: text/javascript; charset=utf-8
+Content-Language: ko-KR
+Content-Length: 1516
+Date: Wed, 07 Apr 2010 13:26:16 GMT
+Server: On-Demand Router/1.0
+Via: On-Demand Router/1.0
+
+throw 'allowScriptTagRemoting is false.';
+//#DWR-INSERT
+//#DWR-REPLY
+dwr.engine.remote.handleCallback("3","0",{status:"OK",result:[{"SL_PRICE":"                43,000","SP_USEAREA":35,"RL_PRICE":"                 4,000","SP_TOT_HOUSE":800,"APTS_NAME":"\uACE0\uB355\uC2DC\uC601","RU_PRICE":"                 5,000","SA_PRICE":"                44,000","RA_PRICE":"                 4,500","SU_PRICE":"                45,000","PYN_TYPE":13,"APTS_CODE":346,"APTP_DATE":"20100405"},{"SL_PRICE":"                54,000","SP_USEAREA":44,"RL_PRICE":"                 5,500","SP_TOT_HOUSE":1000,"APTS_NAME":"\uACE0\uB355\uC2DC\uC601","RU_PRICE":"                 6,000","SA_PRICE":"                54,500","RA_PRICE":"                 5,750","SU_PRICE":"                55,000","PYN_TYPE":17,"APTS_CODE":346,"APTP_DATE":"20100405"},{"SL_PRICE":"                62,000","SP_USEAREA":50,"RL_PRICE":"                 7,000","SP_TOT_HOUSE":500,"APTS_NAME":"\uACE0\uB355\uC2DC\uC601","RU_PRICE":"                 8,000","SA_PRICE":"                63,000","RA_PRICE":"                 7,500","SU_PRICE":"                64,000","PYN_TYPE":19,"APTS_CODE":346,"APTP_DATE":"20100405"},{"SL_PRICE":"                72,000","SP_USEAREA":59,"RL_PRICE":"                 9,000","SP_TOT_HOUSE":200,"APTS_NAME":"\uACE0\uB355\uC2DC\uC601","RU_PRICE":"                10,500","SA_PRICE":"                73,000","RA_PRICE":"                 9,750","SU_PRICE":"                74,000","PYN_TYPE":22,"APTS_CODE":346,"APTP_DATE":"20100405"}]});

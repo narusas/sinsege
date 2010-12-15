@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Content-Type: text/javascript; charset=utf-8
+Content-Language: ko-KR
+Content-Length: 639
+Date: Sun, 04 Apr 2010 13:03:55 GMT
+Server: On-Demand Router/1.0
+Via: On-Demand Router/1.0
+
+throw 'allowScriptTagRemoting is false.';
+//#DWR-INSERT
+dwr.engine.remote.handleNewScriptSession("7622EF6FE8D72522287234E506609090");
+//#DWR-REPLY
+dwr.engine.remote.handleCallback("5","0",{status:"OK",result:[{"DONG_NAME":"\uACE0\uB355\uB3D9","DONG_CODE":"0102"},{"DONG_NAME":"\uAE38\uB3D9","DONG_CODE":"0105"},{"DONG_NAME":"\uB454\uCD0C\uB3D9","DONG_CODE":"0106"},{"DONG_NAME":"\uBA85\uC77C\uB3D9","DONG_CODE":"0101"},{"DONG_NAME":"\uC0C1\uC77C\uB3D9","DONG_CODE":"0103"},{"DONG_NAME":"\uC131\uB0B4\uB3D9","DONG_CODE":"0108"},{"DONG_NAME":"\uC554\uC0AC\uB3D9","DONG_CODE":"0107"},{"DONG_NAME":"\uCC9C\uD638\uB3D9","DONG_CODE":"0109"}]});
