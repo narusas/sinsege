@@ -1,0 +1,248 @@
+ac_appoint_statement
+기일내역 현황 테이블
+1	id		int(10)		true	false
+2	no	물건번호	int(10)		true	false
+3	goods_id		bigint(20)		false	true
+4	fixed_date	기일 일자, 시간	date		false	true
+5	type	기일종류	varchar(45)		false	true
+6	location	기일장소	varchar(45)		false	true
+7	lowest_price	최저매각가격	varchar(45)		false	true
+8	result	기일결과	varchar(255)		false	true
+9	bid_start	기간입찰 시작일	date		false	true
+10	bid_end	기간입찰 종료일	date		false	true
+ac_area
+지역 테이블
+1	code		int(10)		true	false
+2	name		varchar(45)		true	false
+3	parent_code		int(10)		true	true
+4	ord		int(10)		false	true
+ac_attested
+등기부등본
+1	id		bigint(20)		true	false
+2	goods_id		bigint(20)		true	false
+3	type		varchar(45)		true	false
+ac_attested_statement
+등기부등본 현황
+1	id		int(10)		true	false
+2	goods_id		bigint(20)		true	false
+3	no	권리순위	int(10)		true	false
+4	attested_id		bigint(20)		true	false
+5	right_type	권리종류	varchar(45)		true	false
+6	accept_date	접수일	varchar(45)		true	false
+7	right_person	권리자	varchar(45)		true	false
+8	right_price	금액	varchar(45)		true	false
+9	expiration	소멸기준	varchar(45)		true	false
+10	comment	비고	varchar(255)		true	false
+ac_bld_statement
+건물내역현황
+1	id		int(10)		true	false
+2	no		int(10)		true	false
+3	goods_id		bigint(20)		true	false
+4	address		varchar(255)		false	true
+5	floor		varchar(45)		false	true
+6	structure		varchar(255)		false	true
+7	area		varchar(20)		false	true
+8	use_for		varchar(45)		false	true
+9	unit_price		varchar(45)		false	true
+10	pynghung		varchar(20)		false	true
+11	price		bigint(20)		false	true
+12	comment		varchar(255)		false	true
+13	sell_area		varchar(45)		false	true
+14	sell_comment		varchar(1024)		false	true
+ac_charge
+담당계
+1	no		int(10)		true	false
+2	charge_code		int(10)		true	false
+3	court_code		int(10)		true	false
+4	name		varchar(45)		true	false
+5	fixed_date		date		true	false
+6	start_date		date		false	true
+7	end_date		date		false	true
+8	location		varchar(45)		true	false
+9	method		varchar(45)		true	false
+10	time		varchar(45)		false	true
+ac_court
+법원
+1	code		int(10)		true	false
+2	name		varchar(45)		true	false
+3	parent_code		int(10)		false	true
+4	ord		int(10)		false	true
+ac_event
+사건
+1	id		bigint(20)		true	false
+2	no		bigint(20)		true	true
+3	court_code		int(10)		true	false
+4	charge_id		int(10)		true	false
+5	event_year		int(10)		true	false
+6	event_no		int(10)		true	false
+7	merged_to		varchar(600)		true	false
+8	name		varchar(20)		true	false
+9	accept_date		date		true	false
+10	claim_price		bigint(20)		true	false
+11	judgement_location	감정평가서_위치관련	varchar(4096)		false	true
+12	judgement_use	감정평가서_이용상태관련	varchar(4096)		false	true
+13	judgement_land	감정평가서_토지관련	varchar(4096)		false	true
+14	judgement_road	감정평가서_도로관련	varchar(4096)		false	true
+15	judgement_temp	감정평가서_냉난방관련	varchar(4096)		false	true
+16	pic_1		varchar(255)		false	true
+17	pic_2		varchar(255)		false	true
+18	has_gamjung		tinyint(1)		false	true
+ac_exclusion
+제시외건물
+1	id		int(10)		true	false
+2	goods_id		int(10)		true	false
+3	no	순서	int(10)		true	false
+4	use_for	사용목적	varchar(45)		false	true
+5	structure	구조	varchar(45)		false	true
+6	area	면적	varchar(45)		false	true
+7	type	종류	varchar(45)		false	true
+8	floor	층형	varchar(45)		false	true
+9	address	주소	varchar(100)		false	true
+10	contains	포함/제외	varchar(10)		false	true
+ac_favorite
+
+1	idx		int(10)		true	false
+2	memid		varchar(10)		false	true
+3	goods_id		int(11)		false	true
+4	wdate		date		false	true
+5	content		text,		false	false
+ac_goods
+물건 테이블
+1	id		int(10)		true	false
+2	court_code		int(10)		true	false
+3	charge_id		int(10)		true	false
+4	event_no		bigint(20)		true	false
+5	area_code		int(10)		true	true
+6	area_code_2	지역코드2	int(10)		false	true
+7	area_code_3	지역코드3	int(10)		false	true
+8	address	주소	varchar(200)		false	true
+9	done	완료여부	tinyint(1)		true	true
+10	no	물건번호	int(10)		true	false
+11	type_code	물건종별	int(10)		false	true
+12	sell_target	매각대상	varchar(45)		false	true
+13	sell_price	감정가	bigint(20)		true	false
+14	lowest_price	최저가	bigint(20)		true	false
+15	guarantee_ratio		int(10)		true	true
+16	accept_date	사건접수일	date		false	true
+17	decision_date	경매개시결정일	date		false	true
+18	devidend_date	배장요구종기일	date		false	true
+19	view_count	조회수	int(10)		true	true
+20	comment	비고	mediumtext		false	false
+21	tools_addr	기계기구_지번	mediumtext		false	false
+22	tools_breakdown	기계기구_내역	mediumtext		false	false
+23	tools_comment	기계기구_비고	mediumtext		false	false
+24	goods_statememt_comment	매각물건명세서_비고	mediumtext		false	false
+25	goods_statememt_comment2	매각물건명세서_비소멸권리	mediumtext		false	false
+26	goods_statememt_comment3	매각물건명세서_지상권개요	mediumtext		false	false
+27	goods_statememt_comment4	매각물건명세서_비고란	mediumtext		false	false
+28	building_statement_comment	건물현황_평가정리	mediumtext		false	false
+29	land_statement_comment	대지권현황_평가정리	mediumtext		false	false
+30	appoint_statemet_comment	기일내역_평가정리	mediumtext		false	false
+31	judgement_office	감정평가서_기관	varchar(45)		false	true
+32	judgement_date	감정평가서_시점	date		false	true
+33	judgement_land_price	감정평가서_대지권가격	varchar(20)		false	true
+34	judgement_bld_price	감정평가서_건물가격	varchar(20)		false	true
+35	judgement_in_exclusion_price	감정평가서_제시외포함	varchar(20)		false	true
+36	judgement_out_exclusion_price	감정평가서_제시외미포함	varchar(20)		false	true
+37	judgement_tool_price	감정평가서_기계기구	varchar(20)		false	true
+38	judgement_price	감정평가서_합계	varchar(20)		false	true
+39	appoint_count	유찰회수	int(10)		false	true
+40	appoint_result	매각기일최종결과	varchar(45)		false	true
+41	pic_1	대표사진1	varchar(255)		false	true
+42	pic_2	대표사진2	varchar(255)		false	true
+43	last_sell_price	매각기일_매각가격	varchar(45)		false	true
+44	last_sell_result	매각기일_결과	varchar(45)		false	true
+45	appoint_result_date	매각기일현황_마지막날자	varchar(45)		false	true
+46	bid_start	기간입찰_시작	date		false	true
+47	bid_end	기간입찰 종료	date		false	true
+48	special_case	특별한 비고를 저장하는 필드	varchar(255)		false	true
+49	buyer	매각기일_매수인	varchar(255)		false	true
+50	bid_count	매각기일_입찰수	varchar(45)		false	true
+51	buy_price	매각기일_매각금액	varchar(45)		false	true
+52	buy_price_ratio	매각기일_금액비율	varchar(45)		false	true
+ac_goods_building
+대법원 물건현황
+1	id		bigint(20)		true	false
+2	goods_id		bigint(20)		true	false
+3	no	순서	int(10)		true	false
+4	address	주소	varchar(255)		false	true
+5	comment	비고	varchar(255)		false	true
+ac_goods_statement
+매각물건명세서
+1	id		int(10)		true	false
+2	goods_id		bigint(20)		true	false
+3	name	점유자의 성명	varchar(45)		false	true
+4	possessory	점유부분	varchar(255)		false	true
+5	info_source	정보출처 구분	varchar(45)		false	true
+6	ground_claim	점유의 권원	varchar(45)		false	true
+7	period	점유기간	varchar(45)		false	true
+8	guaranty_price	보증금	varchar(45)		false	true
+9	chaim	차임	varchar(45)		false	true
+10	report_date	신고일자	varchar(45)		false	true
+11	conclusion_date	확정일자	varchar(45)		false	true
+12	devidend_req_date		varchar(45)		false	true
+ac_goods_type
+물건 종류 테이블
+1	code		int(10)		true	false
+2	name		varchar(45)		true	false
+ac_goods_usage
+물건 사용 용도 테이블
+1	code		int(10)		true	false
+2	name		varchar(45)		true	false
+3	parent_code		int(10)		true	false
+ac_land_right_statement
+대지권내역현황
+1	id		int(10)		true	false
+2	no		int(10)		true	false
+3	goods_id		bigint(20)		true	false
+4	address		varchar(255)		false	true
+5	right_ratio		varchar(100)		false	true
+6	area		varchar(20)		false	true
+7	price		bigint(20)		false	true
+8	comment		varchar(255)		false	true
+9	sell_area		varchar(45)		false	true
+10	sell_comment		varchar(1024)		false	true
+ac_land_statement
+토지현황
+1	id		int(10)		true	false
+2	goods_id		int(10)		true	false
+3	no		int(10)		false	true
+4	address		varchar(255)		false	true
+5	use_for		varchar(255)		false	true
+6	use_for2		varchar(45)		true	false
+7	std_price		varchar(45)		false	true
+8	each_price		varchar(45)		false	true
+9	test_price		varchar(45)		false	true
+10	comment		varchar(255)		false	true
+11	area		varchar(45)		false	true
+12	sell_area		varchar(45)		false	true
+13	sell_comment		varchar(1024)		false	true
+ac_participant
+사건 관계자
+1	no		int(10)		true	false
+2	name		varchar(45)		true	false
+3	relation		varchar(45)		true	false
+4	event_no		bigint(20)		true	false
+ac_policy
+
+1	idx		int(4)		true	false
+2	area1_code		varchar(40)		false	true
+3	area2_code		varchar(40)		false	true
+4	dong		varchar(40)		false	true
+5	ri		varchar(40)		false	true
+6	policy		varchar(40)		false	true
+7	bigo		varchar(40)		false	true
+ac_recom
+
+1	idx		int(10)		true	false
+2	memid		varchar(10)		false	true
+3	goods_id		int(11)		false	true
+4	wdate		date		false	true
+5	content		text,		false	false
+ac_sample
+
+1	idx		int(10)		true	false
+2	memid		varchar(10)		false	true
+3	goods_id		int(11)		false	true
+4	wdate		date		false	true
+5	content		text,		false	false

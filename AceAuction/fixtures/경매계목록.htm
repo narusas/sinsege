@@ -1,0 +1,373 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>경매물건검색 - 기일별검색</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+	// 이전 화면에서 선택된 법원으로 콤보박스 초기화
+	function selectBub()
+	{
+		for ( var i = 0; i < window.document.search.bub_cd.options.length; i++ )
+		{
+			if ( '000412' == window.document.search.bub_cd.options[i].value )
+			{
+				window.document.search.bub_cd.selectedIndex = i;
+				break;
+			}
+		}
+	}
+
+	// 법원별 매각기일 정보 Loading
+	function checkInput()
+	{
+		if ( navigator.appName == "Netscape" )
+			document.search.browser.value = 2;
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.search.browser.value = 1;
+			else
+				document.search.browser.value = 2;
+		}
+		setCookie("법원명-경매물건검색",document.search.bub_cd.options[document.search.bub_cd.selectedIndex].value,365);
+		document.search.submit();
+	}
+
+	// 매각기일의 물건정보를 Loading
+	function loadMaemul( mae_giil, jp_cd, dam_nm )
+	{
+		document.maemulForm.mae_giil.value = mae_giil;
+		document.maemulForm.jp_cd.value = jp_cd;
+		document.maemulForm.dam_nm.value = dam_nm;
+
+		if ( navigator.appName == " Netscape" )
+			document.maemulForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.maemulForm.browser.value = "1";
+			else
+				document.maemulForm.browser.value = "2";
+		}
+
+		document.maemulForm.submit();
+	}
+	function getCookie( name )
+	{
+		var nameOfCookie = name + "=";
+		var x = 0;
+
+		while ( x <= document.cookie.length ){
+			var y = (x+nameOfCookie.length);
+
+			if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+				if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+					endOfCookie = document.cookie.length;
+				return unescape( document.cookie.substring( y, endOfCookie ) );
+			}
+			x = document.cookie.indexOf( " ", x ) + 1;
+
+			if ( x == 0 )
+				break;
+		}
+
+		return "";
+	}
+
+	function setCookie( name, value, expiredays )
+	{
+		var todayDate = new Date();
+		todayDate.setDate( todayDate.getDate() + expiredays );
+		document.cookie = name + "=" + escape( value ) + "; path=/; domain=" + "auction.go.kr ; expires=" + todayDate.toGMTString() ;
+		document.cookie = name + "=" + escape( value ) + "; path=/; domain=" + "courtauction.go.kr ; expires=" + todayDate.toGMTString() ;
+	}
+-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="selectBub();"
+  onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+<form name=search method="get"  action="/au/SuperServlet" OnSubmit="checkInput()">
+<input type=hidden name=target_command value="au.command.auc.C110ListCommand">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+            <td class="title" height="24" width="200"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+			  <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="10" colspan="2"><img src="/au/images/spacer.gif" width="620" height="4"></td>
+          </tr>
+        </table>
+
+        <!----------------------  검색 영역  --------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td valign="bottom" align="left">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="160" bgcolor="#F5F5F5" align="center" height="30" valign="center" style="border-width:1; border-bottom-width:0; border-color:#9C8CD9; border-style:solid;"><b>↓ 기일별검색</b></td>
+                  <td width="1" height="30" style="border-width:0; border-color:black; border-bottom-width:1; border-style:solid;"></td>
+                  <td width="160" bgcolor="#E3E3E3" align="center" height="30" valign="center" style="border-width:0; border-color:#9C8CD9; border-top-width:0; border-bottom-width:1; border-left-width:0; border-right-width:0; border-style:solid;">
+				    <a href="/au/SuperServlet?target_command=au.command.auc.C120SearchCommand&check_msg=" id="a1">
+                    <font color="#000000">종합검색</font></a>
+                  </td>
+				  <td width="1000" height="30" style="border-width:0; border-top-width:0; border-bottom-width:1; border-right-width:0; border-color:#9C8CD9; border-style:solid;">&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <!----------------------  검색 영역  --------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="10">
+          <tr>
+            <td valign="middle" align="left" bgcolor="#F5F5F5" height="44" style="border-width:1; border-top-width:0; border-color:#9C8CD9; border-style:solid;"><img src="/au/images/i_yellow.gif" width="6" height="8">
+			  <font color="#003366"> 법원 : </font>
+              <select name="bub_cd">
+
+	    	 	<option value="000210" >서울중앙지방법원</option>
+
+	    	 	<option value="000211" >서울동부지방법원</option>
+
+	    	 	<option value="000212" >서울남부지방법원</option>
+
+	    	 	<option value="000213" >서울북부지방법원</option>
+
+	    	 	<option value="000215" >서울서부지방법원</option>
+
+	    	 	<option value="000214" >의정부지방법원</option>
+
+	    	 	<option value="214807" >고양지원</option>
+
+	    	 	<option value="000240" >인천지방법원</option>
+
+	    	 	<option value="000241" >부천지원</option>
+
+	    	 	<option value="000250" >수원지방법원</option>
+
+	    	 	<option value="000251" >성남지원</option>
+
+	    	 	<option value="000252" >여주지원</option>
+
+	    	 	<option value="000253" >평택지원</option>
+
+	    	 	<option value="250826" >안산지원</option>
+
+	    	 	<option value="000260" >춘천지방법원</option>
+
+	    	 	<option value="000261" >강릉지원</option>
+
+	    	 	<option value="000262" >원주지원</option>
+
+	    	 	<option value="000263" >속초지원</option>
+
+	    	 	<option value="000264" >영월지원</option>
+
+	    	 	<option value="000270" >청주지방법원</option>
+
+	    	 	<option value="000271" >충주지원</option>
+
+	    	 	<option value="000272" >제천지원</option>
+
+	    	 	<option value="000273" >영동지원</option>
+
+	    	 	<option value="000280" >대전지방법원</option>
+
+	    	 	<option value="000281" >홍성지원</option>
+
+	    	 	<option value="000282" >논산지원</option>
+
+	    	 	<option value="000283" >천안지원</option>
+
+	    	 	<option value="000284" >공주지원</option>
+
+	    	 	<option value="000285" >서산지원</option>
+
+	    	 	<option value="000310" >대구지방법원</option>
+
+	    	 	<option value="000320" >서부지원</option>
+
+	    	 	<option value="000311" >안동지원</option>
+
+	    	 	<option value="000312" >경주지원</option>
+
+	    	 	<option value="000313" >김천지원</option>
+
+	    	 	<option value="000314" >상주지원</option>
+
+	    	 	<option value="000315" >의성지원</option>
+
+	    	 	<option value="000316" >영덕지원</option>
+
+	    	 	<option value="000317" >포항지원</option>
+
+	    	 	<option value="000410" >부산지방법원</option>
+
+	    	 	<option value="000412" >동부지원</option>
+
+	    	 	<option value="000411" >울산지방법원</option>
+
+	    	 	<option value="000420" >창원지방법원</option>
+
+	    	 	<option value="000421" >진주지원</option>
+
+	    	 	<option value="000422" >통영지원</option>
+
+	    	 	<option value="000423" >밀양지원</option>
+
+	    	 	<option value="000424" >거창지원</option>
+
+	    	 	<option value="000510" >광주지방법원</option>
+
+	    	 	<option value="000511" >목포지원</option>
+
+	    	 	<option value="000512" >장흥지원</option>
+
+	    	 	<option value="000513" >순천지원</option>
+
+	    	 	<option value="000514" >해남지원</option>
+
+	    	 	<option value="000520" >전주지방법원</option>
+
+	    	 	<option value="000521" >군산지원</option>
+
+	    	 	<option value="000522" >정읍지원</option>
+
+	    	 	<option value="000523" >남원지원</option>
+
+	    	 	<option value="000530" >제주지방법원</option>
+
+              </select>
+              <a href="javascript:checkInput();" id="a1" target="_self" ><img src="/au/images/but_search.gif"  border="0"  align="absmiddle"></a></td>
+          </tr>
+        </table>
+
+        <br>
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="25"><b><font color="#663333">[ 부산지방법원 동부지원 ]</font></b>
+            </td>
+          </tr>
+        </table>
+        <table width="99%" border="0" cellspacing="1" cellpadding="1" bgcolor="#AFAFAF">
+          <tr>
+            <td align="center" bgcolor="#FFFFFF">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td width="50%" align="right" height="30"> <font color="#664500">
+                    <img src="/au/images/i_list.gif" align="absmiddle"> 매각물건명세서&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="/au/images/i_report.gif" align="absmiddle"> 현황조사서&nbsp;&nbsp;&nbsp;&nbsp;
+                    <img src="/au/images/i_valuation.gif" align="absmiddle"> 감정평가서&nbsp;&nbsp;
+                    </font></td>
+                </tr>
+              </table>
+              <table width="100%" border="0" cellspacing="1" cellpadding="0" bgcolor="#FFFFFF">
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="15%" align="center" height="30"><font color="#333333">매각기일(입찰기간)</font></td>
+                  <td width="60%" height="30" align="center"><font color="#333333">담당계</font></td>
+                  <td width="15%" align="center" height="30"><font color="#333333">물건관련서류</font></td>
+                </tr>
+
+				<tr bgcolor="#FFFFFF" valign="middle" align="center">
+                  <td width="20%" height="26">2007.03.16</td>
+                  <td width="55%" height="26" align="left">
+
+                    &nbsp;&nbsp;&nbsp;<a href="javascript:loadMaemul( '2007.03.16', '1006', '경매6계' );" id="a1">경매6계</a>
+
+                  <td width="15%" height="26"><img src="/au/images/i_list.gif">
+                    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_report.gif">
+				    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_valuation.gif"></td>
+                </tr>
+
+				<tr bgcolor="#F3F3F3" valign="middle" align="center">
+                  <td width="20%" height="26">2007.03.09 ~ 2007.03.16<br>( 매각기일 2007.03.22 )</td>
+                  <td width="55%" height="26" align="left">
+
+                    &nbsp;&nbsp;&nbsp;<a href="javascript:loadMaemul( '2007.03.22', '1005', '경매5계' );" id="a1">경매5계</a>
+
+                  <td width="15%" height="26"><img src="/au/images/i_list.gif">
+                    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_report.gif">
+				    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_valuation.gif"></td>
+                </tr>
+
+				<tr bgcolor="#FFFFFF" valign="middle" align="center">
+                  <td width="20%" height="26">2007.03.08 ~ 2007.03.15<br>( 매각기일 2007.03.20 )</td>
+                  <td width="55%" height="26" align="left">
+
+                    &nbsp;&nbsp;&nbsp;<a href="javascript:loadMaemul( '2007.03.20', '1002', '경매2계' );" id="a1">경매2계</a>
+
+                  <td width="15%" height="26"><img src="/au/images/i_list.gif">
+                    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_report.gif">
+				    &nbsp;&nbsp;&nbsp;<img src="/au/images/i_valuation.gif"></td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <br>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="top">
+            <td width="10"></td>
+            <td height="40">※ 기간입찰의 방법으로 경매절차가 진행되는 경우에는 "입찰기간(매각기일)"로 표시하고 있습니다.</td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</form>
+
+<form name=maemulForm method="get" action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=bub_cd value="000412">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=mae_giil value="">
+<input type=hidden name=jp_cd value="">
+<input type=hidden name=dam_nm value="">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+
+<script language="javascript">
+	init();
+</script>
+
+</body>
+</html>
+

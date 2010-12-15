@@ -1,0 +1,1460 @@
+
+
+
+
+
+
+
+<!-- (2003.01.23.IT.OH) ------------------------------>
+
+<!---------------------------------------------------->
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>물건검색결과</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+    /* 쿠키 가져오기 */
+	function getCookieVal(offset){
+   		var endstr = document.cookie.indexOf (";", offset);
+	   	if (endstr == -1)
+   			endstr = document.cookie.length;
+	   	return unescape(document.cookie.substring(offset, endstr));
+	}
+
+	function GetCookie(name) {
+   		var arg = name + "=";
+	   	var alen = arg.length;
+   		var clen = document.cookie.length;
+	   	var	i = 0;
+   		while (i < clen){
+   			var j = i + alen;
+
+	   		if (document.cookie.substring(i, j ) == arg)
+   				return getCookieVal (j);
+
+   			i = document.cookie.indexOf(" ", i) + 1;
+	   		if (i == 0) break;
+   		}
+
+   		return null;
+	}
+
+	/* 쿠키 세팅하기 */
+	function SetCookie( name, value ){
+   		var argv = SetCookie.arguments;
+  		var argc = SetCookie.arguments.length;
+  		var expires_date = (argc > 2 )? argv[2] : null;
+  		var path = (argc > 3 )? argv[3] : null;
+	   	var domain = (argc > 4 )? argv[4] : null;
+  		var secure = (argc > 5 )? argv[5] : false;
+
+  		// 유효기간 계산
+  		var currentDate = new Date();
+   		var expires = new Date();
+	   	expires.setTime (expires.getTime() + expires_date * (24 * 60 * 60 * 1000));
+
+   		document.cookie = name + "=" + escape (value) +
+   			((expires == null)? "" : ("; expires=" + expires.toGMTString())) +
+	   		((path == null)? "" : ("; path=" + path)) +
+   			((domain == null)? "" : ("; domain=" + domain)) +
+   			((secure == null)? "; secure" : "");
+	}
+
+	// 쿠키 삭제 처리 부분
+	function DeleteCookie(name){
+   		var exp = new Date();
+	   	exp.setTime (exp.getTime() - 1);
+		var cval = GetCookie(name);
+	   	document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+	}
+
+	function cookie_process()
+	{
+   		var c_string = GetCookie('c_string');
+      	var i, j, str, flag, v_num = 0;
+      	var v_new = '';
+
+	   	for( i = 0; i < 30 ; i++ )
+   		{
+   			str = document.listForm.checkid[i].value;
+	   		flag = document.listForm.checkid[i].checked;
+   			if ( str == 'start' ) continue;
+   			if ( str == 'end' ) break;
+	   		if (!flag) continue;
+
+   			c_string = DelItem(c_string, str);
+
+   			if ( v_new == '')
+      		v_new = str;
+      	else
+      		v_new = v_new + '*' + str;
+
+				v_num++
+ 	   	}
+
+	   	if (v_new == '')
+   		{
+   			alert('선택하신 목록이 없습니다.');
+	   		return;
+   		}
+
+	   	if ((c_string == null)||(c_string == ''))
+   		{
+   			SetCookie('c_string', v_new, 100, '/');
+	   		alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+   			return;
+	   	}
+
+	   	var v_split = c_string.split('*');
+   		for( j = 0 ; j < 30 - v_num; j++)
+  		{
+  			if ( j >= v_split.length ) break;
+  			v_new = v_new + '*' + v_split[j];
+	   	}
+
+  		SetCookie('c_string', v_new, 100, '/');
+	   	alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+  		return;
+  	}
+
+	function DelItem( e_cookie, e_target )
+	{
+		var i;
+		var flag = 1;
+		var result;
+
+		if (( e_cookie == null)||( e_cookie == '')) return '';
+
+		var v_split = e_cookie.split('*');
+
+		for( i = 0 ; i < 29 ; i++)
+		{
+			if ( i >= v_split.length ) break;
+
+			if ( e_target != v_split[i]	)
+			{
+				if( flag )
+				{
+					result = v_split[i];
+					flag = 0;
+				}
+				else
+					result = result + '*' + v_split[i];
+			}
+		}
+		return result;
+	}
+
+	// 페이지 번호 클릭시 해당 페이지 Loading
+	function goMove( page )
+	{
+		document.iMove.page.value = page;
+		document.iMove.submit();
+	}
+
+	// 이전검색화면으로 이동
+	function loadSearch( flag ) {
+		if ( flag == 1 )
+			command = "au.command.aua.A210ListCommand";
+		else if ( flag == 2 )
+			command = "au.command.auc.C110ListCommand";
+		else if ( flag == 3 )
+			command = "au.command.auc.C120SearchCommand";
+		else if ( flag == 4 )
+			command = "au.command.aue.E210SearchCommand";
+
+		document.searchForm.target_command.value = command;
+
+		if ( navigator.appName == " Netscape" )
+			document.searchForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.searchForm.browser.value = "1";
+			else
+				document.searchForm.browser.value = "2";
+		}
+		document.searchForm.submit();
+	}
+
+	// 사건상세정보(경매사건검색)로 이동
+	function loadSaDetail( bub_cd, sa_no ) {
+		document.detailForm.bub_cd.value = bub_cd;
+		document.detailForm.sa_no.value = sa_no;
+
+        if ( navigator.appName == " Netscape" )
+			document.detailForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.detailForm.browser.value = "1";
+			else
+				document.detailForm.browser.value = "2";
+		}
+		document.detailForm.submit();
+	}
+
+	// 매각물건명세서 Loading
+	function loadMyung( bub_cd, sa_no, maemul_no )	{
+		document.myungForm.bub_cd.value = bub_cd;
+		document.myungForm.sa_no.value = sa_no;
+		document.myungForm.maemul_no.value = maemul_no;
+
+		if ( navigator.appName == " Netscape" )
+			document.myungForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.myungForm.browser.value = "1";
+			else
+				document.myungForm.browser.value = "2";
+		}
+		document.myungForm.submit();
+	}
+
+	// 현황조사서 Loading
+	function loadHyun( bub_cd, sa_no, mo_sa_no, relsaInfo, saList_HasHyunjo, userSaList_HasHyunjo, sano_HasHyunjo )
+	{
+		document.hyunForm.bub_cd.value = bub_cd;
+		document.hyunForm.sa_no.value = sa_no;
+		document.hyunForm.saList_HasHyunjo.value = saList_HasHyunjo;
+		document.hyunForm.userSaList_HasHyunjo.value = userSaList_HasHyunjo;
+		document.hyunForm.sano_HasHyunjo.value = sano_HasHyunjo;
+
+		if ( relsaInfo.length > 0 )
+			jf_processRelsaInfo(mo_sa_no,relsaInfo,'hyun');
+
+		if ( navigator.appName == " Netscape" )
+			document.hyunForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.hyunForm.browser.value = "1";
+			else
+				document.hyunForm.browser.value = "2";
+		}
+
+		if( mo_sa_no.indexOf("(이송전)",0) > 0 )
+			document.hyunForm.IHsa_no.value = mo_sa_no;
+
+		document.hyunForm.submit();
+	}
+
+	// 감정평가서 Loading
+	function loadGam( bub_cd, sa_no, mo_sa_no, relsaInfo, saList_HasGam, userSaList_HasGam, sano_HasGam, userSano_HasGam, ibub_nm, mae_giil, gam_no )
+	{
+		document.gamForm.bub_cd.value = bub_cd;
+		document.gamForm.bub_nm.value = '서울중앙지방법원 ';
+
+		//자동차 이송전사건 법원
+		if( ibub_nm != "" )
+			document.gamForm.bub_nm.value = ibub_nm;
+
+		if( userSano_HasGam == "" )
+			document.gamForm.user_mo_sa_no.value = mo_sa_no;
+		else 
+			document.gamForm.user_mo_sa_no.value = userSano_HasGam;
+
+		document.gamForm.sa_no.value = sa_no;
+		document.gamForm.displaySaList_RelSa.value = relsaInfo;
+		document.gamForm.saList_HasGam.value = saList_HasGam;
+		document.gamForm.userSaList_HasGam.value = userSaList_HasGam;
+		document.gamForm.sano_HasGam.value = sano_HasGam;
+		//userSano_HasGam
+		document.gamForm.mae_giil.value = mae_giil;
+		document.gamForm.gam_no.value = gam_no;
+
+		//자동차 이송전사건
+		//document.gamForm.ibub_cd.value = ibub_cd;
+		//document.gamForm.isa_no.value = isa_no;
+		//document.gamForm.userIsa_no.value = userIsa_no;
+
+		if ( relsaInfo.length > 0 )
+			jf_processRelsaInfo(mo_sa_no,relsaInfo,'gam');
+
+		if ( navigator.appName == " Netscape" )
+			document.gamForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.gamForm.browser.value = "1";
+			else
+				document.gamForm.browser.value = "2";
+		}
+		//document.gamForm.submit();
+
+		window.open( "/au/auc/C103Frame.jsp?bub_cd="+bub_cd+"&sa_no="+sa_no+"&mae_giil="+mae_giil+"&sano_HasGam="+sano_HasGam+"&gam_no="+gam_no, "gam", "width=800, height=620, top=50, left=150, resizable=yes" );
+		//window.open( "http://210.98.146.20/main.asp?bub_cd=" + bub_cd + "&sa_no=" + sa_no, "gam", "width=800, height=600" );
+	}
+
+	// 관련사건번호 재가공
+	// Parameters : 모사건사용자번호 2001타경2003
+	//							원관련사용자사건번호 <br>2001타경80913<br>2002타경22587<br>(중복)
+	//							gubun - 'hyun' or 'gam' 현황조사서/감정평가서의 구분
+	// Return 값 	: 2001타경2003#2001타경80913(중복)#2002타경22587(중복)
+	// 							2001타경2003#2001타경80913#2002타경22587
+	//							두 값을 form에 셋팅
+	function jf_processRelsaInfo( user_mo_sa_no, relsaInfo, gubun )
+	{
+		var array_relsaInfo = relsaInfo.substring(4).split("<br>");
+		var new_array_displaySaList_RelSa = new Array();
+		var new_array_userSaList_RelSa = new Array();
+		var temp = 0;
+		var new_array_count = 1;
+
+		new_array_displaySaList_RelSa[0] = user_mo_sa_no;
+		new_array_userSaList_RelSa[0] = user_mo_sa_no;
+
+		for ( var i=0; i < array_relsaInfo.length; i++ )
+		{
+			if ( array_relsaInfo[i].indexOf('(') != -1 )
+			{
+				for ( var j=temp; j < i; j++ )
+				{
+					new_array_displaySaList_RelSa[new_array_count] = array_relsaInfo[j] + array_relsaInfo[i];
+					new_array_userSaList_RelSa[new_array_count] = array_relsaInfo[j];
+					new_array_count++;
+				}
+				temp = i+1;
+			}
+		}
+
+		var displaySaList_RelSa = '';
+		var userSaList_RelSa = '';
+
+		for ( var h=0; h < new_array_displaySaList_RelSa.length; h++ )
+		{
+			if ( h != (new_array_displaySaList_RelSa.length-1) )
+			{
+				displaySaList_RelSa += new_array_displaySaList_RelSa[h] + "#";
+				userSaList_RelSa += new_array_userSaList_RelSa[h] + "#";
+			}
+			else
+			{
+				displaySaList_RelSa += new_array_displaySaList_RelSa[h];
+				userSaList_RelSa += new_array_userSaList_RelSa[h];
+			}
+		}
+
+		if (gubun == 'hyun')
+		{
+			document.hyunForm.displaySaList_RelSa.value = displaySaList_RelSa;
+			document.hyunForm.userSaList_RelSa.value = userSaList_RelSa;
+		}
+		else
+		{
+			document.gamForm.displaySaList_RelSa.value = displaySaList_RelSa;
+			document.gamForm.userSaList_RelSa.value = userSaList_RelSa;
+		}
+	}
+
+
+/*//--------------알림------------------------------------------------------------------------------------
+function getCookie( name )
+{
+        var nameOfCookie = name + "=";
+        var x = 0;
+        while ( x <= document.cookie.length )
+        {
+                var y = (x+nameOfCookie.length);
+                if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+                        if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+                                endOfCookie = document.cookie.length;
+                        return unescape( document.cookie.substring( y, endOfCookie ) );
+                }
+                x = document.cookie.indexOf( " ", x ) + 1;
+                if ( x == 0 )
+                        break;
+        }
+        return "";
+}
+function setCookie( name, value, expiredays ) {
+  var todayDate = new Date();
+  todayDate.setDate( todayDate.getDate() + expiredays );
+  document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + "; domain=" + ".courtauction.go.kr"+";";
+}
+var cookieval = new Date();
+cookieval = cookieval.getTime();
+var rStr_1 = "" + Math.random();
+var rStr_2 = "" + Math.random();
+var rStr_3 = "" + Math.random();
+var rStr_4 = "" + Math.random();
+var rStr_5 = "" + Math.random();
+rStr_1 = rStr_1.charAt(2);
+rStr_2 = rStr_2.charAt(2);
+rStr_3 = rStr_3.charAt(2);
+rStr_4 = rStr_4.charAt(2);
+rStr_5 = rStr_5.charAt(2);
+
+cookieval = cookieval + rStr_1 + rStr_2 + rStr_3 + rStr_4 + rStr_5;
+
+if(getCookie("pcid") == null || getCookie("pcid") == "") {
+  setCookie("pcid", cookieval , 3650);
+}
+
+if ( getCookie( "Notice" ) != "done" )
+{
+        noticeWindow  =  window.open('/au/notice.jsp','notice','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,top=0,left=0,width=350,height=334');
+        noticeWindow.opener = self;
+}
+
+//--------------알림------------------------------------------------------------------------------------
+*/
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+
+            <td class="title" height="24" width="200"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+              <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="4" colspan="2"><img src="/au/images/spacer.gif" width="830" height="4"></td>
+          </tr>
+        </table>
+
+
+        <!----------------------  상세내역  ----------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="8">
+
+
+<!-- 출력/검색을 두줄로 하기위해 이동 (2003.01.23. IT.OH) ------------------------------------------------------------------------------>
+          <tr valign="bottom">
+
+			<td align="right" height="38" width="25%"><a href="javascript:PrintMove();" id="a1"><b><font color="#003399">[ 출력 ] </font></b></a>
+
+
+            <a href="javascript:loadSearch( 2 );" id="a1"><b><font color="#003399">[ 검색화면→]</font></b></a></td>
+
+          </tr>		  
+<!------------------------------------------------------------------------------------------------------------------------------------->
+
+
+          <tr valign="bottom">
+            <td align="left" height="23">법원 :<b> 서울중앙지방법원 &nbsp;&nbsp;&gt;&nbsp;&nbsp;</b>
+
+
+매각기일 :<b> 2007.03.22 (10:00,&nbsp;경매법정) &nbsp;&nbsp;&gt;&nbsp;&nbsp;</b>
+
+
+
+<!------------------------------------------------------------------------------------------------------------------------------>
+
+담당계 :<b> 경매7계 &nbsp;&nbsp;</b>
+
+
+              <b>[ 총 <font color="#CC0000">46 </font>건 ]</b>
+            </td>
+
+<!-- 출력/검색을 두줄로 하기위해 위쪽으로 이동 (2003.01.23. IT.OH) ------------------------------------------------------------------------------
+
+			<td align="right" height="38" width="25%"><a href="javascript:PrintMove();" id="a1"><b><font color="#003399">[ 출력 ] </font></b></a>
+
+
+            <a href="javascript:loadSearch( 2 );" id="a1"><b><font color="#003399">[ 검색화면→]</font></b></a></td>
+
+------------------------------------------------------------------------------------------------------------------------------------------------>
+          </tr>
+
+        </table>
+
+        <table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#BBBBBB">
+          <tr>
+            <td colspan="7" align="center" bgcolor="#FFFFFF">
+
+        <!----------------------  리스트 안내  ----------------------------->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td colspan="2" align="left" height="30" valign="middle">&nbsp;<a href="javascript:cookie_process();" id="a1"><img src="/au/images/but_chak.gif" width="105" height="22" align="absbottom" border="0"></a></td>
+                  <td width="50%" align="right" height="30"><font color="#664500">
+                  <img src="/au/images/i_list.gif" align="absmiddle"> 매각물건명세서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_report.gif" align="absmiddle"> 현황조사서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_valuation.gif" align="absmiddle"> 감정평가서&nbsp;&nbsp; </font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+<form name="listForm" >
+<input type=hidden name="checkid" value="start">
+
+        <!----------------------  리스트 ----------------------------->
+<!--              <table width="100%" border="0" cellspacing="1" cellpadding="2" bgcolor="#999999">-->
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="1%"  align="center" height="30" rowspan="2"><font color="#333333">등록</font></td>
+                  <td width="14%" align="center" height="30" rowspan="2"><font color="#333333">사건번호</font></td>
+                  <td colspan="2" align="center" height="22" valign="bottom"><font color="#333333">매각물건</font></td>
+                  <td width="12%"  align="center" height="30" rowspan="2"><font color="#333333">비고</font></td>
+                  <td width="12%" align="center" height="30" rowspan="2"><font color="#333333">감정평가액<br> 최저매각가격<br>(단위 : 원)</font></td>
+                  <td width="8%" align="center" height="30" rowspan="2"><font color="#333333">매각기일<br> 담당계<br>(관련서류)</font></td>
+                </tr>
+
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="7%"  align="center" height="22" bgcolor="#D5E0EA">물건번호</td>
+                  <td width="46%" align="center" height="22" bgcolor="#D5E0EA">소재지 및 상세내역</td>
+<!--                  <td width="20%" align="center" height="22" bgcolor="#D5E0EA">상세내역</td> -->
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20060130009522"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20060130009522' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경9522 </b></a></td>
+                  <td rowspan="1" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 강남구 개포동  186-15&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>대 768.1㎡  (경매할지분 김영철 지분 768.1분의 1.686 전부) <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#EFF3F8">-일괄매각
+-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">20,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  10,240,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130009522', 
+												  '2006타경9522', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130009522', 
+												 '2006타경9522', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '11764' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20060130012481"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20060130012481' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경12481 </b></a></td>
+                  <td rowspan="1" bgcolor="#E7E7E7">1
+
+                    <br>연립주택,다세대,빌라
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7"><!--10:00-->
+                    서울특별시 중구 신당동  432-1951 4층 401호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트벽식구조 평슬래브지붕 4층 다세대주택
+ 1층 69.54㎡
+ 2층 69.54㎡
+ 3층 69.54㎡
+ 4층 69.54㎡
+지하1층 69.54㎡
+지하2층 56.42㎡ <br>전유부분의건물의표시: 철근콘크리트 벽식구조 57.32㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-재매각임(보증금 2할)</td>
+                  <td rowspan="1" bgcolor="#E7E7E7">110,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  88,000,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130012481', 
+												  '2006타경12481', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130012481', 
+												 '2006타경12481', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '14723' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="2"><input type="checkbox" name="checkid" value="000210 20060130014449"></td>
+                  <td rowspan="2"><a href="javascript:loadSaDetail( '000210', '20060130014449' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경14449 </b></a></td>
+                  <td rowspan="2" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 중구 남창동  52-1코코클럽 지하1층 112호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 1층 430.96㎡
+2층 389.96㎡
+3층 389.96㎡
+4층 389.96㎡
+5층 389.96㎡
+6층 384.20㎡
+7층 236.60㎡
+8층 199.92㎡
+지하1층 487.96㎡
+지하2층 492.46㎡
+옥탑 45.45㎡ <br>전유부분의건물의표시: 철근콘크리트조
+1.95㎡    <br><br>
+                  </td>
+                  <td rowspan="2" align="left"bgcolor="#EFF3F8">-일괄매각
+-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="2" bgcolor="#EFF3F8">131,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  67,072,000</td>
+
+                  <td rowspan="2">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130014449', 
+												  '2006타경14449', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130014449', 
+												 '2006타경14449', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '16691' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center">
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 중구 남창동  52-1코코클럽 지하1층 113호&nbsp; <!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 1층 430.96㎡
+2층 389.96㎡
+3층 389.96㎡
+4층 389.96㎡
+5층 389.96㎡
+6층 384.20㎡
+7층 236.60㎡
+8층 199.92㎡
+지하1층 487.96㎡
+지하2층 492.46㎡
+옥탑 45.45㎡ <br>전유부분의건물의표시: 철근콘크리트조
+1.87㎡    <br><br>
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#F3F3F3">
+                  <td rowspan="1"><input type="checkbox" name="checkid" value="000210 20060130014555"></td>
+                  <td rowspan="1"><a href="javascript:loadSaDetail( '000210', '20060130014555' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경14555 </b></a></td>
+                  <td rowspan="1" bgcolor="#E7E7E7">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#E7E7E7"><!--10:00-->
+                    서울특별시 중구 을지로6가  18-35헬로우에이피엠 1층 112호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#E7E7E7">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철골철근콘크리트조 평슬래브지붕 11층
+판매 및 영업시설(근린생활시설,업무시설)
+1층 1558.23㎡
+2층 1565.76㎡
+3층 1540.13㎡
+4층 1530.86㎡
+5층 1530.86㎡
+6층 1503.41㎡
+7층 1499.20㎡
+8층 1499.20㎡
+9층 1460.89㎡
+10층 1446.15㎡
+11층 1041.64㎡
+지1층 1930.24㎡
+지2층 1992.59㎡
+지3층 1862.13㎡
+지4층 1697.03㎡
+ <br>전유부분의건물의표시: 철골철근콘크리트조
+3.77㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#E7E7E7">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음</td>
+                  <td rowspan="1" bgcolor="#E7E7E7">160,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  81,920,000</td>
+
+                  <td rowspan="1">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130014555', 
+												  '2006타경14555', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130014555', 
+												 '2006타경14555', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '16797' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="15"><input type="checkbox" name="checkid" value="000210 20060130017592"></td>
+                  <td rowspan="15"><a href="javascript:loadSaDetail( '000210', '20060130017592' );" id="a1">
+
+                  서울중앙지방법원<br><b>2006타경17592 </b></a></td>
+                  <td rowspan="1" bgcolor="#EFF3F8">1
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8"><!--10:00-->
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 1층 101호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+40.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left"bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연 2할
+-임대차 : 물건명세서와 같음
+-토지 별도등기 있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">123,000,000<br><font color="#999999">---------</font><br>
+				  
+ 				  98,400,000</td>
+
+                  <td rowspan="15">2007.03.22<br> <font color="#999999">---------</font>
+                    <br>경매7계<br>
+
+					<a href="javascript:loadHyun( '000210', 
+												  '20060130017592', 
+												  '2006타경17592', 
+												  '', 
+												  '', 
+												  '', 
+												  '' 
+											     );" id="a1">
+					<img src="/au/images/i_report.gif" border="0"></a>
+
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+
+
+	                <a href="javascript:loadGam( '000210', 
+												 '20060130017592', 
+												 '2006타경17592', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '', 
+												 '2007.03.22', 
+												 '19834' 
+											    );" id="a1">
+					<img src="/au/images/i_valuation.gif" border="0"></a>
+
+				<!--					&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+                  </td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">2
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 1층 102호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+46.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">141,000,000<br><font color="#999999">---------</font><br>
+	
+				  112,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">3
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 1층 103호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+48.45㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음    
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">146,000,000<br><font color="#999999">---------</font><br>
+	
+				  116,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">4
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 201호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+40.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음 
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">123,000,000<br><font color="#999999">---------</font><br>
+	
+				  98,400,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">5
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 202호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+46.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지 별도등기 있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">141,000,000<br><font color="#999999">---------</font><br>
+	
+				  112,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">6
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 203호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+48.45㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">146,000,000<br><font color="#999999">---------</font><br>
+	
+				  116,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">7
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 204호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+45.1㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">123,000,000<br><font color="#999999">---------</font><br>
+	
+				  98,400,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">8
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 205호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+43.35㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">118,000,000<br><font color="#999999">---------</font><br>
+	
+				  94,400,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">9
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 2층 206호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+63.81㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">174,000,000<br><font color="#999999">---------</font><br>
+	
+				  139,200,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">10
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 301호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+40.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">123,000,000<br><font color="#999999">---------</font><br>
+	
+				  98,400,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">11
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 302호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+46.8㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">141,000,000<br><font color="#999999">---------</font><br>
+	
+				  112,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">12
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 303호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+48.45㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">146,000,000<br><font color="#999999">---------</font><br>
+	
+				  116,800,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">13
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 304호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+45.1㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">125,000,000<br><font color="#999999">---------</font><br>
+	
+				  100,000,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">14
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 305호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+43.35㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">120,000,000<br><font color="#999999">---------</font><br>
+	
+				  96,000,000</td>
+                </tr>
+
+                <tr valign="middle" align="center" bgcolor="#FFFFFF">
+                  <td rowspan="1" bgcolor="#EFF3F8">15
+
+                    <br>상가,오피스텔,근린시설
+                  </td>
+                  <td align="left" bgcolor="#EFF3F8">
+                    서울특별시 종로구 홍지동  104-21외 2필지세검정아트오피스텔 3층 306호&nbsp;<!--</td>
+                  <td align="left" bgcolor="#EFF3F8">-->
+                    <br><font color="#003399">[상세내역]</font><br>1동건물의표시: 철근콘크리트구조 (철근)콘크리트지붕
+4층 업무시설
+ 1층 207.27㎡
+ 2층 344.47㎡
+ 3층 344.47㎡
+ 4층 344.47㎡
+지층  92.82㎡
+지층 260.53㎡ <br>전유부분의건물의표시: 철근콘크리트구조
+63.81㎡    <br><br>
+                  </td>
+                  <td rowspan="1" align="left" bgcolor="#EFF3F8">-대금지급기일(기한)이후 지연이자율 연2할
+-임대차: 물건명세서와 같음
+-토지별도등기있음</td>
+                  <td rowspan="1" bgcolor="#EFF3F8">177,000,000<br><font color="#999999">---------</font><br>
+	
+				  141,600,000</td>
+                </tr>
+
+<input type=hidden name="checkid" value="end">
+</form>
+
+	<!--관심사건등록--------------------------------------------------------------------------------------------------------->
+		  <tr>
+            <td colspan="7" align="center" bgcolor="#FFFFFF">
+              <table width="100%" border="0" cellspacing="1" cellpadding="1" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td colspan="2" align="left" height="30" valign="middle">&nbsp;<a href="javascript:cookie_process();" id="a1"><img src="/au/images/but_chak.gif" width="105" height="22" align="absbottom" border="0"></a></td>
+                  <td width="50%" align="right" height="30"><font color="#664500">
+                  <img src="/au/images/i_list.gif" align="absmiddle"> 매각물건명세서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_report.gif" align="absmiddle"> 현황조사서&nbsp;&nbsp;&nbsp;&nbsp;
+                  <img src="/au/images/i_valuation.gif" align="absmiddle"> 감정평가서&nbsp;&nbsp; </font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+	<!----------------------------------------------------------------------------------------------------------------------->
+
+        </table>
+
+
+
+		<br>
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="40" valign="middle" align="center"><span class="bbs">
+            <font color="#006699"><A HREF='javascript:goMove(1);' id='a1'>◀◀</a>  &nbsp;<a href='javascript:document.bMove.submit();' id='a1'>◀</a> <A HREF='javascript:goMove(1);' id='a1'> [1] </A><A HREF='javascript:goMove(2);' id='a1'> [2] </A> <b>[3]</b> <A HREF='javascript:goMove(4);' id='a1'> [4] </A><A HREF='javascript:goMove(5);' id='a1'> [5] </A><A HREF='javascript:goMove(6);' id='a1'> [6] </A> <a href='javascript:document.nMove.submit();' id='a1'>▶</a> &nbsp;<A HREF='javascript:goMove(6);' id='a1'>▶▶</a></font></span></a></td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr valign="top">
+      <td width="30"></td>
+      <td height="40" width="40"> <b><font color="D38600">주의)<br></font></b></td>
+      <td>조회된 물건번호 및 그 정보는 법원 경매계에서 처리하고 있는 실제 물건의 정보와 일치하지 않을 수 있습니다.
+      <br>매각물건의 정확한 내용은 담당 경매계를 방문하거나 법원에 비치된 물건명세서를 열람하여 반드시 재확인하기 바랍니다.
+      <br>인터넷으로 서비스하는 정보만으로 참여한 입찰과 관련하여 발생하는 문제에 대해서 법원은 법적 책임을 지지 않습니다.
+	  </td>
+    </tr>
+  </table>
+  <br>
+
+<!-- 이전페이지 링크 이동 -->
+<form name=bMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="2">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 페이지 링크 이동 -->
+<form name=iMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 다음페이지 링크 이동 -->
+<form name=nMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=page value="4">
+<input type=hidden name=totalRows value="104">
+<input type=hidden name=saCount value="46">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 이전검색화면으로 이동 -->
+<form name=searchForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=condition value="1">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 경매사건검색으로 이동 -->
+<form name=detailForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C311ListCommand">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="3">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=allbub value="000210">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 매각물건명세서로 이동 -->
+<form name=myungForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C101MyungCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=maemul_no value="">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<!-- 현황조사서로 이동 -->
+<form name=hyunForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C102HyunCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="3">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=level value="">
+<input type=hidden name=addr1 value="">
+<input type=hidden name=addr2 value="">
+<input type=hidden name=addr3 value="">
+<input type=hidden name=mulutil_cd value="">
+<input type=hidden name=amt_flg value="">
+<input type=hidden name=amt value="">
+<input type=hidden name=mae_giil value="2007.03.22">
+<input type=hidden name=jp_cd value="1007">
+<input type=hidden name=dam_nm value="경매7계">
+<input type=hidden name=allbub value="000210">
+<input type=hidden name=browser value="">
+<input type=hidden name=displaySaList_RelSa value="">
+<input type=hidden name=userSaList_RelSa value="">
+<input type=hidden name=saList_HasHyunjo value="">
+<input type=hidden name=userSaList_HasHyunjo value="">
+<input type=hidden name=sano_HasHyunjo value="">
+<input type=hidden name=check_msg value="">
+<input type=hidden name=IHsa_no value="">
+</form>
+<!-- 감정평가서로 이동(현재 팝업창 띄우는 것으로 변경됨, 그래도 이 form을 일부 이용함) -->
+<form name=gamForm method=post action="">
+<input type=hidden name=bub_cd value="">
+<input type=hidden name=bub_nm value="">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=user_mo_sa_no value="">
+<input type=hidden name=gubun value="02">
+<input type=hidden name=browser value="">
+<input type=hidden name=displaySaList_RelSa value="">
+<input type=hidden name=userSaList_RelSa value="">
+<input type=hidden name=saList_HasGam value="">
+<input type=hidden name=userSaList_HasGam value="">
+<input type=hidden name=sano_HasGam value="">
+<input type=hidden name=mae_giil value="">
+<input type=hidden name=gam_no value="">
+</form>
+
+
+<script language="javascript">
+	init();
+
+function PrintMove()
+{
+	url = '/au/SuperServlet?target_command=au.command.auc.C100ListCommand&page=3&totalRows=104&saCount=46&search_flg=2&bub_cd=000210&mae_giil=2007.03.22&jp_cd=1007&dam_nm=경매7계&mulutil_cd=&amt_flg=&level=&addr1=&addr2=&addr3=&amt=&print_flg=1';
+	window.open( url, 'print_win', 'left=0,top=0, width=690, height=600, toolbar=no, menubar=no, status=no, scrollbars=yes, resizable=yes' );
+}
+
+</script>
+
+</body>
+</html>

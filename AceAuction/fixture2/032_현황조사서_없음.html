@@ -1,0 +1,145 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>현황조사서_</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+
+// 사진보기 팝업
+function showPhotoPopup(vJiwonNm, vSaNo, vIdx, vOrdHoi){
+	document.getElementById("hJiwonNm").value = vJiwonNm
+	document.getElementById("hSaNo").value = vSaNo
+	document.getElementById("hTargetRow").value = vIdx;
+	document.getElementById("hChcCd").value = "000162";
+	document.getElementById("hSourcOrdHoi").value = vOrdHoi;
+	
+	window.open("","PNO102025","height=600,width=757,resizable=no,scrollbars=yes,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	
+	actSubmit(document.hform, "/RetrieveSaPhotoInfo.laf", "PNO102025");
+}
+
+// 명령회차 콤보 선택 시
+function ordHoiSrch(){
+	document.getElementById("hJiwonNm").value = "";
+	document.getElementById("hSaNo").value = "";
+	document.getElementById("hOrdHoi").value = document.getElementById("idOrdHoi").value;
+	
+	actSubmit(document.hform, "/RetrieveRealEstSaHjosa.laf", "PNO102021");
+}
+
+// 중복병합사건 콤보 선택 시 
+function dupSaSrch(){
+	if(document.getElementById("idRelsaNo").value == ""){
+		alert("사건을 선택하세요.");
+		return;
+	}
+	document.getElementById("hJiwonNm").value = "";
+	var value = document.getElementById("idRelsaNo").value.split(",");
+	document.getElementById("hSaNo").value = value[0];
+	if(Number(value[1]) > 0){
+		actSubmit(document.hform, "/RetrieveRealEstSaHjosa.laf", "PNO102021");
+	}else{
+		alert("이 사건은 현황조사서가 없는 사건입니다.");
+		return;
+	}
+}
+
+// 부동산표시목록 탭 선택 시
+function realEstDispMokrokTab(){
+	document.getElementById("hJiwonNm").value = "";
+	document.getElementById("hSaNo").value = "";
+	document.getElementById("hOrdHoi").value = "";
+	
+	actSubmit(document.hform, "/RetrieveRealEstHjosaDispMokrok.laf", "PNO102021");
+}
+//]]>
+</script>
+</head>
+<body>
+<div id="popup">
+
+<div id="pop_contents_1">
+
+
+<div id="pop_title">
+	<h2><img src="/images/title_pop_ppr_01.gif" alt="현황조사서" /></h2>
+</div>
+<div class="paper paper_bg" style="background-image:none; ">
+<div align="center"><img src="/images/no_ppr_01.gif" alt="현황조사서가 없습니다" /></div>
+</div>
+
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<form name="hform" action="">
+<input type="hidden" name="jiwonNm" id="hJiwonNm" value="" />
+<input type="hidden" name="saNo" id="hSaNo" value="" />
+<input type="hidden" name="targetRow" id="hTargetRow" value="" />
+<input type="hidden" name="chcCd" id="hChcCd" value="" />
+<input type="hidden" name="ordHoi" id="hOrdHoi" value="" /> 
+<input type="hidden" name="sourcOrdHoi" id="hSourcOrdHoi" value="" />
+</form>
+
+<div id="pop_footer">
+	<a href="#" onclick="javascript:self.close();"><img src="/images/btn_close_pop.gif" alt="닫기" /></a>
+	<div id="pop_footer_logo"></div>
+</div>
+</body>
+</html>

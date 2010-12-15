@@ -1,0 +1,957 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>경매사건검색 - 기일내역</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+  /* 쿠키 가져오기 */
+	function getCookieVal(offset)
+	{
+ 		var endstr = document.cookie.indexOf (";", offset);
+   	if (endstr == -1)
+ 			endstr = document.cookie.length;
+   	return unescape(document.cookie.substring(offset, endstr));
+	}
+
+	function GetCookie(name)
+	{
+ 		var arg = name + "=";
+   	var alen = arg.length;
+ 		var clen = document.cookie.length;
+   	var	i = 0;
+ 		while (i < clen)
+ 		{
+ 			var j = i + alen;
+
+  		if (document.cookie.substring(i, j ) == arg)
+ 				return getCookieVal (j);
+
+ 			i = document.cookie.indexOf(" ", i) + 1;
+  		if (i == 0) break;
+ 		}
+
+ 		return null;
+	}
+
+	/* 쿠키 세팅하기 */
+	function SetCookie( name, value )
+	{
+ 		var argv = SetCookie.arguments;
+ 		var argc = SetCookie.arguments.length;
+ 		var expires_date = (argc > 2 )? argv[2] : null;
+ 		var path = (argc > 3 )? argv[3] : null;
+   	var domain = (argc > 4 )? argv[4] : null;
+ 		var secure = (argc > 5 )? argv[5] : false;
+
+ 		// 유효기간 계산
+ 		var currentDate = new Date();
+ 		var expires = new Date();
+   	expires.setTime (expires.getTime() + expires_date * (24 * 60 * 60 * 1000));
+
+ 		document.cookie = name + "=" + escape (value) +
+ 			((expires == null)? "" : ("; expires=" + expires.toGMTString())) +
+  		((path == null)? "" : ("; path=" + path)) +
+ 			((domain == null)? "" : ("; domain=" + domain)) +
+ 			((secure == null)? "; secure" : "");
+	}
+
+	// 쿠키 삭제 처리 부분
+	function DeleteCookie(name)
+	{
+ 		var exp = new Date();
+   	exp.setTime (exp.getTime() - 1);
+		var cval = GetCookie(name);
+   	document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
+	}
+
+	function cookie_process()
+	{
+ 		var c_string = GetCookie('c_string');
+   	var i, j, str = 0;
+   	var v_new = '';
+
+    str = document.cookieFrm.checkid.value;
+    v_new = str;
+    c_string = DelItem(c_string, str);
+
+   	if ((c_string == null)||(c_string == ''))
+ 		{
+ 			SetCookie('c_string', v_new, 100, '/');
+  		alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+ 			return;
+  	}
+
+   	var v_split = c_string.split('*');
+ 		for( j = 0 ; j < 29; j++)
+		{
+			if ( j >= v_split.length ) break;
+			v_new = v_new + '*' + v_split[j];
+  	}
+
+ 		SetCookie('c_string', v_new, 100, '/');
+   	alert('나의 경매의 관심사건조회 목록에 등록 되었습니다.');
+ 		return;
+ 	}
+
+	function DelItem( e_cookie, e_target )
+	{
+		var i;
+		var flag = 1;
+		var result;
+
+		if (( e_cookie == null)||( e_cookie == '')) return '';
+
+		var v_split = e_cookie.split('*');
+
+		for( i = 0 ; i < 29 ; i++)
+		{
+			if ( i >= v_split.length ) break;
+
+			if ( e_target != v_split[i]	)
+			{
+				if( flag )
+				{
+					result = v_split[i];
+					flag = 0;
+				}
+				else
+					result = result + '*' + v_split[i];
+			}
+		}
+		return result;
+	}
+
+	// 이전검색화면으로 이동
+	function loadSearch() {
+		if ( navigator.appName == " Netscape" )
+			document.searchForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.searchForm.browser.value = "1";
+			else
+				document.searchForm.browser.value = "2";
+		}
+		document.searchForm.submit();
+	}
+
+	// 각 링크 사건정보 Loading
+	function loadSaInfo( info_flg )	{
+		if ( info_flg == 1 )
+			command = "au.command.auc.C311ListCommand";
+		else if ( info_flg == 2 )
+			command = "au.command.auc.C312ListCommand";
+		else if ( info_flg == 3 )
+			command = "au.command.auc.C313ListCommand";
+		else if ( info_flg == 4 )
+			command = "au.command.auc.C314ListCommand";
+		else if ( info_flg == 5 )
+			command = "au.command.auc.C315ListCommand";
+		else if ( info_flg == 6 )
+			command = "au.command.auc.C316ListCommand";
+
+		document.sainfoForm.target_command.value = command;
+
+		if ( navigator.appName == " Netscape" )
+			document.sainfoForm.browser.value = "2";
+		else
+		{
+			ver = navigator.appVersion.split("; ");
+			if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+				document.sainfoForm.browser.value = "1";
+			else
+				document.sainfoForm.browser.value = "2";
+		}
+		document.sainfoForm.submit();
+	}
+
+function setPrint() {
+	window.print();
+	window.close();
+}
+-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
+  onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false">
+
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+
+
+
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+
+            <td class="title" height="24" width="300"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 경매물건검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+			  <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+			  <font color="#3366CC">경매물건검색</font>
+			</td>
+
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="4" colspan="2"><img src="/au/images/spacer.gif" width="830" height="4"></td>
+          </tr>
+        </table>
+
+
+
+      <!----------------------  상세내역  ----------------------------->
+      <table width="99%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="middle" align="left" height="40"> <img src="/au/images/i_yellow.gif" width="6" height="8">
+            법원 : <b>서울중앙지방법원 </b> &nbsp;&nbsp;&gt;&nbsp;&nbsp;사건번호 : <b>2003타경28874</b>&nbsp;</td>
+          <td valign="middle" align="right" height="40">
+
+          <a href="javascript:PrintMove();"><b><font color="#003399">[ 출력 ]</font></b></a> <a href="javascript:loadSearch();" id="a1"><b><font color="#003399">[
+            검색화면→]</font></b></a></td>
+        </tr>
+      </table>
+      <table width="99%" border="0" cellspacing="0" cellpadding="0" >
+        <tr align="left">
+          <td valign="top" height="1" colspan="13">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr>
+                <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr align="center">
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 1 )" id="a1"><font color="#000000">기본내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 2 )" id="a1"><font color="#000000">물건내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#FFE0CE" width="25%" ><font color="#000000"><b>↓ 기일내역</b></font></td>
+          <!--<td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 4 )" id="a1"><font color="#000000">배당요구종기내역</font></a></td>-->
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+          <td valign="middle" align="center" bgcolor="#F5F5F5" width="25%" ><a href="javascript:loadSaInfo( 5 )" id="a1"><font color="#000000">문건처리내역</font></a></td>
+          <td valign="middle" width="1" bgcolor="#666666" ><font color="#000000"><img src="/au/images/spacer.gif" width="1" height="25"></font></td>
+        </tr>
+        <tr align="left">
+          <td valign="top" colspan="13">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr>
+                <td background="/au/images/line_dot.gif" height="1"><img src="/au/images/spacer.gif" width="300" height="1"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br>
+
+        <!----------------------  기일내역 ----------------------------->
+      <b><img src="images/arrow_g.gif" width="18" height="17" align="absmiddle" vspace="5">
+      기일내역&nbsp;&nbsp;&nbsp;<!--<font color="0033ff">(매각공고된 기일내역만 조회 가능합니다.)</font>--></b>
+      <table width="99%" border="0" cellspacing="1" cellpadding="0" bgcolor="#999999">
+        <tr valign="middle">
+          <td width="7%" align="center" height="26" bgcolor="#E3E3E3">물건번호</td>
+          <td width="16%" align="center" height="26" bgcolor="#E3E3E3">기일</td>
+          <td width="7%" align="center" height="26" bgcolor="#E3E3E3">시간</td>
+          <td width="15%" align="center" height="26" bgcolor="#E3E3E3">기일종류</td>
+          <td width="15%" align="center" height="26" bgcolor="#E3E3E3">기일장소 </td>
+          <td width="20%" align="center" height="26" bgcolor="#E3E3E3">최저매각가격</td>
+          <td width="20%" align="center" height="26" bgcolor="#E3E3E3">기일결과</td>
+        </tr>
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2006.07.25<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">13,200,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2006.08.29<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10,560,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2006.09.26<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">8,448,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">변경</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,000,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">800,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">640,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">1</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">2</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,000,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">2</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">800,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">2</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">640,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">2</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">3</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,070,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">3</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">856,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">3</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">684,800,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">3</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">4</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,070,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">4</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">856,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">4</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">684,800,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">4</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">5</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">5</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">5</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">5</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">6</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">6</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">6</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">6</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">7</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">7</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">7</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">7</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">8</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">8</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">8</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">8</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">9</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">9</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">9</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">9</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">10</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,150,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">10</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">920,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">10</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">736,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">10</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">11</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,080,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">11</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">864,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">11</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">691,200,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">11</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">12</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.01.09<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">1,080,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">12</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.02.13<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">864,000,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF">유찰</td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">12</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.20<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">10:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">691,200,000</td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+        <tr valign="middle">
+          <td align="center" height="24" bgcolor="#FFFFFF">12</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">2007.03.27<br></td>
+          <td align="center" height="24" bgcolor="#FFFFFF">14:00</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">매각결정기일</td>
+          <td align="center" height="24" bgcolor="#FFFFFF">경매법정</td>
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+
+          <td align="center" height="24" bgcolor="#FFFFFF"></td>
+        </tr>
+
+
+      </table>
+
+    </td>
+    </tr>
+  </table>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr valign="top">
+      <td width="30"></td>
+      <td height="40" width="40"> <b><font color="D38600">주의)<br></font></b></td>
+      <td>
+		본 사이트에서 제공된 사건정보는 법적인 효력이 없으니 참고자료로만 활용하시기 바랍니다.<br>
+		보다 상세한 내용은 해당 법원에 문의하시기 바랍니다. 
+	  </td>
+    </tr>
+  </table>
+
+
+<form name=searchForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C100ListCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=page value="1">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=mae_giil value="2007.03.20">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+
+<form name=sainfoForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C311ListCommand">
+<input type=hidden name=search_flg value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="20030130028874">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+
+<input type=hidden name=page value="1">
+<input type=hidden name=mae_giil value="2007.03.20">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+
+</form>
+
+<script language="javascript">
+	init();
+
+
+
+function PrintMove()
+{
+	url = '/au/SuperServlet?target_command=au.command.auc.C313ListCommand&search_flg=2&bub_cd=000210&sa_no=20030130028874&Print=1&browser=&check_msg=';
+	window.open( url, 'print_win', 'left=0,top=0, width=660, height=600, toolbar=no, menubar=no, status=no, scrollbars=yes, resizable=yes' );
+}
+
+</script>
+
+</body>
+</html>

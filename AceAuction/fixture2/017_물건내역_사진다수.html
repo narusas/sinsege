@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>사진보기_2007타경34075</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+
+
+
+
+<!-- LPAGE JavaScript Start -->
+<script type="text/javascript" language="javascript">
+// <![CDATA[
+function goPage(row)
+{
+  var pageForm = document.getElementById("targetRow").form;
+  pageForm.targetRow.value = row;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+function goOrderByPage(row,orderBy)
+{
+  var pageForm = document.getElementById("targetRow").form;
+  pageForm.targetRow.value = row;
+  pageForm.lafjOrderBy.value = orderBy;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+function changePage(pageSelect) {
+  var pageForm = pageSelect.form;
+  pageForm.targetRow.value = pageSelect.value;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+// ]]>
+</script>
+<!-- LPAGE JavaScript End -->
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+// 이미지 비율폭 제한 
+function autoResize(maxWidth) {
+  for(var i=0;i<document.images.length;i++) {
+    if(document.images[i].width > maxWidth) {
+      document.images[i].width=maxWidth;
+      document.images[i].height-=document.images[i].height*(document.images[i].width-maxWidth)/document.images[i].width;
+    }
+  }
+}
+
+// 네비게이션 모듈과 페이징 모듈의 충돌로 인한 껍데기 function
+function porSetCmd(pForm){}
+//]]>
+</script>
+</head>
+<body onload="javascript:autoResize('686');">
+<div id="popup">
+
+<div id="pop_contents_1">
+<div id="pop_title">
+	<h2><img src="/images/title_pop_photo.gif" alt="사진보기" /></h2>
+</div>
+
+
+<form name="frm1" action="" method="post">
+
+<div class="table_contents">
+    <table class="Ltbl_dt" summary="사진보기 표">
+	<caption>사진보기</caption>
+      <tr>
+      	<th width="10%">법원</th>
+        <td width="24%">서울중앙지방법원</td>
+        <th width="10%">사건번호</th>
+        <td width="24%">2007타경34075</td>
+        <th width="10%">사진종류</th>
+        <td width="22%">
+        <select name="photoGbncd" id="idPhotoGbncd" onchange="actSubmit(document.frm1, '/RetrieveSaPhotoInfo.laf', 'PNO102025');">
+            <option value="">전체</option>
+
+            	<option value="000241"	>
+            전경도</option>
+
+		</select></td>
+		</tr>
+		<tr>
+		<th>검색건수</th>
+		<td colspan="5">
+
+       	전체 3건
+ 
+		    , 전경도 3건
+
+		</td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="table_contents">
+	<div class="txtcenter">사진출처 : 현황조사</div>
+	<table class="Ltbl_dt">
+
+	<tr>
+        <td class="txtcenter">
+        <img src="/DownFront?spec=default&amp;dir=kj/2007/1116&amp;filename=B000210200701300340751.jpg&amp;downloadfilename=B000210200701300340751.jpg" alt="전경도" />
+		</td>
+    </tr>
+
+    </table>  
+ 
+<div class="page_sum">
+<div class="page1">[총 <span>3</span>건]</div>
+</div>
+<div class="paging">
+<div class="page2"><span class="page_on" >1</span><a href="#"  onclick="goPage('2'); return false;"><span> 2 </span></a><a href="#"  onclick="goPage('3'); return false;"><span> 3 </span></a><a href="#" onclick="goPage('3'); return false;"><img src="/images/ic_arrow_last.gif" alt="마지막 쪽" border="0" /></a></div>
+
+
+
+<!-- LPAGE Hidden Parameters Start -->
+
+<input type="hidden" name="saNo" value="20070130034075" />
+<input type="hidden" name="jiwonNm" value="서울중앙지방법원" />
+<input type="hidden" name="boCd" value="B000210" />
+<input type="hidden" name="pageSpec" value="photoPage" />
+<input type="hidden" id="targetRow" name="targetRow" />
+<input type="hidden" name="lafjOrderBy" value="" />
+
+<!-- LPAGE Hidden Parameters End -->
+
+<div class="clear"></div>
+</div>
+</div>
+</form>			 
+<div class="clear"></div>
+</div>
+
+
+</div>
+
+
+<div id="pop_footer">
+	<a href="#" onclick="javascript:self.close();"><img src="/images/btn_close_pop.gif" alt="닫기" /></a>
+	<div id="pop_footer_logo"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+        
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>매각물건명세서_</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+
+<!--==============================================================================================
+                                    ## JavaScript Function 정의##
+================================================================================================-->
+<script language="javascript" type="text/javascript">
+<!--
+ //인쇄
+function PrintMove()
+{
+	print();
+}
+ 
+//-->
+</script>
+</head>
+<body>
+<div id="popup">
+<!-- __________________________________________________컨텐츠영역 700px 시작_______________________________________________________ -->
+
+<div id="pop_contents_1">
+
+
+
+<div id="pop_title">
+        <h2><img src="../../images/title_pop_ppr_02.gif" alt="매각물건명세서" /></h2>
+</div>
+
+<!-- 팝업 컨텐츠테이블 시작-->
+<div class="paper paper_bg" style="background-image:none; ">
+<div align="center"><img src="../../images/no_ppr_02.gif" alt="매각물건명세서가 없습니다" /></div>
+</div>
+
+
+</div><!--id="pop_contents_1"끝 -->
+<!-- __________________________________________________컨텐츠영역 700px 끝 !________________________________________________________ -->
+
+<div class="clear"></div>
+</div><!--id="popup"끝 -->
+<div id="pop_footer">
+	<a href="javascript:window.close();"><img src="/images/btn_close_pop.gif" alt="닫기" /></a>
+	<div id="pop_footer_logo"></div>
+
+</body>
+</html>

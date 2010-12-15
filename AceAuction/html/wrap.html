@@ -1,0 +1,159 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>wrap</title>
+
+<script language="JavaScript" type="text/javascript" src="engine.js"></script> 
+<script language="JavaScript" type="text/javascript" src="util.js"></script> 
+<script>
+// Provide a default path to dwr.engine
+if (typeof this['dwr'] == 'undefined') this.dwr = {};
+if (typeof dwr['engine'] == 'undefined') dwr.engine = {};
+if (typeof dwr.engine['_mappedClasses'] == 'undefined') dwr.engine._mappedClasses = {};
+
+if (window['dojo']) dojo.provide('dwr.interface.KabnetService');
+
+if (typeof this['KabnetService'] == 'undefined') KabnetService = {};
+
+KabnetService._path = 'http://www.ret.co.kr/ret/dwr';
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.queryForList = function(p0, p1, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'queryForList', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {int} p2 a param
+ * @param {int} p3 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.queryForList = function(p0, p1, p2, p3, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'queryForList', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.queryForObject = function(p0, p1, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'queryForObject', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.insert = function(p0, p1, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'insert', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.update = function(p0, p1, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'update', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {class java.util.HashMap} p1 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.deleteForObject = function(p0, p1, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'deleteForObject', arguments);
+};
+
+/**
+ * @param {class java.lang.String} p0 a param
+ * @param {function|Object} callback callback function or options object
+ */
+KabnetService.hello = function(p0, callback) {
+  return dwr.engine._execute(KabnetService._path, 'KabnetService', 'hello', arguments);
+};
+
+function getDoList(data) {
+	alert(data);
+}
+
+// 면적별 시세
+	getRetPricePyongList_Area : function(params) {		
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyongList_Area", params, getRetPricePyongList_Area)
+	},
+	
+	// 시세추이
+	getRetPricePyongList_Change : function(params) {		
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyongList_Change", params, getRetPricePyongList_Change)
+	},
+	
+	// 시세상세정보중 시세정보
+	getRetPricePyongList_info : function(params) {		
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyongList_info", params, getRetPricePyongList_info)
+	},
+	
+	// 시세상세정보중 면적정보
+	getRetPricePyongList_info2 : function(params) {	
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyongList_info2", params, getRetPricePyongList_info2)
+	},
+	
+	// 시세상세정보중 거래사례정보
+	getRetPricePyongList_info3 : function(params) {		
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyongList_info3", params, getRetPricePyongList_info3)
+	},
+	
+	// 시세상세정보중 거래사례정보 년도
+	getRetPricePyong_year : function(params) {	
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyong_year", params, getRetPricePyong_year)
+	},
+	
+	// 시세상세정보중 거래사례정보 월
+	getRetPricePyong_month : function(params) {		
+		KabnetService.queryForList("RETPRICE_PYONG.getRetPricePyong_month", params, getRetPricePyong_month)
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	// 단지정보
+	getAptInfo : function(params) {		
+		KabnetService.queryForObject("APT.getAptInfo", params, getAptInfo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+KabnetService.queryForList("ADDR.getDoList", null, getDoList);
+alert(KabnetService);
+alert(KabnetService.queryForList);
+</script>
+</head>
+<body id="wrap" onload="">
+<a href="#" onclick="javascript:login();">Login</a><br>	
+
+</body>
+</html>

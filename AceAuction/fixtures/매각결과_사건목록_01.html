@@ -1,0 +1,778 @@
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<title>매각기일결과</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="/au/cm/style.css" type="text/css">
+<script language="javascript" src="/au/cm/commonScript.js"></script>
+<script language="javascript">
+<!--
+// 페이지 번호 클릭시 해당 페이지 Loading
+function goMove( page )
+{
+	document.iMove.page.value = page;
+	document.iMove.submit();
+}
+
+// 이전검색화면으로 이동
+function loadSearch() {
+	if ( navigator.appName == " Netscape" )
+		document.searchForm.browser.value = "2";
+	else
+	{
+		ver = navigator.appVersion.split("; ");
+		if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+			document.searchForm.browser.value = "1";
+		else
+			document.searchForm.browser.value = "2";
+	}
+	document.searchForm.submit();
+}
+
+// 사건상세정보(경매사건검색)로 이동
+function loadSaDetail( sa_no ) {
+	document.detailForm.sa_no.value = sa_no;
+
+	if ( navigator.appName == " Netscape" )
+		document.detailForm.browser.value = "2";
+	else
+	{
+		ver = navigator.appVersion.split("; ");
+		if ( parseInt(ver[1].substr(5, 1)) >= 5 )
+			document.detailForm.browser.value = "1";
+		else
+			document.detailForm.browser.value = "2";
+	}
+	document.detailForm.submit();
+}
+
+function goPrint()
+{
+	window.print();
+	window.close();
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0"
+  onSelectStart="window.event.returnValue=false" onContextMenu="window.event.returnValue=false" >
+
+
+<!-------------------------  본문  -------------------------------------------------------------------------->
+  <table width="100%" border="0" cellspacing="15" cellpadding="0">
+    <tr>
+      <td>
+
+        <!----------------------  타이틀 및 네비게이터 ------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr valign="bottom">
+            <td class="title" height="24" width="200"><img src="/au/images/i_title.gif" width="19" height="16" align="absmiddle"><b> 매각결과검색</b></td>
+            <td align="right" width="58%" class="navi"><a href="http://www.courtauction.go.kr" target=_top id="a1" status_bar="홈">홈</a> &gt;
+              <a href="/au/auc/C110Search.jsp" id="a1" status_bar="경매정보검색">경매정보검색</a> &gt;
+              <font color="#3366CC">매각결과검색</font>
+			</td>
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td background="/au/images/line_point_1.gif" height="4" colspan="2"><img src="/au/images/spacer.gif" width="620" height="4"></td>
+          </tr>
+        </table>
+
+        <!----------------------  상세내역  ----------------------------->
+        <table width="99%" border="0" cellspacing="0" cellpadding="8">
+          <tr valign="bottom">
+            <td align="left" height="43">법원 :<b> 서울중앙지방법원  &nbsp;&nbsp;&gt;&nbsp;&nbsp;</b>
+              매각기일 :<b> 2007.08.07 &nbsp;&nbsp;&gt;&nbsp;&nbsp; </b>
+              담당계 :<b> 경매6계 &nbsp;&nbsp;</b>
+            </td>
+            <td align="right" height="38" width="25%">
+			<a href="javascript:PrintMove();" id="a1"><b><font color="#003399">[ 출력 ]</font></b></a>
+			<a href="javascript:loadSearch();" id="a1"><b><font color="#003399">[ 검색화면→]</font></b></a></td>
+          </tr>
+        </table>
+
+        <table width="99%" border="0" cellspacing="1" cellpadding="1" bgcolor="#AFAFAF">
+
+			  <tr>
+				<td colspan="6" align="center" bgcolor="#FFFFFF">
+				  <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8E6CC">
+					<tr bgcolor="#E8E6CC" valign="bottom">
+					  <td width="100%" align="right" height="30"><font color="#664500">
+					  <img src="/au/images/i_dksearch.gif" alt="등기부" align="absmiddle"> 등기부&nbsp;&nbsp; </font></td>
+					</tr>
+				  </table>
+				</td>
+			  </tr>
+
+                <tr bgcolor="#E3E3E3" valign="middle">
+                  <td width="15%" align="center" height="30"><font color="#333333">사건번호</font></td>
+                  <td width="8%" align="center" height="30"><font color="#333333">물건번호<br>용도</font></td>
+				  <td width="5%" align="center" height="30"><font color="#333333">입찰<br>시간</font></td>
+                  <td width="47%" align="center" height="30"><font color="#333333">소 재 지</font></td>
+				  <td width="13%" align="center" height="30"><font color="#333333">감정평가액<br>최저입찰가<br>(단위:원)</font></td>
+                  <td width="12%" align="center" height="30"><font color="#333333">매각결과<br>매각대금<br>(단위:원)</font></td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20030130008078' );" id="a1">2003타경8078&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">4<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 중구 을지로6가  18-185외 3필지 밀리오레6층 148호<br>서울특별시 중구 을지로6가  18-184 <br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">120,000,000<br>
+							<font color="#999999">---------</font><br>
+							20,133,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20050130015292' );" id="a1">2005타경15292&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 동작구 대방동  380-15 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512683');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-16 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512684');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-17 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512685');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-18 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512686');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-19 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512687');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-20 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512688');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-21 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512689');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-23 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512691');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-24 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512692');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-28 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512695');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-61 &nbsp;&nbsp;<a href="javascript:dk_search('11501996164646');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-20외 4필지 &nbsp;&nbsp;<a href="javascript:dk_search('11501996514697');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-63 &nbsp;&nbsp;<a href="javascript:dk_search('11501996164647');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 동작구 대방동  380-29 &nbsp;&nbsp;<a href="javascript:dk_search('11501996512696');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">311,865,865<br>
+							<font color="#999999">---------</font><br>
+							199,594,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20050130021341' );" id="a1">2005타경21341&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">166<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 종로구 창신동  328-18외 2필지 13층 1호&nbsp;&nbsp;<a href="javascript:dk_search('11032001008217');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 1호&nbsp;&nbsp;<a href="javascript:dk_search('11032001008216');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 2호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009798');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 3호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009799');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 5호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009800');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 6호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009801');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 7호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009802');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 8호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009803');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 9호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009804');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 10호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009805');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 11호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009806');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 12호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009807');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 13호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009808');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 14호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009809');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 15호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009810');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 16호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009811');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 17호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009812');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 18호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009813');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 19호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009814');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 20호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009815');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 21호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009816');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 22호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009817');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 23호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009818');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 24호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009819');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 25호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009820');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 26호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009821');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 27호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009822');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 28호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009823');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 29호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009824');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 30호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009825');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 31호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009826');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 32호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009827');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 33호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009828');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 34호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009829');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 35호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009830');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 36호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009831');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 37호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009832');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 38호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009833');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 39호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009834');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 40호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009835');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 41호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009836');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 42호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009837');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 43호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009838');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 창신동  328-18외 2필지 12층 45호&nbsp;&nbsp;<a href="javascript:dk_search('11032001009839');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">8,954,822,000<br>
+							<font color="#999999">---------</font><br>
+							4,584,869,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>5,400,000,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20060130026664' );" id="a1">2006타경26664&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>단독주택,다가구주택</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 종로구 평창동  492-5 &nbsp;&nbsp;<a href="javascript:dk_search('11031996770711');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 평창동  492-5 &nbsp;&nbsp;<a href="javascript:dk_search('11031996535108');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 평창동  492-25 &nbsp;&nbsp;<a href="javascript:dk_search('11031996770730');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 종로구 평창동  492-25 &nbsp;&nbsp;<a href="javascript:dk_search('11031996535112');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">3,148,319,120<br>
+							<font color="#999999">---------</font><br>
+							2,518,655,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>2,681,670,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="3"><a href="javascript:loadSaDetail( '20060130034375' );" id="a1">2006타경34375&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">2<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 성북구 하월곡동  59-2 영광플라자2층 203호&nbsp;&nbsp;<a href="javascript:dk_search('11442003012118');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">910,000,000<br>
+							<font color="#999999">---------</font><br>
+							372,736,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="8%" align="center" bgcolor="#EFF3F8">3<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 성북구 하월곡동  59-2 영광플라자2층 204호&nbsp;&nbsp;<a href="javascript:dk_search('11442003012119');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">900,000,000<br>
+							<font color="#999999">---------</font><br>
+							368,640,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>423,200,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="8%" align="center" bgcolor="#EFF3F8">4<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 성북구 하월곡동  59-2 영광플라자2층 205호&nbsp;&nbsp;<a href="javascript:dk_search('11442003012120');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">930,000,000<br>
+							<font color="#999999">---------</font><br>
+							380,928,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>423,500,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20060130037527' );" id="a1">2006타경37527&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 중구 을지로6가  18-185 밀리오레3층 96호&nbsp;&nbsp;<a href="javascript:dk_search('11031996785753');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">230,000,000<br>
+							<font color="#999999">---------</font><br>
+							94,208,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20060130041281' );" id="a1">2006타경41281&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 중구 신당동  200-5 누죤빌딩지하1층 601호&nbsp;&nbsp;<a href="javascript:dk_search('11032001000694');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">150,000,000<br>
+							<font color="#999999">---------</font><br>
+							96,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20060130042178' );" id="a1">2006타경42178&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 청담동  132-8 &nbsp;&nbsp;<a href="javascript:dk_search('11461996037560');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br>서울특별시 강남구 청담동  132-8 &nbsp;&nbsp;<a href="javascript:dk_search('11461996037996');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">200,000,000<br>
+							<font color="#999999">---------</font><br>
+							102,400,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="2"><a href="javascript:loadSaDetail( '20060130042710' );" id="a1">2006타경42710&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 중구 신당동  200-5 누죤빌딩2층 123호&nbsp;&nbsp;<a href="javascript:dk_search('11032001000949');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">340,000,000<br>
+							<font color="#999999">---------</font><br>
+							174,080,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="8%" align="center" bgcolor="#EFF3F8">2<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 중구 신당동  200-5 누죤빌딩2층 425호&nbsp;&nbsp;<a href="javascript:dk_search('11032001001041');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">126,000,000<br>
+							<font color="#999999">---------</font><br>
+							64,512,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20060130043089' );" id="a1">2006타경43089&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>연립주택,다세대,빌라</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 동작구 대방동  392-9 4층 401호&nbsp;&nbsp;<a href="javascript:dk_search('11502002002941');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">180,000,000<br>
+							<font color="#999999">---------</font><br>
+							180,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>216,350,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="2"><a href="javascript:loadSaDetail( '20070130000089' );" id="a1">2007타경89&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 서초구 서초동  1338-1 풍림아이원플러스9층 926호&nbsp;&nbsp;<a href="javascript:dk_search('11022004004199');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">180,000,000<br>
+							<font color="#999999">---------</font><br>
+							144,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>153,000,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="8%" align="center" bgcolor="#EFF3F8">2<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 서초구 서초동  1338-1 풍림아이원플러스10층 1026호&nbsp;&nbsp;<a href="javascript:dk_search('11022004004227');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">180,000,000<br>
+							<font color="#999999">---------</font><br>
+							144,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>152,400,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20070130000959' );" id="a1">2007타경959&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>아파트</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 도곡동  467-17 타워팰리스에프동 47층 4701호&nbsp;&nbsp;<a href="javascript:dk_search('11462003003244');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">2,600,000,000<br>
+							<font color="#999999">---------</font><br>
+							2,080,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#FFFFFF">
+                  <td width="15%" align="center" rowspan="1"><a href="javascript:loadSaDetail( '20070130001488' );" id="a1">2007타경1488&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#EFF3F8">1<br>연립주택,다세대,빌라</td>
+                  <td width="5%" align="center" bgcolor="#EFF3F8">10:00</td>
+                  <td width="47%" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 역삼동  741-15 3층 301호&nbsp;&nbsp;<a href="javascript:dk_search('11461996009915');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+							<td align="center">880,000,000<br>
+							<font color="#999999">---------</font><br>
+							563,200,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#EFF3F8">
+                  	<table>
+                  		<tr>
+                  			<td align="center">낙찰<br>715,790,000</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="15%" align="center" rowspan="3"><a href="javascript:loadSaDetail( '20070130004692' );" id="a1">2007타경4692&nbsp;</a></td>
+                  <td width="8%" align="center" bgcolor="#E7E7E7">1<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 포이동  164-7 아람손프라자/비바빌지하1층 1호&nbsp;&nbsp;<a href="javascript:dk_search('11462002000058');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">520,000,000<br>
+							<font color="#999999">---------</font><br>
+							416,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="8%" align="center" bgcolor="#E7E7E7">2<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 포이동  164-7 아람손프라자/비바빌지하1층 2호&nbsp;&nbsp;<a href="javascript:dk_search('11462002000059');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">320,000,000<br>
+							<font color="#999999">---------</font><br>
+							256,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+                <tr valign="middle" bgcolor="#F3F3F3">
+                  <td width="8%" align="center" bgcolor="#E7E7E7">3<br>상가,오피스텔,근린시설</td>
+                  <td width="5%" align="center" bgcolor="#E7E7E7">10:00</td>
+                  <td width="47%" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr><td align="left">서울특별시 강남구 포이동  164-7 아람손프라자/비바빌1층 1호&nbsp;&nbsp;<a href="javascript:dk_search('11462002000060');"><img src="/au/images/i_dksearch.gif" border="0" align="absmiddle" alt="등기부 조회"></a><br></td></tr>
+                  	</table>
+                  </td>
+                  <td width="13%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+							<td align="center">965,000,000<br>
+							<font color="#999999">---------</font><br>
+							772,000,000</td>
+						</tr>
+                  	</table>
+                  </td>
+                  <td width="12%" align="center" bgcolor="#E7E7E7">
+                  	<table>
+                  		<tr>
+                  			<td align="center">유찰</td>
+                  		</tr>
+                  	</table>
+                  </td>
+                </tr>
+
+
+
+          <tr>
+            <td colspan="6" align="center" bgcolor="#FFFFFF">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#E8E6CC">
+                <tr bgcolor="#E8E6CC" valign="bottom">
+                  <td width="100%" align="right" height="30"><font color="#664500">
+                  <img src="/au/images/i_dksearch.gif" alt="등기부" align="absmiddle"> 등기부&nbsp;&nbsp; </font></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+
+
+		<table width="99%" border="0" cellspacing="0" cellpadding="0">
+		  <tr><td height="40" valign="middle">
+		  ※ 등기부 조회 아이콘(<img src="/au/images/i_dksearch.gif" alt="등기부조회" align="absmiddle">)이 나오지 않는 소재지번은 부동산목록 입력시 등기고유번호가 입력되지 않은 경우 입니다.<br>
+		  &nbsp;&nbsp;&nbsp;&nbsp;(등기부 조회는 인터넷등기소와 연계한 유료서비스 입니다.)
+		  </td></tr>
+		</table>
+
+
+        <br>
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="40" valign="middle" align="center"><span class="bbs">
+            <font color="#006699">◀◀</a>  &nbsp;◀</a>  <b>[1]</b> <A HREF='javascript:goMove(2);' id='a1'> [2] </A> <a href='javascript:document.nMove.submit();' id='a1'>▶</a> &nbsp;<A HREF='javascript:goMove(2);' id='a1'>▶▶</a></font></span></a></td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+  <br>
+
+
+<form name=bMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C210ListCommand">
+<input type=hidden name=page value="0">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=giil value="2007.08.07">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<form name=iMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C210ListCommand">
+<input type=hidden name=page value="">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=giil value="2007.08.07">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<form name=nMove method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C210ListCommand">
+<input type=hidden name=page value="2">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=giil value="2007.08.07">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<form name=searchForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C210CalendarCommand">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=giil value="2007.08">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+<form name=detailForm method=get action="/au/SuperServlet">
+<input type=hidden name=target_command value="au.command.auc.C311ListCommand">
+<input type=hidden name=search_flg value="6">
+<input type=hidden name=page value="1">
+<input type=hidden name=bub_cd value="000210">
+<input type=hidden name=sa_no value="">
+<input type=hidden name=giil value="2007.08.07">
+<input type=hidden name=jp_cd value="1006">
+<input type=hidden name=dam_nm value="경매6계">
+<input type=hidden name=browser value="">
+<input type=hidden name=check_msg value="">
+</form>
+
+<script language="javascript">
+init();
+
+function PrintMove()
+{
+	url = '/au/SuperServlet?target_command=au.command.auc.C210ListCommand&bub_cd=000210&giil=2007.08.07&jp_cd=1006&dam_nm=경매6계&page=1&Print=1&browser=';
+	window.open( url, 'print_win', 'left=0, top=0, width=660, height=600, toolbar=no, menubar=no, status=no, scrollbars=no, resizable=no' );
+}
+</script>
+
+</body>
+</html>

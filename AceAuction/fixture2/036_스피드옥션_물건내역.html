@@ -1,0 +1,911 @@
+
+<br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: message: '=' 근처의 구문이 잘못되었습니다. (severity 15) in <b>E:\www\v2\info-result.htm</b> on line <b>85</b><br />
+<br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: Query failed in <b>E:\www\v2\info-result.htm</b> on line <b>85</b><br />
+<br />
+<b>Warning</b>:  mssql_fetch_array(): supplied argument is not a valid MS SQL-result resource in <b>E:\www\v2\info-result.htm</b> on line <b>86</b><br />
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>대한민국 NO.1 법원경매정보 스피드옥션 [사건상세정보]</title><!--?=$pageTitle?-->
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel=StyleSheet HREF=/cyosCss/cyos.css type=text/css>
+<script language='javascript' src='/cyosScript/cyos.js'></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+if ((navigator.appVersion.indexOf('4')!= -1))
+{
+	self.moveTo(0,0);
+	self.resizeTo(882,window.screen.availHeight);
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function zoom_view(send_file,view_gubun)
+{
+	var form = document.info_list2;
+	form.view_gubun.value = view_gubun;
+	var style="top=0,left=0,width=1000,height=680,scrollbars=yes,resizable=yes,border=0";
+	window.open(send_file,'infozoom',style);
+	form.action=send_file;	
+	form.target="infozoom";
+	
+	form.submit();
+}
+function print_proc()
+{
+	printWindow();
+	//window.print();
+}
+function basic_print_proc()
+{
+	window.open('info-result.htm','zoom',style);
+}
+function fun_get_daejang()
+{
+	document.toji_daejang_form.submit();
+}
+function open_result_page(url,courtno,eventno1,eventno2,objno)
+{
+	var open_page = url+"?courtNo="+courtno+"&eventNo1="+eventno1+"&eventNo2="+eventno2+"&objNo="+objno;
+	NewWindow(open_page,'oldAucionPage','880','680','yes','left');
+}
+
+//-->
+</script>
+</head>
+<body leftmargin="0" topmargin="0" onLoad="MM_preloadImages('/v2/img/b_result11-2.gif','/v2/img/b_result12-2.gif','/v2/img/b_result13-2.gif','/v2/img/b_result14-2.gif','/v2/img/b_result15-2.gif','/v2/img/b_result16-2.gif','/v2/img/b_result17-2.gif','/v2/img/b_result18-2.gif','/v2/img/b_result19-2.gif','/v2/img/b_result20-2.gif')">
+<form name=info_result2 method=post action=info-result2.htm>
+<input type=hidden name=courtNo value='A01'>
+<input type=hidden name=courtNo2 value=''>
+<input type=hidden name=eventNo1 value='1'>
+<input type=hidden name=eventNo2 value='11096'>
+<input type=hidden name=objNo value=''>
+<input type=hidden name=selldate value=''>
+<input type=hidden name=apply value='1'>
+<input type=hidden name=multiobj value=''>
+<input type=hidden name=multi_no value=''>
+</form>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td width=760>
+		<table width="100%" border="0" cellspacing="1" cellpadding="10" bgcolor=#000000>
+		<tr bgcolor=#ffffff>
+			<td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				  <tr> 
+				    <td height="35" bgcolor="91CBEC" id=courtname>
+				    	<table width="100%" border="0" cellspacing="0" cellpadding="0" style='background-color:#91CBEC; BORDER-RIGHT: #91CBEC 0.425pt solid; BORDER-TOP: #91CBEC 0.425pt solid; BORDER-LEFT: #91CBEC 0.425pt solid; BORDER-BOTTOM: #91CBEC 0.425pt solid'>
+<col width=36%><col width=38%><col width=>
+<form name=objlist_form method=post action=/v2/info-result.htm>
+<input type=hidden name=courtNo value='A01'>
+<input type=hidden name=eventNo1 value='1'>
+<input type=hidden name=eventNo2 value='11096'>
+<input type=hidden name=objNo value=''>
+<input type=hidden name=multiobj value=''>
+<input type=hidden name=multi_no value=''>
+
+<tr>
+  <td>&nbsp;
+  	<!--img src="img/b_result-icon.gif" width="16" height="16" align="absmiddle"-->
+  	<a href="#" onclick="NewWindow('/v2/common/courtarea/A01_court_loc_pop.htm','court_loc',820,800,'yes','left');"><img src='/v2/img2/00-location.gif' border=0 align=absmiddle></a>
+  	<a href="javascript:opener.location.href='/v2/info-list.htm?file_gubun=3&auction_result=0&courtNo=A01';self.blur();"><font style="font-size:11pt;color=002685;"><strong></strong></font></a>
+  	<input type=hidden name=top_objNo_sel value='1'>		</strong>
+		  </td>
+  <td align=right>
+  	<table border="0" cellspacing="0" cellpadding="0">
+  	<tr>
+      <td width="70">
+            	<a href="javascript:alert('회원님! 현재 가로보기는 편집 중입니다. 감사합니다.');"><img src="img/b_result01-2-over.gif" width="68" height="21" border="0" align=absmiddle></a>
+      	      </td>
+      <td>&nbsp;</td>
+      <td>
+      	<a href="info-result2.htm?flag_view=1&courtNo=A01&eventNo1=1&eventNo2=11096&objNo=&view_auth=&multiobj=&multi_no="><img src="img/b_result02.gif" width="68" height="21" border="0" align=absmiddle></a>
+     	</td>
+     	<td>&nbsp;</td>
+      <td>
+      	<a href="info-result2-2.htm?flag_view=1&courtNo=A01&eventNo1=1&eventNo2=11096&objNo=&view_auth=&multiobj=&multi_no="><img src="img/b_result03.gif" border="0" align=absmiddle></a>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+      	<a href="info-result2-3.htm?flag_view=1&courtNo=A01&eventNo1=1&eventNo2=11096&objNo=&view_auth=&multiobj=&multi_no="><img src="img/b_result04.gif" border="0" align=absmiddle></a>
+			      </td>
+      <td>&nbsp;</td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</form>
+</table>				    </td>
+				  </tr>
+				  				  <tr> 
+				    <td height="5"></td>
+				  </tr>
+				  <tr> 
+				    <td align="center" valign="top">
+		<!-- 개인메모-->
+				      				    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<!-- 상단요약정리 사건번호 물건번호 매각기일 담당계-->
+				      
+<tr>
+  <td>
+		<table width=100% border=0 cellpadding=1 cellspacing=0 style='background-color:#0F7ECC; text-align:center; BORDER-RIGHT: #0F7ECC 0.425pt solid; BORDER-TOP: #0F7ECC 0.425pt solid; BORDER-LEFT: #0F7ECC 0.425pt solid; BORDER-BOTTOM: #0F7ECC 0.425pt solid'>
+		<tr bgcolor=#FFFFFF>
+  		<td>
+      	<table width=100% border=0 cellpadding=3 cellspacing=0>
+        <tr bgcolor=#FFFFFF height=30>
+          <td align=center width=200 style='background-color:#ffffff; text-align:center; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>
+          	<font size=3><strong>1 타경 11096 <br><font class=small05></font></strong></font>
+          	
+          </td>
+          <td align=center width=50 style='background-color:#ffffff; text-align:center; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>물번 </td>
+          <td align=center style='background-color:#ffffff; text-align:center; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>
+          <table><strong><tr><td><b><font size=3><font color=366AB3>매각기일 : </td><td><b><font size=3></font><font size=2>&nbsp;&nbsp;10:00~11:10</font></td><td><b><font size=3>  (木)</td></tr></table>
+          </td>
+          <td align=center width=130 style='background-color:#ffffff; text-align:center; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>
+          	<font color=366AB3>담당계</font> : <br> 
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+  	</table>
+  </td>
+</tr>
+		<!-- 상단요약정리 소재지 물건종류 채권자 감정가 대지권 채무자 최저가 면적 소유자 보증금 등등-->
+				      
+<tr>
+  <td height=5></td>
+</tr>
+<tr>
+	<td>
+  	<table width=100% border=0 cellpadding=1 cellspacing=0 style='background-color:#0F7ECC; BORDER-RIGHT: #0F7ECC 0.425pt solid; BORDER-TOP: #0F7ECC 0.425pt solid; BORDER-LEFT: #0F7ECC 0.425pt solid; BORDER-BOTTOM: #0F7ECC 0.425pt solid'>
+		<tr bgcolor=#FFFFFF>
+  		<td>
+      	<table width=100% border=0 cellpadding=1 cellspacing=0 bgcolor=C2D1DB>
+        <col width=11%><col width=21%><col width=10%><col width=><col width=10%><col width=22%>
+        <tr bgcolor=ffffff height=22>
+          <td style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid' align=center><STRONG><font color=366AB3>소 재 지</td>
+          <td colspan=5 style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-TOP: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>
+          	<table width=100% border=0 cellspacing=0 cellpadding=0>
+            <tr>
+              <td>
+              	<b></b>
+              </td>
+              <td width=190 align=right>사건접수  <font color=#F11D42>&nbsp;</td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+        <tr bgcolor=ffffff height=22>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>물건종별</font></td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>채 권 자</font></td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>감 정 가</font></td>
+          <td align=right style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>0원&nbsp;</td>
+        </tr>
+        <tr bgcolor=ffffff height=22>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>토지면적</td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>채 무 자 </font></td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>최 저 가</font></td>
+          <td align=right style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><font color=#F11D42>() 0원&nbsp;</td>
+        </tr>
+        <tr bgcolor=ffffff height=22>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>
+          	<STRONG><font color=366AB3>건물면적&nbsp;</font>
+          </td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>소 유 자 </font></td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>보 증 금</font></td>
+          <td align=right style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><font color=366AB3>(10%)0원&nbsp;</td>
+        </tr>
+        <tr bgcolor=ffffff height=22>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-LEFT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><b><font color=366AB3>제시외면적</font></b>&nbsp;</td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>매각대상</font></td>
+          <td align=center style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>&nbsp;</td>
+          <td align=center style='background-color:#E2E2E2; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'><STRONG><font color=366AB3>청구금액</font></td>
+          <td align=right style='background-color:#FFFFFF; BORDER-RIGHT: #B4B4B4 0.425pt solid; BORDER-BOTTOM: #B4B4B4 0.425pt solid'>0원&nbsp;</td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+		
+		<!-- 상단요약정리2 입찰방법 배당요구종기일 경매개시결정 감정시점-->
+				      
+<tr>
+  <td>
+  	<table width=100% border=0 cellspacing=0 cellpadding=2>
+    <col width=33%><col width=33%><col width=>
+    <tr>
+      <td><img src=img/b_result-icon2.gif width=12 height=15 align=absmiddle> 입찰방법 : 기일입찰</td>
+      <td><img src=img/b_result-icon2.gif width=12 height=15 align=absmiddle> 배당요구종기 : </td>
+      <td><img src=img/b_result-icon2.gif width=12 height=15 align=absmiddle> 경매개시결정 : </td>
+			
+    </tr>
+    </table>
+  </td>
+</tr>
+		
+		<!-- 매각기일 현황 매각기일현황 감평서 사진 한백사진-->
+			        <tr> 
+	<td>
+  	<table width="100%" border="0" cellpadding="0" cellspacing="0" style='background-color:#0F7ECC; text-align:center; BORDER-RIGHT: #0F7ECC 0.425pt solid; BORDER-TOP: #0F7ECC 0.425pt solid; BORDER-LEFT: #0F7ECC 0.425pt solid; BORDER-BOTTOM: #0F7ECC 0.425pt solid'>
+    <tr bgcolor="#FFFFFF"> 
+      <td valign="top">
+      	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="C2D1DB">
+      	<col width=50%><col width=>
+        <tr bgcolor=#ffffff> 
+          <td valign="top" align=center>
+          	<table width=96% border="0" cellspacing="1" cellpadding="0" bgcolor=#ffffff>
+<tr>
+  <td>
+  	<table cellpadding=0 cellspacing=0 border=0 width=100%>
+  	<tr>
+  		<td>
+		  	<img src="img/time.gif" align="absmiddle">
+		    <strong><font color=366AB3>매각기일현황		    </font></strong>
+		    			</td>
+			<td align=right>
+				<a href="javascript:NewWindow('court_selldate_info.php?courtNo=A01&eventNo1=1&&eventNo2=11096&objNo=','court_selldate','700','400','yes','center');"><img src='img2/b1.gif'></a>			</td>
+		</tr>
+		</table>
+  </td>
+</tr>
+<tr>
+  <td>
+  	<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="D3D3D3">
+		<col width=><col width=30%><col width=35%><col width=25%>
+		<tr align="center">
+		  <td style='padding:2 0 0 0; background-color:#F2F2F2; text-align:center; BORDER-RIGHT: #E2E2E2 0.425pt solid; BORDER-TOP: #E2E2E2 0.425pt solid; BORDER-LEFT: #E2E2E2 0.425pt solid; BORDER-BOTTOM: #E2E2E2 0.425pt solid'>회차</td>
+		  <td style='padding:2 0 0 0; background-color:#F2F2F2; text-align:center; BORDER-RIGHT: #E2E2E2 0.425pt solid; BORDER-TOP: #E2E2E2 0.425pt solid; BORDER-BOTTOM: #E2E2E2 0.425pt solid'>
+		    매각기일		  </td>
+		  <td style='padding:2 0 0 0; background-color:#F2F2F2; text-align:center; BORDER-RIGHT: #E2E2E2 0.425pt solid; BORDER-TOP: #E2E2E2 0.425pt solid; BORDER-BOTTOM: #E2E2E2 0.425pt solid'>최저매각금액</td>
+		  <td style='padding:2 0 0 0; background-color:#F2F2F2; text-align:center; BORDER-RIGHT: #E2E2E2 0.425pt solid; BORDER-TOP: #E2E2E2 0.425pt solid; BORDER-BOTTOM: #E2E2E2 0.425pt solid'>결과</td>
+		</tr>
+  	<br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: message: ',' 근처의 구문이 잘못되었습니다. (severity 15) in <b>E:\www\v2\inforesult_selldate_inc.php</b> on line <b>64</b><br />
+<br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: Query failed in <b>E:\www\v2\inforesult_selldate_inc.php</b> on line <b>64</b><br />
+<br />
+<b>Warning</b>:  mssql_fetch_array(): supplied argument is not a valid MS SQL-result resource in <b>E:\www\v2\inforesult_selldate_inc.php</b> on line <b>66</b><br />
+		</table>
+  </td>
+</tr>
+<tr><td height=2></td></tr>
+<tr>
+  <td bgcolor="#FFFFFF">
+  	<table width=100% border=0 cellspacing=0 cellpadding=3>
+    <tr bgcolor=#ffffff>
+    	<td class=t140 style='padding:2 0 0 0; background-color:#ffffff; text-align:center; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-TOP: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'></td>
+    </tr>
+    </table>
+      </td>
+</tr>
+</table>
+<script>
+function price_chk(field) 
+{ 
+	field.value = trim(field.value);
+	var valid = "0123456789," 
+	var ok = "yes"; 
+	var temp; 
+	for (var i=0; i<field.value.length; i++) 
+	{ 
+		temp = "" + field.value.substring(i, i+1); 
+		if (valid.indexOf(temp) == "-1") ok = "no"; 
+	} 
+	if (ok == "no")
+	{ 
+		alert("숫자만 입력할 수 있습니다"); 
+		field.focus(); 
+		field.select(); 
+   } 
+} 
+function SetComma(n)
+{
+	return Number(String(n).replace(/\..*|[^\d]/g,'')).toLocaleString().slice(0,-3);
+}
+
+function createRequest()
+{
+	try
+	{
+  	request = new XMLHttpPequest();
+  } 
+  catch(trymicrosofit)
+  {
+  	try
+  	{
+    	request = new ActiverXObject('Msxml2.XMLHTTP');
+    } 
+    catch(othermicrosoft)
+    {
+    	try
+    	{
+      	request = new ActiveXObject('Microsoft.XMLHTTP');
+      }
+      catch(failed)
+      {
+      	request = null;
+      }                    
+		} 
+  }
+  if(request == null) alert(' request 객체 오류');
+}
+
+function bidsimulation_proc(member_code,courtNo,eventNo,eventNo2,objNo)
+{
+	var price;
+	price = document.bidsimulation_frm.bidsimulation_price.value;
+	if(price == 0 || price == '') 
+	{
+		alert('모의 입찰가를 다시 한번 확인해 주시기 바랍니다.');
+		return;
+	}
+	
+	createRequest();
+	var url = 'ajax_bidsimulation.php?member_code='+member_code+'&courtNo='+courtNo+'&eventNo='+eventNo+'&eventNo2='+eventNo2+'&objNo='+objNo+'&price='+price;
+	request.open('GET',url,true);
+	request.onreadystatechange = ajax_bidsimulation_result;
+	request.send(null);
+}
+
+function ajax_bidsimulation_result()
+{
+	if(request.readyState == 4)
+	{
+		if(request.status == 200)
+		{
+			var return_value = request.responseText;
+			document.bidsimulation_frm.bidsimulation_price.value = return_value;
+			alert('정상적으로 입력/수정 되었습니다.\n\n수정은 매각기일 1일전까지 가능하며 결과는 현 페이지 및 마이페이지->모의입찰목록 에서 확인할 수 있습니다.');					
+		}	
+  }  
+	
+}
+</script>
+
+	
+	<table width=300 border=0 cellspacing=0 cellpadding=0>	
+	<form name=bidsimulation_frm method=post action=''>		
+	<tr> 
+	  <td width=199 background=img03/bidsimulation00.gif>
+	  	<table width=175 border=0 cellspacing=0 cellpadding=0>
+	    <tr> 
+	      <td width=85 height=2></td>
+	      <td height=2></td>
+	    </tr>
+	    <tr> 
+	      <td>&nbsp;</td>
+	      <td><INPUT name=bidsimulation_price value='0' style="BACKGROUND-COLOR: #FFFFFF; BORDER-BOTTOM: #e3e3e3 1px solid; BORDER-LEFT: #e3e3e3 1px solid; BORDER-RIGHT: #e3e3e3 1px solid; BORDER-TOP: #e3e3e3 1px solid; WIDTH: 88px; text-align:right;'" readonly onclick="alert('매각기일 하루전까지만 입력/수정할 수 있습니다.');" ></td>
+	    </tr>
+	    </table>
+	  </td>
+	  <td width=3><img src=img03/bidsimulation03.gif width=3 height=33></td>
+	  <td width=38><a href="javascript:bidsimulation_proc('161544','A01','1','11096','');"><img src=img03/bidsimulation01.gif width=38 height=33></a></td>
+	  <td width=3><img src=img03/bidsimulation03.gif width=3 height=33></td>
+	  <td width=58><a href=javascript:NewWindow('bidsimulation_info_pop.htm','bidsimulation_info_pop','420','520','no','')><img src=img03/bidsimulation02.gif width=58 height=33 border=0></a></td>
+	</tr></form>
+	</table> <!-- 모의입찰 -->
+          </td>
+          <td align=right valign="top">
+          	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td>
+  	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+      <td>
+      	<table border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td align=center >
+          	<table border="0" cellpadding="0" cellspacing="0" bgcolor="#F3F3F3">
+            <tr>
+              <td bgcolor="#FFFFFF">
+              	<a href="javascript:NewWindow('info-result-zoom.htm?partner=&courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&addr_text=&gamjungprice=1&lowprice=&lowpricerate=0&objuse_pagetype=','infozoom','1000','680','yes','left');"><img src='' onerror="this.src='img/noimg02.gif'" width=207 height=160>
+              	</td>
+              <td width=5>&nbsp;</td>
+              <td bgcolor="#FFFFFF">
+              	<a href="javascript:NewWindow('info-result-zoom.htm?partner=&courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&addr_text=&gamjungprice=1&lowprice=&lowpricerate=0&objuse_pagetype=','infozoom','1000','680','yes','left');"><img src='//' onerror="this.src='img/noimg02.gif'" width=207 height=160>
+              	</td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>
+</table>          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+  </td>
+</tr>			      			
+		<!-- 감정평가 현황-->
+				      		
+		<!-- 건물 현황-->
+			        		<!-- 대지권 현황-->
+			        		
+		<!-- 토지 현황-->
+			        		
+		<!-- 제시외 현황-->
+									
+		<!-- 기계기구 현황-->
+							
+		<!-- 자동차 현황-->
+			        		
+		<!-- 등기부상권리관계-->
+			        <br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: message: ',' 근처의 구문이 잘못되었습니다. (severity 15) in <b>E:\www\cyosLib\cgs2_lib.php</b> on line <b>49</b><br />
+<br />
+<b>Warning</b>:  mssql_query() [<a href='function.mssql-query'>function.mssql-query</a>]: Query failed in <b>E:\www\cyosLib\cgs2_lib.php</b> on line <b>49</b><br />
+<br />
+<b>Warning</b>:  mssql_fetch_array(): supplied argument is not a valid MS SQL-result resource in <b>E:\www\cyosLib\cgs2_lib.php</b> on line <b>51</b><br />
+
+	<tr>
+	  <td height=5></td>
+	</tr>
+	<tr>
+	  <td>
+	  	<TABLE cellSpacing=0 cellPadding=1 width=100% bgColor=C2D1DB border=0>
+	  	<col width=5%><col width=15%><col width=10%><col width=>
+	  	<col width=21%><col width=22%>
+	    <TR bgColor=F0F9FF>
+	      <TD colSpan=8 style='background-color:#FAF8DD; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-TOP: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>
+	      	<table cellpadding=0 cellspacing=0 border=0 width=100%>
+	      	<col width=15%><col width=70%><col width=>
+	      	<tr>
+	      		<td>
+	      			<STRONG><img src=img/b_result-icon2.gif width=12 height=15 align=absmiddle>
+	      			<font color=#000000>임차인현황</font></STRONG>
+	      		</td>
+	      		<td align=center>
+	      			<font color=#0080FF>▶ 매각물건명세서상 조사된 임차내역이 없습니다 ◀
+	        	</td>
+	        	<td align=right>
+	        		<a href="javascript:NewWindow('info-result-zoom5.htm?courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&addr_text=&gamjungprice=1&lowprice=&lowpricerate=0','infozoom','1000','680','no','left');"><img src=./img/result04.gif align=absmiddle border=0></a>
+	        	</td>
+	        </tr>
+	        </table>
+	      </TD>
+	    </TR>
+	    
+	    
+	   	
+	   	
+	   	
+	   	
+	   	<tr><td colspan=8 bgcolor=#ffffff style='background-color:#ffffff; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'><font color=blue>▶ 본사건은 과다등기(미발급)로인하여 배당표/대항력여부는 알수없습니다.</td></tr>
+	    </table>
+	  </td>
+	</tr>		
+		<!-- 단지 현황-->
+			        				
+		<!-- 주의사항-->
+			        
+<tr>
+  <td height=5></td>
+</tr>
+<TR>
+  <TD>
+  	<STRONG><img src=img/b_result-icon2.gif width=12 height=15 align=absmiddle>
+    <font color=#000000>주의사항</font></STRONG>
+  </TD>
+</TR>
+<tr>
+	<td>
+		<TABLE cellSpacing=0 cellPadding=1 width=100% bgColor=C2D1DB border=0>
+	  <col width=28%><col width=>
+	  <TR bgcolor=ffffff>
+	    <TD style='background-color:#F2F2F2; BORDER-top: C2D1DB 0.425pt solid; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>매각으로 소멸되지 않는 등기부권리</TD>
+	    <TD style='background-color:#ffffff; BORDER-top: C2D1DB 0.425pt solid; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>&nbsp;</TD>
+	  </TR>
+	  <TR bgcolor=ffffff>
+	    <TD style='background-color:#F2F2F2; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>매각으로 설정된 것으로 보는 지상권</TD>
+	    <TD style='background-color:#ffffff; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>&nbsp;</TD>
+	  </TR>
+	  <TR bgcolor=ffffff>
+	    <TD align=center style='background-color:#F2F2F2; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>주의사항</TD>
+	    <TD style='background-color:#ffffff; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'><font color=red>배당요구종기일이 없으므로 해당 경매계에 문의 하여 배당요구종기일을 확인하시기 바랍니다.</font>&nbsp;</TD>
+	  </TR>
+	  </TABLE>
+	</td>
+</tr>
+		<!-- 항고내역-->
+			        				  
+		<!-- 전문가권리분석-->
+			        		
+		<!-- 인근낙찰사례분석-->
+			        		
+			        <!-- 법원별 지사 모집 / 지사 광고 배너 -->
+			        <tr><td height=90><!--a href='service6.htm' target='_blank'--><img src=/v2/img2009/jisa/2009jisa_banner01.gif border=0><!--/a--></td></tr>		<!-- 하단부 회사명 한글주소안내 연구소연락처-->
+			        <tr> 
+  <td height=5></td>
+</tr>
+<tr>
+	<td>
+  	<TABLE cellSpacing=0 cellPadding=5 width="100%" bgColor=C2D1DB border=0>
+    <TR bgcolor="F0F9FF"> 
+      <TD height="25" style='background-color:#FFFFFF; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-TOP: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'><font color=#366AB3 style="font-size:8pt"> - 본사에서 제공하는 경매정보는 해당법원 에서 
+        처리하고 있는 물건정보와 일치하지 않을 수도 있습니다.<br>
+        - 매각물건의 정확한 내용은 법원에 비치된 매각물건명세서 및 기타 공부서류를 열람, 재확인 하시기 바랍니다.<br>
+        - 인터넷으로 서비스하는 정보만으로 참여한 입찰과 관련하여 발생하는 문제에 대해 스피드옥션은 법적 책임을 지지 않습니다.</TD>
+    </TR>
+    <TR bgcolor="F0F9FF"> 
+      <TD height="25" align=center style='background-color:F0F9FF; BORDER-RIGHT: C2D1DB 0.425pt solid; BORDER-LEFT: C2D1DB 0.425pt solid; BORDER-BOTTOM: C2D1DB 0.425pt solid'>
+      	▶ (주)스피드옥션 www.speedauction.co.kr ▶ 권리분석상담:02)2026-7302
+      </TD>
+    </TR>
+    </TABLE></td>
+</tr>
+<tr> 
+  <td height=5></td>
+</tr>		
+			      </table>
+				    </td>    
+				  </tr>		  
+				</table>				
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td valign=top height=100%  bgcolor=F0F7FF>
+		<table cellpadding=0 cellspacing=0 border=0 width=90>
+		<tr>
+			<td bgcolor=F0F0F0>
+				<div id=divMenu style="position:absolute;left=762;top=800;z-index:2;top:10px">
+					<!-- 오른쪽 메뉴 -->
+					<table cellpadding=0 cellspacing=0 border=0 width=100% bgcolor="#ffffff">
+						<tr>
+							<td align="center" valign="top" bgcolor="F0F7FF">
+									<table width="81" border="0" cellspacing="0" cellpadding="0">
+				        <tr>
+          <td height="11"></td>
+        </tr>
+        <tr>
+          <td><table width="81" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub01bg1.gif"></td>
+              </tr>
+              <tr>
+                <td height="7" align="center" background="/v2/img2009/view/2009info_sub01bg2.gif"><table width="67" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td>
+											<table width="67" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td align="center" background="f"><img src="/v2/img2009/view/2009info_sub01.gif" width="67" height="20" border="0"></a></td>
+                          </tr>
+                          <tr>
+                            <td align="center" background="/v2/img2009/view/2009info_sub01bg4.gif"><table width="57" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td height="4"></td>
+                                </tr>
+                                <tr>
+                                  <td><table width="57" border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td width="24"><img src="/v2/img2009/view/2009info_sub03.gif" width="24" height="15" align="absmiddle"></td>
+                                        <td align="right"><font color="324A93"></font></td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                                <tr>
+                                  <td height="4" background="/v2/img2009/view/2009info_sub01bg6.gif"></td>
+                                </tr>
+                                <tr>
+                                  <td><table width="57" border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td width="24"><img src="/v2/img2009/view/2009info_sub02.gif" width="24" height="15" align="absmiddle"></td>
+                                        <td align="right"><font color="324A93"></font></td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                                <tr>
+                                  <td height="4" background="/v2/img2009/view/2009info_sub01bg6.gif"></td>
+                                </tr>
+                                <tr>
+                                  <td><a href="javascript:NewWindow('/v2/common/view_cnt_static.php?courtNo=&eventNo=&eventNo2=&objNo=','list_cnt_pop','440','290','no','center');"><img src="/v2/img2009/view/2009info_sub01-2.gif" width="57" height="14"></a></td>
+                                </tr>
+                              </table></td>
+                          </tr>
+                          <tr>
+                            <td height="5" background="/v2/img2009/view/2009info_sub01bg5.gif"></td>
+                          </tr>
+                        </table>
+											<table width="67" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="10"></td>
+                          </tr>
+													                          <tr>
+                            <td height="20"><a href="javascript:NewWindow('info-result_print_A_small.php?courtNo=A01&eventNo1=1&eventNo2=11096&objNo=','resultprint','670','800','yes','center');"><img src="/v2/img2009/view/2009info_sub04.gif" width="67" height="18"></a></td>
+                          </tr>
+                        </table></td>
+                    </tr>
+                    <tr>
+                      <td height="1" bgcolor="B2CEED"></td>
+                    </tr>
+										                    <tr>
+                      <td height="20"><a href="javascript:NewWindow('info-result-interest.htm?courtNo=A01&courtNo2=&eventNo=1&eventNo2=11096&objNo=&interest_job=insert&serino=&multiobj=&multi_no=','infointerest','367','460','yes','center');"><img src="/v2/img2009/view/2009info_sub05.gif" width="67" height="18"></td>
+                    </tr>
+                    <tr>
+                      <td height="1" bgcolor="B2CEED"></td>
+                    </tr>
+                    <tr>
+                      <td >
+											<a href="javascript:alert('검색중인 사건은 당일 공고된 신건으로 당사에서 자료입력중인 사건이니 잠시후 다시 확인 하시기 바랍니다.');"><img src="/v2/img2009/view/2009info_sub06.gif" width="67" height="18"></a></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub01bg3.gif"></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="6"></td>
+        </tr>
+        <tr>
+          <td><table width="81" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub07bg1.gif"></td>
+              </tr>
+              <tr>
+                <td align="center" background="/v2/img2009/view/2009info_sub07bg2.gif"><table width="67" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td height="24"><a href="javascript:NewWindow('info-result-zoom.htm?partner=&courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&addr_text=&gamjungprice=1&lowprice=&lowpricerate=0&objuse_pagetype=','infozoom','1000','680','yes','left');"><img src="/v2/img2009/view/2009info_sub07.gif" width="67" height="18"></a></td>
+                    </tr>
+                    <tr>
+                      <td height="1" background="/v2/img2009/view/2009info_sub07bg7.gif"></td>
+                    </tr>
+                    <tr>
+                      <td height="24"><a href="javascript:NewWindow('info-result-zoom_map.htm?partner=&courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&gamjungprice=1&lowprice=&lowpricerate=0','sp_map','1000','680','yes','left');"><img src="/v2/img2009/view/2009info_sub08.gif" width="67" height="18"></a></td>
+                    </tr>
+                    <tr>
+                      <td height="1" background="/v2/img2009/view/2009info_sub07bg7.gif"></td>
+                    </tr>
+																														                    <tr>
+                      <td height="1" background="/v2/img2009/view/2009info_sub07bg7.gif"></td>
+                    </tr>
+										                    <tr>
+                      <td height="1" background="/v2/img2009/view/2009info_sub07bg7.gif"></td>
+                    </tr>
+                    <tr>
+                      <td height="24"><a href="javascript:NewWindow('info-result-zoom5.htm?courtNo=A01&courtNo2=&eventNo1=1&eventNo2=11096&objNo=&selldate=&map_selldate=&obj_list=&addr_text=&gamjungprice=1&lowprice=&lowpricerate=0','infozoom','1000','680','yes','left');"><img src="/v2/img2009/view/2009info_sub11.gif" width="67" height="18"></a></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <td height="13" background="/v2/img2009/view/2009info_sub07bg3.gif"></td>
+              </tr>
+              <tr>
+                <td align="center" background="/v2/img2009/view/2009info_sub07bg4.gif"><table width="67" border="0" cellspacing="0" cellpadding="0">
+										                    <tr>
+                      <td height="1" bgcolor="C7DCF3"></td>
+                    </tr>
+                    <tr><!-- 전문가와 상담하기 -->
+                      <td height="22"><a href="javascript:NewWindow('/v2/pop/inforesult_qna.php?courtNo=A01&eventNo1=1&eventNo2=11096&objNo=','baedang','780','600','yes','left')"><img src="/v2/img2009/view/2009info_sub13.gif" width="67" height="18" style="cursor:hand"></a></td>
+                    </tr>
+                    <tr>
+                      <td height="1" bgcolor="C7DCF3"></td>
+                    </tr>
+                    <tr><!-- 주택/상가 임대차보호법 -->
+                      <td height="34"><a href="javascript:law_pop('auction1.gif');"><img src="/v2/img2009/view/2009info_sub14.gif" width="67" height="30"></a></td>
+                    </tr>
+                  </table></td>
+              </tr>
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub07bg5.gif"></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td height="6"></td>
+        </tr>
+        <tr>
+          <td><table width="81" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub07bg6.gif"></td>
+              </tr>
+              <tr>
+                <td align="center" background="/v2/img2009/view/2009info_sub07bg4.gif"><table width="67" border="0" cellspacing="0" cellpadding="0">
+																				<tr> <!-- 경매잔금/취하대출 -->
+											<td height="10"><a href="#" onclick="opener.location.href='/v2/service6.htm?courtNo=A01&eventNo=1&eventNo2=11096&objNo=';opener.document.focus();"><img src="/v2/img2009/view/2009info_sub15.gif"></a></td>
+										</tr>
+																				<tr> <!-- 경매잔금/취하대출 -->
+											<td height="10"><img src="/v2/img2009/view/2009info_sub16.gif" width="67" height="13"></a></td>
+										</tr>
+                    <tr><!-- 경매컨설팅의뢰 -->
+                      <td><a href="#" onclick="opener.location.href='/v2/consulting6.htm?courtNo=A01&eventNo=1&eventNo2=11096&objNo=';"><img src="/v2/img2009/view/2009info_sub17.gif" width="67" height="22"></td>
+                    </tr>
+                  </table></a></td>
+              </tr>
+              <tr>
+                <td height="7" background="/v2/img2009/view/2009info_sub07bg5.gif"></td>
+              </tr>
+											            </table></td>
+        </tr>
+        <tr>
+          <td height="6"></td>
+        </tr>
+        <tr>
+          <td><a href="javascript:window.close()"><img src="/v2/img2009/view/2009info_sub18.gif" width="81" height="20"></a></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+			<script>
+			function law_pop(filen)
+			{
+				var style="top=0,left=0,width=663,height=750,scrollbars=yes,resizable=yes,border=0";
+				var filename = "law_popup.php?filename="+filen;
+				lawfrm = window.open(filename,'law_pop',style);
+				lawfrm.focus();
+			}
+			function cgs_pop(filename,tg)
+			{
+				var form = document.cgs_frm;
+
+				var style="top=0,left=0,width=760,height=700,scrollbars=yes,resizable=yes,border=0";
+				var csgfrm = "";
+				csgfrm = window.open("about:blank",tg,style);
+				form.action=filename;
+				form.target=tg;
+				form.submit();
+				csgfrm.focus();
+			}
+			</script>
+			<form name=cgs_frm method=post action=''>
+			<input type=hidden name=courtNo value='A01'>
+			<input type=hidden name=courtNo2 value='??3?'>
+			<input type=hidden name=eventNo1 value='1'>
+			<input type=hidden name=eventNo2 value='11096'>
+			<input type=hidden name=objNo value=''>
+			</form>
+      </table>
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" width='90'>
+</table>							
+							</td>
+						</tr>
+					</table>
+
+				</div>		
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+<script language=javascript>
+<!--
+var bNetscape4plus = (navigator.appName == "Netscape" && navigator.appVersion.substring(0,1) >= "4");
+var bExplorer4plus = (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.substring(0,1) >= "4");
+function CheckUIElements(){
+        var yMenuFrom, yMenuTo, yButtonFrom, yButtonTo, yOffset, timeoutNextCheck;
+
+        if ( bNetscape4plus ) { 
+                yMenuFrom   = document["divMenu"].top;
+                yMenuTo     = top.pageYOffset + 62;
+        }
+        else if ( bExplorer4plus ) {
+                yMenuFrom   = parseInt (divMenu.style.top, 10);
+                yMenuTo     = document.body.scrollTop + 10;
+        }
+
+        timeoutNextCheck = 500;
+
+        if ( Math.abs (yButtonFrom - (yMenuTo + 152)) < 6 && yButtonTo < yButtonFrom ) {
+                setTimeout ("CheckUIElements()", timeoutNextCheck);
+                return;
+        }
+
+        if ( yButtonFrom != yButtonTo ) {
+                yOffset = Math.ceil( Math.abs( yButtonTo - yButtonFrom ) / 10 );
+                if ( yButtonTo < yButtonFrom )
+                        yOffset = -yOffset;
+
+                if ( bNetscape4plus )
+                        document["divLinkButton"].top += yOffset;
+                else if ( bExplorer4plus )
+                        divLinkButton.style.top = parseInt (divLinkButton.style.top, 10) + yOffset;
+
+                timeoutNextCheck = 10;
+        }
+        if ( yMenuFrom != yMenuTo ) {
+                yOffset = Math.ceil( Math.abs( yMenuTo - yMenuFrom ) / 20 );
+                if ( yMenuTo < yMenuFrom )
+                        yOffset = -yOffset;
+
+                if ( bNetscape4plus )
+                        document["divMenu"].top += yOffset;
+                else if ( bExplorer4plus )
+                        divMenu.style.top = parseInt (divMenu.style.top, 10) + yOffset;
+
+                timeoutNextCheck = 10;
+        }
+
+        setTimeout ("CheckUIElements()", timeoutNextCheck);
+}
+
+function OnLoad()
+{
+        var y;
+        if ( top.frames.length )
+        if ( bNetscape4plus ) {
+                document["divMenu"].top = top.pageYOffset + 135;
+                document["divMenu"].visibility = "visible";
+        }
+        else if ( bExplorer4plus ) {
+                divMenu.style.top = document.body.scrollTop + 135;
+                divMenu.style.visibility = "visible";
+        }
+        CheckUIElements();
+        return true;
+}
+OnLoad();
+//-->
+</script>
+</body>
+<form name=info_list method=post action=''>
+<input type=hidden name=bid_choice_cnt value='1'>
+<input type=hidden name=bid_choice_flag value='inforesult'>
+<input type=hidden name=bid_choice0 value='A01-1-11096-'>
+<input type=hidden name=r_url value='/v2/info-result.htm'>
+</form>
+<form name=info_list2 method=post action='' target='_self'>
+<input type=hidden name=courtNo value='A01'>
+<input type=hidden name=courtNo2 value=''>
+<input type=hidden name=eventNo1 value='1'>
+<input type=hidden name=eventNo2 value='11096'>
+<input type=hidden name=objNo value=''>
+<input type=hidden name=selldate value=''>
+<input type=hidden name=map_selldate value=''>
+<input type=hidden name=addr_text value=''>
+<input type=hidden name=view_gubun value=''>
+<input type=hidden name=r_url value='/v2/info-result.htm'>
+<input type=hidden name=serino value=''>
+<input type=hidden name=bid_choice_cnt value='1'>
+<input type=hidden name=bid_choice_flag value='inforesult'>
+<input type=hidden name=bid_choice0 value='A01-1-11096-'>
+<input type=hidden name=objuse value=''>
+<input type=hidden name=gamjungprice value='1'>
+<input type=hidden name=lowprice value=''>
+<input type=hidden name=lowpricerate value='0'>
+</form>
+</html>
+<script>alert('회원님! 현재 가로보기는 편집 중입니다. 세로보기로 이동합니다.'); document.info_result2.submit(); </script>

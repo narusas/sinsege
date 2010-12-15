@@ -1,0 +1,2076 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>대법원법원경매정보_</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+
+
+
+<!-- LPAGE JavaScript Start -->
+<script type="text/javascript" language="javascript">
+// <![CDATA[
+function goPage(row)
+{
+  var pageForm = document.getElementById("targetRow").form;
+  pageForm.targetRow.value = row;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+function goOrderByPage(row,orderBy)
+{
+  var pageForm = document.getElementById("targetRow").form;
+  pageForm.targetRow.value = row;
+  pageForm.lafjOrderBy.value = orderBy;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+function changePage(pageSelect) {
+  var pageForm = pageSelect.form;
+  pageForm.targetRow.value = pageSelect.value;
+  if (porSetCmd) { porSetCmd(pageForm); }
+  pageForm.method = "post";
+  pageForm.submit();
+}
+// ]]>
+</script>
+<!-- LPAGE JavaScript End -->
+
+<script type="text/javascript" src="/common/js/por_common.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+/**
+* 페이지 당 row 수 변경을 반영할 때
+* name : 검색 결과
+*/
+function cfNew(oSelect){
+	var frm = document.paging;
+	frm.method = "post";
+	frm.submit();
+}
+
+// 관심물건 등록
+function gwansimMulRegi(){
+	if(cfmLogin()){
+	    if( chkbox() == 0 ){
+	  		alert("물건을 선택하세요.");
+	  		return;
+		}
+		gsimMulRegi(document.frm1);
+	}
+}
+
+// 물건비교
+function compareMul(){ 
+	var docu = document.frm1; 
+    if(chkbox() == 0 ){
+  		alert("물건비교를 위해서는 2개 또는 3개의 물건을 선택하셔야 합니다.");
+  		return false;
+	}else if(chkbox() == 1){
+		alert("물건비교를 위해서는 2개 또는 3개의 물건을 선택하셔야 합니다.");
+		return false;
+	}else if(chkbox() == 2 || chkbox() == 3){
+		 compareItem(docu);
+	}else{
+		alert("물건비교를 위해서는 2개 또는 3개의 물건을 선택하셔야 합니다.");
+		return false;
+	}
+}
+
+// 담당계 정보 표시
+function showJpDeptInfo(vTel, vMaeInfo, vMaePlace, vEvent){
+	document.getElementById("idhTel").value = vTel;
+	document.getElementById("idhMaeInfo").value = vMaeInfo;
+	document.getElementById("idhMaePlace").value = vMaePlace;
+	
+	sh_layers2('tel_layer','','show', vEvent);
+}
+// 페이지 초기설정
+function init(){
+	var tmpIdx = ""
+	if(getCookie("locIdx") != null && getCookie("locIdx") != ""){
+		tmpIdx = getCookie("locIdx");
+		setCookie("locIdx", "", 1);
+		location.href = "#"+tmpIdx;
+	}
+}
+//]]>
+</script>
+</head>
+<body onload="javascript:init();">
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+window.name = "main";
+
+
+function porCopyForm(source, target, delFlg, typeChkFlg, delWord) {
+	var renFlg = false;
+	var delCnt = 0;
+
+	if ( source == null || source == undefined || source == "" ) return;
+	if ( target == null || target == undefined || target == "" ) return;
+	if ( delWord == null || delWord == undefined || delWord == "" ) {
+		renFlg = false;
+	} else {
+		renFlg = true;
+	}
+
+	if ( typeChkFlg == null || typeChkFlg == undefined ) {
+		typeChkFlg = false;
+	}
+
+	if (delFlg == true) {
+		for (var i=target.elements.length-1; i >= 0 ; i--) {
+			target.removeChild(target.elements[i]);
+		}
+	}
+
+	for (var i=0; i < source.elements.length; i++) {
+		if (typeChkFlg == true) {
+			if (source.elements[i].type == "checkbox") {
+				if (!source.elements[i].checked) continue;
+			}
+			if (source.elements[i].type == "radio") {
+				if (!source.elements[i].checked) continue;
+			}
+		}
+
+		var input = document.createElement("input");
+		input.type = "hidden";
+		if (renFlg) {
+			if ( source.elements[i].name.indexOf(delWord) == 0 ) { 
+				input.name = source.elements[i].name.substring(delWord.length);
+				delCnt = delCnt + 1;
+			} else {
+				input.name = source.elements[i].name;
+			}
+		} else {
+			input.name = source.elements[i].name;
+		}
+		input.value = source.elements[i].value;
+
+		target.appendChild(input);
+	}
+
+	return delCnt;
+}
+
+/**
+* 화면 네비게이션을 위한 submit 
+*/
+function porActSubmit(oform, action, target, scrid, loginFlg, preSrnId) {
+	var menuForm;
+
+	if (loginFlg == "1") {
+		if (cfmLogin() == false) {
+			return;
+		} 
+	}
+
+	if (preSrnId == null || preSrnId == undefined) {
+		preSrnId = "";
+	}
+
+	if ( oform == undefined || oform == null || oform == "" ) {
+		document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+		document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+		document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+		document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "N";
+
+		porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "");
+		porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "");
+
+		menuForm = document.__MENU_FRM_REFLESH;
+	} else {
+		if ( oform.ownerDocument.location.href != document.location.href ) { 
+			document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+			document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+			document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+			document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "Y";
+
+			porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "");
+			porCopyForm(oform, document.__MENU_FRM_REFLESH, false, true, "");
+			porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "");
+			menuForm = document.__MENU_FRM_REFLESH;
+		} else {
+			if ( oform.elements["_NEXT_CMD"] == null ||  
+				 oform.elements["_NEXT_CMD"] == undefined) {
+				document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+				document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+				document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+				document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "Y";
+
+				porCopyForm(document.__MENU_FRM_BEFINFO, oform, false, false, "");
+				porCopyForm(document.__MENU_FRM_CURSRN, oform, false, false, "");
+			} else {
+				oform.elements["_NEXT_CMD"].value = action;
+				oform.elements["_NEXT_SRNID"].value = scrid;
+				oform.elements["_PRE_SRNID"].value = preSrnId;
+				oform.elements["_FORM_YN"].value = "Y";
+			}
+
+			menuForm = oform;
+		}
+	}
+
+	menuForm.method = "POST";
+	menuForm.target = target;
+
+	if (action.indexOf("/") >= 0) {
+		actSubmit(menuForm, action, "_self");
+	} else {
+		actSubmit(menuForm, ("/"+ action), "_self");
+	}
+}
+/**
+* 이전 화면으로 돌아가는 기능을 한다.
+*/
+function porBefSrnActSubmit() {
+	var naviCmd = document.__MENU_FRM_BEFINFO.elements["_NAVI_CMD"].value.split("^");
+	var naviSrnId = document.__MENU_FRM_BEFINFO.elements["_NAVI_SRNID"].value.split("^");
+	var tmp1 = "";
+	var tmp2 = "";
+	if (naviCmd.length < 1) return;
+
+	for (var i=0 ; i < (naviCmd.length - 1); i++) {
+		if (tmp1 != "") {
+			tmp1 = tmp1 + "^";
+			tmp2 = tmp2 + "^";
+		}
+		tmp1 = tmp1 + naviCmd[i];
+		tmp2 = tmp2 + naviSrnId[i];
+	}
+
+	document.__MENU_FRM_BEFINFO.elements["_NAVI_CMD"].value = tmp1;
+	document.__MENU_FRM_BEFINFO.elements["_NAVI_SRNID"].value = tmp2;
+	document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = naviCmd[naviCmd.length - 1];
+	document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = naviSrnId[naviSrnId.length - 1];
+
+	var paramCnt = porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "_P_");
+
+	if (paramCnt == 0) {
+		porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "_C_");
+	}
+
+	document.__MENU_FRM_REFLESH.method = "POST";
+	var action = naviCmd[naviCmd.length - 1];
+	if (action.indexOf("/") >= 0) {
+		actSubmit(document.__MENU_FRM_REFLESH, action, "_self");
+	} else {
+		actSubmit(document.__MENU_FRM_REFLESH, ("/"+ action), "_self");
+	}
+}
+
+
+function porReload(action, scrid) {
+	if (action == null || action == undefined || action == "") {
+		action = document.__MENU_FRM_BEFINFO.elements["_CUR_CMD"].value;
+	}
+
+	if (scrid == null || scrid == undefined || scrid == "") {
+		scrid = document.__MENU_FRM_BEFINFO.elements["_CUR_SRNID"].value;
+	}
+
+	porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, true, false, "_C_");
+	porActSubmit(document.__MENU_FRM_REFLESH, action, "_self", scrid);
+}
+
+
+function porAppendRetrieveParam(appendForm) {
+	if (appendForm == null || appendForm == undefined || appendForm == "") return;
+	porCopyForm(document.__MENU_FRM_CURSRN, appendForm, false, false, "_C_");	
+}
+
+
+function porSetCmd(pageForm) {
+	if (pageForm == null || pageForm == undefined || pageForm == "") return;
+
+	if ( pageForm.elements["_NEXT_CMD"] != null && 
+	     pageForm.elements["_NEXT_CMD"] != undefined ) {
+	     pageForm.elements["_NEXT_CMD"].value = pageForm.action;
+	}
+}
+
+// 로그아웃
+function logout(){
+	document.__MENU_FRM_BEFINFO.elements["_LOGOUT_CHK"].value = "LOGOUT";
+	porActSubmit("","RetrieveMainInfo.laf","","PNO102000");
+}
+
+// 지도검색 팝업
+function popupMap(){
+	var retnId;
+	if(getCookie('mapGuide')!='Y'){
+		//안내팝업이동
+		retnId = window.open("/PopupMap.laf","PNO104008","height=353, width=540,top=20,left=50,resizable=no,scrollbars=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}else{
+		//지도팝업 바로이동
+		retnId = window.open("/PopupMap.laf","PNO104001","height=700, width=915,top=20,left=50,resizable=no,scrollbars=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}
+	retnId.focus();
+}
+
+// 로그인 팝업
+function popupLogin(){
+	var retnId = window.open("/RetrieveHwonLogin.laf","PNO102012","height=390, width=540,top=20,left=50,resizable=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	retnId.focus();
+}
+
+// 로그인 여부 
+function cfmLogin(){
+	if("" == ""){
+		if(confirm("로그인하셔야 이용하실 수 있습니다. 로그인 하시겠습니까?")){
+			popupLogin();
+		}else{
+			return false;
+		}
+		return false;
+	}else{
+		return  true;
+	}	
+}
+
+// 물건상세정보 보기
+function detSrch(vJiwonNm, vSaNo, vMaemulSer, vBoGbn){
+	document.getElementById("bonJiwonNm").value = vJiwonNm;		
+	document.getElementById("bonMaemulSer").value = vMaemulSer;
+	if(vBoGbn == "B"){
+		document.getElementById("bonSaNo").value = vSaNo;
+		porActSubmit(document.bonForm, "/RetrieveRealEstCarHvyMachineMulDetailInfo.laf", "", "PNO102015", "", "PNO102001");
+	}else{
+		document.getElementById("bonMvSaNo").value = vSaNo;
+		porActSubmit(document.bonForm, "RetrieveMvEstMulDetailInfo.laf", "", "PNO102017", "", "PNO102003");
+	}
+}
+
+// 최근조회물건  아래로 이동
+var rctCnt = 1; //인덱스 카운트
+function moveDown(){
+ 	// 조회 물건  갯수
+	var totCnt = Number(document.getElementById("idBonCnt").value);
+	
+	if (rctCnt + 4 <= totCnt) {  
+		// 모든 물건 가리기
+		for(var i = 0; i <= totCnt; i++){
+				document.getElementById("bon"+i).style.display = "none";
+		}
+		// 인덱스 카운트 증가
+		rctCnt++;
+	
+		// 화면에 표시될 물건 
+		for(var i = rctCnt; i< rctCnt+4; i++){
+			document.getElementById("bon"+i).style.display = "block";
+		}
+	}
+}
+
+// 최근조회물건  위로 이동
+function moveUp(){
+ 	// 조회 물건  갯수
+	var totCnt = Number(document.getElementById("idBonCnt").value);
+
+	if (rctCnt > 0 ) {
+		// 모든 물건 가리기
+		for(var i = 0; i <= totCnt; i++){
+				document.getElementById("bon"+i).style.display = "none";
+		}
+		// 인덱스 카운트 감소
+		rctCnt--;
+		
+		// 화면에 표시될 물건 
+		for(var i = rctCnt; i< rctCnt+4; i++){
+			document.getElementById("bon"+i).style.display = "block";
+		}
+	}
+}
+//사이트이용안내 팝업
+function siteGuidPopup(vUrl){
+	var frm = document.tailPopForm;
+	var popUpFocus = window.open("","PAS103019","height=655, width=740, top=20,left=50, resizable=no, scrollbars=no, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	actSubmit(frm, vUrl, "PAS103019");
+	popUpFocus.focus();
+}
+
+// 화면하단 팝업
+function popupTail(vUrl, vSrnId, vHeightSize){
+	var frm = document.tailPopForm;
+	var popUpFocus = "";
+	if(vSrnId =="PAS103016" || vSrnId =="PAS103021" ){
+		popUpFocus = window.open("",vSrnId,"height="+vHeightSize+", width=740, top=20,left=50, resizable=no, scrollbars=no, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}else{
+		popUpFocus = window.open("",vSrnId,"height="+vHeightSize+", width=757, top=20,left=50, resizable=no, scrollbars=yes, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}
+	if(vSrnId=="PAS103017"){
+		frm.srnGbn.value = "1";
+	}else if(vSrnId=="PAS103018"){
+		frm.srnGbn.value = "2";
+	}
+	actSubmit(frm, vUrl, vSrnId);
+	popUpFocus.focus();
+}
+
+// 화면하단 링크연결
+function tailLinkOpen(vUrl){
+	if(vUrl != "" && vUrl !=undefined){
+		window.open(vUrl, "_blank");
+	}else{
+		return;
+	}
+}
+
+//]]>
+</script>
+
+<form name="bonForm" action="">
+	<input name="jiwonNm" id="bonJiwonNm" type="hidden" value="" />
+	<input name="saNo" id="bonSaNo" type="hidden" value="" />
+	<input name="mvSaNo" id="bonMvSaNo" type="hidden" value="" />
+	<input name="maemulSer" id="bonMaemulSer" type="hidden" value="" />
+</form>
+
+<form name="tailPopForm" action="">
+  <input type="hidden" id="idSrnGbn" name="srnGbn" value="" />
+</form>
+
+<form name="__MENU_FRM_BEFINFO" action="">
+<input type="hidden" name="_NAVI_CMD" value="" />
+<input type="hidden" name="_NAVI_SRNID" value="" />
+<input type="hidden" name="_SRCH_SRNID" value="PNO102002" />
+<input type="hidden" name="_CUR_CMD" value="RetrieveRealEstMulDetailList.laf" />
+<input type="hidden" name="_CUR_SRNID" value="PNO102002" />
+<input type="hidden" name="_NEXT_CMD" value="" />
+<input type="hidden" name="_NEXT_SRNID" value="" />
+<input type="hidden" name="_PRE_SRNID" value="" />
+<input type="hidden" name="_LOGOUT_CHK" value="" />
+<input type="hidden" name="_FORM_YN" value="" />
+</form>
+
+<form name="__MENU_FRM_CURSRN" action="">
+<input type="hidden" name="_C_termStartDt" value="20090312" />
+<input type="hidden" name="_C_jiwonNm" value="제주지방법원" />
+<input type="hidden" name="_C_srnID" value="PNO102005" />
+<input type="hidden" name="_C_ipchalGbncd" value="000332" />
+<input type="hidden" name="_C_termEndDt" value="20090312" />
+<input type="hidden" name="_C_jpDeptCd" value="1006" />
+
+</form>
+
+<form name="__MENU_FRM_REFLESH" action="">
+</form>
+
+
+<div id="master02">
+<div id="header">
+<div id="logo"><a href="#" onclick='javascript:porActSubmit("","RetrieveMainInfo.laf","","PNO102000");  return false;'>
+	<img src="/images/logo.jpg" alt="대법원 법원경매정보 로고" width="218" height="42" /></a></div>
+<hr />
+<div id="topmenu">
+<div id="topmenu_rbg"></div>
+<div id="topmenu_h">
+<ul>
+
+	<li><a href="#" class="w" onclick="javascript:popupLogin(); return false;">
+		<img src="/images/topmenu_login.gif" alt="로그인" id="topmenu_login" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" class="w" onclick='javascript:porActSubmit("","HwonGaipRealNmCfm.laf","","PAS101005");  return false;'>
+		<img src="/images/topmenu_join.gif" alt="회원가입" id="topmenu_join" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+
+	<li><a href="#"	onclick='javascript:porActSubmit("","SiteMap.laf","","PAS103014");  return false;'>
+		<img src="/images/topmenu_sitemap.gif" alt="사이트맵" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div id="topmenu_lbg"></div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+<hr />
+ 
+<div id="menu">
+	<a href="#"	onfocus="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')" title="메인메뉴 시작"></a> 
+	
+
+<h1><a href="#" onfocus="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show');
+	sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+	<img src="/images/menu_01.gif" alt="경매공고" onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide')" /></a></h1>
+
+<div id="menu_s_1"
+	onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveGongjiItemList.laf","","PAS103001");  return false;'><img src="/images/menu_01_on.gif" alt="경매공고" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_1_son"
+	onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveGongjiItemList.laf","","PAS103001");  return false;'>
+	<img src="/images/menu_s_1_01.gif" alt="공지사항" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO101005");  return false;'>
+	<img src="/images/menu_s_1_02.gif" alt="배당요구종기공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveRealEstMgakNotifySrch.laf","","PNO101001");  return false;'>
+	<img src="/images/menu_s_1_03.gif" alt="부동산매각공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveMvEstMgakNotifySrch.laf","","PNO101003");  return false;'>
+	<img src="/images/menu_s_1_04.gif" alt="동산매각공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide');
+	sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show');
+	sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+	<img src="/images/menu_02.gif" alt="경매물건" onmouseover="sh_layers('menu_s_2','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide')" /></a></h1>
+
+<div id="menu_s_2"
+	onmouseover="sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'><img src="/images/menu_02_on.gif" alt="경매물건" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_2_son"
+	onmouseover="sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'>
+	<img src="/images/menu_s_2_01.gif" alt="물건상세검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick="javascript:popupMap(); return false;">
+	<img src="/images/menu_s_2_02.gif" alt="지도검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102005");  return false;'>
+	<img src="/images/menu_s_2_03.gif" alt="기일별검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102009");  return false;'>
+	<img src="/images/menu_s_2_04.gif" alt="자동차중기검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102011");  return false;'>
+	<img src="/images/menu_s_2_05.gif" alt="인기조회물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102012");  return false;'>
+	<img src="/images/menu_s_2_06.gif" alt="인기관심물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102007");  return false;'>
+	<img src="/images/menu_s_2_07.gif" alt="매각예정물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102027");  return false;'>
+	<img src="/images/menu_s_2_08.gif" alt="매각결과검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102014");  return false;'>
+	<img src="/images/menu_s_2_09.gif" alt="경매사건검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide');
+	sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show');
+	sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+	<img src="/images/menu_03.gif" alt="매각통계" 
+	onmouseover="sh_layers('menu_s_3','','show')" onmouseout="sh_layers('menu_s_3','','hide')" /></a></h1>
+
+<div id="menu_s_3"
+	onmouseover="sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show')"
+	onmouseout="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RealYearMaeTong.laf","","PST104001");  return false;'><img src="/images/menu_03_on.gif" alt="매각통계" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_3_son"
+	onmouseover="sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show')"
+	onmouseout="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealYearMaeTong.laf","","PST104001");  return false;'>
+	<img src="/images/menu_s_3_01.gif" alt="연도별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealBubMaeTong.laf","","PST101001");  return false;'>
+	<img src="/images/menu_s_3_02.gif" alt="법원별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealRgnMaeTong.laf","","PST102001");  return false;'>
+	<img src="/images/menu_s_3_03.gif" alt="지역별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealUtilMaeTong.laf","","PST103001");  return false;'>
+	<img src="/images/menu_s_3_04.gif" alt="용도별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide');
+	sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show');
+	sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+	<img src="/images/menu_04.gif" alt="경매지식"
+	onmouseover="sh_layers('menu_s_4','','show')" onmouseout="sh_layers('menu_s_4','','hide')" /></a></h1>
+
+<div id="menu_s_4"
+	onmouseover="sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show')"
+	onmouseout="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","AucJlReal.laf","","PAS102001");  return false;'><img src="/images/menu_04_on.gif" alt="경매지식" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_4_son"
+	onmouseover="sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show')"
+	onmouseout="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","AucJlReal.laf","","PAS102001");  return false;'>
+	<img src="/images/menu_s_4_01.gif" alt="경매절차" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucTermInq.laf","","PAS102004");  return false;'>
+	<img src="/images/menu_s_4_02.gif" alt="경매용어" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucFormList.laf","","PAS102005");  return false;'>
+	<img src="/images/menu_s_4_03.gif" alt="경매서식" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","IpchalGuid.laf","","PAS102007");  return false;'>
+	<img src="/images/menu_s_4_04.gif" alt="입찰안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","MsuSinchongZoneLeeGuid.laf","","PAS102008");  return false;'>
+	<img src="/images/menu_s_4_05.gif" alt="매수신청대리안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","AucExpRealEst.laf","","PAS102009");  return false;'>
+	<img src="/images/menu_s_4_06.gif" alt="경매비용" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","HouseLeaseQnA.laf","","PAS102013");  return false;'>
+	<img src="/images/menu_s_4_07.gif" alt="관련법률" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide');
+	sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show');
+	sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+	<img src="/images/menu_05.gif" alt="이용안내"
+	onmouseover="sh_layers('menu_s_5','','show')" onmouseout="sh_layers('menu_s_5','','hide')" /></a></h1>
+
+<div id="menu_s_5"
+	onmouseover="sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show')"
+	onmouseout="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveOfferServs.laf","","PAS103003");  return false;'><img src="/images/menu_05_on.gif" alt="이용안내" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_5_son"
+	onmouseover="sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show')"
+	onmouseout="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveOfferServs.laf","","PAS103003");  return false;'>
+	<img src="/images/menu_s_5_01.gif" alt="제공서비스" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucBubwSrch.laf","","PAS103004B");  return false;'>
+	<img src="/images/menu_s_5_02.gif" alt="집행기관" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick="siteGuidPopup('/SiteUseGuid.laf'); return false;">
+	<img src="/images/menu_s_5_03.gif" alt="사이트이용안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveFaqMokrok.laf","","PAS103009");  return false;'>
+	<img src="/images/menu_s_5_04.gif" alt="FAQ" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","SiteMap.laf","","PAS103014");  return false;'>
+	<img src="/images/menu_s_5_06.gif" alt="사이트맵" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1 class="last_menu"><a href="#" onfocus="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide');
+	sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')">
+	<img src="/images/menu_06.gif" alt="나의경매"
+	onmouseover="sh_layers('menu_s_6','','show')" onmouseout="sh_layers('menu_s_6','','hide')" /></a></h1>
+
+<div id="menu_s_6"
+	onmouseover="sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')"
+	onmouseout="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveIljung.laf","","PPE401001","1");  return false;'><img src="/images/menu_06_on.gif" alt="나의경매" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_6_son"
+	onmouseover="sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')"
+	onmouseout="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","HwonInfoUpdPswdCfm.laf","","PAS101004","1");  return false;'>
+	<img src="/images/menu_s_6_01.gif" alt="회원정보관리" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveIljung.laf","","PPE401001","1");  return false;'>
+	<img src="/images/menu_s_6_02.gif" alt="일정관리" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitRealGwansimMul.laf","","PPE101002","1");  return false;'>
+	<img src="/images/menu_s_6_03.gif" alt="관심물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveGwansimSaMokrok.laf","","PPE201001","1");  return false;'>
+	<img src="/images/menu_s_6_04.gif" alt="관심사건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveJajuUseSrchJog.laf","","PPE501001","1");  return false;'>
+	<img src="/images/menu_s_6_05.gif" alt="자주쓰는검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveGwansimCls.laf","","PPE701001","1");  return false;'>
+	<img src="/images/menu_s_6_06.gif" alt="나의설정" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveMyMvInfoMokrok.laf","","PPE301001","1");  return false;'>
+	<img src="/images/menu_s_6_07.gif" alt="나의동산집행정보" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+<a href="#" onfocus="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')" title="메인메뉴 끝"></a>
+</div>
+
+<hr />
+
+
+<div id="qk_today">
+
+<div id="qk">
+<h3><img src="/images/quick_title.gif" alt="퀵메뉴" /></h3>
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'><img src="/images/quick_01.gif" alt="물건상세검색" /></a></li>
+	<li><a href="#" onclick="javascript:popupMap(); return false;"><img	src="/images/quick_02.gif" alt="지도검색" /></a></li>
+	<li><a href="#" onclick="siteGuidPopup('/SiteUseGuid.laf'); return false;"><img src="/images/quick_03.gif" alt="사이트이용안내" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveFaqMokrok.laf","","PAS103009");  return false;'><img src="/images/quick_04.gif" alt="FAQ" /></a></li>
+	<li><a href="http://glaw.scourt.go.kr/" target="_blank"><img src="/images/quick_05.gif" alt="종합법률정보" /></a></li>
+</ul>
+<div id="qk_btm"><img src="/images/quick_bottom.gif" alt="" /></div>
+</div>
+
+<div id="qk_alert"><a href="#" onclick="popupTail('/IpchalAttenItem.laf', 'PAS103021', '520'); return false;"><img src="/images/ic_alert_qk.gif" alt="입찰참가전 유의사항"/></a></div>
+
+<div><a href="#"><img src="/images/quick_top.gif" alt="맨 위로가기" /></a></div>
+
+</div>
+ 
+
+<script type="text/javascript">
+new Floating(document.getElementById("qk_today"),170,1,10); 
+</script> 
+
+
+
+<div id="middler">
+
+<div id="left_menu">
+<div id="left_menu_top"></div>
+<div id="left_menu_middle">
+<h1><img src="/images/leftmenu_title_02.gif" alt="경매물건" /></h1>
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'>
+		<img src="/images/leftmenu_2_01.gif" onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="물건상세검색" /></a></li>
+	<li><a href="#" onclick="javascript:popupMap();">
+		<img src="/images/leftmenu_2_02.gif" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" alt="지도검색" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102005");  return false;'>
+		<img src="/images/leftmenu_2_03.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="기일별검색" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102009");  return false;'>
+		<img src="/images/leftmenu_2_04.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="자동차중기검색" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102011");  return false;'>
+		<img src="/images/leftmenu_2_05.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="인기조회물건" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102012");  return false;'>
+		<img src="/images/leftmenu_2_06.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="인기관심물건" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102007");  return false;'>
+		<img src="/images/leftmenu_2_07.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="매각예정물건" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102027");  return false;'>
+		<img src="/images/leftmenu_2_08.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="매각결과검색" /></a></li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102014");  return false;'>
+		<img src="/images/leftmenu_2_09.gif"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)"
+		alt="경매사건검색" /></a></li>
+</ul>
+</div>
+<div id="left_menu_bottom"></div>
+</div>
+<hr />
+ 
+
+<div id="d" style="position:absolute;"></div>
+
+<div id="contents">
+<div id="location">
+	<img src="/images/ic_home.gif" alt="" />
+	<span class="location_off">HOME</span>
+	<img src="/images/ic_arrow_blue.gif" alt="" />
+	<span class="location_off">
+		경매물건	
+	</span>
+	<img src="/images/ic_arrow_blue.gif" alt="" />
+	<span class="location_on"></span>
+</div>
+
+
+<div id="contents_title">
+<h2><img src="/images/title_con_2_01.gif" alt="" /></h2>
+</div>
+<hr />
+
+
+
+<div id="search_title">
+<h3>검색조건</h3>
+<ul>
+
+	<li>입찰기간 : 2009.03.12 ~ 2009.03.12</li> <li> | 경매계 : 경매6계</li> <li class="txtblue"> [총 사건수 : 69건]</li>
+	</ul>
+</div>
+ 
+
+<div class="table_contents"> 
+<form name="frm1" action="">
+
+<div class="table_title">
+
+<div class="tbl_btn">
+ 
+	<a href="#" onclick="javascript:compareMul(); return false;"><img src="/images/btn_compare.gif" alt="물건비교"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>
+	<a href="#" onclick="javascript:gwansimMulRegi(); return false;"><img src="/images/btn_m_regist.gif" alt="관심물건등록"  onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>
+	<a href="#" onclick="javascript:print(); return false;"><img src="/images/btn_print.gif" alt="인쇄" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a> 
+	
+
+	<img src="/images/btn_bar.gif" alt="" />
+	<a href="#" onclick="javascript:porBefSrnActSubmit(); return false;"><img src="/images/btn_pre.gif" alt="이전" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>
+</div>
+
+</div>
+
+
+<table class="Ltbl_list" summary="물건상세검색 결과 표">
+	<caption>물건상세검색 결과</caption>
+	<thead>
+		<tr>
+			<th width="4%" class="padding0">
+				<input type="checkbox" name="checkAll" id="idCheckAll" onclick="javascript:allCheck();"/>
+			</th>
+			<th width="15%">
+
+				<a href="#" onclick="goOrderByPage(1,'order by saNo asc'); return false;">사건번호<img src="/images/ic_sort_up.gif" alt="오름차순" border="0" /></a>
+
+			</th>
+			<th width="9%">물건번호<br />
+			용도</th>
+			<th width="30%">소재지 및 내역</th>
+			<th width="10%">비고</th>
+			<th width="14%">
+
+				<a href="#" onclick="goOrderByPage(1,'order by gamevalAmt asc'); return false;">감정평가액<img src="/images/ic_sort_up.gif" alt="오름차순" border="0" /></a>
+
+				 <br />
+
+				<a href="#" onclick="goOrderByPage(1,'order by notifyMinmaePrice1 asc'); return false;">최저매각가격<img src="/images/ic_sort_up.gif" alt="오름차순" border="0" /></a>
+
+			<br />
+			(단위:원)
+		    </th>
+			<th width="12%">
+			 담당계<br />
+
+				 <a href="#" onclick="goOrderByPage(1,'order by maeGiil asc'); return false;">매각기일<img src="/images/ic_sort_up.gif" alt="오름차순" border="0" /></a>
+
+			<br />
+			(입찰기간)
+			</th>
+			<th width="7%">
+
+				 <a href="#" onclick="goOrderByPage(1,'order by yuchalCnt asc'); return false;">진행<br/>상태<img src="/images/ic_sort_up.gif" alt="오름차순" border="0" /></a>
+
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20060130003914,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20060130003914','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2006타경3914</b><br />
+			
+ 			
+			2006타경9981<br />(병합)</a></td>
+			
+			<td>
+			1<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20060130003914',
+														'1'); return false;">
+			제주특별자치도 제주시 해안동  1537-2</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20060130003914',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 1927㎡[소나무 및 잡목 매각포함]]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20060130003914',
+														'1'); return false;">
+			제주특별자치도 제주시 해안동  1537-3</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20060130003914',
+														 '1',
+														 '2'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 5980㎡[소나무 및 잡목 매각포함]]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			48,232,700
+			</div>
+			<div class="tbl_btm_line">
+
+			16,544,000
+
+			<br />
+			(34%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					3회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20060130019018,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20060130019018','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2006타경19018</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			1<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200601300190181"  onclick="javascript:detailSrch('제주지방법원',
+														'20060130019018',
+														'1'); return false;">
+			제주특별자치도 제주시 구좌읍 하도리 1615</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20060130019018',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대 81㎡
+
+[제시외건물 매각제외]]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			6,156,000
+			</div>
+			<div class="tbl_btm_line">
+
+			1,478,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130005252,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130005252','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경5252</b><br />
+			
+ 			2008타경7286<br />(중복)<br />
+			</a></td>
+			
+			<td>
+			1<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300052521"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130005252',
+														'1'); return false;">
+			제주특별자치도 제주시 애월읍 소길리 산128-2</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130005252',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 2315㎡(공부상 표시없는 묘3기 있음) 고만식 지분 5분의 1 전부]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			2,778,000
+			</div>
+			<div class="tbl_btm_line">
+
+			667,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130007647,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130007647','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경7647</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			1<br />
+			단독주택<br />다가구</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300076471"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130007647',
+														'1'); return false;">
+			제주특별자치도 제주시 구좌읍 세화리 1331-8</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130007647',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 전(현황:대지) 552㎡
+(제시외건물 매각포함)]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130007647',
+														'1'); return false;">
+			제주특별자치도 제주시 구좌읍 세화리 1331-8</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130007647',
+														 '1',
+														 '2'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[건물 벽돌조 슬래브지붕 단층주택
+59.50㎡(실제:84.14㎡)
+부속건물
+벽돌조 슬래브(실제:스레트)지붕 단층주택
+33.06㎡(실제:46.02㎡)]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각. 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			125,171,300
+			</div>
+			<div class="tbl_btm_line">
+
+			30,054,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130013413,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130013413','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경13413</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			1<br />
+			단독주택<br />다가구</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300134131"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130013413',
+														'1'); return false;">
+			제주특별자치도 제주시 조천읍 함덕리 1497</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130013413',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대 688㎡[소로2류(국지도로)저촉]]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130013413',
+														'1'); return false;">
+			제주특별자치도 제주시 조천읍 함덕리 1497</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130013413',
+														 '1',
+														 '2'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[건물 블럭조 스레트지붕 단층주택
+79.56㎡
+[제시외건물 매각포함]]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130013413',
+														'1'); return false;">
+			제주특별자치도 제주시 조천읍 함덕리 1497 에이동호</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130013413',
+														 '1',
+														 '3'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[건물 에이동호
+철근콘크리트조 (철근)콘크리트슬래브지붕 단층 주택
+139.14㎡
+
+[제시외건물 매각포함]]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각. 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			285,812,640
+			</div>
+			<div class="tbl_btm_line">
+
+			140,048,000
+
+			<br />
+			(48%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					2회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130015792,6" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130015792','6'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경15792</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			6<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300157926"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130015792',
+														'6'); return false;">
+			제주특별자치도 제주시 오라이동  205-3</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130015792',
+														 '6',
+														 '10'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 400㎡[대로3류(저촉)] 한용철소유]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130015792',
+														'6'); return false;">
+			제주특별자치도 제주시 오라이동  206</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130015792',
+														 '6',
+														 '11'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 5891㎡(공부상 표시없는 묘1기 있음) 한용철소유]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			811,539,000
+			</div>
+			<div class="tbl_btm_line">
+
+			194,851,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130016290,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130016290','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경16290</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			1<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300162901"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016290',
+														'1'); return false;">
+			제주특별자치도 제주시 구좌읍 송당리 2290</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016290',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야 5630㎡(지상 조경수 매각제외)]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			67,560,000
+			</div>
+			<div class="tbl_btm_line">
+
+			47,292,000
+
+			<br />
+			(70%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					1회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130016290,2" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130016290','2'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경16290</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			2<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300162902"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016290',
+														'2'); return false;">
+			제주특별자치도 제주시 구좌읍 송당리 2450-1</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016290',
+														 '2',
+														 '2'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야(현황:일부 진입로로 이용) 6522㎡(밀식된 소나무 및 잡목 매각포함)]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			32,610,000
+			</div>
+			<div class="tbl_btm_line">
+
+			22,827,000
+
+			<br />
+			(70%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					1회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130016429,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130016429','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경16429</b><br />
+			
+ 			2007타경17231<br/>2007타경20060<br />(중복)<br />
+			</a></td>
+			
+			<td>
+			1<br />
+			기타</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300164291"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016429',
+														'1'); return false;">
+			제주특별자치도 제주시 일도이동  371-3</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016429',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대 650.6㎡]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016429',
+														'1'); return false;">
+			제주특별자치도 제주시 일도이동  371-9</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016429',
+														 '1',
+														 '2'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대(현황:주차장) 263.9㎡]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016429',
+														'1'); return false;">
+			제주특별자치도 제주시 일도이동  371-10</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016429',
+														 '1',
+														 '3'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대 229.9㎡]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016429',
+														'1'); return false;">
+			제주특별자치도 제주시 일도이동  371-3</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016429',
+														 '1',
+														 '4'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[건물 (실제:371-3, 371-10 양지상에 소재)
+철근콘크리트조 슬래브지붕 5층 주택,호텔,식당및 다방
+1층주택,호텔,식당(실제:주택, 호텔,식당, 슈퍼마켓) 511.75㎡
+(내역 주택 124.77㎡
+호텔 265.75㎡,식당(실제:슈퍼마켓) 121.23㎡)
+2층 호텔 504㎡
+3층 호텔 504㎡
+4층 호텔 504㎡
+5층 호텔 504㎡
+지층 다방(실제:식당) 496.95㎡
+
+[제시외건물 매각포함] [제시외 지하수공 및 무허가 지하수공 매각포함]]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각. 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			2,685,364,600
+			</div>
+			<div class="tbl_btm_line">
+
+			644,756,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130016696,7" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130016696','7'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경16696</b><br />
+			
+ 			2008타경13373<br/>2008타경15492<br />(중복)<br />
+			2007타경18609<br />(병합)</a></td>
+			
+			<td>
+			7<br />
+			대지<br />임야<br />전답</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300166967"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016696',
+														'7'); return false;">
+			제주특별자치도 제주시 영평동  1098-1</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016696',
+														 '7',
+														 '7'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 임야(실제:농경지) 1785㎡
+(일부 지상에 식재된 양하, 오가피, 녹차나무 매각포함)]
+			 </div>
+
+			<div  class="tbl_btm_line">
+			<a	href="#" name=""  onclick="javascript:detailSrch('제주지방법원',
+														'20070130016696',
+														'7'); return false;">
+			제주특별자치도 제주시 영평동  1098-2</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130016696',
+														 '7',
+														 '8'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 전 1190㎡
+(일부 지상에 식재된 오가피 매각포함)]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각,농지취득자격증명원 제출요 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			130,305,000
+			</div>
+			<div class="tbl_btm_line">
+
+			31,287,000
+
+			<br />
+			(24%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					4회 
+
+			</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			<td class="padding0"><input type="checkbox" name="chk" 
+				value="제주지방법원,20070130018340,1" /></td>
+			<td><a href="#" onclick="javascript:detailCaseSrch('제주지방법원',
+			                                                   '20070130018340','1'); return false;" 
+			       class="fbl">
+			제주지방법원<input type="hidden" name="boGbn" value="B"/><br />
+			<b>2007타경18340</b><br />
+			
+ 			
+			</a></td>
+			
+			<td>
+			1<br />
+			단독주택<br />다가구</td>
+			<td class="txtleft">		
+
+			<div  class="tbl_btm_noline">
+			<a	href="#" name="200701300183401"  onclick="javascript:detailSrch('제주지방법원',
+														'20070130018340',
+														'1'); return false;">
+			제주특별자치도 제주시 추자면 묵리 496</a>
+			<a href="#" onclick="javascript:showPopupMap('제주지방법원',
+														 '20070130018340',
+														 '1',
+														 '1'); return false;">
+			<img src="/images/ic_map.gif" alt="지도보기 팝업" /></a>
+			<br />
+			
+			[토지 대 473㎡]
+			 </div>
+
+			</td>
+			<td class="txtleft">
+				일괄매각. 
+			</td>
+			<td class="txtright">
+			<div class="tbl_btm_noline">
+			76,819,000
+			</div>
+			<div class="tbl_btm_line">
+
+			12,911,000
+
+			<br />
+			(16%)
+			</div>
+			</td>
+			<td>
+			<div class="tbl_btm_noline">
+			경매6계
+			<a href="#" onclick="return false;">
+			<img src="/images/ic_phone.gif" alt="안내"
+				onmouseover="javascript:showJpDeptInfo('729-2156',
+				                                       '2009.03.17 10:00',
+				                                       '제101호 법정 101호실', event);"
+				onmouseout="sh_layers2('tel_layer','','hide',event)" /></a><br />
+			2009.03.17
+			</div>
+
+			<div class="tbl_btm_line">
+				2009.03.05<br />
+				~ 2009.03.12</div>
+
+			</td>
+			<td>
+
+				       유찰<br />
+					5회 
+
+			</td>
+		</tr>
+
+	</tbody>	
+</table>
+</form>
+
+
+<form name="paging" action="" method="post">
+<div class="paging">
+<div class="page2"><span class="page_on" >1</span><a href="#"  onclick="goPage('21'); return false;"><span> 2 </span></a><a href="#"  onclick="goPage('41'); return false;"><span> 3 </span></a><a href="#"  onclick="goPage('61'); return false;"><span> 4 </span></a><a href="#"  onclick="goPage('81'); return false;"><span> 5 </span></a><a href="#"  onclick="goPage('101'); return false;"><span> 6 </span></a><a href="#"  onclick="goPage('121'); return false;"><span> 7 </span></a><a href="#"  onclick="goPage('141'); return false;"><span> 8 </span></a><a href="#" onclick="goPage('141'); return false;"><img src="/images/ic_arrow_last.gif" alt="마지막 쪽" border="0" /></a></div>
+<div class="page3">
+페이지당
+<select id="ipage" name="page"  onchange="cfNew(this)">
+<option value="default10">10</option> 
+<option selected="selected" value="default20">20</option> 
+<option value="default30">30</option> 
+<option value="default40">40</option> 
+</select> 
+</div> 
+<div class="clear"></div> 
+
+
+
+<!-- LPAGE Hidden Parameters Start -->
+
+<input type="hidden" name="termStartDt" value="20090312" />
+<input type="hidden" name="jiwonNm" value="제주지방법원" />
+<input type="hidden" name="srnID" value="PNO102005" />
+<input type="hidden" name="ipchalGbncd" value="000332" />
+<input type="hidden" name="termEndDt" value="20090312" />
+<input type="hidden" name="jpDeptCd" value="1006" />
+<input type="hidden" name="_NEXT_CMD" value="RetrieveRealEstMulDetailList.laf" />
+<input type="hidden" name="_NEXT_SRNID" value="PNO102002" />
+<input type="hidden" name="page" value="default20" />
+<input type="hidden" name="pageSpec" value="default20" />
+<input type="hidden" id="targetRow" name="targetRow" />
+<input type="hidden" name="lafjOrderBy" value="" />
+
+<!-- LPAGE Hidden Parameters End -->
+ 
+</div>
+</form>
+
+<div id="tel_layer">
+	<div id="tel_layer_top"></div>
+	<div id="tel_layer_dt">
+	<table>
+		<tr>
+			<th>전화번호</th>
+			<td><input class="w_border" type="text" name="hTel" id="idhTel" value="" style="width:150px"/></td>
+		</tr>
+		<tr>
+			<th>매각기일</th>
+			<td><input class="w_border" type="text" name="hMaeInfo" id="idhMaeInfo" value="" /></td>
+		</tr>
+		<tr>
+			<th>매각장소</th>
+			<td><input class="w_border" type="text" name="hMaePlace" id="idhMaePlace" value="" /></td>
+		</tr>
+		</table>
+	</div>
+  	<div id="tel_layer_btm"></div>
+</div>
+
+<div class="tbl_btn">
+	<a href="#" onclick="javascript:compareMul(); return false;"><img src="/images/btn_compare.gif" alt="물건비교" onmouseover="changeImg(event)"	 onmouseout="restoreImg(event)"/></a> 
+	<a href="#" onclick="javascript:gwansimMulRegi(); return false;"><img src="/images/btn_m_regist.gif" alt="관심물건등록" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a> 
+	<a href="#" onclick="javascript:print(); return false;"><img src="/images/btn_print.gif" alt="인쇄" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a> 
+	<img src="/images/btn_bar.gif" alt="" />
+	<a href="#" onclick="javascript:porBefSrnActSubmit(); return false;"><img src="/images/btn_pre.gif" alt="이전" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>
+</div> 
+
+</div>
+
+<form name="hform" action="">
+<input type="hidden" name="jiwonNm" id="hJiwonNm" value="" /> 
+<input type="hidden" name="saNo" id="hSaNo" value="" />
+<input type="hidden" name="maemulSer" id="hMaemulSer" value="" />
+<input type="hidden" name="mokmulSer" id="hMokmulSer" value="" />
+</form>
+
+
+<form name="frmCompare" method="post" action="">
+	<input type="hidden" name="saNo" value="" />
+	<input type="hidden" name="maemulSer" value="" />
+	<input type="hidden" name="bubOfficeNm" value="" />
+	<input type="hidden" name="jiwonNm" value="" />	
+	<input type="hidden" name="srnID" value="PNO102002" />
+</form>
+
+
+<div class="jisi2">
+<h3>유의사항</h3>
+<div class="jisi2_top"></div>
+<ul>
+
+	<li>조회된 물건번호 및 그 정보는 해당 법원 담당 경매계에서 처리하고 있는 실제 물건의 정보와 일치하지 않을 수 있습니다.</li>
+	<li>매각물건의 정확한 내용은 담당경매계를 방문하거나 법원에 비치된 물건명세서를 열람하여 반드시 재확인하기 바랍니다.</li>
+	<li>매수에 영향을 줄 수 있는 중요한 권리관계의 변동사항이 있을 수 있으므로 매수 전 등기부등본을 확인하기 바랍니다.</li>
+	<li>인터넷으로 서비스하는 정보만으로 참여한 입찰과 관련하여 발생하는 문제에 대해서 법원은 법적 책임을 지지않습니다.</li>
+
+</ul>
+<div class="jisi2_bottom"></div>
+</div> 
+</div>
+
+
+</div>
+</div>
+<div id="footer_container">
+  <div id="footer">
+    <h3 class="none">하단영역</h3>
+      <ul>
+        <li><a href="#" onclick="popupTail('/PersonalInfoUseYakgwan.laf', 'PAS103018', '520'); return false;"><img src="/images/footer_04.gif" alt="이용약관" /></a></li>
+        <li><a href="#" onclick="popupTail('/PersonalInfoUseYakgwan.laf', 'PAS103017', '520'); return false;"><img src="/images/footer_05.gif" alt="개인정보보호방침" /></a></li>
+        <li><a href="#" onclick="popupTail('/CopyrightProtection.laf', 'PAS103016', '410'); return false;"><img src="/images/footer_01.gif" alt="저작권정책" /></a></li>
+        <li><a href="#" onclick="popupTail('/UseAttenItem.laf', 'PAS103015', '520'); return false;"><img src="/images/footer_02.gif" alt="이용시 유의사항" /></a></li>
+        <li class="nobar"><a href="#" onclick="popupTail('/BubwAucInfo.laf', 'PAS103020', '520'); return false;"><img src="/images/footer_03.gif" alt="법원경매정보 링크" /></a></li>
+        <li class="ft_list">
+          <select name="전국법원" onchange="tailLinkOpen(this.value)">
+            <option value="">전국법원</option>
+            <option value="">―――――――――――</option>
+            <option value="http://www.scourt.go.kr">대법원</option>
+            <option value="http://slgodung.scourt.go.kr">서울고등법원</option>
+            <option value="http://djgodung.scourt.go.kr">대전고등법원</option>
+            <option value="http://dggodung.scourt.go.kr">대구고등법원</option>
+            <option value="http://bsgodung.scourt.go.kr">부산고등법원</option>
+            <option value="http://gjgodung.scourt.go.kr">광주고등법원</option>
+            <option value="http://patent.scourt.go.kr">특허법원</option>
+            <option value="http://seoul.scourt.go.kr">서울중앙지법</option>
+            <option value="http://sldongbu.scourt.go.kr">서울동부지법</option>
+            <option value="http://slnambu.scourt.go.kr">서울남부지법</option>
+            <option value="http://slbukbu.scourt.go.kr">서울북부지법</option>
+            <option value="http://slseobu.scourt.go.kr">서울서부지법</option>
+            <option value="http://slfamily.scourt.go.kr">서울가정법원</option>
+            <option value="http://sladmin.scourt.go.kr">서울행정법원</option>
+            <option value="http://uijeongbu.scourt.go.kr">의정부지방법원</option>
+            <option value="http://incheon.scourt.go.kr">인천지방법원</option>
+            <option value="http://suwon.scourt.go.kr">수원지방법원</option>
+            <option value="http://chuncheon.scourt.go.kr">춘천지방법원</option>
+            <option value="http://daejeon.scourt.go.kr">대전지방법원</option>
+            <option value="http://cheongju.scourt.go.kr">청주지방법원</option>
+            <option value="http://daegu.scourt.go.kr">대구지방법원</option>
+            <option value="http://busan.scourt.go.kr">부산지방법원</option>
+            <option value="http://ulsan.scourt.go.kr">울산지방법원</option>
+            <option value="http://changwon.scourt.go.kr">창원지방법원</option>
+            <option value="http://gwangju.scourt.go.kr">광주지방법원</option>
+            <option value="http://jeonju.scourt.go.kr">전주지방법원</option>
+            <option value="http://jeju.scourt.go.kr">제주지방법원</option>
+          </select>
+        </li>
+        <li class="ft_list">
+          <select name="대법원관련" onchange="tailLinkOpen(this.value)">
+            <option value="">대법원 관련</option>
+            <option value="">――――――――――――</option>
+            <option value="http://library.scourt.go.kr">법원도서관</option>
+            <option value="http://jrti.scourt.go.kr">사법연수원</option>
+            <option value="http://edu.scourt.go.kr">법원공무원교육원</option>
+            <option value="http://www.iros.go.kr">인터넷등기서비스</option>
+          </select>
+        </li>
+        <li class="ft_list">
+          <select name="공공기관관련" onchange="tailLinkOpen(this.value)">
+            <option value="">공공기관관련</option>
+            <option value="">――――――――――――――――</option>
+            <option value="http://nts.go.kr">국세청</option>
+            <option value="http://www.kab.co.kr">한국감정원</option>
+            <option value="http://kapanet.co.kr">한국감정협회</option>
+            <option value="http://member.kapanet.co.kr">표준공시지가</option>
+            <option value="http://www.onbid.co.kr">온비드</option>
+            <option value="http://luris.moct.go.kr">토지이용규제정보시스템</option>
+            <option value="http://www.moct.go.kr">국토해양부</option>
+          </select>
+        </li>
+      </ul>
+  </div>
+  <div class="txtcenter">
+  
+    <img src="/images/copyright.gif" alt="copyright ⓒ supreme court of korea. all rights reserved" />
+    <font color="white">.</font> 
+  </div>
+</div>
+</body>
+</html>

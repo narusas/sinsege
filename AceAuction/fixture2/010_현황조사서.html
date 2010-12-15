@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>현황조사서_2005타경35012</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+
+// 사진보기 팝업
+function showPhotoPopup(vJiwonNm, vSaNo, vIdx, vOrdHoi){
+	document.getElementById("hJiwonNm").value = vJiwonNm
+	document.getElementById("hSaNo").value = vSaNo
+	document.getElementById("hTargetRow").value = vIdx;
+	document.getElementById("hChcCd").value = "000162";
+	document.getElementById("hSourcOrdHoi").value = vOrdHoi;
+	
+	window.open("","PNO102025","height=600,width=757,resizable=no,scrollbars=yes,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	
+	actSubmit(document.hform, "/RetrieveSaPhotoInfo.laf", "PNO102025");
+}
+
+// 명령회차 콤보 선택 시
+function ordHoiSrch(){
+	document.getElementById("hJiwonNm").value = "서울중앙지방법원";
+	document.getElementById("hSaNo").value = "20050130035012";
+	document.getElementById("hOrdHoi").value = document.getElementById("idOrdHoi").value;
+	
+	actSubmit(document.hform, "/RetrieveRealEstSaHjosa.laf", "PNO102021");
+}
+
+// 중복병합사건 콤보 선택 시 
+function dupSaSrch(){
+	if(document.getElementById("idRelsaNo").value == ""){
+		alert("사건을 선택하세요.");
+		return;
+	}
+	document.getElementById("hJiwonNm").value = "서울중앙지방법원";
+	var value = document.getElementById("idRelsaNo").value.split(",");
+	document.getElementById("hSaNo").value = value[0];
+	if(Number(value[1]) > 0){
+		actSubmit(document.hform, "/RetrieveRealEstSaHjosa.laf", "PNO102021");
+	}else{
+		alert("이 사건은 현황조사서가 없는 사건입니다.");
+		return;
+	}
+}
+
+// 부동산표시목록 탭 선택 시
+function realEstDispMokrokTab(){
+	document.getElementById("hJiwonNm").value = "서울중앙지방법원";
+	document.getElementById("hSaNo").value = "20050130035012";
+	document.getElementById("hOrdHoi").value = "2";
+	
+	actSubmit(document.hform, "/RetrieveRealEstHjosaDispMokrok.laf", "PNO102021");
+}
+//]]>
+</script>
+</head>
+<body>
+<div id="popup">
+
+<div id="pop_contents_1">
+
+<div id="pop_title">
+	<h2><img src="/images/title_pop_ppr_01.gif" alt="현황조사서" /></h2>
+	<div class="pop_print"><a href="#" onclick="javascript:print(); return false;"><img src="/images/btn_print.gif" alt="인쇄" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></div>
+	<div class="clear"></div>
+
+</div>
+
+<div class="table_contents">
+    <table class="Ltbl_dt" summary="현황조사서 기본내역 표">
+	<caption>현황조사서 기본내역</caption>
+	<tr>
+		<th width="15%" class="txtcenter">법원</th>
+		<td width="35%">서울중앙지방법원</td>
+		<th width="15%" class="txtcenter">명령회차</th>
+
+		<td width="35%">
+		<select name="ordHoi" id="idOrdHoi" onchange="javascript:ordHoiSrch();" >
+
+            <option value="1" >
+            1</option>
+
+            <option value="2" selected="selected">
+            2</option>
+
+			</select>회</td>
+
+		</tr>
+	</table>
+</div>
+
+<div class="table_contents">
+<div class="tab_menu">
+<div class="tab_menu_on">
+<div class="tab_menu_on_l"></div>
+<div class="tab_menu_on_m_mid">현황조사내역</div>
+<div class="tab_menu_on_r"></div>
+
+</div>
+<div class="tab_menu_off">
+<div class="tab_menu_off_l"></div>
+<div class="tab_menu_off_m_mid">
+	<a href="#" onclick="javascript:realEstDispMokrokTab(); return false;">부동산표시목록</a></div>
+<div class="tab_menu_off_r"></div>
+</div>
+</div>
+
+<div class="paper paper_bg">
+
+<div class="table_contents">
+	<div class="table_title"><h3>기본정보</h3></div>	
+	<div class="tbl_txt"><h4><img src="/images/home_whatsnew_bullet.gif" style="top:-115px;" alt="" />사건번호 : </h4> 2005타경35012 
+	                                        부동산강제경매</div>
+
+	<div class="tbl_txt"><h4><img src="/images/home_whatsnew_bullet.gif" alt="" />조사일시 : </h4> 
+
+			2009년02월17일11시20분 &nbsp;&nbsp;&nbsp;
+
+			2009년02월18일11시00분 &nbsp;&nbsp;&nbsp;
+
+    </div>
+	<div class="tbl_txt"><h4>부동산 임대차 정보</h4></div>
+    <table class="Ltbl_list" summary="부동산 임대차정보 표">
+
+	<caption>부동산 임대차정보</caption>
+	<thead>
+		<tr>
+			<th width="10%">번호</th>
+			<th>소재지</th>
+			<th width="12%">임대차관계</th>
+		</tr>
+
+	</thead>
+<tbody>
+        
+		<tr>
+			<td>1</td>
+			<td class="txtleft">서울특별시 종로구 부암동  306-7</td>
+			<td>0명</td>
+		</tr>
+        
+		<tr>
+
+			<td>2</td>
+			<td class="txtleft">서울특별시 종로구 부암동  306-7</td>
+			<td>0명</td>
+		</tr>
+
+	</tbody>
+	</table>
+<div class="tbl_txt"><h4>사진정보 :</h4> 
+ 
+			    전경도 2건&nbsp;&nbsp;
+
+		(사진보기 <a href="#" onclick="javascript:showPhotoPopup('서울중앙지방법원','20050130035012','1','2'); return false;"><img src="/images/ic_pic.gif" alt="사진보기 팝업" /></a>)
+
+</div>
+
+<div class="table_title">
+<h3>부동산의 현황 및 점유관계 조사서 </h3>
+</div>	
+<div class="tbl_txt"><h4>1. 부동산의 점유관계</h4></div>
+
+	<table class="Ltbl_dt" summary="부동산의 점유관계 표">
+	<caption>부동산의 점유관계</caption>
+
+		<tr>
+			<th width="15%" class="txtcenter">소재지</th>
+			<td>1.
+				서울특별시 종로구 부암동  306-7
+			</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">점유관계</th>
+			<td>
+
+		</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">기타</th>
+			<td>
+
+			</td>
+		</tr>
+
+    </table>
+
+	<table class="Ltbl_dt" summary="부동산의 점유관계 표">
+	<caption>부동산의 점유관계</caption>
+		<tr>
+			<th width="15%" class="txtcenter">소재지</th>
+			<td>2.
+				서울특별시 종로구 부암동  306-7
+			</td>
+		</tr>
+
+		<tr>
+			<th class="txtcenter">점유관계</th>
+			<td>
+
+			채무자(소유자)점유
+
+		</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">기타</th>
+
+			<td>
+
+			</td>
+		</tr>
+    </table>
+
+	<div class="tbl_txt">
+		<h4>2. 부동산의 현황</h4>
+		<ul>
+
+			<li style="background-image:none;">이 사건 부동산은 장기간 방치 된 상태로 사람이 살지 않고 비어 있는 빈집임.</li>
+
+		</ul>
+	</div>
+
+</div>
+
+</div>
+
+<div class="tbl_btn">
+<a href="#" onclick="javascript:print(); return false;"><img src="/images/btn_print.gif" alt="인쇄" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></div>
+<div class="clear"></div>
+
+	
+</div>	
+
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<form name="hform" action="">
+<input type="hidden" name="jiwonNm" id="hJiwonNm" value="" />
+<input type="hidden" name="saNo" id="hSaNo" value="" />
+<input type="hidden" name="targetRow" id="hTargetRow" value="" />
+<input type="hidden" name="chcCd" id="hChcCd" value="" />
+<input type="hidden" name="ordHoi" id="hOrdHoi" value="" /> 
+<input type="hidden" name="sourcOrdHoi" id="hSourcOrdHoi" value="" />
+</form>
+
+<div id="pop_footer">
+	<a href="#" onclick="javascript:self.close();"><img src="/images/btn_close_pop.gif" alt="닫기" /></a>
+	<div id="pop_footer_logo"></div>
+</div>
+</body>
+</html>
