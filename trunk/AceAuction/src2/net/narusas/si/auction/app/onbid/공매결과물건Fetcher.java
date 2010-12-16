@@ -14,7 +14,9 @@ public class 공매결과물건Fetcher {
 	public List<공매물건> fetch(공매결과일정 schedule) throws HttpException, IOException {
 		List<공매물건> result = new ArrayList<공매물건>();
 		PageFetcher f = new PageFetcher("http://www.onbid.co.kr");
+		System.out.println(schedule.getLinke(1));
 		String page = f.fetch(schedule.getLinke(1));
+		
 		// System.out.println(page);
 		page = page.substring(page.indexOf("<!-- 목록 반복 시작 -->") + 10);
 		Pattern totalPattern = Pattern.compile("javascript:paging\\((\\d+)\\)");
