@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.converters.금액Converter;
+import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.당사자;
 import net.narusas.si.auction.model.목록;
 import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.배당요구종기내역;
 import net.narusas.si.auction.model.사건;
+import net.narusas.si.auction.model.dao.담당계Dao;
+import net.narusas.si.auction.model.dao.담당계DaoHibernate;
 import net.narusas.util.lang.Closure;
 import net.narusas.util.lang.NCollection;
 
@@ -62,7 +66,19 @@ public class 사건내역Fetcher {
 	}
 
 	public void parseHTML(사건 s, String html) {
+		String 담당계 = HTMLUtils.findTHAndNextValue(html, "담당계");
+		if (담당계 != null && 담당계.contains("전화")) {
+			Pattern p = Pattern.compile("전화 : (.*)");
+			Matcher m = p.matcher(담당계);
+			if (m.find()) {
+				String 전화 = m.group(1);
+				if (s.get담당계().get전화번호() == null){
+					s.get담당계().set전화번호(전화);
+					update담당계(s.get담당계());
+				}
+			}
 
+		}
 		s.set사건명(HTMLUtils.findTHAndNextValue(html, "사건명"));
 		s.set개시결정일자(HTMLUtils.toDate(HTMLUtils.findTHAndNextValue(html, "개시결정일자")));
 		s.set접수일자(HTMLUtils.toDate(HTMLUtils.findTHAndNextValue(html, "접수일자")));
@@ -79,6 +95,11 @@ public class 사건내역Fetcher {
 		logger.info("청구금액:" + s.get청구금액());
 		logger.info("사건항고정지여부:" + s.get사건항고정지여부());
 		logger.info("병합:" + s.get병합());
+	}
+
+	private void update담당계(담당계 담당계) {
+		담당계Dao 담당계dao = (담당계DaoHibernate) App.context.getBean("담당계DAO");
+		담당계dao.update(담당계);
 	}
 
 	private void handl병합(사건 s, String html) {
@@ -123,8 +144,9 @@ public class 사건내역Fetcher {
 	}
 
 	private void add당사자(사건 event, List<당사자> res, String 당사자구분, String 당사자명) {
-		//if ("".equals(당사자구분.trim()) == false && "".equals(당사자명.trim()) == false && isAcceptable당사자구분(당사자구분)) {
-		if ("".equals(당사자구분.trim()) == false && "".equals(당사자명.trim()) == false ) {
+		// if ("".equals(당사자구분.trim()) == false && "".equals(당사자명.trim()) ==
+		// false && isAcceptable당사자구분(당사자구분)) {
+		if ("".equals(당사자구분.trim()) == false && "".equals(당사자명.trim()) == false) {
 			res.add(new 당사자(event, 당사자구분, 당사자명));
 		}
 	}
@@ -180,21 +202,19 @@ public class 사건내역Fetcher {
 		Matcher m = noPattern.matcher(chunk);
 		while (m.find()) {
 
-			
 			String no = m.group(1);
 			String address = m.group(2).trim();
 			String type = null;
 			String comment = null;
-			
+
 			String rest = chunk.substring(m.end());
-			
+
 			Pattern popupPattern = Pattern.compile("regiBU\\('(\\d+)");
 			Matcher m2 = popupPattern.matcher(rest);
 			if (m2.find() == false) {
 				return;
 			}
-			
-			
+
 			String buNo = m2.group(1);
 			Pattern typePattern = Pattern.compile("<th[^>]*>목록구분</th>\\s*<td[^>]+>([^<]+)</td>");
 			Matcher m3 = typePattern.matcher(rest);
