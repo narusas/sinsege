@@ -144,8 +144,8 @@ public class 신건ModeStrategy implements ModeStrategy {
 				물건감정평가서.set평가시점(d);
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Throwable e) {
+//			e.printStackTrace();
 		}
 
 	}

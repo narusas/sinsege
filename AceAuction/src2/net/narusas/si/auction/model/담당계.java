@@ -22,7 +22,7 @@ public class 담당계 {
 	private String 매각방법;
 
 	private String 장소;
-
+	String 전화번호;
 	public 담당계() {
 	}
 
@@ -128,6 +128,14 @@ public class 담당계 {
 
 	public void set장소(String 장소) {
 		this.장소 = 장소;
+	}
+
+	public String get전화번호() {
+		return 전화번호;
+	}
+
+	public void set전화번호(String 전화번호) {
+		this.전화번호 = 전화번호;
 	}
 
 	@Override

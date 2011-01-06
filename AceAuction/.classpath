@@ -26,7 +26,6 @@
 	<classpathentry kind="lib" path="lib/ehcache-1.6.0-beta3.jar"/>
 	<classpathentry kind="lib" path="lib/evot_util.jar"/>
 	<classpathentry kind="lib" path="lib/ezmorph-1.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/FontBox-0.2.0-dev.jar"/>
 	<classpathentry kind="lib" path="lib/formsrt.jar"/>
 	<classpathentry kind="lib" path="lib/groovy-1.5.7.jar"/>
 	<classpathentry kind="lib" path="lib/groovy-all-1.6-beta-1.jar"/>
@@ -92,7 +91,6 @@
 	<classpathentry kind="lib" path="lib/commons-logging-1.1/commons-logging-api-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/bcmail-jdk14-132.jar"/>
 	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/bcprov-jdk14-132.jar"/>
-	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/FontBox-0.1.0-dev.jar"/>
 	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/lib/PDFBox-0.7.3.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/ant-antlr-1.6.5.jar"/>
 	<classpathentry kind="lib" path="lib/Hibernate/asm-attrs.jar"/>
@@ -113,5 +111,6 @@
 	<classpathentry kind="lib" path="lib/iTextLib/iTextAsian.jar"/>
 	<classpathentry kind="lib" path="lib/jpedal/jpedalSTD.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.5/mysql-connector-java-5.0.5-bin.jar"/>
+	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/FontBox-0.1.0-dev.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
