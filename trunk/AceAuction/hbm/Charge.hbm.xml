@@ -14,6 +14,7 @@
 		<property name="입찰_끝날자" column="end_date" />
 		<property name="장소" column="location" />
 		<property name="매각방법" column="method" />
+		<property name="time" column="time" />
 		<property name="전화번호" column="telNo" />
 	</class>
 
