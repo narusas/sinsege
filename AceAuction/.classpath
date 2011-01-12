@@ -112,5 +112,6 @@
 	<classpathentry kind="lib" path="lib/jpedal/jpedalSTD.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.5/mysql-connector-java-5.0.5-bin.jar"/>
 	<classpathentry kind="lib" path="lib/PDFBox-0.7.3/external/FontBox-0.1.0-dev.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

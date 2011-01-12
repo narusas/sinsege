@@ -1,7 +1,6 @@
 package net.narusas.si.auction.app;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

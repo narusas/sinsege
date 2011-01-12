@@ -1,50 +1,24 @@
-package net.narusas.si.auction.fetchers;
+package net.narusas.aceauction.fetchers;
 
+import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.narusas.si.auction.fetchers.물건매각물건명세서Fetcher;
 import net.narusas.si.auction.model.매각물건명세서;
-import net.narusas.si.auction.model.매각물건명세서비고;
-import net.narusas.si.auction.model.물건;
+import net.narusas.util.lang.NFile;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.Test;
 
-public class 물건매각물건명세서Fetcher {
-	final Logger logger = LoggerFactory.getLogger("auction");
-
-	public String fetch(물건 물건) throws IOException {
-		String query = MessageFormat.format("/RetrieveRealEstMgakMulMseo.laf" //
-				+ "?jiwonNm={0}&saNo={1}&maemulSer={2}",//
-				HTMLUtils.encodeUrl(물건.get사건().get법원().get법원명()), //
-				String.valueOf(물건.get사건().get사건번호()), //
-				물건.get물건번호());
-
-		return 대법원Fetcher.getInstance().fetch(query);
-	}
-	
-	public void update최선순위설정일자(물건  goods, String html){
-		int pos = html.indexOf("<table class=\"Ltbl_dt\" summary=\"매각물건명세서 기본정보 표\">");
-		if (pos == -1){
-			return;
-		}
-		String tmp = html.substring(pos);
-		String  최선순위설정일자 = HTMLUtils.findTHAndNextValue(tmp, "최선순위 설정일자");
-		goods.set최선순위설정일자(최선순위설정일자);
-	}
-
-	public List<매각물건명세서> parse(String html) {
+public class FetcherTest {
+	@Test
+	public void add() throws IOException {
+		물건매각물건명세서Fetcher f = new 물건매각물건명세서Fetcher();
+		String html = NFile.getText(new File("fixture2/079_매각물건명세서점유부분복수개.html"), "euc-kr");
 		List<매각물건명세서> items = new LinkedList<매각물건명세서>();
-		if (html.contains("매각물건명세서가 없습니다") || html.contains("조사된 임차내역 없음")) {
-			return items;
-		}
-		
-		
-		
 		html = html.substring(html.indexOf("summary=\"매각물건명세서 상세표\""));
 		html = html.substring(html.indexOf("<tbody>") + 7);
 		html = html.replaceAll("<br/>", "\n");
@@ -131,41 +105,12 @@ public class 물건매각물건명세서Fetcher {
 			}
 			items.add(item);
 		}
+		System.out.println(items);
 
-		return items;
-
-	}
-
-	private String onlyDateString(String group) {
-		Pattern datePattern = Pattern.compile("(\\d+\\.\\d+\\.\\d+)");
-		return null;
-	}
-
-	public 매각물건명세서비고 parse비고(String html) {
-		매각물건명세서비고 comment = new 매각물건명세서비고();
-		Matcher m2 = Pattern.compile("&lt; 비고 &gt; &nbsp;<br/>([^<]*)", Pattern.MULTILINE).matcher(html);
-		if (m2.find()) {
-			comment.set비고(m2.group(1));
-		}
-
-		m2 = Pattern.compile("<td>[^<]*효력이 소멸되지 아니하는 것[^<]*</td>\\s+</tr>\\s+<tr>\\s+<td [^>]+>([^<]*)",
-				Pattern.MULTILINE).matcher(html);
-		if (m2.find()) {
-			comment.set비소멸권리(m2.group(1));
-		}
-
-		m2 = Pattern.compile("<td>[^<]*지상권의 개요[^<]*</td>\\s+</tr>\\s+<tr>\\s+<td [^>]+>([^<]*)", Pattern.MULTILINE)
-				.matcher(html);
-		if (m2.find()) {
-			comment.set지상권개요(m2.group(1));
-		}
-
-		m2 = Pattern.compile("<td>[^<]*비고란[^<]*</td>\\s+</tr>\\s+<tr>\\s+<td [^>]+>([^<]*)", Pattern.MULTILINE)
-				.matcher(html);
-		if (m2.find()) {
-			comment.set비고란(m2.group(1));
-		}
-		return comment;
+		// List<매각물건명세서> list = f.parse(html);
+		// for (매각물건명세서 매각물건명세서 : list) {
+		// System.out.println(매각물건명세서);
+		// }
 	}
 
 }

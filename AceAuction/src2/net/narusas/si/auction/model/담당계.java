@@ -23,11 +23,11 @@ public class 담당계 {
 
 	private String 장소;
 	String 전화번호;
+
 	public 담당계() {
 	}
 
-	public 담당계(법원 court, int chargeCode, String name, Date eventDay, String location, String method,
-			String time2) {
+	public 담당계(법원 court, int chargeCode, String name, Date eventDay, String location, String method, String time2) {
 		소속법원 = court;
 		담당계코드 = chargeCode;
 		담당계이름 = name;
@@ -138,10 +138,13 @@ public class 담당계 {
 		this.전화번호 = 전화번호;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		SimpleDateFormat f = new SimpleDateFormat("MM.dd");
-		return 담당계이름 +" "+f.format(get매각기일());//+"("+담당계코드+")";// +" (" + 소속법원.get법원명() +")";
+		return 담당계이름 + " " + f.format(get매각기일());// +"("+담당계코드+")";// +" (" +
+		// 소속법원.get법원명() +")";
 	}
 
 }
