@@ -50,7 +50,14 @@ public class 사건감정평가서Fetcher {
 		if (m.find()){
 			return fetcher.fetch(path, new NameValuePair[] {//
 					new NameValuePair("Host", m.group(1)), //
-					new NameValuePair("Referer", "http://www.courtauction.go.kr/RetrieveRealEstSaGamEvalSeo.laf") //
+					//http://www.courtauction.go.kr/RetrieveRealEstSaGamEvalSeo.laf
+					new NameValuePair("Referer", "http://www.courtauction.go.kr/RetrieveRealEstSaGamEvalSeo.laf"), //
+					new NameValuePair("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"), //
+					new NameValuePair("Accept-Language", "ko-kr"), //
+					new NameValuePair("Accept-Encoding", "gzip, deflate"), //
+					new NameValuePair("Connection", "keep-alive"), //
+					new NameValuePair("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; ko-kr) AppleWebKit/533.19.4 (KHTML, like Gecko) Version/5.0.3 Safari/533.19.4"), //
+					new NameValuePair("Accept", "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"), //
 					});
 		}
 //		return fetcher.fetch(path);
@@ -109,6 +116,7 @@ public class 사건감정평가서Fetcher {
 //		}
 		logger.info("감정평가서를 다운로드를 위한 작업을 시작 합니다");
 		String html = fetchMainPage(사건);
+		System.out.println(html);
 		String url = parsePDFPageURL(html);
 		if (url == null || "".equals(url.trim())){
 			logger.info("감정평가서가 없는 사건입니다.");
