@@ -8,16 +8,16 @@ import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.사건;
 import net.narusas.util.lang.NFile;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class AppointTest extends TestCase {
+public class AppointTest  {
 //	public void test1() throws IOException {
 //		사건기일내역Fetcher f = new 사건기일내역Fetcher();
 //		
 //		String html = f.fetch("창원지방법원", "20080130018280");
 //		System.out.println(html);
 //	}
-	
+	@Test
 	public void testParse() throws IOException {
 		
 		String html = NFile.getText(new File("fixture2/035_기일내역_결과.html"), "euc-kr");
