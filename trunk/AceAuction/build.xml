@@ -58,6 +58,7 @@
 		<copy todir="${build}">
 			<fileset dir="src2">
 				<include name="*.jfrm" />
+				<include name="*.xml" />
 			</fileset>
 		</copy>
 		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->

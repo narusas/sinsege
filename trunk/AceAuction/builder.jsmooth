@@ -6,6 +6,7 @@
 <JVMSearchPath>jdkpath</JVMSearchPath>
 <JVMSearchPath>exepath</JVMSearchPath>
 <JVMSearchPath>jview</JVMSearchPath>
+<arguments></arguments>
 <classPath>lib\activation-1.1.jar</classPath>
 <classPath>lib\Hibernate\asm.jar</classPath>
 <classPath>lib\annogen-0.1.0.jar</classPath>
@@ -114,6 +115,6 @@
 </skeletonProperties>
 <skeletonProperties>
 <key>Debug</key>
-<value>0</value>
+<value>1</value>
 </skeletonProperties>
 </jsmoothproject>

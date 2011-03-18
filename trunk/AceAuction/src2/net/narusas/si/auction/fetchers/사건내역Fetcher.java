@@ -31,38 +31,54 @@ public class 사건내역Fetcher {
 	}
 
 	public boolean update(사건 s, boolean sagunDetailOnly) throws IOException {
-		logger.info("사건 페이지를 얻어옵니다: " + s.get사건번호());
-		String html = fetch(s);
-		logger.info("사건 페이지를 분석합니다");
-		parseHTML(s, html);
+		Exception ex = null;
+		for (int trial = 1; trial <= 3; trial++) {
+			try {
+				logger.info("사건 페이지를 얻어옵니다(Trial#" + trial + ": " + s.get사건번호());
+				String html = fetch(s);
+				logger.info("사건 페이지를 분석합니다");
+				parseHTML(s, html);
 
-		List<물건> goodsList = parse물건(s, html);
-		logger.info("물건 목록:" + goodsList);
-		s.set물건목록(goodsList);
+				List<물건> goodsList = parse물건(s, html);
+				logger.info("물건 목록:" + goodsList);
+				s.set물건목록(goodsList);
 
-		if (sagunDetailOnly) {
+				if (sagunDetailOnly) {
 
-			List<당사자> peoples = parse당사자(s, html);
-			logger.info("당사자목록:" + peoples);
-			s.set당사자목록(peoples);
+					List<당사자> peoples = parse당사자(s, html);
+					logger.info("당사자목록:" + peoples);
+					s.set당사자목록(peoples);
 
-			logger.info("사진 페이지를 분석합니다");
-			사건사진Fetcher pictureFetcher = new 사건사진Fetcher();
-			List<String> urls = pictureFetcher.fetchAllImageURLs(s);
-			사진Downloader.getInstance().add(s, urls);
+					logger.info("사진 페이지를 분석합니다");
+					사건사진Fetcher pictureFetcher = new 사건사진Fetcher();
+					List<String> urls = pictureFetcher.fetchAllImageURLs(s);
+					사진Downloader.getInstance().add(s, urls);
 
-			logger.info("기일내역 페이지를 분석합니다");
-			사건기일내역Fetcher 기일내역Fetcher = new 사건기일내역Fetcher();
-			기일내역Fetcher.update(s);
+					logger.info("기일내역 페이지를 분석합니다");
+					사건기일내역Fetcher 기일내역Fetcher = new 사건기일내역Fetcher();
+					기일내역Fetcher.update(s);
+				}
+				return true;
+			} catch (Exception e) {
+				ex = e;
+			}
 		}
-		return true;
+		throw new IOException(ex);
 	}
 
 	public String fetch(사건 s) throws IOException {
-		String query = MessageFormat.format("/RetrieveRealEstDetailInqSaList.laf" //
-				+ "?jiwonNm={0}&saNo={1}&_SRCH_SRNID=PNO102005" //
-		, HTMLUtils.encodeUrl(s.get법원().get법원명()), String.valueOf(s.get사건번호()));
-		return 대법원Fetcher.getInstance().fetch(query);
+		Exception ee = null;
+		for (int i = 0; i < 3; i++) {
+			try {
+				String query = MessageFormat.format("/RetrieveRealEstDetailInqSaList.laf" //
+						+ "?jiwonNm={0}&saNo={1}&_SRCH_SRNID=PNO102005" //
+				, HTMLUtils.encodeUrl(s.get법원().get법원명()), String.valueOf(s.get사건번호()));
+				return 대법원Fetcher.getInstance().fetch(query);
+			} catch (Exception e) {
+				ee = e;
+			}
+		}
+		throw new RuntimeException(ee);
 	}
 
 	public void parseHTML(사건 s, String html) {
@@ -72,7 +88,7 @@ public class 사건내역Fetcher {
 			Matcher m = p.matcher(담당계);
 			if (m.find()) {
 				String 전화 = m.group(1);
-				if (s.get담당계().get전화번호() == null){
+				if (s.get담당계().get전화번호() == null) {
 					s.get담당계().set전화번호(전화);
 					update담당계(s.get담당계());
 				}

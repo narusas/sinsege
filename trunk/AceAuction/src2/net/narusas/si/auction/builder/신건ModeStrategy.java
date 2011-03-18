@@ -3,6 +3,7 @@ package net.narusas.si.auction.builder;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,7 @@ import net.narusas.si.auction.model.dao.사건Dao;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser.Group;
 
+import org.apache.commons.httpclient.HttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +41,54 @@ public class 신건ModeStrategy implements ModeStrategy {
 
 	public 신건ModeStrategy(사건 사건) {
 		this.사건 = 사건;
+	}
+
+	static ArrayList<Job> list = new ArrayList<Job>();
+
+	static class Que extends Thread {
+
+		public void run() {
+			while (true) {
+				if (list.size() == 0) {
+					try {
+						sleep(1000);
+						continue;
+					} catch (InterruptedException e) {
+					}
+				}
+
+				try {
+					Job job = null;
+					synchronized (list) {
+						job = list.remove(0);
+					}
+					if (job == null) {
+						continue;
+					}
+					File 감정평가서RawFile = new 사건감정평가서Fetcher().download(job.사건);
+					if (감정평가서RawFile != null) {
+						FileUploaderBG.getInstance().upload(job.사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
+						// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
+
+						job.strategy.fill감정평가요항(job.사건, 감정평가서RawFile, job.new물건List);
+						job.save();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	static {
+		new Que().start();
+		new Que().start();
+//		new Que().start();
+//		new Que().start();
+//		new Que().start();
+//		new Que().start();
+		
 	}
 
 	public void execute() {
@@ -72,14 +122,21 @@ public class 신건ModeStrategy implements ModeStrategy {
 				logger.info("사건의 문건 송달 내역을 정상적으로 처리하지 못했습니다. 대법원 사이트를 확인해주십시요");
 				e.printStackTrace();
 			}
-			File 감정평가서RawFile = new 사건감정평가서Fetcher().download(사건);
-			if (감정평가서RawFile != null) {
-				FileUploaderBG.getInstance().upload(사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
-				// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
-				fill감정평가요항(사건, 감정평가서RawFile, new물건List);
-			}
+			Job job = new Job();
+			job.haveOld = haveOld;
+			job.사건 = 사건;
+			job.strategy = this;
+			job.new물건List = new물건List;
 
-			save();
+			list.add(job);
+//			File 감정평가서RawFile = new 사건감정평가서Fetcher().download(사건);
+//			if (감정평가서RawFile != null) {
+//				FileUploaderBG.getInstance().upload(사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
+//				// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
+//
+//				fill감정평가요항(사건, 감정평가서RawFile, new물건List);
+//			}
+			save(사건);
 
 			new 물건목록Batch(사건, new물건List).execute();
 		} catch (IOException e) {
@@ -145,7 +202,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 			}
 
 		} catch (Throwable e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 	}
@@ -159,7 +216,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 		}
 	}
 
-	private void save() {
+	private void save(사건 사건) {
 		사건Dao dao = (사건Dao) App.context.getBean("사건DAO");
 		if (haveOld) {
 			dao.update(사건);
@@ -178,15 +235,14 @@ public class 신건ModeStrategy implements ModeStrategy {
 			oldEvent.get당사자목록().clear();
 			oldEvent.get당사자목록().addAll(event.get당사자목록());
 			dao.update(oldEvent);
-			
-			
+
 			물건Dao dao2 = (물건Dao) App.context.getBean("물건DAO");
 			oldEvent.set물건목록(dao2.get(oldEvent));
-			
+
 			if (oldEvent.get담당계() == null || oldEvent.get담당계().getId() != charge.getId()) {
 				oldEvent.set담당계(charge);
 				oldEvent.merge(event);
-				
+
 				dao.saveOrUpdate(oldEvent);
 			}
 

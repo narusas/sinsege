@@ -19,9 +19,11 @@ import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PageFetcher {
-
+	final Logger logger = LoggerFactory.getLogger("auction");
 	/** The url_prefix. */
 	private final String url_prefix;
 
@@ -73,7 +75,22 @@ public class PageFetcher {
 		// GetMethod method = get(path);
 		GetMethod method = new GetMethod(getRealURL(path));
 		addHeaders(headers, method);
+		logger.info("BEFORE");
+		
 		client.executeMethod(method);
+		logger.info("AFTER");
+		
+		long length = method.getResponseContentLength();
+		logger.info("LENGTH:"+length);
+		if (length >0){
+			byte[] buf = new byte[(int) length];
+			method.getResponseBodyAsStream().read(buf,0,(int)length);
+			logger.info("COMPLETE");
+			
+			return new String(buf, getEncoding());
+		}
+		
+		
 		byte[] buf = NInputStream.readBytes(method.getResponseBodyAsStream());
 		method.releaseConnection();
 		return new String(buf, getEncoding());
@@ -98,8 +115,10 @@ public class PageFetcher {
 	}
 
 	public void downloadBinary(String url, File f) throws HttpException, IOException {
+		logger.debug("Download Binary: url:"+url+" toFile:"+f.getAbsolutePath());
 		GetMethod method = get(url);
 		client.executeMethod(method);
+		logger.debug("HTTPClient executed");
 		BufferedInputStream bin = new BufferedInputStream(method.getResponseBodyAsStream());
 		BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(f));
 		byte[] buf = new byte[4096];
@@ -113,7 +132,7 @@ public class PageFetcher {
 		bin.close();
 		bout.close();
 		method.releaseConnection();
-
+		logger.debug("HTTPClient read end");
 		// NOutputStream.leftShift(bout, bin);
 	}
 
