@@ -32,8 +32,17 @@ public class 사건감정평가서Fetcher {
 		String query = MessageFormat.format("/RetrieveRealEstSaGamEvalSeo.laf" //
 				+ "?jiwonNm={0}&saNo={1}&srnID=PNO102018" //
 		, HTMLUtils.encodeUrl(법원명), 사건번호);
-
-		return 대법원Fetcher.getInstance().fetch(query);
+		Exception e = null;
+		for(int i=0;i<3;i++){
+			
+			try {
+				return 대법원Fetcher.getInstance().fetch(query);
+			} catch (Exception ex) {
+				e = ex;
+			}
+		}
+		throw new IOException(e);
+		
 	}
 
 	String parsePDFPageURL(String html) {

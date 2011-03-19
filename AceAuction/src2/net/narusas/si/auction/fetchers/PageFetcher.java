@@ -56,7 +56,7 @@ public class PageFetcher {
 			byte[] buf = NInputStream.readBytes(method.getResponseBodyAsStream());
 			method.releaseConnection();
 			String temp = new String(buf, getEncoding());
-			if (temp != null && "".equals(temp.trim()) == false && temp.contains("</html>")) {
+			if (temp != null && "".equals(temp.trim()) == false) {
 				return temp;
 			}
 		}

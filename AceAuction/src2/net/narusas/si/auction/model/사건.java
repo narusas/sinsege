@@ -136,6 +136,9 @@ public class 사건 {
 
 	private 사건종류 parse사건종류(String a사건명) {
 		사건종류 type = 사건종류.부동산;
+		if (a사건명==null){
+			return type;
+		}
 		if (a사건명.contains("자동차")) {
 			type = 사건종류.자동차;
 		} else if (a사건명.contains("자동차")) {

@@ -29,7 +29,16 @@ public class 물건내역Fetcher {
 		, HTMLUtils.encodeUrl(물건.get법원().get법원명()), //
 				String.valueOf(물건.get사건().get사건번호()), //
 				물건.get물건번호());
-		return 대법원Fetcher.getInstance().fetch(query);
+		Exception e = null;
+		for(int i=0;i<3;i++){
+			try {
+				return 대법원Fetcher.getInstance().fetch(query);
+			} catch (Exception e1) {
+				e = e1;
+			}	
+		}
+		throw new IOException(e);
+		
 
 	}
 
