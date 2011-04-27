@@ -34,11 +34,12 @@
 	</target>
 
 	<target name="compile" depends="init,clean, copy-resources" description="compile the source ">
+		<!--
 		<taskdef name="jsmoothgen" classname="net.charabia.jsmoothgen.ant.JSmoothGen" />
 		<jsmoothgen project="atested.jsmooth" skeletonroot="skeletons" />
 		<jsmoothgen project="builder.jsmooth" skeletonroot="skeletons" />
 		<jsmoothgen project="updater.jsmooth" skeletonroot="skeletons" />
-
+-->
 
 		<!-- Compile the java code from ${src} into ${build} -->
 		<javac srcdir="src2" destdir="${build}" target="1.6" classpathref="base.path" debug="true" encoding="utf-8" />

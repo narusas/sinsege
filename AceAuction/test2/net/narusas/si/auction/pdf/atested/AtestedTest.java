@@ -90,12 +90,12 @@ public class AtestedTest extends TestCase {
 	}
 	
 	public void test073_2010_443() throws PdfException, Exception {
-		System.out.println("fixture2/073_2010-443.pdf");
-		List<등기부등본Item> items = parse("fixture2/073_2010-443.pdf");
+		System.out.println("fixture2/081_인천11-6870.pdf");
+		List<등기부등본Item> items = parse("fixture2/081_인천11-6870.pdf");
 		System.out.println("#############");
-		for (등기부등본Item item : items) {
-			System.out.println(item);
-		}
+//		for (등기부등본Item item : items) {
+//			System.out.println(item);
+//		}
 	}
 
 	// public void testTarget() {

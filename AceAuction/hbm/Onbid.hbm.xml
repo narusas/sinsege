@@ -27,6 +27,7 @@
 		<property name="상위용도" column="purpose1" />
 		<property name="하위용도" column="purpose2" />
 		<property name="입찰번호" column="no" />
+		<property name="소재지_시도" column="address_level_1" />
 		<property name="소재지" column="address" />
 		<property name="물건관리번호" column="mgmtNo" />
 		<property name="처분정보1" column="process1" />
