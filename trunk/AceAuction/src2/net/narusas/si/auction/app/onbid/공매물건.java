@@ -5,6 +5,7 @@ public class 공매물건 {
 	private String 상위용도;
 	private String 하위용도;
 	private String 입찰번호;
+	private String 소재지_시도;
 	private String 소재지;
 	private String 물건관리번호;
 	private String 처분정보1;
@@ -36,7 +37,16 @@ public class 공매물건 {
 		this.id = id;
 	}
 
+	public String get소재지_시도() {
+		return 소재지_시도;
+	}
+
+	public void set소재지_시도(String 소재지_시도) {
+		this.소재지_시도 = 소재지_시도;
+	}
+
 	public String get소재지() {
+
 		return 소재지;
 	}
 
@@ -102,7 +112,10 @@ public class 공매물건 {
 	}
 
 	public void set소재지(String 소재지) {
-		this.소재지 = 소재지;
+		this.소재지 = 소재지.trim();
+		if (소재지 != null) {
+			소재지_시도 = 소재지.substring(0, 소재지.indexOf(" "));
+		}
 	}
 
 	public void set물건관리번호(String 물건관리번호) {
@@ -140,7 +153,6 @@ public class 공매물건 {
 	public void set내역(String 내역) {
 		this.내역 = 내역;
 	}
-
 
 	@Override
 	public String toString() {
@@ -184,7 +196,7 @@ public class 공매물건 {
 
 	public void set개찰결과(String 개찰결과) {
 		this.개찰결과 = 개찰결과;
-		
+
 	}
 
 	public String get개찰결과() {

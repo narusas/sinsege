@@ -309,7 +309,7 @@ public class AtestedPDFParser {
 			for (int i = 0; i < words.size(); i += 5) {
 				TextPosition t = createTextPosition(page, y1, words, stage, i);
 
-				// System.out.println(t);
+				 System.out.println(t);
 				// if(true)continue;
 				if ("요약한".equals(t.getText())) {// 주요등기사항요약
 					stage = 1;
@@ -323,7 +323,7 @@ public class AtestedPDFParser {
 				// System.out.println(t);
 				if (stage == 1 && "1.".equals(t.getText()) && t.getX() < 100f) {
 					stage = 2;
-					// System.out.println("Stage 2 :" + t.getY());
+					 System.out.println("Stage 2 :" + t.getY());
 					i = skipLine(t, words, i, page, stage, y1);
 					continue;
 				}
@@ -334,11 +334,15 @@ public class AtestedPDFParser {
 					i = skipLine(t, words, i, page, stage, y1);
 					continue;
 				}
-				if (stage == 3 && "3.".equals(t.getText()) && t.getX() < 100f) {
+				if (stage == 3 && ("3.".equals(t.getText())  ) && t.getX() < 100f) {
 					stage = 4;
-					// System.out.println("Stage 4");
+					 System.out.println("Stage 4");
 					i = skipLine(t, words, i, page, stage, y1);
 					continue;
+				}
+				
+				if (stage == 4 &&  "[".equals(t.getText())){
+					break;
 				}
 
 				if ("등기명의인".equals(t.getText())) {
@@ -368,6 +372,12 @@ public class AtestedPDFParser {
 			}
 
 		}
+		
+		System.out.println("-------------------------------------------");
+		for (TextPosition tp : list) {
+			System.out.println(":::"+tp.getText());
+		}
+		System.out.println("-------------------------------------------");
 		return list;
 	}
 
@@ -603,7 +613,7 @@ public class AtestedPDFParser {
 			TextPosition dateTP = null;
 			// System.out.println(typeTP);
 
-			for (int i = 0; i < dateCol.size(); i++) {
+			for (int i = 0; i < dateCol.size()-1; i++) {
 				dateTP = dateCol.get(i);
 				if (dateTP.isSameRow(typeTP)) {
 					접수일 = dateTP.getText();
