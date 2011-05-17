@@ -30,12 +30,13 @@ public class 사건기일내역Fetcher {
 	}
 
 	public void parse(사건 event, String html) {
+		System.out.println("parse:"+event);
 		Sheet sheet = Sheet.parse(html, "<caption>기일내역</caption>", true, true);
 		물건 goods = null;
 
 		List<물건> items = new LinkedList<물건>();
 		for (int i = 0; i < sheet.rowSize(); i++) {
-
+			System.out.println("###:"+sheet.rowColumnSize(i)+"="+sheet.valueAt(i, sheet.rowColumnSize(i)-1));
 			// 물건번호, 감정평가액이 있는 줄이 column size가 7.
 			if (sheet.rowColumnSize(i) == 7) {
 				goods = init물건(event, sheet, i);
@@ -47,8 +48,10 @@ public class 사건기일내역Fetcher {
 				if (goods == null) {
 					continue;
 				}
-
-				add기일(sheet, goods, i);
+				
+				if (add기일(sheet, goods, i)==false) {
+					goods = null;
+				}
 			}
 		}
 
@@ -243,12 +246,13 @@ public class 사건기일내역Fetcher {
 		String 기일장소 = sheet.valueAt(row, 4);
 		String 최저매각가격 = 금액Converter.convert(sheet.valueAt(row, 5));
 		String 기일결과 = sheet.valueAt(row, 6);
+		System.out.println(기일결과);
 
 		goods.add기일내역(new 기일(기일, 기일종류, 기일장소, 최저매각가격, 기일결과, 기간start, 기간end));
 		return goods;
 	}
 
-	private void add기일(Sheet sheet, 물건 goods, int row) {
+	private boolean add기일(Sheet sheet, 물건 goods, int row) {
 		String 기일Raw = sheet.valueAt(row, 0);
 		String 기일 = extractDate(기일Raw);
 		String 기간start = null, 기간end = null;
@@ -267,7 +271,15 @@ public class 사건기일내역Fetcher {
 		String 기일장소 = sheet.valueAt(row, 2);
 		String 최저매각가격 = 금액Converter.convert(sheet.valueAt(row, 3));
 		String 기일결과 = sheet.valueAt(row, 4);
+		if (isIgnorable(기일결과)) {
+			return false;
+		}
 		goods.add기일내역(new 기일(기일, 기일종류, 기일장소, 최저매각가격, 기일결과, 기간start, 기간end));
+		return true;
+	}
+
+	private boolean isIgnorable(String 기일결과) {
+		return 기일결과.contains("매각") && 기일결과.contains("(") && 기일결과.contains("원") &&기일결과.contains(")");
 	}
 
 	private String extractDate(String str) {
