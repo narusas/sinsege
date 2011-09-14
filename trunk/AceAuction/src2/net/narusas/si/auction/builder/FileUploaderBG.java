@@ -1,6 +1,7 @@
 package net.narusas.si.auction.builder;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -22,6 +23,7 @@ public class FileUploaderBG extends Thread {
 	static FileUploaderBG instance = new FileUploaderBG();
 	static Logger logger = Logger.getLogger("log");
 	static String url;
+	static String url2;
 	private int count;
 	private ExecutorService executors;
 	int size;
@@ -33,6 +35,7 @@ public class FileUploaderBG extends Thread {
 	static {
 		try {
 			url = NFile.getText(new File("cfg/fileupload.cfg"));
+			url2 = NFile.getText(new File("cfg/fileupload2.cfg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +45,7 @@ public class FileUploaderBG extends Thread {
 		super("File Uploader Thread");
 		list = new LinkedList<BGTask>();
 		setDaemon(true);
-		executors = java.util.concurrent.Executors.newFixedThreadPool(5);
+		executors = java.util.concurrent.Executors.newFixedThreadPool(10);
 	}
 
 	public void addListener(FileUploadListener listener) {
@@ -67,8 +70,18 @@ public class FileUploaderBG extends Thread {
 
 	public void upload(String path, String filename, File targetFile) throws HttpException, IOException {
 		logger.info("Upload File Path:" + path + " FileName:" + filename + " SRC:" + targetFile + " TO:" + url);
+		uploadToURL(path, filename, targetFile, url);
+		
+		uploadToURL(path, filename, targetFile, url2);
+	}
+
+	private void uploadToURL(String path, String filename, File targetFile, String targetUrl)
+			throws FileNotFoundException {
+		if (targetUrl == null){
+			return;
+		}
 		HttpClient client = new HttpClient();
-		PostMethod filePost = new PostMethod(url);
+		PostMethod filePost = new PostMethod(targetUrl);
 		Part[] parts = { new FilePart("UPLOADFILE", targetFile), new StringPart("path", path),
 				new StringPart("filename", filename) };
 
