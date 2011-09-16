@@ -29,6 +29,7 @@ import net.narusas.si.auction.model.dao.물건Dao;
 import net.narusas.si.auction.model.dao.사건Dao;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser.Group;
+import net.narusas.util.lang.NFile;
 
 import org.apache.commons.httpclient.HttpException;
 import org.slf4j.Logger;
@@ -38,9 +39,15 @@ public class 신건ModeStrategy implements ModeStrategy {
 	final Logger logger = LoggerFactory.getLogger("auction");
 	private 사건 사건;
 	private boolean haveOld;
+	boolean do감정평가분석 = true;
 
 	public 신건ModeStrategy(사건 사건) {
 		this.사건 = 사건;
+		try {
+			do감정평가분석 = Boolean.parseBoolean(NFile.getText(new File("cfg/do1.cfg")));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	static ArrayList<Job> list = new ArrayList<Job>();
@@ -73,7 +80,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 						job.strategy.fill감정평가요항(job.사건, 감정평가서RawFile, job.new물건List);
 						job.save();
 					}
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -84,11 +91,11 @@ public class 신건ModeStrategy implements ModeStrategy {
 	static {
 		new Que().start();
 		new Que().start();
-//		new Que().start();
-//		new Que().start();
-//		new Que().start();
-//		new Que().start();
-		
+		// new Que().start();
+		// new Que().start();
+		// new Que().start();
+		// new Que().start();
+
 	}
 
 	public void execute() {
@@ -128,14 +135,17 @@ public class 신건ModeStrategy implements ModeStrategy {
 			job.strategy = this;
 			job.new물건List = new물건List;
 
-//			list.add(job);
-			File 감정평가서RawFile = new 사건감정평가서Fetcher().download(사건);
-			if (감정평가서RawFile != null) {
-				FileUploaderBG.getInstance().upload(사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
-//				 사진Collector.getInstance().add(사건, 감정평가서RawFile);
+			// list.add(job);
+			if (do감정평가분석) {
+				File 감정평가서RawFile = new 사건감정평가서Fetcher().download(사건);
+				if (감정평가서RawFile != null) {
+					FileUploaderBG.getInstance().upload(사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
+					// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
 
-				fill감정평가요항(사건, 감정평가서RawFile, new물건List);
+					fill감정평가요항(사건, 감정평가서RawFile, new물건List);
+				}
 			}
+
 			save(사건);
 
 			new 물건목록Batch(사건, new물건List).execute();
