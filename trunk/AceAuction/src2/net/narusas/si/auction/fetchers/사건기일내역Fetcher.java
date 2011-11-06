@@ -44,6 +44,10 @@ public class 사건기일내역Fetcher {
 					continue;
 				}
 				items.add(goods);
+				String 기일결과 = sheet.valueAt(i, 6);
+				if (isIgnorable(기일결과)){
+					goods = null;
+				}
 			} else if (sheet.rowColumnSize(i) == 5) {
 				if (goods == null) {
 					continue;
@@ -271,10 +275,11 @@ public class 사건기일내역Fetcher {
 		String 기일장소 = sheet.valueAt(row, 2);
 		String 최저매각가격 = 금액Converter.convert(sheet.valueAt(row, 3));
 		String 기일결과 = sheet.valueAt(row, 4);
+		goods.add기일내역(new 기일(기일, 기일종류, 기일장소, 최저매각가격, 기일결과, 기간start, 기간end));
 		if (isIgnorable(기일결과)) {
 			return false;
 		}
-		goods.add기일내역(new 기일(기일, 기일종류, 기일장소, 최저매각가격, 기일결과, 기간start, 기간end));
+
 		return true;
 	}
 
