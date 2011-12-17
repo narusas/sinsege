@@ -88,16 +88,23 @@ public class AtestedTest extends TestCase {
 //		assertItem(expect, "fixture2/072_안산9-27165.pdf");
 		
 	}
-	
-	public void test073_2010_443() throws PdfException, Exception {
-		System.out.println("fixture2/081_인천11-6870.pdf");
-		List<등기부등본Item> items = parse("fixture2/081_인천11-6870.pdf");
-		System.out.println("#############");
-//		for (등기부등본Item item : items) {
-//			System.out.println(item);
-//		}
-	}
+//	
+//	public void test073_2010_443() throws PdfException, Exception {
+//		System.out.println("fixture2/081_인천11-6870.pdf");
+//		List<등기부등본Item> items = parse("fixture2/081_인천11-6870.pdf");
+//		System.out.println("#############");
+////		for (등기부등본Item item : items) {
+////			System.out.println(item);
+////		}
+//	}
 
+	public void test073_2010_443() throws PdfException, Exception {
+		List<등기부등본Item> items = parse("fixture2/083_2010-24925근저당못읽음.pdf");
+		System.out.println("#############");
+		for (등기부등본Item item : items) {
+			System.out.println(item);
+		}
+	}
 	// public void testTarget() {
 	// String src = "채권자 (선정당사자)한현주";
 	// final String[] 권리자종류 = new String[] { "권리자", "채권자", "근저당권자", "지상권자",

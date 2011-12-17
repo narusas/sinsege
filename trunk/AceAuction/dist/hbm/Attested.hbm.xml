@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<class name="등기부등본" table="ac_attested" lazy="false">
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="save-update" lazy="false" />
+		<property name="type" />
+
+		<bag name="items" table="ac_attested_statement" cascade="all-delete-orphan"
+			lazy="false">
+			<key column="attested_id" />
+			<one-to-many class="등기부등본Item" />
+		</bag>
+
+
+	</class>
+
+	<class name="등기부등본Item" table="ac_attested_statement" lazy="false">
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+
+		<many-to-one name="물건" class="물건" column="goods_id"
+			cascade="save-update" lazy="false" />
+
+		<many-to-one name="등기부등본" class="등기부등본" column="attested_id"
+			cascade="save-update" lazy="false" />
+
+		<property name="권리순위" column="no" />
+		<property name="권리종류" column="right_type" />
+		<property name="접수일" column="accept_date" />
+		<property name="접수번호" column="accept_no" />
+		
+		<property name="권리자" column="right_person" />
+		<property name="대상소유자" column="target_owner" />
+		
+		<property name="금액" column="right_price" />
+		<property name="소멸기준" column="expiration" />
+		<property name="비고" column="comment" />
+	</class>
+</hibernate-mapping>

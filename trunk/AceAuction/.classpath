@@ -35,10 +35,8 @@
 	<classpathentry kind="lib" path="lib/httpclient-4.0-beta1.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.0-beta2.jar"/>
 	<classpathentry kind="lib" path="lib/icu4j-4_0.jar"/>
-	<classpathentry kind="lib" path="lib/IeEmbed.exe"/>
 	<classpathentry kind="lib" path="lib/javassist-3.4.GA.jar"/>
 	<classpathentry kind="lib" path="lib/jdic_stub.jar"/>
-	<classpathentry kind="lib" path="lib/jdic.dll"/>
 	<classpathentry kind="lib" path="lib/jdic.jar"/>
 	<classpathentry kind="lib" path="lib/jempbox-0.8.0-incubating.jar"/>
 	<classpathentry kind="lib" path="lib/jline-0.9.94.jar"/>
@@ -50,7 +48,6 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.11.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-core-2.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-demos-2.4.1.jar"/>
-	<classpathentry kind="lib" path="lib/MozEmbed.exe"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.7-bin.jar"/>
 	<classpathentry kind="lib" path="lib/narusas_util.jar"/>
 	<classpathentry kind="lib" path="lib/nekohtml-1.9.9.jar"/>
@@ -83,7 +80,6 @@
 	<classpathentry kind="lib" path="lib/spring-web.jar"/>
 	<classpathentry kind="lib" path="lib/spring-webmvc.jar"/>
 	<classpathentry kind="lib" path="lib/swing-layout-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/tray.dll"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.3.03.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.3/commons-codec-1.3.jar"/>

@@ -1,11 +1,13 @@
 package net.narusas.si.auction.builder;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.narusas.si.auction.app.build.EventNotifier;
@@ -22,8 +24,7 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 public class FileUploaderBG extends Thread {
 	static FileUploaderBG instance = new FileUploaderBG();
 	static Logger logger = Logger.getLogger("log");
-	static String url;
-	static String url2;
+	static List<String> urls = new ArrayList<String>();
 	private int count;
 	private ExecutorService executors;
 	int size;
@@ -34,8 +35,16 @@ public class FileUploaderBG extends Thread {
 
 	static {
 		try {
-			url = NFile.getText(new File("cfg/fileupload.cfg"));
-			url2 = NFile.getText(new File("cfg/fileupload2.cfg"));
+			File[] cfgs = new File("cfg").listFiles(new FileFilter() {
+
+				@Override
+				public boolean accept(File f) {
+					return f.getName().contains("fileupload") && f.getName().contains(".cfg");
+				}
+			});
+			for (File cfgFile : cfgs) {
+				urls.add(NFile.getText(cfgFile));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,15 +78,15 @@ public class FileUploaderBG extends Thread {
 	}
 
 	public void upload(String path, String filename, File targetFile) throws HttpException, IOException {
-		logger.info("Upload File Path:" + path + " FileName:" + filename + " SRC:" + targetFile + " TO:" + url);
-		uploadToURL(path, filename, targetFile, url);
-		
-		uploadToURL(path, filename, targetFile, url2);
+		for (String url : urls) {
+			logger.info("Upload File Path:" + path + " FileName:" + filename + " SRC:" + targetFile + " TO:" + url);
+			uploadToURL(path, filename, targetFile, url);
+		}
 	}
 
 	private void uploadToURL(String path, String filename, File targetFile, String targetUrl)
 			throws FileNotFoundException {
-		if (targetUrl == null){
+		if (targetUrl == null) {
 			return;
 		}
 		HttpClient client = new HttpClient();
@@ -131,19 +140,24 @@ public class FileUploaderBG extends Thread {
 		public void run() {
 			String page = "";
 			for (int i = 0; i < 5; i++) {
-//				logger.log(Level.WARNING, "Try to upload(Trial " + (i + 1) + "). " + name2);
+				// logger.log(Level.WARNING, "Try to upload(Trial " + (i + 1) +
+				// "). " + name2);
 				try {
 					int code = client.executeMethod(filePost);
 					page = filePost.getResponseBodyAsString();
 					if (code != 200) {
-//						logger.log(Level.WARNING, "Fail to upload. Response code is not 200." + code + "\n" + page);
+						// logger.log(Level.WARNING,
+						// "Fail to upload. Response code is not 200." + code +
+						// "\n" + page);
 						continue;
 					}
 				} catch (Exception e) {
-//					logger.log(Level.WARNING, "Fail to upload", e + "\n" + page);
+					// logger.log(Level.WARNING, "Fail to upload", e + "\n" +
+					// page);
 					continue;
 				}
-//				logger.log(Level.INFO, "Success to upload " + name2 + "\n" + page);
+				// logger.log(Level.INFO, "Success to upload " + name2 + "\n" +
+				// page);
 				break;
 			}
 			progress++;
