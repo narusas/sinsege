@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.app.onbid">
+	<class name="공매일정" table="ac_onbid_schedule">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="identity" />
+		</id>
+		<property name="자산구분" column="type" />
+		<property name="담당부점" column="charge" />
+		<property name="회차차수" column="counter" />
+		<property name="입찰기간" column="period" />
+		<property name="개찰일시" column="startDate" />
+		<bag name="공매물건List" table="ac_onbid_schedule_goods" cascade="all,delete-orphan" 
+			lazy="false" >
+			<key column="schedule_id" />
+			<one-to-many class="공매물건" />
+		</bag>
+	</class>
+
+	<class name="공매물건" table="ac_onbid_goods">
+		<id name="id" column="id" type="long">
+			<generator class="identity" />
+		</id>
+		<many-to-one name="공매일정" class="공매일정" column="schedule_id"
+			lazy="false" not-null="false" not-found="ignore"/>
+		<property name="상위용도" column="purpose1" />
+		<property name="하위용도" column="purpose2" />
+		<property name="입찰번호" column="no" />
+		<property name="소재지_시도" column="address_level_1" />
+		<property name="소재지" column="address" />
+		<property name="물건관리번호" column="mgmtNo" />
+		<property name="처분정보1" column="process1" />
+		<property name="처분정보2" column="process2" />
+		<property name="감정가" column="price" />
+		<property name="최초예정가액" column="firstPrice" />
+		<property name="최저입찰가" column="lowsetPrice" />
+		<property name="물건상태" column="status" />
+		<property name="유찰회수" column="failCounter" />
+		<property name="내역" column="detail" />
+		<property name="Url" column="url" />
+		<property name="개찰결과" column="result" />
+		<property name="낙찰가" column="resultPrice" />
+	</class>
+
+</hibernate-mapping>

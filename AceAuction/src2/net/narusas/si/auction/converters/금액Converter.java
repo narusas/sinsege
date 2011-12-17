@@ -3,11 +3,33 @@
  */
 package net.narusas.si.auction.converters;
 
+import java.util.regex.Pattern;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class 금액Converter.
  */
 public class 금액Converter {
+	
+	static String[] patterns = new String[]{"청\\s*구\\s*금\\s*액", "채\\s*권\\s*최\\s*고\\s*액", "전\\s*세\\s*금", "임\\s*차\\s*보\\s*증\\s*금"};
+	public static Pattern[] 금액종류 =new Pattern[] {// 
+			Pattern.compile("청\\s*구\\s*금\\s*액"),//
+					Pattern.compile("채\\s*권\\s*최\\s*고\\s*액"),//
+					Pattern.compile("전\\s*세\\s*금"),//
+					Pattern.compile("임\\s*차\\s*보\\s*증\\s*금"),//
+			};
+
+			public static boolean contain금액(String str) {
+				if (str == null) {
+					return false;
+				}
+				for (Pattern type : 금액종류) {
+					if (type.matcher(str).find()) {
+						return true;
+					}
+				}
+				return false;
+			}
 
 	/**
 	 * Convert.
@@ -32,6 +54,14 @@ public class 금액Converter {
 			src = src.substring(0,src.indexOf('엔'));
 			currency = "엔";
 		}
+		for (String pattern : patterns) {
+			src = src.replaceAll(pattern, "");
+		}
+		if (src.contains("미화") || src.contains("불")){
+			src = src.replaceAll("미화", "");
+			src = src.substring(0,src.indexOf('불'));
+			currency = "불";
+		}
 		
 		src = src.trim();
 		if (src.endsWith("원")) {
@@ -42,6 +72,9 @@ public class 금액Converter {
 		}
 		if (src.startsWith("월")) {
 			src = src.substring(1).trim();
+		}
+		if (src.startsWith("금")) {
+			src = src.substring(1);
 		}
 		if (src.startsWith("금")) {
 			src = src.substring(1);

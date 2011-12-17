@@ -55,7 +55,13 @@ public class 물건내역Fetcher {
 	}
 
 	private void fill인근매각표(String html, 물건 goods) {
-		if (html.contains("인근매각통계 표") == false) {
+		if (html.contains("인근매각통계 표") == false 
+				|| 
+				(
+					html.contains("물건이 선박, 항공기, 권리에 해당하는 경우, 주소지 정보의 특성으로 인해 인근매각물건사례 정보를 제공하지 않습니다")
+					&& html.contains("검색결과가 없습니다.")
+				)
+			){
 			return;
 		}
 		String chunk = html.substring(html.indexOf("<table class=\"Ltbl_list\" summary=\"인근매각통계 표\">"));

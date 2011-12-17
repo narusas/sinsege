@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="net.narusas.si.auction.model">
+	<typedef class="net.narusas.si.auction.db.GenericEnumUserType"
+		name="sagunType">
+		<param name="enumClassName">net.narusas.si.auction.model.사건종류</param>
+		<param name="identifierMethod">getId</param>
+	</typedef>
+
+	<class name="사건" table="ac_event" lazy="false">
+		<id name="id" column="id" type="long">
+			<generator class="identity" />
+		</id>
+		<property name="사건번호" column="no" type="long" />
+
+		<property name="eventYear" column="event_year" />
+		<property name="eventNo" column="event_no" />
+		<property name="담당계Id" column="charge_id" />
+
+		<!--
+			<many-to-one name="담당계" class="담당계" column="charge_id"
+			not-null="false" />
+		-->
+
+		<many-to-one name="법원" class="법원" column="court_code" />
+
+		<property name="사건명" column="name" />
+		<property name="종류" column="sagunType" type="sagunType" />
+
+		<property name="병합" column="merged_to" />
+		<property name="청구금액" column="claim_price" />
+		<property name="접수일자" column="accept_date" />
+		<property name="감정평가요항RawText" column="judgement_raw" />
+		<property name="부동산의현황" column="realty_report" />
+
+		<component name="감정평가서" class="사건감정평가서">
+			<property name="장소" column="judgement_location" type="text" />
+			<property name="용도" column="judgement_use" type="text" />
+			<property name="토지" column="judgement_land" type="text" />
+			<property name="도로" column="judgement_road" type="text" />
+			<property name="기타" column="judgement_temp" type="text" />
+		</component>
+
+		<bag name="당사자목록" table="ac_participant" cascade="all,delete-orphan"
+			lazy="false">
+			<key column="event_no" />
+			<one-to-many class="당사자" />
+		</bag>
+	
+		<bag name="부동산점유관계" table="ac_occupation" cascade="all,delete-orphan"
+			lazy="false">
+			<key column="event_no" />
+			<one-to-many class="점유관계" />
+		</bag>
+
+	</class>
+
+	<class name="당사자" table="ac_participant" lazy="false">
+		<id name="id" column="no" type="long">
+			<generator class="identity" />
+		</id>
+		
+		<property name="당사자명" column="name" />
+		<property name="당사자구분" column="relation" />
+	</class>
+	
+	<class name="점유관계" table="ac_occupation"  lazy="false">
+		<id name="id" column="no" type="long">
+			<generator class="identity" />
+		</id>
+		
+		<property name="소재지" column="addr" />
+		<property name="점유관계" column="occupation" />
+		<property name="기타" column="etc" />
+		
+	</class>
+	
+</hibernate-mapping>

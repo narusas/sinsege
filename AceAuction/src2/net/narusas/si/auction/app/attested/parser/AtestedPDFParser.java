@@ -116,7 +116,7 @@ public class AtestedPDFParser {
 	}
 
 	private String parse금액(String text) {
-		Matcher m = Pattern.compile("([\\d,\\s]+\\s*(원|엔))").matcher(text);
+		Matcher m = Pattern.compile("([\\d,\\s]+\\s*(원|엔|불))").matcher(text);
 		if (m.find()) {
 			return 금액Converter.convert(m.group(1));
 		}
@@ -505,7 +505,7 @@ public class AtestedPDFParser {
 			if (contain사람(detail)) {
 				change사람(detail, firstItem);
 			}
-			if (contain금액(detail)) {
+			if (금액Converter.contain금액(detail)) {
 				change금액(detail, firstItem);
 			}
 
@@ -524,28 +524,10 @@ public class AtestedPDFParser {
 			// }
 		}
 
-		final Pattern[] 금액종류 = new Pattern[] {// 
-		Pattern.compile("청\\s*구\\s*금\\s*액"),//
-				Pattern.compile("채\\s*권\\s*최\\s*고\\s*액"),//
-				Pattern.compile("전\\s*세\\s*금"),//
-				Pattern.compile("임\\s*차\\s*보\\s*증\\s*금"),//
-		};
-
-		private boolean contain금액(String str) {
-			if (str == null) {
-				return false;
-			}
-			for (Pattern type : 금액종류) {
-				if (type.matcher(str).find()) {
-					return true;
-				}
-			}
-			return false;
-		}
-
+		
 		private void change금액(String str, 등기부등본Item item) {
 			String temp = parse금액(str);
-			Pattern moneyPattern = Pattern.compile("(\\d+[엔]?)");
+			Pattern moneyPattern = Pattern.compile("(\\d+[엔|불]?)");
 			Matcher m = moneyPattern.matcher(temp);
 			if (m.find()) {
 				item.set금액(m.group(1));
