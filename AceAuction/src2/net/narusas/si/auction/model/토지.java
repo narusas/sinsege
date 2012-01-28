@@ -46,6 +46,9 @@ public class 토지 {
 	}
 
 	public String get면적() {
+		if (면적 != null){
+			면적 = 면적.replaceAll("㎡", "");
+		}
 		return 면적;
 	}
 

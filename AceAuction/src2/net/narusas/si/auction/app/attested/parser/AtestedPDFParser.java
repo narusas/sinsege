@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -31,12 +30,22 @@ public class AtestedPDFParser {
 
 	Collumn[] STAGE_3_COLS = new Collumn[] { //
 	new Collumn(70.0f, 110.0f, Align.Left),// 순위번
-			new Collumn(125.0f, 230.0f, Align.Left),// 등기목적
+			new Collumn(115.0f, 230.0f, Align.Left),// 등기목적
 			new Collumn(235.00f, 350.0f, Align.Left), // 접수정보
 
-			new Collumn(370.00f, 690.0f, Align.Left), // 주요등기사항
+			new Collumn(368.00f, 690.0f, Align.Left), // 주요등기사항
 			new Collumn(692.00f, Float.MAX_VALUE, Align.Right), // 대상소유자
 	};
+	
+	Collumn[] STAGE_4_COLS = STAGE_3_COLS; // 3번과 동일한 규격임 
+	//new Collumn[] { //
+//			new Collumn(70.0f, 110.0f, Align.Left),// 순위번호
+//					new Collumn(115.0f, 230.0f, Align.Left),// 등기목적
+//					new Collumn(235.00f, 350.0f, Align.Left), // 접수
+//
+//					new Collumn(370.00f, 690.0f, Align.Left), // 등기원인
+//					new Collumn(692.00f, Float.MAX_VALUE, Align.Right), // 권리자및 기타사항
+//			};
 
 	enum Align {
 		Left, Center, Right
@@ -52,17 +61,22 @@ public class AtestedPDFParser {
 		for (TextPosition t : temp) {
 			list.add(t.trim(FONT_WIDTH));
 		}
-		List<List<TextPosition>> stage2Cols = splitCollumsAtStage(list, 2, STAGE_2_COLS);
-		List<List<TextPosition>> stage3Cols = splitCollumsAtStage(list, 3, STAGE_3_COLS);
-		List<List<TextPosition>> stage4Cols = splitCollumsAtStage(list, 4, STAGE_3_COLS);
+		
+		for(TextPosition t: list){
+			System.out.println("=="+t.getText()+" X:"+t.getX()+" Y:"+t.getY()+" STG:"+t.getStage());
+		}
+		
+		List<List<TextPosition>> _1_소유지분현황_COLS = splitCollumsAtStage(list, 2, STAGE_2_COLS);
+		List<List<TextPosition>> _2_소유지분을제외한_소유권현황_COLS = splitCollumsAtStage(list, 3, STAGE_3_COLS);
+		List<List<TextPosition>> _3_저당권및전세권_COLS = splitCollumsAtStage(list, 4, STAGE_4_COLS);
 
 		List<등기부등본Item> items = new ArrayList<등기부등본Item>();
 
-		collectStage2Info(stage2Cols, items);
+		collectStage2Info(_1_소유지분현황_COLS, items);
 		boolean 예고등기무시 = false;
-		collectOtherStages(items, stage3Cols, 예고등기무시);
+		collectOtherStages(items, _2_소유지분을제외한_소유권현황_COLS, 예고등기무시);
 		예고등기무시 = true;
-		collectOtherStages(items, stage4Cols, 예고등기무시);
+		collectOtherStages(items, _3_저당권및전세권_COLS, 예고등기무시);
 
 		sort(items);
 		calc소멸기준(items);
@@ -263,14 +277,19 @@ public class AtestedPDFParser {
 				continue;
 			}
 
-			for (int pos = 0; pos < cols.length; pos++) {
-				if (cols[pos].contains(t)) {
-					res.get(pos).add(t);
-				}
-			}
+			putMatchColumn(cols, res, t);
 
 		}
 		return res;
+	}
+
+	private void putMatchColumn(Collumn[] cols, List<List<TextPosition>> res, TextPosition t) {
+		for (int pos = 0; pos < cols.length; pos++) {
+			if (cols[pos].contains(t)) {
+				res.get(pos).add(t);
+				break;
+			}
+		}
 	}
 
 	private List<List<TextPosition>> createCollumsTextPositionHolders(Collumn[] cols) {
@@ -375,7 +394,7 @@ public class AtestedPDFParser {
 		
 		System.out.println("-------------------------------------------");
 		for (TextPosition tp : list) {
-			System.out.println(":::"+tp.getText());
+			System.out.println(":::"+tp.getText() +" stg:"+tp.getStage());
 		}
 		System.out.println("-------------------------------------------");
 		return list;
@@ -452,18 +471,26 @@ public class AtestedPDFParser {
 			detailCol = bind수평(stageCol.get(3));
 			ownerCol = bind수평(stageCol.get(4));
 
-			System.out.println("###################");
+			System.out.println("################### typeCol START");
 			for (TextPosition textPosition : typeCol) {
 				System.out.println(textPosition);
 			}
-			System.out.println("###");
+			
+			System.out.println("################### dateCol START");
 			for (TextPosition textPosition : dateCol) {
 				System.out.println(textPosition);
 			}
-			System.out.println("###");
+			
+			System.out.println("################### detailCol START");
 			for (TextPosition textPosition : detailCol) {
 				System.out.println(textPosition);
 			}
+			
+			System.out.println("################### ownerCol START");
+			for (TextPosition textPosition : ownerCol) {
+				System.out.println(textPosition);
+			}
+			
 
 		}
 
@@ -472,17 +499,29 @@ public class AtestedPDFParser {
 			System.out.println(typeCol.size());
 			for (int row = 0; row < typeCol.size(); row++) {
 				TextPosition typeTP = typeCol.get(row);
+				remove괄호숫자(typeTP);
 				if (typeTP.getText().trim().startsWith("(")) {
 					continue;
 				}
 				float nextTPY = getNextTPAbsoluteY(typeCol, row);
-				parseAccept(typeTP);
+				parse접수(typeTP);
 				detail = parseDetail(typeTP, nextTPY);
-				owner = parseOwner(typeTP, nextTPY, detail);
+				owner = parse권리자(typeTP, nextTPY, detail);
 				등기부등본Item item = createItem(row, typeTP, detail);
 				items.add(item);
 			}
 			return items;
+		}
+
+		private void remove괄호숫자(TextPosition typeTP) {
+			
+			if (typeTP.getText() != null && typeTP.getText().trim().matches("\\(\\d+\\).*")){
+				Pattern p = Pattern.compile("\\(\\d+\\)(.*)");
+				Matcher m = p.matcher(typeTP.getText().trim());
+				if(m.find()) {
+					typeTP.setText(m.group(1));
+				}
+			}
 		}
 
 		private 등기부등본Item createItem(int row, TextPosition typeTP, String detail) {
@@ -591,7 +630,7 @@ public class AtestedPDFParser {
 //			}
 		}
 
-		private void parseAccept(TextPosition typeTP) {
+		private void parse접수(TextPosition typeTP) {
 			TextPosition dateTP = null;
 			// System.out.println(typeTP);
 
@@ -640,7 +679,7 @@ public class AtestedPDFParser {
 			return detail;
 		}
 
-		private String parseOwner(TextPosition typeTP, float nextTPY, String detail) {
+		private String parse권리자(TextPosition typeTP, float nextTPY, String detail) {
 			String owner = "";
 
 			while (true) {

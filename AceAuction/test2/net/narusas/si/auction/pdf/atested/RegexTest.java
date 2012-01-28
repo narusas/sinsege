@@ -19,4 +19,12 @@ public class RegexTest extends TestCase {
 		Matcher m = pattern.matcher(src);
 		assertTrue(m.find());
 	}
+	
+	public void test괄호숫자() {
+		String text = "(1)임의경매개시결정";
+		Pattern p = Pattern.compile("\\(\\d+\\)(.*)");
+		Matcher m = p.matcher(text);
+		assertTrue(m.find());
+		assertEquals("임의경매개시결정", m.group(1));
+	}
 }
