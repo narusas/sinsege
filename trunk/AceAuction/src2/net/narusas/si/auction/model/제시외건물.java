@@ -62,6 +62,9 @@ public class 제시외건물 {
 	}
 
 	public String get면적() {
+		if (면적 != null){
+			면적 = 면적.replaceAll("㎡", "");
+		}
 		return 면적;
 	}
 

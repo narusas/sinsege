@@ -89,6 +89,9 @@ public class 건물 {
 	}
 
 	public String get현황주소() {
+		if (현황주소 != null) {
+			현황주소= 현황주소.replaceAll("㎡","");
+		}
 		return 현황주소;
 	}
 

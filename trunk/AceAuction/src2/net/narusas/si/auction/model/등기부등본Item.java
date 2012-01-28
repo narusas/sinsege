@@ -102,6 +102,8 @@ public class 등기부등본Item {
 	}
 
 	public void set권리자(String value) {
+		value = value.replaceAll("\n", "").trim();
+		value = value.replaceAll("\\(주\\)", "").trim();
 		if (value.contains("(")) {
 			String temp = value.substring(0, value.indexOf("("));
 			this.권리자 = temp.replaceAll("\n", " ");//value.replaceAll("(\\([^\\)]+\\))", "");

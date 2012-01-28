@@ -73,6 +73,10 @@ public class TextPosition {
 		return text;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public float getWidth() {
 		return x2 - x;
 	}
