@@ -62,8 +62,17 @@ public class 주소 {
 	}
 
 	public final static Pattern slimAddrPattern = Pattern.compile("(\\S+[동리가] \\s*[산]*\\s*[\\d-]*)");
-
+	
+	// ex) 굴포로 157 
+	public final static Pattern slimAddrPattern2 = Pattern.compile("(.*[길로] \\d+)");
 	public String toSlimAddress() {
+		
+		
+		Matcher m1 = slimAddrPattern2.matcher(toString());
+		if (m1.find()){
+			return m1.group(1);
+		}
+		
 		Matcher m = slimAddrPattern.matcher(toString());
 		if (m.find()) {
 			return m.group(1);

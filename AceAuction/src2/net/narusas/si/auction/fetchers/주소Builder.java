@@ -3,6 +3,8 @@ package net.narusas.si.auction.fetchers;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.model.주소;
@@ -43,7 +45,7 @@ public class 주소Builder {
 		String target시도 = tokens[0];
 		String target시군구 = tokens[1];
 		String target읍면동 = tokens[2];
-
+		String target번지이하 = tokens[3];
 		지역Dao dao = (지역Dao) App.context.getBean("지역DAO");
 
 		// 최상위 지역 검색.
@@ -101,6 +103,13 @@ public class 주소Builder {
 		if (token.endsWith("군") || token.endsWith("구")) {
 			target시군구 = tokens[1] + " " + tokens[2];
 			target읍면동 = tokens[3];
+			target번지이하= tokens[4];
+		}
+		
+		Pattern 신규주소명_길번호_규칙 = Pattern.compile("(\\d+),?.*");
+		Matcher m1 = 신규주소명_길번호_규칙.matcher(target번지이하);
+		if (( target읍면동.endsWith("로") || target읍면동.endsWith("길") ) && m1.find()) {
+			target읍면동 = target읍면동 +" "+ m1.group(1);
 		}
 
 		System.out.println("## " + target시군구);
@@ -132,6 +141,9 @@ public class 주소Builder {
 
 		// 최하위 주소 분석.
 		String 번지이하 = 소재지.substring(소재지.indexOf(target읍면동) + target읍면동.length()).trim();
+		if (번지이하.startsWith(",")){
+			번지이하 = 번지이하.substring(1).trim();
+		}
 		logger.info("번지이하 :" + 번지이하);
 		addr.set번지이하(번지이하);
 
