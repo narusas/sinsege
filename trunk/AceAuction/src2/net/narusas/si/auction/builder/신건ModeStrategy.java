@@ -121,10 +121,13 @@ public class 신건ModeStrategy implements ModeStrategy {
 				update매각물건명세(new물건List, list);
 				사건.set부동산의현황(new 사건현황조사서Fetcher().parse부동산의현황(현황조사서RawText));
 				사건.set부동산점유관계(new 사건현황조사서Fetcher().parse부동산점유관계(현황조사서RawText));
+				사건.set임대차관계내역(new 사건현황조사서Fetcher().parse임대차관계내역(현황조사서RawText));
+				
 			}
 
 			try {
 				String[] 문건송달내역RawText = new 사건문건송달내역Fetcher().download(사건);
+				
 			} catch (Exception e) {
 				logger.info("사건의 문건 송달 내역을 정상적으로 처리하지 못했습니다. 대법원 사이트를 확인해주십시요");
 				e.printStackTrace();

@@ -35,10 +35,14 @@ public class 사건 {
 	private List<물건> 물건목록;
 	private Collection<당사자> 당사자목록;
 	private String 부동산의현황;
+	
+	private List<송달내역> 송달내역;
+	private List<문건처리내역> 문건처리내역;
 
 	private 사건종류 종류 = 사건종류.부동산; // 기본값을 부동산으로 함.
 	private boolean is신건;
 	private List<점유관계> 부동산점유관계;
+	private String 임대차관계내역;
 
 	// transient List<물건> workset;
 
@@ -439,5 +443,31 @@ public class 사건 {
 	public void set부동산점유관계(List<점유관계> 부동산점유관계) {
 		this.부동산점유관계 = 부동산점유관계;
 	}
+
+	public void set임대차관계내역(String 임대차관계내역) {
+		this.임대차관계내역 = 임대차관계내역;
+		
+	}
+
+	public String get임대차관계내역() {
+		return 임대차관계내역;
+	}
+
+	public List<송달내역> get송달내역() {
+		return 송달내역;
+	}
+
+	public void set송달내역(List<송달내역> 송달내역) {
+		this.송달내역 = 송달내역;
+	}
+
+	public List<문건처리내역> get문건처리내역() {
+		return 문건처리내역;
+	}
+
+	public void set문건처리내역(List<문건처리내역> 문건처리내역) {
+		this.문건처리내역 = 문건처리내역;
+	}
+	
 
 }

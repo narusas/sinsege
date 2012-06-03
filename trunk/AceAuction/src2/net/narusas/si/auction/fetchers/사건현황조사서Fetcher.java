@@ -13,6 +13,7 @@ import net.narusas.si.auction.model.사건;
 import net.narusas.si.auction.model.점유관계;
 import net.narusas.util.lang.NFile;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -112,4 +113,36 @@ public class 사건현황조사서Fetcher {
 		}
 		return res;
 	}
+	
+	String chunk임대차관계내역(String html) {
+		int pos = html.indexOf("<h3>임대차관계조사서</h3>");
+		String chunk = html.substring(pos, html.indexOf("</div>", pos));
+		return chunk;
+	}
+
+	public String parse임대차관계내역(String 현황조사서RawText) {
+		if (현황조사서RawText.contains("<h3>임대차관계조사서</h3>")==false){
+			return null;
+		}
+		String chunk = 현황조사서RawText.substring(현황조사서RawText.indexOf("<h3>임대차관계조사서</h3>"));
+		if (chunk.contains("<h4>2. 기타 </h4>") ==false){
+			return null;
+		}
+		chunk = chunk.substring(chunk.indexOf("<h4>2. 기타 </h4>")+"<h4>2. 기타 </h4>".length());
+		chunk = chunk.replaceAll("<[^>]+>", "");
+		chunk = chunk.replaceAll("\n\n", "\n");
+		chunk = chunk.replaceAll("\n\n", "\n");
+		chunk = chunk.replaceAll("\n\n", "\n");
+		chunk = chunk.replaceAll("\n\n", "\n");
+		String[] lines = chunk.split("\n");
+		for (int i=0;i<lines.length;i++) {
+			lines[i]  = lines[i].trim();
+			
+		}
+		chunk  = StringUtils.join(lines,"\n").trim();
+		
+		
+		return chunk;
+	}
+	
 }

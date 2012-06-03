@@ -45,7 +45,11 @@ public class 주소Builder {
 		String target시도 = tokens[0];
 		String target시군구 = tokens[1];
 		String target읍면동 = tokens[2];
-		String target번지이하 = tokens[3];
+		String target번지이하 ="";
+		if (tokens.length>=4){
+			target번지이하 = tokens[3];
+		}
+			
 		지역Dao dao = (지역Dao) App.context.getBean("지역DAO");
 
 		// 최상위 지역 검색.
