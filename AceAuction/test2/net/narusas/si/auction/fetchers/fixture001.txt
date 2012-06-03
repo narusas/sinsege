@@ -1,0 +1,58 @@
+
+	<div class="table_title">
+	  <h3>임대차관계조사서</h3>
+	</div>	
+	<div class="tbl_txt"><h4>1. 임차 목적물의 용도 및 임대차 계약등의 내용 </h4>
+	</div>
+
+	<table class="Ltbl_dt" summary="임차 목적물의 용도 및 임대차 계약등의 내용 표 ">
+	<caption>임차 목적물의 용도 및 임대차 계약등의 내용</caption>
+		
+		<tr>
+			<td colspan="5">[소재지] 2.
+		  						  인천광역시 부평구 십정동  305-25 
+			</td>
+		</tr>
+
+		<tr>
+			<td width="8%" rowspan="5" class="txtcenter">1</td>
+			<th width="15%" class="txtcenter">점유인</th>
+			<td width="31%">성명모름(성인용품점)</td>
+			<th width="15%" class="txtcenter">당사자구분</th>
+			<td width="31%">임차인</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">점유부분</th>
+			<td>1층 </td>
+			<th class="txtcenter">용도</th>
+			<td>
+			점포</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">점유기간</th>
+			<td colspan="3">미상</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">보증(전세)금</th>
+			<td>미상</td>
+			<th class="txtcenter">차임</th>
+			<td>30만원</td>
+		</tr>
+		<tr>
+			<th class="txtcenter">전입일자</th>
+			<td>미상</td>
+			<th class="txtcenter">확정일자</th>
+			<td>미상</td>
+		</tr>
+    </table>
+
+	<div class="tbl_txt">
+		<h4>2. 기타 </h4>
+		<ul>
+
+			<li style="background-image:none;">본건 조사서의 조사내용은 공유자 한상원의 진술과 전입세대열람에 의한 조사사항임.
+</li>
+
+			<li style="background-image:none;">본건 임대차계약에는 보증금이 있었으나 차임으로 모두 상계되고 현재는 차임도 미납 상태라고 함.  </li>
+
+		</ul>

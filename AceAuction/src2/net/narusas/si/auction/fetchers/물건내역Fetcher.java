@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import net.narusas.si.auction.converters.금액Converter;
 import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.물건인근매각통계Item;
+import net.narusas.si.auction.model.부동산표시;
 import net.narusas.si.auction.model.사건종류;
 import net.narusas.si.auction.model.주소;
 
@@ -133,10 +134,11 @@ public class 물건내역Fetcher {
 
 		while (m.find()) {
 			String no = m.group(1);
+			int 목록번호 =Integer.parseInt(no);
 			String 소재지 = HTMLUtils.strip(HTMLUtils.stripCRLF(HTMLUtils.findTHAndNextValueAsComplex(html, "목록" + no
 					+ " 소재지")));
-			logger.info("물건의 소재지는 " + 소재지 + " 입니다. ");
-
+			logger.info("목록 "+목록번호+"의 소재지는 " + 소재지 + " 입니다. ");
+			int start = 0 ;
 			if (소재지 != null && "".equals(소재지.trim()) == false) {
 				// 사건이 부동산일때만 주소를 처리하고, 선박,자동차,중장비등일경우 그냥 소재지만 입력하게 함.
 				if (goods.get사건().get종류() == 사건종류.부동산) {
@@ -144,14 +146,34 @@ public class 물건내역Fetcher {
 					if (goods.get소재지() == null || "".equals(goods.get소재지().trim())) {
 						update주소(goods, 주소);
 					}
-					goods.add부동산표시(Integer.parseInt(no), 주소);
+					
+					부동산표시 표시 = new 부동산표시();
+					표시.set목록번호(목록번호);
+					표시.set주소(주소);
+					start = html.indexOf("목록" + no+ " 소재지",start);
+					int end = html.indexOf("목록" + (목록번호+1)+ " 소재지", start);
+					end = end == -1 ? html.length()-1: end;
+					
+					String chunk = html.substring(start, end);
+					start = end;
+					
+					new 공시지가Fetcher().update(goods, 표시, chunk);
+					
+					goods.add부동산표시(표시);
+					
+					
+					
 				} else {
 					주소 addr = new 주소();
 					addr.set시도(goods.get법원().get지역());
 					goods.set지역_도(goods.get법원().get지역());
 					goods.set소재지(소재지);
 
-					goods.add부동산표시(Integer.parseInt(no), addr);
+					부동산표시 표시 = new 부동산표시();
+					표시.set목록번호(목록번호);
+					표시.set주소(addr);
+
+					goods.add부동산표시(표시);
 				}
 			}
 		}

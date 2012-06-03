@@ -18,10 +18,8 @@
 		<property name="eventNo" column="event_no" />
 		<property name="담당계Id" column="charge_id" />
 
-		<!--
-			<many-to-one name="담당계" class="담당계" column="charge_id"
-			not-null="false" />
-		-->
+		<!-- <many-to-one name="담당계" class="담당계" column="charge_id" not-null="false" 
+			/> -->
 
 		<many-to-one name="법원" class="법원" column="court_code" />
 
@@ -33,6 +31,7 @@
 		<property name="접수일자" column="accept_date" />
 		<property name="감정평가요항RawText" column="judgement_raw" />
 		<property name="부동산의현황" column="realty_report" />
+		<property name="임대차관계내역" column="rental_comment" />
 
 		<component name="감정평가서" class="사건감정평가서">
 			<property name="장소" column="judgement_location" type="text" />
@@ -47,11 +46,24 @@
 			<key column="event_no" />
 			<one-to-many class="당사자" />
 		</bag>
-	
+
 		<bag name="부동산점유관계" table="ac_occupation" cascade="all,delete-orphan"
 			lazy="false">
 			<key column="event_no" />
 			<one-to-many class="점유관계" />
+		</bag>
+		
+		
+		<bag name="문건처리내역" table="ac_document_history" cascade="all,delete-orphan"
+			lazy="false">
+			<key column="event_no" />
+			<one-to-many class="문건처리내역" />
+		</bag>
+		
+		<bag name="송달내역" table="ac_delivery_history" cascade="all,delete-orphan"
+			lazy="false">
+			<key column="event_no" />
+			<one-to-many class="송달내역" />
 		</bag>
 
 	</class>
@@ -60,20 +72,39 @@
 		<id name="id" column="no" type="long">
 			<generator class="identity" />
 		</id>
-		
+
 		<property name="당사자명" column="name" />
 		<property name="당사자구분" column="relation" />
 	</class>
-	
-	<class name="점유관계" table="ac_occupation"  lazy="false">
+
+	<class name="점유관계" table="ac_occupation" lazy="false">
 		<id name="id" column="no" type="long">
 			<generator class="identity" />
 		</id>
-		
+
 		<property name="소재지" column="addr" />
 		<property name="점유관계" column="occupation" />
 		<property name="기타" column="etc" />
-		
+
 	</class>
-	
+
+	<class name="문건처리내역" table="ac_document_histoty" lazy="false">
+		<id name="id" column="no" type="long">
+			<generator class="identity" />
+		</id>
+		<property name="접수일" column="accept_date" />
+		<property name="접수내역" column="detail" />
+		<property name="결과" column="result" />
+
+	</class>
+
+	<class name="송달내역" table="ac_delivery_histoty" lazy="false">
+		<id name="id" column="no" type="long">
+			<generator class="identity" />
+		</id>
+		<property name="송달일" column="delivery_date" />
+		<property name="송달내역" column="detail" />
+		<property name="송달결과" column="result" />
+
+	</class>
 </hibernate-mapping>
