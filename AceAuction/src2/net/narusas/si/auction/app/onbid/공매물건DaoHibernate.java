@@ -6,7 +6,6 @@ import net.narusas.si.auction.db.GenericDaoHibernate;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
-import org.hibernate.criterion.Restrictions;
 
 public class 공매물건DaoHibernate extends GenericDaoHibernate<공매물건, Long> implements 공매물건Dao {
 

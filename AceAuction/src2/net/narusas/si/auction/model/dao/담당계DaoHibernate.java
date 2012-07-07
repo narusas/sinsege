@@ -1,8 +1,6 @@
 package net.narusas.si.auction.model.dao;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import net.narusas.si.auction.db.GenericDaoHibernate;

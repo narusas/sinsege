@@ -1,12 +1,12 @@
 package net.narusas.si.auction.updater;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.model.법원;
 import net.narusas.si.auction.model.사건;
 import net.narusas.si.auction.model.dao.사건Dao;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class 사건Updater extends Thread {
 	final Logger logger = LoggerFactory.getLogger("auction");

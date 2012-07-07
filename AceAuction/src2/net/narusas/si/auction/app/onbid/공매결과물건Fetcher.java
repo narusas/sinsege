@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpException;
-
 import net.narusas.si.auction.fetchers.PageFetcher;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class 공매결과물건Fetcher {
 	public List<공매물건> fetch(공매결과일정 schedule) throws HttpException, IOException {

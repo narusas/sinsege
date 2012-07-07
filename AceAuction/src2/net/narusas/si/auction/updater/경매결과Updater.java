@@ -1,12 +1,10 @@
 package net.narusas.si.auction.updater;
 
-import java.awt.TextField;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import net.narusas.si.auction.app.App;
-import net.narusas.si.auction.fetchers.물건내역Fetcher;
 import net.narusas.si.auction.fetchers.사건기일내역Fetcher;
 import net.narusas.si.auction.fetchers.사건내역Fetcher;
 import net.narusas.si.auction.model.기일내역;

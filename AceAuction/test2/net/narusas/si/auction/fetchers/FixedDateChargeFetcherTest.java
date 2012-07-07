@@ -2,10 +2,10 @@ package net.narusas.si.auction.fetchers;
 
 import java.io.IOException;
 
-import org.apache.commons.httpclient.HttpException;
-
-import net.narusas.si.auction.model.법원;
 import junit.framework.TestCase;
+import net.narusas.si.auction.model.법원;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class FixedDateChargeFetcherTest extends TestCase {
 	public void testSample() throws HttpException, IOException, Exception {

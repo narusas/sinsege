@@ -3,11 +3,10 @@ package net.narusas.si.auction.app.ret;
 import java.io.IOException;
 import java.util.List;
 
+import junit.framework.TestCase;
 import net.narusas.si.auction.app.ret.AddressTool.Entity;
 
 import org.apache.commons.httpclient.HttpException;
-
-import junit.framework.TestCase;
 
 public class AddressToolTest extends TestCase {
 	public void testSimple() throws HttpException, IOException {

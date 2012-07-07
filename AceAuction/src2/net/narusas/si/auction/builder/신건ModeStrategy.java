@@ -17,7 +17,6 @@ import net.narusas.si.auction.fetchers.사건문건송달내역Fetcher;
 import net.narusas.si.auction.fetchers.사건부동산표시목록Fetcher;
 import net.narusas.si.auction.fetchers.사건임대차관계조사서Parser;
 import net.narusas.si.auction.fetchers.사건현황조사서Fetcher;
-import net.narusas.si.auction.fetchers.사진Collector;
 import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.매각물건명세서;
 import net.narusas.si.auction.model.물건;
@@ -31,7 +30,6 @@ import net.narusas.si.auction.pdf.gamjung.GamjungParser;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser.Group;
 import net.narusas.util.lang.NFile;
 
-import org.apache.commons.httpclient.HttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

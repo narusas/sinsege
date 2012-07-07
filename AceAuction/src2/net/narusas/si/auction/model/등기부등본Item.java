@@ -1,11 +1,8 @@
 package net.narusas.si.auction.model;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import net.narusas.si.auction.pdf.attested.TextPosition;
 
 public class 등기부등본Item {
 	Long id;

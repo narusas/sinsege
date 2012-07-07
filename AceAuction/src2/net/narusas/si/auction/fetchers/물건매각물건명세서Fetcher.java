@@ -144,9 +144,9 @@ public class 물건매각물건명세서Fetcher {
 	public 매각물건명세서비고 parse비고(String html) {
 		매각물건명세서비고 comment = new 매각물건명세서비고();
 		//                            &lt; 비고 &gt; &nbsp;<br />경복임(주민등록등재자) : 임차인 경복임은 임차인 박미라의 어머니임 
-		Matcher m2 = Pattern.compile("&lt; 비고 &gt; &nbsp;<br\\s*/>([^<]*)", Pattern.MULTILINE).matcher(html);
+		Matcher m2 = Pattern.compile("&lt; 비고 &gt; &nbsp;<br\\s*/>(.*)</td>", Pattern.MULTILINE).matcher(html);
 		if (m2.find()) {
-			comment.set비고(m2.group(1));
+			comment.set비고(m2.group(1).replaceAll("<br\\s*/>", "\n"));
 		}
 
 		m2 = Pattern.compile("<td>[^<]*효력이 소멸되지 아니하는 것[^<]*</td>\\s+</tr>\\s+<tr>\\s+<td [^>]+>([^<]*)",

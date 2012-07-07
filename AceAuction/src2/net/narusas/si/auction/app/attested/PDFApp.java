@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.app.Controller;

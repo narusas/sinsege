@@ -1,7 +1,5 @@
 package net.narusas.si.auction.fetchers;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;

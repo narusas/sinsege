@@ -2,12 +2,11 @@ package net.narusas.aceauction.fetchers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
+import junit.framework.TestCase;
 import net.narusas.si.auction.fetchers.사건기일내역Fetcher;
 import net.narusas.si.auction.model.사건;
 import net.narusas.util.lang.NFile;
-import junit.framework.TestCase;
 
 public class DateListFetcherTest extends TestCase {
 	public void testSome() throws IOException {

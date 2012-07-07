@@ -1,7 +1,9 @@
 package net.narusas.si.auction.fetchers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import junit.framework.TestCase;
-import java.util.regex.*;
 
 public class SagunStatusFetcherTest extends TestCase {
 	public void testRegx() {

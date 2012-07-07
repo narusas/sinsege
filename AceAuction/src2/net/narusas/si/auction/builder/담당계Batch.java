@@ -2,13 +2,13 @@ package net.narusas.si.auction.builder;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.narusas.si.auction.app.build.EventNotifier;
 import net.narusas.si.auction.fetchers.사건목록Fetcher;
 import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.사건;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class 담당계Batch {
 

@@ -1,6 +1,5 @@
 package net.narusas.si.auction.model;
 
-import java.util.Date;
 
 public class 기일 {
 	Long id;

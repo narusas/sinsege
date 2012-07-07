@@ -1,8 +1,5 @@
 package net.narusas.si.auction.fetchers;
 
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
-
 import junit.framework.TestCase;
 
 public class MessageFormatTest extends TestCase {

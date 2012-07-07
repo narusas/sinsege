@@ -2,7 +2,6 @@ package net.narusas.si.auction.fetchers;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +9,6 @@ import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.model.주소;
 import net.narusas.si.auction.model.지역;
 import net.narusas.si.auction.model.dao.지역Dao;
-import net.narusas.util.TextUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

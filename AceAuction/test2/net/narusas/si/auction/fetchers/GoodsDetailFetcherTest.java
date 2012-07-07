@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.narusas.util.lang.NFile;
 import junit.framework.TestCase;
+import net.narusas.util.lang.NFile;
 
 public class GoodsDetailFetcherTest extends TestCase {
 	private String html;

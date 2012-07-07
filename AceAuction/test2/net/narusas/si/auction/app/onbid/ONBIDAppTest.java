@@ -1,15 +1,13 @@
 package net.narusas.si.auction.app.onbid;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpException;
-
-import net.narusas.si.auction.fetchers.PageFetcher;
 import junit.framework.TestCase;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class ONBIDAppTest extends TestCase {
 	// public void testFetch() throws IOException {
