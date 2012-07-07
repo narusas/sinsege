@@ -3,7 +3,6 @@ package net.narusas.si.auction.model.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.db.GenericDaoHibernate;
 import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.물건;

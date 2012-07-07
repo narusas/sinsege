@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.narusas.util.lang.NFile;
-
 import junit.framework.TestCase;
+import net.narusas.util.lang.NFile;
 
 public class StringTest extends TestCase {
 	public void testUnicode() throws IOException {

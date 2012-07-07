@@ -6,7 +6,6 @@ import junit.framework.TestCase;
 import net.narusas.si.auction.model.건물현황;
 import net.narusas.si.auction.model.대지권현황;
 import net.narusas.si.auction.model.물건;
-import net.narusas.si.auction.model.주소;
 import net.narusas.util.lang.NFile;
 
 public class PresentListBuilderTest extends TestCase {
@@ -23,16 +22,16 @@ public class PresentListBuilderTest extends TestCase {
 		물건 goods = new 물건();
 		goods.set건물현황(new 건물현황());
 		goods.set대지권현황(new 대지권현황());
-		goods.add부동산표시(1, new 주소(){
-			@Override
-			public String toString() {
-				return "서울특별시 종로구 숭인동 1479";
-			}
-			 @Override
-			public String get번지이하() {
-				return "1479";
-			}
-		});
+//		goods.add부동산표시(1, new 주소(){
+//			@Override
+//			public String toString() {
+//				return "서울특별시 종로구 숭인동 1479";
+//			}
+//			 @Override
+//			public String get번지이하() {
+//				return "1479";
+//			}
+//		});
 //		부동산표시목록Builder.build(goods, 1, "", "1동의 건물의 표시\n"+
 //				"    서울특별시 종로구 숭인동 1479\n"+
 //				"    철근콘크리트 및 별돌조\n"+

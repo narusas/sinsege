@@ -2,16 +2,13 @@ package net.narusas.si.auction.fetchers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import net.narusas.si.auction.model.매각물건명세서;
-import net.narusas.si.auction.model.매각물건명세서비고;
-import net.narusas.util.lang.NFile;
-
 import junit.framework.TestCase;
+import net.narusas.si.auction.model.매각물건명세서;
+import net.narusas.util.lang.NFile;
 
 public class GoodSellReportFetcherTest extends TestCase {
 //	public void testParseNoRent() throws IOException {

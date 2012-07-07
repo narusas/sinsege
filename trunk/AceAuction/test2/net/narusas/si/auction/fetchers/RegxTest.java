@@ -4,10 +4,9 @@ import java.text.MessageFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import junit.framework.TestCase;
 import net.narusas.si.auction.converters.금액Converter;
 import net.narusas.si.auction.model.주소;
-
-import junit.framework.TestCase;
 
 public class RegxTest extends TestCase {
 	public void test지분() {

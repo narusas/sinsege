@@ -1,14 +1,12 @@
 package net.narusas.aceauction.fetchers;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.apache.commons.httpclient.HttpException;
-
-import net.narusas.si.auction.fetchers.PageFetcher;
 import junit.framework.TestCase;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class FetcherDownloaderTest extends TestCase {
 	public void testSimepl() throws HttpException, IOException {

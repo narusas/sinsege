@@ -2,11 +2,9 @@ package net.narusas.si.auction.fetchers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import net.narusas.util.lang.NFile;
 import junit.framework.TestCase;
+import net.narusas.util.lang.NFile;
 
 public class EventStatusReportFetcherTest extends TestCase {
 	public void test부동산의현황() throws IOException {

@@ -3,15 +3,12 @@ package net.narusas.si.auction.pdf.atested;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.jpedal.exception.PdfException;
 
 import junit.framework.TestCase;
-import net.narusas.si.auction.app.attested.parser.AtestedHTMLWriter;
 import net.narusas.si.auction.app.attested.parser.AtestedPDFParser;
 import net.narusas.si.auction.model.등기부등본Item;
+
+import org.jpedal.exception.PdfException;
 
 public class AtestedTest extends TestCase {
 

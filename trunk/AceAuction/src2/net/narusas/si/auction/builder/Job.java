@@ -5,9 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.fetchers.HTMLUtils;
 import net.narusas.si.auction.model.물건;
@@ -17,6 +14,9 @@ import net.narusas.si.auction.model.사건감정평가서;
 import net.narusas.si.auction.model.dao.사건Dao;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser;
 import net.narusas.si.auction.pdf.gamjung.GamjungParser.Group;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Job {
 	final Logger logger = LoggerFactory.getLogger("auction");

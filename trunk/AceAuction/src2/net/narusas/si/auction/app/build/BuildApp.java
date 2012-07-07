@@ -1,11 +1,8 @@
 package net.narusas.si.auction.app.build;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -17,11 +14,7 @@ import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.app.Controller;
 import net.narusas.si.auction.app.Initializer;
 import net.narusas.si.auction.app.LogConsoleThread;
-import net.narusas.si.auction.app.build.BuildController;
 import net.narusas.si.auction.builder.Mode;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.jeta.forms.components.panel.FormPanel;
 

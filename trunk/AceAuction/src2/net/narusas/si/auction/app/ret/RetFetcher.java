@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.narusas.si.auction.fetchers.PageFetcher;
+
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
-
-import net.narusas.si.auction.fetchers.PageFetcher;
 
 public class RetFetcher extends PageFetcher {
 

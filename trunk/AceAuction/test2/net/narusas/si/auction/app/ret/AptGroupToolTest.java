@@ -9,7 +9,6 @@ import junit.framework.TestCase;
 import net.narusas.si.auction.app.ret.AddressTool.Entity;
 import net.narusas.si.auction.model.단지;
 import net.narusas.si.auction.model.단지평형;
-import net.narusas.si.auction.model.단지평형시세추이;
 
 import org.apache.commons.httpclient.HttpException;
 

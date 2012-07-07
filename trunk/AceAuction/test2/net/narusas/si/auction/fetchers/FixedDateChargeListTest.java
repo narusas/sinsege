@@ -2,10 +2,9 @@ package net.narusas.si.auction.fetchers;
 
 import java.util.List;
 
+import junit.framework.TestCase;
 import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.법원;
-
-import junit.framework.TestCase;
 
 public class FixedDateChargeListTest extends TestCase {
 	// ///////////// 기일 입찰

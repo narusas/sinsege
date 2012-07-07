@@ -1,22 +1,9 @@
 package net.narusas.si.auction.db;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import junit.framework.TestCase;
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.fetchers.주소Builder;
-import net.narusas.si.auction.model.*;
-import net.narusas.si.auction.model.dao.담당계DaoHibernate;
-import net.narusas.si.auction.model.dao.당사자DaoHibernate;
-import net.narusas.si.auction.model.dao.등기부등본Dao;
-import net.narusas.si.auction.model.dao.물건Dao;
-import net.narusas.si.auction.model.dao.법원DaoHibernate;
-import net.narusas.si.auction.model.dao.사건DaoHibernate;
-import net.narusas.si.auction.model.dao.지역DaoHibernate;
+import net.narusas.si.auction.model.주소;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;

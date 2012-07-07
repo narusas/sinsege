@@ -5,9 +5,9 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpException;
-
 import net.narusas.si.auction.fetchers.PageFetcher;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class CivilianCenterFetcher {
 	public static void main(String[] args) {

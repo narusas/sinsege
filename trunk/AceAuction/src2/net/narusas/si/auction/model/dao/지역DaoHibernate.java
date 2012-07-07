@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.narusas.si.auction.db.GenericDaoHibernate;
+import net.narusas.si.auction.model.지역;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
-
-import net.narusas.si.auction.db.GenericDaoHibernate;
-import net.narusas.si.auction.model.지역;
 
 public class 지역DaoHibernate extends GenericDaoHibernate<지역, Integer> implements 지역Dao {
 

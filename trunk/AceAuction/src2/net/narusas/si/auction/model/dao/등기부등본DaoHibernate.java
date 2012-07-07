@@ -4,13 +4,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
-
 import net.narusas.si.auction.db.GenericDaoHibernate;
-import net.narusas.si.auction.model.기일;
 import net.narusas.si.auction.model.등기부등본;
 import net.narusas.si.auction.model.물건;
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 public class 등기부등본DaoHibernate extends GenericDaoHibernate<등기부등본, Long> implements 등기부등본Dao {
 

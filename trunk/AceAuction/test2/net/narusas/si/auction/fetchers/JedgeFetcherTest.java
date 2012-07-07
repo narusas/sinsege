@@ -1,17 +1,12 @@
 package net.narusas.si.auction.fetchers;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.httpclient.HttpException;
 
 public class JedgeFetcherTest extends TestCase {
 	public void testRegx() {

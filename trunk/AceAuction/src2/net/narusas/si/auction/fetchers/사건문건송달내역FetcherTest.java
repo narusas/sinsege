@@ -7,11 +7,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import junit.framework.TestCase;
 import net.narusas.si.auction.model.문건처리내역;
 import net.narusas.si.auction.model.송달내역;
-
 import biz.evot.util.lang.NFile;
-import junit.framework.TestCase;
 
 public class 사건문건송달내역FetcherTest extends TestCase {
 	public void test문건내역() throws IOException {

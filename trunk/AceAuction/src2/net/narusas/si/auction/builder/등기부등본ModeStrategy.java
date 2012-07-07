@@ -2,15 +2,8 @@ package net.narusas.si.auction.builder;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.List;
-
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.fetchers.스피드옥션Fetcher;
@@ -23,6 +16,10 @@ import net.narusas.si.auction.model.사건;
 import net.narusas.si.auction.model.dao.등기부등본Dao;
 import net.narusas.si.auction.model.dao.물건Dao;
 import net.narusas.si.auction.model.dao.사건Dao;
+
+import org.apache.commons.httpclient.HttpException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class 등기부등본ModeStrategy implements ModeStrategy {
 	final Logger logger = LoggerFactory.getLogger("auction");

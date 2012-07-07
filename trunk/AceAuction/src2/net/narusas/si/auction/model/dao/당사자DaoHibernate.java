@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.narusas.si.auction.db.GenericDaoHibernate;
-import net.narusas.si.auction.model.기일;
 import net.narusas.si.auction.model.당사자;
-import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.사건;
 
 import org.hibernate.HibernateException;

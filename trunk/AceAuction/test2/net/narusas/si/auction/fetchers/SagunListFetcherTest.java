@@ -2,13 +2,8 @@ package net.narusas.si.auction.fetchers;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.MessageFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 import net.narusas.si.auction.model.담당계;

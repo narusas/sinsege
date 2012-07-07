@@ -8,11 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
-import net.narusas.si.auction.model.사건;
 import net.narusas.si.auction.model.당사자;
-import net.narusas.si.auction.model.물건;
-import net.narusas.si.auction.model.배당요구종기내역;
-import net.narusas.si.auction.model.배당요구종기내역Item;
+import net.narusas.si.auction.model.사건;
 import net.narusas.util.lang.NFile;
 
 public class Sagun_DetailFetcherTest extends TestCase {
