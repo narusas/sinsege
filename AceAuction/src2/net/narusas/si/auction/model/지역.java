@@ -1,10 +1,11 @@
 package net.narusas.si.auction.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class 지역 {
+public class 지역 implements Serializable {
 
 	public static Collection<지역> 최상위지역;
 	public static List<지역> all;

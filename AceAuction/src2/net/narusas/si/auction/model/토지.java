@@ -11,12 +11,12 @@ public class 토지 {
 
 	Long id;
 	private Integer 목록번호;
+	private String 공시지가;
 
-	public 토지() {
-	}
 
-	public 토지(물건 물건, String 주소, String 목족, String 면적, String 매각지분) {
+	public 토지(물건 물건, String 주소, String 목족, String 면적, String 매각지분, String 공시지가) {
 		this.물건 = 물건;
+		this.공시지가 = 공시지가;
 		목록번호 = 물건.get물건번호();
 		this.주소 = 주소;
 		this.목적 = 목족;
@@ -100,5 +100,14 @@ public class 토지 {
 	public void set목적2(String 목적2) {
 		this.목적2 = 목적2;
 	}
+
+	public String get공시지가() {
+		return 공시지가;
+	}
+
+	public void set공시지가(String 공시지가) {
+		this.공시지가 = 공시지가;
+	}
+	
 
 }

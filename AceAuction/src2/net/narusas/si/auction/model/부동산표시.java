@@ -22,6 +22,7 @@ public class 부동산표시 {
 	private boolean 대지권소유여부;
 	private 대지권 대지권;
 	private Collection<제시외건물> 제시외건물목록;
+	private String 공시지가;
 
 	public int get목록번호() {
 		return 목록번호;
@@ -146,5 +147,14 @@ public class 부동산표시 {
 	public void set제시외건물목록(Collection<제시외건물> 제시외건물목록) {
 		this.제시외건물목록 = 제시외건물목록;
 	}
+
+	public String get공시지가() {
+		return 공시지가;
+	}
+
+	public void set공시지가(String 공시지가) {
+		this.공시지가 = 공시지가;
+	}
+	
 
 }

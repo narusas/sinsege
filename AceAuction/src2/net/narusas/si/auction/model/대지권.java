@@ -6,6 +6,7 @@ public class 대지권 {
 	Integer 목록번호;
 	String 주소, 지분비율, 면적, 매각지분비고, 건물번호;
 	Long 가격;
+	private String 공시지가;
 
 	public Long getId() {
 		return id;
@@ -77,6 +78,15 @@ public class 대지권 {
 
 	public void set건물번호(String 건물번호) {
 		this.건물번호 = 건물번호;
+	}
+
+	public void set공시지가(String 공시지가) {
+		this.공시지가 = 공시지가;
+		
+	}
+
+	public String get공시지가() {
+		return 공시지가;
 	}
 
 }
