@@ -165,7 +165,7 @@ public class 부동산표시목록Builder {
 
 	private void handle대지권(물건 goods, int 목록번호, String 상세내역, 부동산표시 표시, String chunk) {
 		try {
-			대지권 대지권 = 대지권Parser.parse(goods, chunk, 표시.get주소().toSlimAddress(), 표시.get매각지분(), 상세내역);
+			대지권 대지권 = 대지권Parser.parse(goods, chunk, 표시.get주소().toSlimAddress(), 표시.get매각지분(), 상세내역, 표시.get공시지가());
 			대지권.set목록번호(목록번호);
 			표시.set대지권(대지권);
 		} catch (Exception ex) {
@@ -311,7 +311,7 @@ public class 부동산표시목록Builder {
 		String use = 부동산표시TypeMatcher.matchStart토지(상세내역);
 		String area = parse대지면적(상세내역);
 		String 매각지분 = parse지분(표시.get매각지분());
-		토지 st = new 토지(goods, address, use, area, 매각지분);
+		토지 st = new 토지(goods, address, use, area, 매각지분, 표시.get공시지가());
 
 		return st;
 	}

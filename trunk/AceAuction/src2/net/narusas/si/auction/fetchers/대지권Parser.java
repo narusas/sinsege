@@ -13,7 +13,7 @@ import net.narusas.si.auction.model.대지권;
 import net.narusas.si.auction.model.물건;
 
 public class 대지권Parser {
-	public static 대지권 parse(물건 물건, String chunk, String 주소, String 매각지분, String 상세내역) {
+	public static 대지권 parse(물건 물건, String chunk, String 주소, String 매각지분, String 상세내역, String 공시지가) {
 		List<대지권Item> items = parse(chunk);
 		String 현황주소 = 현황주소Converter.convert(주소);
 		String 지분비율 = getRatioString(items);
@@ -28,6 +28,7 @@ public class 대지권Parser {
 		대지권.set면적(면적);
 		대지권.set매각지분비고(매각지분비고);
 		대지권.set건물번호(건물번호);
+		대지권.set공시지가(공시지가);
 		return 대지권;
 	}
 

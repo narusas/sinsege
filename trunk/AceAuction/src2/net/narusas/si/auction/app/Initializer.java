@@ -1,6 +1,12 @@
 package net.narusas.si.auction.app;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+@SuppressWarnings("unchecked")
 public class Initializer {
 	final Logger logger = LoggerFactory.getLogger("auction");
 
@@ -49,8 +56,41 @@ public class Initializer {
 
 	protected void load법원목록() {
 		logger.info("법원 목록을 가져옵니다.");
-		법원.법원목록 = ((법원DaoHibernate) App.context.getBean("법원DAO")).getAll("order");
+		if (System.getProperty("useCoutCache") == null) {
+			법원.법원목록 = ((법원DaoHibernate) App.context.getBean("법원DAO")).getAll("order");
+			saveCache(법원.법원목록);
+		} else {
+			법원.법원목록 = loadCache();
+		}
+
 		logger.info("가져온 법원목록 " + 법원.법원목록.toString());
+	}
+
+	private List<법원> loadCache() {
+		File f = new File("courtList.cache");
+		try {
+			ObjectInputStream oin = new ObjectInputStream(new FileInputStream(f));
+			List<법원> res = (List<법원>) oin.readObject();
+			oin.close();
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new IllegalStateException(e);
+		}
+	}
+
+	private void saveCache(List<법원> 법원목록) {
+		try {
+			File f = new File("courtList.cache");
+			ObjectOutputStream oout = new ObjectOutputStream(new FileOutputStream(f));
+			oout.writeObject(법원목록);
+			oout.flush();
+			oout.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void init기일입찰() throws HttpException, IOException, Exception {
@@ -63,7 +103,7 @@ public class Initializer {
 			for (담당계 담당계 : temp) {
 				res.add(validate(담당계));
 			}
-			logger.info("가져온 기일찰목록 "+court.get법원명() + res);
+			logger.info("가져온 기일찰목록 " + court.get법원명() + res);
 			court.add담당계목록(res);
 		}
 	}
@@ -71,12 +111,12 @@ public class Initializer {
 	protected void init기간입찰() throws IOException, Exception {
 		logger.info("기간입찰 목록을 가져옵니다");
 		기간입찰목록Fetcher fetcher = new 기간입찰목록Fetcher();
-//		{
-//			@Override
-//			public String fetchPage() throws IOException {
-//				return NFile.getText(new File("fixture2/004_기간별검색.html"), "euc-kr");
-//			}
-//		};
+		// {
+		// @Override
+		// public String fetchPage() throws IOException {
+		// return NFile.getText(new File("fixture2/004_기간별검색.html"), "euc-kr");
+		// }
+		// };
 		List<담당계> temp = fetcher.fetch();
 		logger.info("가져온 기간입찰 목록 " + temp);
 
@@ -95,7 +135,7 @@ public class Initializer {
 			담당계dao.saveOrUpdate(temp);
 			return temp;
 		}
-		
+
 		charge.set소속법원(court);
 		담당계dao.save(charge);
 		return charge;

@@ -210,6 +210,7 @@
 		<property name="목적" column="use_for" />
 		<property name="목적2" column="use_for2" />
 		<property name="매각지분" column="sell_comment" />
+		<property name="공시지가" column="public_price" />
 	</class>
 
 	<class name="대지권" table="ac_land_right_statement">
@@ -225,7 +226,7 @@
 		<property name="면적" column="area" />
 		<property name="가격" column="price" />
 		<property name="매각지분비고" column="sell_comment" />
-
+		<property name="공시지가" column="public_price" />	
 	</class>
 
 	<class name="제시외건물" table="ac_exclusion">

@@ -147,19 +147,22 @@ public class 물건내역Fetcher {
 						update주소(goods, 주소);
 					}
 					
-					부동산표시 표시 = new 부동산표시();
-					표시.set목록번호(목록번호);
-					표시.set주소(주소);
 					start = html.indexOf("목록" + no+ " 소재지",start);
 					int end = html.indexOf("목록" + (목록번호+1)+ " 소재지", start);
 					end = end == -1 ? html.length()-1: end;
 					
 					String chunk = html.substring(start, end);
-					start = end;
+					start = end; 
 					
-					new 공시지가Fetcher().update(goods, 표시, chunk);
-					
-					goods.add부동산표시(표시);
+					String 공시지가 = fetch공시지가(chunk, goods);
+					goods.add부동산표시(Integer.parseInt(no), 주소, 공시지가);
+//										
+//					부동산표시 표시 = new 부동산표시();
+//					표시.set목록번호(목록번호);
+//					표시.set주소(주소);
+//					표시.set공시지가(공시지가);
+//					new 공시지가Fetcher().update(goods, 표시, chunk);	
+//					goods.add부동산표시(표시);
 					
 					
 					
@@ -178,6 +181,17 @@ public class 물건내역Fetcher {
 			}
 		}
 	}
+	
+	private String fetch공시지가(String html, 물건 goods) {
+		try {
+			return new 공시지가Fetcher().fill공시지가(goods).from물건내역HTML(html).공시지가();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
 
 	private void update주소(물건 goods, 주소 addr) {
 

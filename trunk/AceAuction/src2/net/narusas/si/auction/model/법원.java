@@ -1,9 +1,10 @@
 package net.narusas.si.auction.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class 법원 {
+public class 법원 implements Serializable {
 
 	// 법원목록이 static인 이유는 각 법원이 담당계 workset을 메모리상에 유지해야 하기 때문이다.
 
@@ -22,7 +23,7 @@ public class 법원 {
 	private Integer order;
 
 	// 실제 DB에 있는 모든 담당계를 포함하는게 아니고, 대법원 사이트에 현재 게재된 작업용 목ㄹㅗㄱ 이다.
-	private List<담당계> workSet;
+	transient private List<담당계> workSet;
 
 	public static 법원 findByName(String courtName) {
 		if (법원목록 == null) {

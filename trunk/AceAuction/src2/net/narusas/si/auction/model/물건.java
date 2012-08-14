@@ -378,6 +378,23 @@ public class 물건 {
 		}
 		부동산표시목록.add(_표시);
 	}
+	
+	public void add부동산표시(int no, 주소 주소, String 공시지가) {
+		if (부동산표시목록 == null) {
+			부동산표시목록 = new LinkedList<부동산표시>();
+		}
+		for (부동산표시 표시 : 부동산표시목록) {
+			if (no == 표시.get목록번호()) {
+				return;
+			}
+		}
+		부동산표시 표시 = new 부동산표시();
+		표시.set목록번호(no);
+		표시.set주소(주소);
+		표시.set공시지가(공시지가);
+		부동산표시목록.add(표시);
+	}
+
 
 	public Collection<부동산표시> get부동산표시목록() {
 		return 부동산표시목록;
