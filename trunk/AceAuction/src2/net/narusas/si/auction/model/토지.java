@@ -14,6 +14,9 @@ public class 토지 {
 	private String 공시지가;
 
 
+	public 토지() {
+		
+	}
 	public 토지(물건 물건, String 주소, String 목족, String 면적, String 매각지분, String 공시지가) {
 		this.물건 = 물건;
 		this.공시지가 = 공시지가;
