@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -75,6 +76,7 @@ public class UpdateApp extends BuildApp {
 				(JTextField) controlPanel.getComponentByName("endDay")//
 
 				);
+		((UpdateController) controller).set종류Combo((JComboBox) controlPanel.getComponentByName("typeCombo"));
 
 		((UpdateController) controller).setDoneCheckbox((JCheckBox) controlPanel.getComponentByName("doneCheckbox"));
 

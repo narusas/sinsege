@@ -1,6 +1,7 @@
 package net.narusas.si.auction.updater;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,15 +21,21 @@ public class 경매결과Updater {
 	final Logger logger = LoggerFactory.getLogger("auction");
 	private 사건 사건;
 	private final boolean useDone;
+	private String 결과종류;
+	private Date 시작일;
+	private Date 종료일;
 
-	public 경매결과Updater(사건 사건, boolean useDone) {
+	public 경매결과Updater(사건 사건, boolean useDone, String 결과종류, Date 시작일, Date 종료일) {
 		this.사건 = 사건;
 		this.useDone = useDone;
+		this.결과종류 = 결과종류;
+		this.시작일 = 시작일;
+		this.종료일 = 종료일;
 	}
 
 	public void execute() {
 		물건Dao 물건dao = (물건Dao) App.context.getBean("물건DAO");
-		List<물건> goodsList = 물건dao.get(사건);
+		List<물건> goodsList = 물건dao.get(사건, 시작일, 종료일, 결과종류);
 		if (goodsList == null) {
 			return;
 		}

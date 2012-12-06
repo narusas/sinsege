@@ -103,6 +103,8 @@ public class BuildApp extends App {
 		c.set단일실행Button((JButton) controlPanel.getComponentByName("doSIngleEventBtn"));
 		c.set단일사건TextField((JTextField) controlPanel.getComponentByName("singleEventYearTextField"),
 				(JTextField) controlPanel.getComponentByName("singleEventNoTextField"));
+		c.set여기부터TextField((JTextField) controlPanel.getComponentByName("filterEventYearTextField"),
+				(JTextField) controlPanel.getComponentByName("filterEventNoTextField"));
 
 		c.set신건RadioBtn((JRadioButton) controlPanel.getComponentByName("newbieBtn"));
 		c.set매각물건명세서RadioBtn((JRadioButton) controlPanel.getComponentByName("goodsStatementBtn"));

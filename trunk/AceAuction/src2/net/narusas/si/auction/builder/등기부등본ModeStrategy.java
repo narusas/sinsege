@@ -31,7 +31,7 @@ public class 등기부등본ModeStrategy implements ModeStrategy {
 	}
 
 	@Override
-	public void execute() {
+	public boolean execute() {
 		logger.info("사건 (" + 사건 + " )의 등기부등본 처리를 시작합니다");
 		try {
 			사건Dao eventDao = (사건Dao) App.context.getBean("사건DAO");
@@ -42,7 +42,7 @@ public class 등기부등본ModeStrategy implements ModeStrategy {
 			List<물건> goodsList = dao.get(event);
 			if (goodsList == null || goodsList.size() == 0) {
 				logger.info("사건에 해당하는 물건이 DB에 입력되어있지 않습니다");
-				return;
+				return false;
 			}
 			법원 법원 = 사건.get법원();
 			for (물건 물건 : goodsList) {
@@ -69,6 +69,7 @@ public class 등기부등본ModeStrategy implements ModeStrategy {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	private void update등기부등본(물건 물건, 등기부등본Links links) throws Exception {

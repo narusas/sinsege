@@ -27,18 +27,18 @@ public class 매각물건명세서ModeStrategy implements ModeStrategy {
 	}
 
 	@Override
-	public void execute() {
+	public boolean execute() {
 		사건Dao 사건dao = (사건Dao) App.context.getBean("사건DAO");
 		사건 = 사건dao.find(사건.get법원(), 사건.get사건번호());
 		if (사건 == null) {
 			logger.info("신건처리되지 않은 사건입니다.");
-			return;
+			return false;
 		}
 		물건Dao dao = (물건Dao) App.context.getBean("물건DAO");
 		매각물건명세서Dao dao2 = (매각물건명세서Dao) App.context.getBean("매각물건명세서DAO");
 		List<물건> goodsList = dao.get(사건);
 		if (goodsList == null) {
-			return;
+			return false;
 		}
 		for (물건 물건 : goodsList) {
 			if (물건.is완료여부() == true) {
@@ -100,6 +100,7 @@ public class 매각물건명세서ModeStrategy implements ModeStrategy {
 				e.printStackTrace();
 			}
 		}
+		return false;
 	}
 
 	private void save(String html, 물건 물건) {
