@@ -21,12 +21,14 @@ public class 법원Updater extends Thread {
 	private final Date end;
 	static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
 	private final boolean useDone;
+	private String 결과종류;
 
-	public 법원Updater(법원 법원, Date start, Date end, boolean useDone) {
+	public 법원Updater(법원 법원, Date start, Date end, boolean useDone, String 결과종류) {
 		this.법원 = 법원;
 		this.start = start;
 		this.end = end;
 		this.useDone = useDone;
+		this.결과종류 = 결과종류;
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class 법원Updater extends Thread {
 			List<사건> 사건List = 사건dao.findBy(담당계);
 			for (사건 사건 : 사건List) {
 				try {
-					new 경매결과Updater(사건, useDone).execute();
+					new 경매결과Updater(사건, useDone, 결과종류, start, end).execute();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

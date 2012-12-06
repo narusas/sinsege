@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 import java.text.MessageFormat;
 import java.util.Date;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import net.narusas.si.auction.app.build.BuildController;
@@ -23,6 +25,7 @@ public class UpdateController extends  BuildController {
 	private JTextField endMonth;
 	private JTextField endDay;
 	private JCheckBox doneCheckbox;
+	private JComboBox typeCombo;
 
 	public void enableControl(boolean b) {
 		super.enableControl(b);
@@ -107,7 +110,7 @@ public class UpdateController extends  BuildController {
 				for (Object obj : values) {
 
 					try {
-						new 법원Updater((법원) obj, start, end, doneCheckbox.isSelected()).run();
+						new 법원Updater((법원) obj, start, end, doneCheckbox.isSelected(), getType()).run();
 					} catch (Exception e) {
 					}
 				}
@@ -133,7 +136,11 @@ public class UpdateController extends  BuildController {
 
 		final long 사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}", eventYearValue,
 				eventNoValue));
-		new 사건Updater(court, 사건번호, doneCheckbox.isSelected()).start();
+		new 사건Updater(court, 사건번호, doneCheckbox.isSelected(), getType()).start();
+	}
+	
+	String getType() {
+		return (String) typeCombo.getSelectedItem();
 	}
 
 	public void setDoneCheckbox(JCheckBox doneCheckbox) {
@@ -141,4 +148,10 @@ public class UpdateController extends  BuildController {
 		doneCheckbox.setSelected(true);
 
 	}
+	
+	public void set종류Combo(JComboBox typeCombo) {
+		this.typeCombo = typeCombo;
+		typeCombo.setModel(new DefaultComboBoxModel(new Object[]{"전체", "유찰","변경"}));
+	}
+
 }

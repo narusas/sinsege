@@ -9,7 +9,9 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -47,6 +49,8 @@ public class BuildController implements Controller{
 	protected JRadioButton 매각물건명세서RadioBtn;
 	protected JRadioButton 경매결과RadioBtn;
 	private JRadioButton 등기부등본RadioBtn;
+	private JTextField 여기부터YearFilter;
+	private JTextField 여기부터NoFilter;
 
 	public void set법원List(JList list) {
 		this.법원List = list;
@@ -131,7 +135,8 @@ public class BuildController implements Controller{
 				if (values.length == 0) {
 					return;
 				}
-
+				
+								
 				final List<담당계> workset = new LinkedList<담당계>();
 				synchronized (a담당계ListModel) {
 					for (Object object : values) {
@@ -142,7 +147,20 @@ public class BuildController implements Controller{
 				new Thread() {
 					@Override
 					public void run() {
-						new 담당계목록Batch(workset).execute();
+						String eventYear = 여기부터YearFilter.getText();
+						String eventNo = 여기부터NoFilter.getText();
+						if (eventNo == null || "".equals(eventNo.trim()) || eventYear == null || "".equals(eventYear.trim())) {
+							new 담당계목록Batch(workset ).execute();
+							return;
+						}
+						int eventYearValue = Integer.parseInt(eventYear);
+						int eventNoValue = Integer.parseInt(eventNo);
+
+						final long 여기부터사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}",
+								eventYearValue, eventNoValue));
+
+						
+						new 담당계목록Batch(workset, 여기부터사건번호 ).execute();
 					}
 				}.start();
 
@@ -185,7 +203,11 @@ public class BuildController implements Controller{
 	public void set단일사건TextField(JTextField yearField, JTextField noField) {
 		단일사건YearTextField = yearField;
 		단일사건NoTextField = noField;
-
+	}
+	public void set여기부터TextField(JTextField 여기부터YearFilter, JTextField 여기부터NoFilter) {
+		this.여기부터YearFilter = 여기부터YearFilter;
+		this.여기부터NoFilter = 여기부터NoFilter;
+		
 	}
 
 	public void enableControl(boolean b) {
@@ -253,5 +275,8 @@ public class BuildController implements Controller{
 		});
 	}
 
+	
+
+	
 
 }

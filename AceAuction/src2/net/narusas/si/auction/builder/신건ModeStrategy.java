@@ -96,12 +96,12 @@ public class 신건ModeStrategy implements ModeStrategy {
 
 	}
 
-	public void execute() {
+	public boolean execute() {
 		logger.info(사건.get사건번호() + " 작업을 시작합니다");
 		사건내역Fetcher f1 = new 사건내역Fetcher();
 		try {
 			if (f1.update(사건) == false) { // 사건이 자동차, 선박이면 무시.
-				return;
+				return false;
 			}
 			사건 old = validate(사건);
 			List<물건> new물건List = 사건.get물건목록();
@@ -120,12 +120,12 @@ public class 신건ModeStrategy implements ModeStrategy {
 				사건.set부동산의현황(new 사건현황조사서Fetcher().parse부동산의현황(현황조사서RawText));
 				사건.set부동산점유관계(new 사건현황조사서Fetcher().parse부동산점유관계(현황조사서RawText));
 				사건.set임대차관계내역(new 사건현황조사서Fetcher().parse임대차관계내역(현황조사서RawText));
-				
+
 			}
 
 			try {
 				String[] 문건송달내역RawText = new 사건문건송달내역Fetcher().download(사건);
-				
+
 			} catch (Exception e) {
 				logger.info("사건의 문건 송달 내역을 정상적으로 처리하지 못했습니다. 대법원 사이트를 확인해주십시요");
 				e.printStackTrace();
@@ -156,6 +156,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 		}
 
 		// EventNotifier.end사건();
+		return false;
 	}
 
 	private void update매각물건명세(List<물건> get물건목록, Map<Integer, Collection<매각물건명세서>> list) {

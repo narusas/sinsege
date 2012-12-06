@@ -13,12 +13,14 @@ public class 사건Updater extends Thread {
 	private final long 사건번호;
 	private final 법원 법원;
 	private final boolean useDone;
+	private String 종류선택;
 
-	public 사건Updater(법원 법원, long 사건번호, boolean useDone) {
+	public 사건Updater(법원 법원, long 사건번호, boolean useDone, String 종류선택) {
 		super();
 		this.법원 = 법원;
 		this.사건번호 = 사건번호;
 		this.useDone = useDone;
+		this.종류선택 = 종류선택;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class 사건Updater extends Thread {
 		if (old == null) {
 			logger.info("해당 사건이 DB에 입력되어 있지 않습나다");
 		}
-		new 경매결과Updater(old, useDone).execute();
+		new 경매결과Updater(old, useDone, 종류선택, null, null).execute();
 	}
 
 }
