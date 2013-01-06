@@ -24,6 +24,7 @@ public class 사건기일내역Fetcher {
 	public String fetch(사건 event) throws IOException {
 		String query = MessageFormat.format("/RetrieveRealEstSaDetailInqGiilList.laf"
 				+ "?jiwonNm={0}&saNo={1}&srnID=PNO102018&_SRCH_SRNID=PNO102005", //
+				
 				HTMLUtils.encodeUrl(event.get법원().get법원명()),//
 				String.valueOf(event.get사건번호()));
 		return 대법원Fetcher.getInstance().fetch(query);

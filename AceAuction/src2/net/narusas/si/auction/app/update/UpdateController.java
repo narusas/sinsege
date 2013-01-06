@@ -110,7 +110,7 @@ public class UpdateController extends  BuildController {
 				for (Object obj : values) {
 
 					try {
-						new 법원Updater((법원) obj, start, end, doneCheckbox.isSelected(), getType()).run();
+						new 법원Updater((법원) obj, start, end, doneCheckbox.isSelected(), getType(), false).run();
 					} catch (Exception e) {
 					}
 				}

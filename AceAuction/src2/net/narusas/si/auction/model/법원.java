@@ -15,6 +15,7 @@ public class 법원 implements Serializable {
 	private String 법원명;
 
 	private String 스피드옥션_법원코드;
+	private Integer 경매공매_법원코드;
 
 	private 법원 상위법원;
 
@@ -107,6 +108,14 @@ public class 법원 implements Serializable {
 
 	public void setOrder(Integer order) {
 		this.order = order;
+	}
+
+	public Integer get경매공매_법원코드() {
+		return 경매공매_법원코드;
+	}
+
+	public void set경매공매_법원코드(Integer 경매공매_법원코드) {
+		this.경매공매_법원코드 = 경매공매_법원코드;
 	}
 
 }

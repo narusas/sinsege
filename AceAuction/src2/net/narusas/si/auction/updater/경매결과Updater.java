@@ -24,19 +24,23 @@ public class 경매결과Updater {
 	private String 결과종류;
 	private Date 시작일;
 	private Date 종료일;
+	private boolean 완료물건_진행여부;
 
-	public 경매결과Updater(사건 사건, boolean useDone, String 결과종류, Date 시작일, Date 종료일) {
+	public 경매결과Updater(사건 사건, boolean useDone, String 결과종류, Date 시작일, Date 종료일, boolean 완료물건_진행여부) {
 		this.사건 = 사건;
 		this.useDone = useDone;
 		this.결과종류 = 결과종류;
 		this.시작일 = 시작일;
 		this.종료일 = 종료일;
+		this.완료물건_진행여부 = 완료물건_진행여부;
 	}
 
 	public void execute() {
+		logger.info("사건{} 의 처리를 시작합니다", 사건.get사건번호());
 		물건Dao 물건dao = (물건Dao) App.context.getBean("물건DAO");
 		List<물건> goodsList = 물건dao.get(사건, 시작일, 종료일, 결과종류);
 		if (goodsList == null) {
+			logger.info("물건 목록을 가지지 못한 사건입니다. 사건 처리를 종료합니다");
 			return;
 		}
 		사건기일내역Fetcher f = new 사건기일내역Fetcher();
@@ -47,7 +51,7 @@ public class 경매결과Updater {
 
 			for (물건 old물건 : goodsList) {
 				logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "의 기일내역을 갱신합니다. ");
-				if (old물건.is완료여부()) {
+				if (완료물건_진행여부  == false && old물건.is완료여부()) {
 					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 완료된 물건입니다.");
 					continue;
 				}
@@ -61,9 +65,6 @@ public class 경매결과Updater {
 					old물건.set기일내역(old기일);
 				}
 
-				// if (isEmpty(old물건)) {
-				//					
-				// }
 				if (useDone) {
 					old물건.set완료여부(true);
 				}
