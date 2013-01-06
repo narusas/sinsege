@@ -17,6 +17,7 @@ public class LogConsoleThread extends java.util.logging.Handler {
 	}
 
 	public void setLogTextArea(JTextArea logTextArea) {
+		System.out.println("########### :"+logTextArea);
 		this.logTextArea = logTextArea;
 	}
 
@@ -39,6 +40,7 @@ public class LogConsoleThread extends java.util.logging.Handler {
 
 	@Override
 	public void publish(final LogRecord record) {
+		System.out.println("################## "+record);
 		if (logTextArea == null) {
 			return;
 		}

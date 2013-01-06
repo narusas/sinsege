@@ -8,6 +8,7 @@
 		</id>
 		<property name="법원명" column="name" />
 		<property name="스피드옥션_법원코드" column="speedauction_code" />
+		<property name="경매공매_법원코드" column="kk_code" />
 		<property name="order" column="ord" />
 		<many-to-one name="상위법원" class="법원" column="parent_code" />
 		<many-to-one name="지역" class="지역" column="area_code" />
