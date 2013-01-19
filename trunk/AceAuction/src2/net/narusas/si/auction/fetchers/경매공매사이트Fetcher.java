@@ -50,7 +50,7 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 	}
 	
 	
-	List<사건> fetch사건목록(법원 c) throws IOException {
+	public List<사건> fetch사건목록(법원 c) throws IOException {
 		String html = fetchFirstPage(c);
 		int lastPage = parseLatPageNo(html);
 		System.out.println("###################### PageNo:"+lastPage);
@@ -222,7 +222,7 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 		return f;
 	}
 
-	private void parse등기부등본(사건 s, String html) {
+	public void parse등기부등본(사건 s, String html) {
 		Pattern p1 = Pattern.compile("name='land_certify'\\s+value='([^']+)");//
 		Pattern p2 = Pattern.compile("name='build_certify'\\s+value='([^']+)");
 		Matcher m1 = p1.matcher(html);
@@ -235,60 +235,64 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 		}
 				
 	}
+	
+	public static class 사건 {
+		법원 court;
+		String 법원명;
+		int year;
+		int no;
+		int seq;
+		String 토지등기부등본;
+		String 건물등기부등본;
+		public String get법원명() {
+			return 법원명;
+		}
+		public void set법원명(String 법원명) {
+			this.법원명 = 법원명;
+		}
+		public int getYear() {
+			return year;
+		}
+		public void setYear(int year) {
+			this.year = year;
+		}
+		public int getNo() {
+			return no;
+		}
+		public void setNo(int no) {
+			this.no = no;
+		}
+		public int getSeq() {
+			return seq;
+		}
+		public void setSeq(int seq) {
+			this.seq = seq;
+		}
+		public 법원 getCourt() {
+			return court;
+		}
+		public void setCourt(법원 court) {
+			this.court = court;
+		}
+		@Override
+		public String toString() {
+			return "사건 [법원명=" + 법원명 + ", year=" + year + ", no=" + no + ", seq=" + seq + "]";
+		}
+		public String get토지등기부등본() {
+			return 토지등기부등본;
+		}
+		public void set토지등기부등본(String 토지등기부등본) {
+			this.토지등기부등본 = 토지등기부등본;
+		}
+		public String get건물등기부등본() {
+			return 건물등기부등본;
+		}
+		public void set건물등기부등본(String 건물등기부등본) {
+			this.건물등기부등본 = 건물등기부등본;
+		}
+		public long get사건번호() {
+			return Long.parseLong(""+2012+"0130"+String.format("%06d", 8872));
+		}
+	}
 }
 
-class 사건 {
-	법원 court;
-	String 법원명;
-	int year;
-	int no;
-	int seq;
-	String 토지등기부등본;
-	String 건물등기부등본;
-	public String get법원명() {
-		return 법원명;
-	}
-	public void set법원명(String 법원명) {
-		this.법원명 = 법원명;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
-	public 법원 getCourt() {
-		return court;
-	}
-	public void setCourt(법원 court) {
-		this.court = court;
-	}
-	@Override
-	public String toString() {
-		return "사건 [법원명=" + 법원명 + ", year=" + year + ", no=" + no + ", seq=" + seq + "]";
-	}
-	public String get토지등기부등본() {
-		return 토지등기부등본;
-	}
-	public void set토지등기부등본(String 토지등기부등본) {
-		this.토지등기부등본 = 토지등기부등본;
-	}
-	public String get건물등기부등본() {
-		return 건물등기부등본;
-	}
-	public void set건물등기부등본(String 건물등기부등본) {
-		this.건물등기부등본 = 건물등기부등본;
-	}
-}

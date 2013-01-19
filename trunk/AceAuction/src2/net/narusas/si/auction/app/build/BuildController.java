@@ -25,6 +25,7 @@ import net.narusas.si.auction.app.Controller;
 import net.narusas.si.auction.app.ui.담당계ListModel;
 import net.narusas.si.auction.app.ui.법원ListModel;
 import net.narusas.si.auction.builder.Mode;
+import net.narusas.si.auction.builder.경매공매등기부등본Batch;
 import net.narusas.si.auction.builder.담당계Batch;
 import net.narusas.si.auction.builder.담당계목록Batch;
 import net.narusas.si.auction.model.담당계;
@@ -33,7 +34,7 @@ import net.narusas.si.auction.model.법원;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BuildController implements Controller{
+public class BuildController implements Controller {
 	public final Logger logger = LoggerFactory.getLogger("auction");
 	protected JList 법원List;
 	protected JList 담당계List;
@@ -131,12 +132,16 @@ public class BuildController implements Controller{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (BuildApp.mode == Mode.등기부등본) {
+
+					start경매공매등기부등본();
+					return;
+				}
 				Object[] values = 담당계List.getSelectedValues();
 				if (values.length == 0) {
 					return;
 				}
-				
-								
+
 				final List<담당계> workset = new LinkedList<담당계>();
 				synchronized (a담당계ListModel) {
 					for (Object object : values) {
@@ -150,21 +155,21 @@ public class BuildController implements Controller{
 						String eventYear = 여기부터YearFilter.getText();
 						String eventNo = 여기부터NoFilter.getText();
 						if (eventNo == null || "".equals(eventNo.trim()) || eventYear == null || "".equals(eventYear.trim())) {
-							new 담당계목록Batch(workset ).execute();
+							new 담당계목록Batch(workset).execute();
 							return;
 						}
 						int eventYearValue = Integer.parseInt(eventYear);
 						int eventNoValue = Integer.parseInt(eventNo);
 
-						final long 여기부터사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}",
-								eventYearValue, eventNoValue));
+						final long 여기부터사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}", eventYearValue,
+								eventNoValue));
 
-						
-						new 담당계목록Batch(workset, 여기부터사건번호 ).execute();
+						new 담당계목록Batch(workset, 여기부터사건번호).execute();
 					}
 				}.start();
 
 			}
+
 		});
 	}
 
@@ -185,8 +190,7 @@ public class BuildController implements Controller{
 				int eventYearValue = Integer.parseInt(eventYear);
 				int eventNoValue = Integer.parseInt(eventNo);
 
-				final long 사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}",
-						eventYearValue, eventNoValue));
+				final long 사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}", eventYearValue, eventNoValue));
 
 				final 담당계 charge = (담당계) values[0];
 				new Thread() {
@@ -204,10 +208,11 @@ public class BuildController implements Controller{
 		단일사건YearTextField = yearField;
 		단일사건NoTextField = noField;
 	}
+
 	public void set여기부터TextField(JTextField 여기부터YearFilter, JTextField 여기부터NoFilter) {
 		this.여기부터YearFilter = 여기부터YearFilter;
 		this.여기부터NoFilter = 여기부터NoFilter;
-		
+
 	}
 
 	public void enableControl(boolean b) {
@@ -260,8 +265,8 @@ public class BuildController implements Controller{
 		});
 	}
 
-	public void set기간TextFields(JTextField startYear, JTextField startMonth, JTextField startDay, JTextField endYear,
-			JTextField endMonth, JTextField endDay) {
+	public void set기간TextFields(JTextField startYear, JTextField startMonth, JTextField startDay, JTextField endYear, JTextField endMonth,
+			JTextField endDay) {
 
 	}
 
@@ -275,8 +280,13 @@ public class BuildController implements Controller{
 		});
 	}
 
-	
-
-	
+	private void start경매공매등기부등본() {
+		final Object[] selected법원s = 법원List.getSelectedValues();
+		if (selected법원s == null || selected법원s.length == 0) {
+			return;
+		}
+		
+		new 경매공매등기부등본Batch(selected법원s).start();
+	}
 
 }

@@ -22,7 +22,7 @@ public class 주소Builder {
 		logger.info("지역 DB를 읽어옵니다. ");
 		지역Dao dao = (지역Dao) App.context.getBean("지역DAO");
 		List<지역> 최상위지역 = new LinkedList<지역>();
-		for (int i = 2; i <= 17; i++) {
+		for (int i = 2; i <= 18; i++) {
 			최상위지역.add(dao.get(i));
 		}
 		지역.최상위지역 = 최상위지역;
