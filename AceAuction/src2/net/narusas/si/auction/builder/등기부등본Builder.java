@@ -53,7 +53,7 @@ public class 등기부등본Builder {
 	public void execute() throws Exception {
 		boolean hadInserted = dbUpdate();
 		// if (hadInserted) {
-		uploadPDF();
+//		uploadPDF();
 		// }
 
 	}
