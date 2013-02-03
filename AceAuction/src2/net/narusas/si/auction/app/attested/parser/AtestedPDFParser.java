@@ -69,7 +69,7 @@ public class AtestedPDFParser {
 		List<List<TextPosition>> _1_소유지분현황_COLS = splitCollumsAtStage(list, 2, STAGE_2_COLS);
 		List<List<TextPosition>> _2_소유지분을제외한_소유권현황_COLS = splitCollumsAtStage(list, 3, STAGE_3_COLS);
 		List<List<TextPosition>> _3_저당권및전세권_COLS = splitCollumsAtStage(list, 4, STAGE_4_COLS);
-
+		System.out.println("######### _3_저당권및전세권_COLS:"+_3_저당권및전세권_COLS);
 		List<등기부등본Item> items = new ArrayList<등기부등본Item>();
 
 		collectStage2Info(_1_소유지분현황_COLS, items);
@@ -323,40 +323,58 @@ public class AtestedPDFParser {
 
 			int y2 = currentPageData.getMediaBoxX(page);
 			int y1 = currentPageData.getMediaBoxHeight(page) - y2;
-			Vector<String> words = currentGrouping.extractTextAsWordlist(x1, y1, x2, y2, page, true, true, "");
-
+			System.out.println(String.format("X1:%d Y1:%d X2:%d Y2:%d", x1,y1,x2,y2));
+			Vector<String> words = currentGrouping.extractTextAsWordlist(x1-1000, y1+1000, x2+1000, y2-1000, page, true, true, "");
+			
+			List<TextPosition> tpList = new ArrayList<TextPosition>();
+			
 			for (int i = 0; i < words.size(); i += 5) {
-				TextPosition t = createTextPosition(page, y1, words, stage, i);
-
-				 System.out.println(t);
-				// if(true)continue;
+				tpList.add(createTextPosition(page, y1, words, 0, i));
+			}
+			List<Float> skipLines = new ArrayList<Float>();
+			
+			List<TextPosition> temp = new ArrayList<TextPosition>();
+			
+			for (TextPosition t : tpList) {
+				
 				if ("요약한".equals(t.getText())) {// 주요등기사항요약
 					stage = 1;
-					i = skipWord(i);
 					continue;
 				}
 				// System.out.println(t);
-				if (stage == 0) {
+				if (stage == 0 ) {
 					continue;
 				}
+				
+				
 				// System.out.println(t);
 				if (stage == 1 && "1.".equals(t.getText()) && t.getX() < 100f) {
 					stage = 2;
-					 System.out.println("Stage 2 :" + t.getY());
-					i = skipLine(t, words, i, page, stage, y1);
+					System.out.println("Stage 2 :" + t.getY());
+					skipLines.add(t.getY());
 					continue;
 				}
 
 				if (stage == 2 && "2.".equals(t.getText()) && t.getX() < 100f) {
 					stage = 3;
 					System.out.println("Stage 3");
-					i = skipLine(t, words, i, page, stage, y1);
+					skipLines.add(t.getY());
 					continue;
 				}
 				if (stage == 3 && ("3.".equals(t.getText())  ) && t.getX() < 100f) {
 					stage = 4;
-					 System.out.println("Stage 4");
-					i = skipLine(t, words, i, page, stage, y1);
+					 System.out.println("Stage 4:"+t.getY());
+					 skipLines.add(t.getY());
+					continue;
+				}
+				if (stage == 4 &&  "(근".equals(t.getText())){
+					continue;
+				}
+				if (stage == 4 &&  "근근".equals(t.getText())){
+					continue;
+				}
+				
+				if (stage == 4 &&  ".".equals(t.getText())){
 					continue;
 				}
 				
@@ -365,31 +383,43 @@ public class AtestedPDFParser {
 				}
 
 				if ("등기명의인".equals(t.getText())) {
-					i = skipLine(t, words, i, page, stage, y1);
+					skipLines.add(t.getY());
 					continue;
 				}
 				if ("순위번호".equals(t.getText())) {
-					i = skipLine(t, words, i, page, stage, y1);
+					skipLines.add(t.getY());
 					continue;
 				}
 				if ("없음".equals(t.getText())) {
-					i = skipLine(t, words, i, page, stage, y1);
+					skipLines.add(t.getY());
 					continue;
 				}
 
 				if (763.38007f <= t.getY()) {
-					i = skipLine(t, words, i, page, stage, y1);
+					skipLines.add(t.getY());
 					continue;
 				}
 
-				// System.out.println("$$" + t);
 
 				if (stage >= 2) {// 소유지분형황이라면
+					t.setStage(stage);
 					// System.out.println(t);
-					list.add(t);
+					temp.add(t);
 				}
 			}
-
+			
+			for (TextPosition t : temp) {
+				boolean isSkipTarget = false;
+				for (Float ff : skipLines) {
+					if (Math.abs(t.getY()-ff) < 3f){
+						isSkipTarget = true;
+					}
+				}
+				if (isSkipTarget == false){
+					list.add(t);
+					
+				}
+			}
 		}
 		
 		System.out.println("-------------------------------------------");
@@ -496,7 +526,12 @@ public class AtestedPDFParser {
 
 		public List<등기부등본Item> parse() {
 			System.out.println("------------------------------------------------------------");
-			System.out.println(typeCol.size());
+			System.out.println(typeCol);
+			System.out.println(noCol);
+			System.out.println("TypeCol:"+typeCol.size()+" noCol:"+noCol.size());
+			
+			List<TextPosition> temp = new ArrayList<TextPosition>();
+			
 			for (int row = 0; row < typeCol.size(); row++) {
 				TextPosition typeTP = typeCol.get(row);
 				remove괄호숫자(typeTP);
@@ -595,7 +630,7 @@ public class AtestedPDFParser {
 				while(m.find()){
 					pos = m.end()+1;
 				}
-				if (pos != 0){
+				if (pos > 0 && str.length()-1 >= pos){
 					item.set권리자(str.substring(pos).trim());
 					return;
 				}

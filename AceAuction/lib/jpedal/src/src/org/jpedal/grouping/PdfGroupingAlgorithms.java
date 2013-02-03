@@ -1124,6 +1124,12 @@ public class PdfGroupingAlgorithms {
 		String raw = "", char_width = "",currentColor="";
 		StringBuffer text = new StringBuffer();
 		
+		for (int i = 0; i < count; i++) {
+			if (pdf_data.contents[i].contains("최")){
+				System.out.println("############################### "+i);
+			}
+			
+		}
 		//work through fragments
 		for (int i = 0; i < count; i++) {
 			
@@ -1434,7 +1440,6 @@ public class PdfGroupingAlgorithms {
 					if (x1 < x2)
 						addFragment(moveType,i,text,x1,x2,y1,y2,text_length,keepFont,currentColor,isWordlist);
 				}else if ((oldTextExtraction)|(mode==PdfData.VERTICAL_BOTTOM_TO_TOP)|(mode==PdfData.VERTICAL_TOP_TO_BOTTOM)){
-					if(y1 > y2)
 						addFragment(moveType,i,text,x1,x2,y1,y2,text_length,keepFont,currentColor,isWordlist);
 				}
 				text = new StringBuffer();

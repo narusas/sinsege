@@ -199,4 +199,12 @@ public class AtestedTest extends TestCase {
 		 List<등기부등본Item> items =		 parse("fixture2/085_2011_10912_등기목적오류.pdf");
 		 assertItems(expecteds, items);
 	}
+	
+	public void test경매공매사이트_등기부등본_001() throws PdfException, Exception {
+		List<등기부등본Item> items =		 parse("fixture2/kk_atested001.pdf");
+		System.out.println("#------------ Here");
+		for (등기부등본Item item : items) {
+			System.out.println(item);
+		}
+	}
 }

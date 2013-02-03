@@ -1,7 +1,7 @@
 package net.narusas.si.auction.pdf.attested;
 
 public class TextPosition {
-	private int stage;
+	int stage;
 
 	int page;
 
@@ -155,4 +155,13 @@ public class TextPosition {
 		return new TextPosition(text, x2 - textSize, y, x2, y2, page, stage);
 
 	}
+
+	public void setStage(int stage2) {
+		stage = stage2;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
 }

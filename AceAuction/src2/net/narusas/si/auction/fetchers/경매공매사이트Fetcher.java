@@ -18,8 +18,12 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class 경매공매사이트Fetcher  extends PageFetcher {
+	final Logger logger = LoggerFactory.getLogger("auction");
+
 	public 경매공매사이트Fetcher() throws HttpException, IOException {
 		super("http://www.kyungmaeguide.co.kr/");
 	}
@@ -40,7 +44,7 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 					
 			});
 			
-//			System.out.println(res.getResponseBodyAsString());
+			System.out.println(res.getResponseBodyAsString());
 			
 		} catch (HttpException e) {
 			e.printStackTrace();
@@ -51,13 +55,16 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 	
 	
 	public List<사건> fetch사건목록(법원 c) throws IOException {
+		
 		String html = fetchFirstPage(c);
+		logger.info(html);
 		int lastPage = parseLatPageNo(html);
-		System.out.println("###################### PageNo:"+lastPage);
+		logger.info("마지막 페이지는 "+lastPage+"입니다.");
 		List<사건> res = new ArrayList<사건>();
 		for(int i=1; i<=lastPage; i++) {
-			System.out.println("### Read Page:"+i);
+			logger.info(i+" 페이지를 읽어 옵니다. ");
 			html = fetchPage(c, i);
+			System.out.println(html);
 			Pattern p = Pattern.compile("javascript:DetailView\\('([^']+)',(\\d+),(\\d+),(\\d+)");
 			Matcher m = p.matcher(html);
 			while(m.find()){
@@ -68,6 +75,7 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 				s.setNo(Integer.parseInt(m.group(3)));
 				s.setSeq(Integer.parseInt(m.group(4)));
 				res.add(s);
+				logger.info("사건번호:"+s.get사건번호());
 			}	
 		}
 		
@@ -153,13 +161,13 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 		m.addRequestHeader("Connection","keep-alive");
 		
 		m.setRequestBody(
-//				String.format(
-				"bubwon=%BC%AD%BF%EF%C1%DF%BE%D3%C1%F6%B9%FD&num1=2011&num2=35860&num3=2"
-//				new Object[]{
-//						URLEncoder.encode(s.get법원명(),"EUC-KR"),
-//						s.getYear(), s.getNo(), s.getSeq()
-//				}
-				
+				String.format(
+				"bubwon=%s&num1=%s&num2=%s&num3=%s",
+				new Object[]{
+						URLEncoder.encode(s.get법원명(),"EUC-KR"),
+						s.getYear(), s.getNo(), s.getSeq()
+				}
+				)
 				);
 		client.executeMethod(m);
 		return new String(m.getResponseBody(), "EUC-KR");
@@ -170,18 +178,20 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 	public static void main(String[] args) {
 		try {
 			 경매공매사이트Fetcher f = new 경매공매사이트Fetcher();
-//			 f.login();
+			 f.login();
+			 
 //			 System.out.println("########");
 			 사건 s = new 사건();
 			 s.set법원명("서울중앙지법");
 			 s.setYear(2011);
 			 s.setNo(35860);
 			 s.setSeq(2);
-			 s.set토지등기부등본("JJ01/1102/2011/035/1102-2011035860-0002-A.pdf");
-			 s.set건물등기부등본("JJ01/1102/2011/035/1102-2011035860-0002-B.pdf");
-			 File file = f.download등기부등본(s.get토지등기부등본());
+//			 s.set토지등기부등본("JJ01/1102/2011/035/1102-2011035860-0002-A.pdf");
+//			 s.set건물등기부등본("JJ01/1102/2011/035/1102-2011035860-0002-B.pdf");
+//			 File file = f.download등기부등본(s.get토지등기부등본());
 			 
-//			 String html = f.fetch사건상세(s);
+			 String html = f.fetch사건상세(s);
+			 System.out.println(html);
 //			 System.out.println(html);
 //			 f.parse등기부등본(s, html);
 //			 System.out.println(s.get토지등기부등본());
@@ -291,7 +301,7 @@ public class 경매공매사이트Fetcher  extends PageFetcher {
 			this.건물등기부등본 = 건물등기부등본;
 		}
 		public long get사건번호() {
-			return Long.parseLong(""+2012+"0130"+String.format("%06d", 8872));
+			return Long.parseLong(""+year+"0130"+String.format("%06d", no));
 		}
 	}
 }
