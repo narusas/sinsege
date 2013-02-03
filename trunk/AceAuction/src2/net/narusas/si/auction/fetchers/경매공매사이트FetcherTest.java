@@ -2,6 +2,9 @@ package net.narusas.si.auction.fetchers;
 
 import static org.junit.Assert.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,31 @@ public class 경매공매사이트FetcherTest {
 		assertTrue(m.find());
 		assertEquals("JJ01/1102/2011/035/1102-2011035860-0002-A.pdf", m.group(1));
 		assertEquals("JJ01/1102/2011/035/1102-2011035860-0002-B.pdf", m.group(2));
+	}
+	
+	@Test
+	public void 등기부URL() throws UnsupportedEncodingException {
+		경매공매사이트Fetcher.사건 s = new 경매공매사이트Fetcher.사건(); 
+		s.set법원명("서울중앙지법");
+		s.setYear(2011);
+		s.setNo(35860);
+		s.setSeq(2);
+		assertEquals("bubwon=%BC%AD%BF%EF%C1%DF%BE%D3%C1%F6%B9%FD&num1=2011&num2=35860&num3=2",
+				String.format(
+						"bubwon=%s&num1=%s&num2=%s&num3=%s",
+						new Object[]{
+								URLEncoder.encode(s.get법원명(),"EUC-KR"),
+								s.getYear(), s.getNo(), s.getSeq()
+						}
+						)		
+		);
+		
+	}
+	
+	@Test
+	public void ttt() throws UnsupportedEncodingException {
+		String src = "%BC%AD%BF%EF%C1%DF%BE%D3%C1%F6%B9%FD";
+		System.out.println(URLDecoder.decode(src,"EUC-KR"));
 	}
 
 }
