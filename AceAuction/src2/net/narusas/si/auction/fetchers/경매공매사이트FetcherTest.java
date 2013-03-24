@@ -2,6 +2,8 @@ package net.narusas.si.auction.fetchers;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -9,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Test;
+
+import biz.evot.util.lang.NFile;
 
 public class 경매공매사이트FetcherTest {
 
@@ -25,6 +29,26 @@ public class 경매공매사이트FetcherTest {
 	}
 	
 	@Test
+	public void test2() throws IOException {
+		
+		String src =NFile.getText(new File("fixture2/092_공매경매_사건목록.html"));
+		Pattern p = Pattern.compile("\\&nbsp;(\\d+)계(.*?)javascript:DetailView\\('([^']+)',(\\d+),(\\d+),(\\d+)", Pattern.MULTILINE | Pattern.DOTALL);
+		Matcher m = p.matcher(src);
+		assertTrue(m.find());
+		
+		assertEquals("8", m.group(1));
+		assertEquals("서울중앙지법", m.group(3));
+		assertEquals("2011", m.group(4));
+		assertEquals("33949", m.group(5));
+		assertEquals("1", m.group(6));
+		
+		assertTrue(m.find());
+		assertTrue(m.find());
+		assertTrue(m.find());
+		
+	}
+	
+	@Test
 	public void 마지막페이지(){
 		String src="<div align=\"center\" class=\"prOff\">&nbsp;<font color='#333333' style='font-family:verdana'><b>1</b></font>ㆍ<a href='javascript:gotoPage(2)' class=navi>2</a>ㆍ<a href='javascript:gotoPage(3)' class=navi>3</a>ㆍ<a href='javascript:gotoPage(4)' class=navi>4</a>ㆍ<a href='javascript:gotoPage(5)' class=navi>5</a>&nbsp;&nbsp;<a href='javascript:gotoPage(5)' class=navi><img src='/images/arrow_last.gif' width='12' height='10' align='absmiddle' border='0' hspace='2' alt='끝으로'></a></div>";
 		Pattern p = Pattern.compile("gotoPage\\((\\d+)");
@@ -38,7 +62,7 @@ public class 경매공매사이트FetcherTest {
 	@Test
 	public void 등기부등본(){
 		String src ="<input type='hidden' name='popid' value=''><input type='hidden' name='land_certify' value='JJ01/1102/2011/035/1102-2011035860-0002-A.pdf'><input type='hidden' name='build_certify' value='JJ01/1102/2011/035/1102-2011035860-0002-B.pdf'><input type='hidden' name='bubwoncd' value='1102'>";
-		Pattern p = Pattern.compile("name='land_certify'\\s+value='([^']+).*name='build_certify'\\s+value='([^']+)");
+		Pattern p = Pattern.compile("name='land_certify'\\s+value='([^']+).*name='build_certify'\\s+value='([^']+)", Pattern.MULTILINE);
 		Matcher m = p.matcher(src);
 		assertTrue(m.find());
 		assertEquals("JJ01/1102/2011/035/1102-2011035860-0002-A.pdf", m.group(1));
