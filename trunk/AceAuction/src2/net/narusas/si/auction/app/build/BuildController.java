@@ -132,15 +132,11 @@ public class BuildController implements Controller {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (BuildApp.mode == Mode.등기부등본) {
-
-					start경매공매등기부등본();
-					return;
-				}
 				Object[] values = 담당계List.getSelectedValues();
 				if (values.length == 0) {
 					return;
 				}
+
 
 				final List<담당계> workset = new LinkedList<담당계>();
 				synchronized (a담당계ListModel) {
@@ -148,6 +144,12 @@ public class BuildController implements Controller {
 						workset.add((담당계) object);
 					}
 				}
+				if (BuildApp.mode == Mode.등기부등본) {
+
+					start경매공매등기부등본(workset);
+					return;
+				}
+								
 
 				new Thread() {
 					@Override
@@ -280,13 +282,13 @@ public class BuildController implements Controller {
 		});
 	}
 
-	private void start경매공매등기부등본() {
+	private void start경매공매등기부등본(List<담당계> workset) {
 		final Object[] selected법원s = 법원List.getSelectedValues();
 		if (selected법원s == null || selected법원s.length == 0) {
 			return;
 		}
 		
-		new 경매공매등기부등본Batch(selected법원s).start();
+		new 경매공매등기부등본Batch((법원)selected법원s[0], workset).start();
 	}
 
 }
