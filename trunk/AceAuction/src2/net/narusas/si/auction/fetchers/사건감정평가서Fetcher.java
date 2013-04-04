@@ -10,6 +10,9 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +27,7 @@ public class 사건감정평가서Fetcher {
 	final Logger logger = LoggerFactory.getLogger("auction");
 	PageFetcher fetcher;
 
-	String fetchMainPage(사건 사건) throws IOException {
+	public String fetchMainPage(사건 사건) throws IOException {
 		return fetchMainPage(사건.get법원().get법원명(), String.valueOf(사건.get사건번호()));
 	}
 
@@ -45,16 +48,16 @@ public class 사건감정평가서Fetcher {
 		
 	}
 
-	String parsePDFPageURL(String html) {
+	public String parsePDFPageURL(String html) throws IOException {
 		Pattern p = Pattern.compile("<frame style=[^>]* src=\"([^\"]+)\"[^>]+");
 		Matcher m = p.matcher(html);
 		if (m.find() == false) {
 			return null;
 		}
-		return HTMLUtils.converHTMLSpecialChars(m.group(1));
+		return  HTMLUtils.converHTMLSpecialChars(m.group(1));
 	}
 	
-	Pattern hostPattern = Pattern.compile("http://([^/$]+)");
+	static Pattern hostPattern = Pattern.compile("http://([^/$]+)");
 	String fetch(String prefix, String path) throws HttpException, IOException {
 		if (fetcher == null) {
 			fetcher = new PageFetcher(prefix);
@@ -199,13 +202,90 @@ public class 사건감정평가서Fetcher {
 		
 		return head+"/"+URLEncoder.encode(tail, "UTF-8");
 	}
+	
+	public String fetchTopFrame(String 법원명,  String  사건번호) throws IOException{
+		String query = MessageFormat.format("/RetrieveRealEstSaGamEvalSeoTop.laf" //
+				+ "?jiwonNm={0}&saNo={1}&srnID=PNO102018" //
+				, HTMLUtils.encodeUrl(법원명), 사건번호);
+		String topHtml = 대법원Fetcher.getInstance().fetch(query);
+		return topHtml;
+	}
 
 
-	public File download(사건 사건) throws IOException {
+	public List<File> download(사건 사건) throws IOException {
+		List<File>  감정평가서_파일목록 =  new ArrayList<File>();
 //		if (true){
 //			return null;
 //		}
 		logger.info("감정평가서를 다운로드를 위한 작업을 시작 합니다");
+		{
+			String html = fetchMainPage(사건);
+			String url = parsePDFPageURL(html);
+
+		}
+		
+		
+		String topHtml = fetchTopFrame( 사건.get법원().get법원명(), String.valueOf(사건.get사건번호()));
+		
+		System.out.println(topHtml);
+		List<String> 사건번호목록 = 사건번호추출(topHtml);
+		if ( 사건번호목록 ==  null || 사건번호목록.size() ==0){
+			  return  download단일사건( 사건);
+		}
+		logger.info("이 사건에 관련된 감정평가서의 사건번호 목록:"+  사건번호목록);
+		int count = 0;
+		for (String  사건번호 : 사건번호목록) {
+			String  mainHtml = fetchMainPage( 사건.get법원().get법원명(), 사건번호);
+			String url = parsePDFPageURL(mainHtml);
+			if (url == null || "".equals(url.trim())){
+				logger.info("감정평가서가 없는 사건입니다.");
+				continue;
+			}
+			Pattern p = Pattern.compile("(http://[^/]+)(/.*)");
+			Matcher m = p.matcher(url);
+			if (m.find() == false) {
+				logger.info("감정평가서 PDF URL Page를 얻어 오지 못했습니다. ");
+				continue;
+			}
+			String prefix = m.group(1);
+			String path = m.group(2);
+			logger.info("감정평가서 다운로드 사전작업 Phase -2 start :"+path);
+			String html = fetch(prefix, path);
+			logger.info("감정평가서 다운로드 사전작업 Phase -2 end");
+			
+//			url = parsePDFPageURL(html);
+	//
+//			html = fetch(prefix, "/" + url);
+
+//			Pattern p2 = Pattern.compile("parent\\.aks2\\.location\\.href=\"([^\"]+)\"");
+			Pattern p2 = Pattern.compile("document.MainFrame.location\\s*=\\s*'([^']+)");
+			Matcher m2 = p2.matcher(html);
+			if (m2.find() == false) {
+				logger.info("감정평가서 PDF URL이 없습니다.");
+				return null;
+			}
+
+			url = m2.group(1);
+			if (url.startsWith("/") == false){
+				url = "/"+url;
+			}
+			File parent = new File("download/"+사건.getPath());
+			if (parent.exists() == false) {
+				parent.mkdirs();
+			}
+			
+			File file = new File(parent, count == 0? "PDF_Judgement.pdf":"PDF_Judgement_"+count+".pdf");
+			
+			logger.info("감정평가서 다운로드를 시작합니다.( "+prefix+url+ " ) to "+file.getPath());
+			downloadPDF(prefix+url, file);
+			감정평가서_파일목록.add( file);
+			count++;
+		}
+		
+		return 감정평가서_파일목록;
+	}
+
+	private List<File> download단일사건(사건 사건) throws HttpException, IOException {
 		logger.info("감정평가서 다운로드 사전작업 Phase -1 start");
 		String html = fetchMainPage(사건);
 		logger.info("감정평가서 다운로드 사전작업 Phase -1 end");
@@ -255,7 +335,17 @@ public class 사건감정평가서Fetcher {
 		
 		logger.info("감정평가서 다운로드를 시작합니다.( "+prefix+url+ " ) to "+file.getPath());
 		downloadPDF(prefix+url, file);
-		return file;
+		return  Arrays.asList(file);
+	}
+
+	private List<String> 사건번호추출(String topHtml) {
+		Pattern optionPattern = Pattern.compile("option value=\"(\\d+),(\\d+)\"");
+		Matcher optionMatcher = optionPattern.matcher(topHtml);
+		List<String> 사건번호목록 =  new ArrayList<String>();
+		while(optionMatcher.find()){
+			사건번호목록.add(optionMatcher.group(1));
+		}
+		return 사건번호목록;
 	}
 
 }

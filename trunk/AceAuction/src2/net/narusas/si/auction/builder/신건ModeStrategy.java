@@ -70,12 +70,21 @@ public class 신건ModeStrategy implements ModeStrategy {
 					if (job == null) {
 						continue;
 					}
-					File 감정평가서RawFile = new 사건감정평가서Fetcher().download(job.사건);
-					if (감정평가서RawFile != null) {
-						FileUploaderBG.getInstance().upload(job.사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
+					List<File> 감정평가서RawFiles = new 사건감정평가서Fetcher().download(job.사건);
+					if (감정평가서RawFiles != null || 감정평가서RawFiles.size()>0) {
+						for (int i=0; i< 감정평가서RawFiles.size();i++) {
+							File 감정평가서RawFile = 감정평가서RawFiles.get(i);
+							FileUploaderBG.getInstance().upload(//
+									job.사건.getPath(),// 
+									감정평가서RawFile.getName(),// 
+									감정평가서RawFile//
+							);
+							
+						}
+						
 						// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
 
-						job.strategy.fill감정평가요항(job.사건, 감정평가서RawFile, job.new물건List);
+						job.strategy.fill감정평가요항(job.사건, 감정평가서RawFiles.get(0), job.new물건List);
 						job.save();
 					}
 
@@ -138,12 +147,15 @@ public class 신건ModeStrategy implements ModeStrategy {
 
 			// list.add(job);
 			if (do감정평가분석) {
-				File 감정평가서RawFile = new 사건감정평가서Fetcher().download(사건);
-				if (감정평가서RawFile != null) {
-					FileUploaderBG.getInstance().upload(사건.getPath(), "PDF_Judgement.pdf", 감정평가서RawFile);
+				List<File> 감정평가서RawFiles = new 사건감정평가서Fetcher().download(사건);
+				if (감정평가서RawFiles != null && 감정평가서RawFiles.size()>0) {
+					for (File 감정평가서RawFile : 감정평가서RawFiles) {
+						FileUploaderBG.getInstance().upload(사건.getPath(), 감정평가서RawFile.getName(), 감정평가서RawFile);
+						
+					}
 					// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
 
-					fill감정평가요항(사건, 감정평가서RawFile, new물건List);
+					fill감정평가요항(사건, 감정평가서RawFiles.get(0), new물건List);
 				}
 			}
 

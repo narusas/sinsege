@@ -82,21 +82,22 @@ public class 경매공매등기부등본Batch extends Thread {
 			List<경매공매사이트Fetcher.사건> eventList = f.fetch사건목록(court);
 			logger.info("" + eventList.size() + "개의 사건을 가져 왔습니다.");
 			List<경매공매사이트Fetcher.사건> filteredEventList = new ArrayList<경매공매사이트Fetcher.사건>();
-			
+
 			for (경매공매사이트Fetcher.사건 event : eventList) {
 				if (대상_담당계에_속한_사건인가(event) == false) {
 					continue;
 				}
 				filteredEventList.add(event);
 			}
-			
+			중복제거(filteredEventList);
+
 			logger.info("" + eventList.size() + "개의 사건이 선택된 담당계에 속한 사건입니다.");
-			
+
 			for (경매공매사이트Fetcher.사건 event : eventList) {
 				if (대상_담당계에_속한_사건인가(event) == false) {
 					continue;
 				}
-				logger.info("" + event.get사건번호() + " 사건 "+event.getSeq()+"에 대한 작업을 시작합니다.");
+				logger.info("" + event.get사건번호() + " 사건 " + event.getSeq() + "에 대한 작업을 시작합니다.");
 				net.narusas.si.auction.model.사건 s = eventDao.find(court, event.get사건번호());
 				String html = f.fetch사건상세(event);
 				System.out.println(html);
@@ -117,13 +118,13 @@ public class 경매공매등기부등본Batch extends Thread {
 					logger.info("해당 물건이 선처리 되지 않았습니다. ");
 					continue;
 				}
-				물건 물건 =null;
+				물건 물건 = null;
 				for (물건 item : goodsList) {
-					if (item.get물건번호() == event.getSeq()){
+					if (item.get물건번호() == event.getSeq()) {
 						물건 = item;
 					}
 				}
-				if (물건 == null){
+				if (물건 == null) {
 					logger.info("해당 물건이 선처리 되지 않았습니다. ");
 					continue;
 				}
@@ -148,16 +149,34 @@ public class 경매공매등기부등본Batch extends Thread {
 
 	}
 
+	private void 중복제거(List<사건> list) {
+		List<사건> temp = new ArrayList<사건>();
+		for (사건 사건 : list) {
+			if (contains(temp, 사건) == false) {
+				temp.add(사건);
+			}
+		}
+	}
+
+	private boolean contains(List<사건> temp, 사건 사건) {
+		for (사건 사건2 : temp) {
+			if (사건.get사건번호() == 사건2.get사건번호()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private boolean 대상_담당계에_속한_사건인가(사건 event) {
-		if (선택된_담담계목록 == null || 선택된_담담계목록.size() == 0){
+		if (선택된_담담계목록 == null || 선택된_담담계목록.size() == 0) {
 			return true;
 		}
 		Pattern p = Pattern.compile("(\\d+)");
-		for(담당계 charge:선택된_담담계목록 ){
+		for (담당계 charge : 선택된_담담계목록) {
 			Matcher m = p.matcher(charge.get담당계이름());
 			m.find();
 			String chargeNo = m.group(1);
-			if (event.get담당계().equals(chargeNo)){
+			if (event.get담당계().equals(chargeNo)) {
 				return true;
 			}
 		}
@@ -188,8 +207,7 @@ public class 경매공매등기부등본Batch extends Thread {
 			Collection<등기부등본> 기존 = dao.get(물건);
 			if (기존 == null || 기존.size() == 0) {
 				dao.saveOrUpdate(atested);
-			}
-			else {
+			} else {
 				logger.info("기존에 처리된 물건입니다.");
 			}
 

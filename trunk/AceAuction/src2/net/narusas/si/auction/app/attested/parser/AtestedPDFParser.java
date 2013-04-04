@@ -33,8 +33,8 @@ public class AtestedPDFParser {
 			new Collumn(115.0f, 230.0f, Align.Left),// 등기목적
 			new Collumn(235.00f, 350.0f, Align.Left), // 접수정보
 
-			new Collumn(368.00f, 690.0f, Align.Left), // 주요등기사항
-			new Collumn(692.00f, Float.MAX_VALUE, Align.Right), // 대상소유자
+			new Collumn(368.00f, 665.0f, Align.Left), // 주요등기사항
+			new Collumn(665.00f, Float.MAX_VALUE, Align.Right), // 대상소유자
 	};
 	
 	Collumn[] STAGE_4_COLS = STAGE_3_COLS; // 3번과 동일한 규격임 
