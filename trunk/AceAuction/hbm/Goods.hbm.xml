@@ -20,7 +20,11 @@
 			lazy="false" />
 		<many-to-one name="지역_동읍면" class="지역" column="area_code_3"
 			lazy="false" />
+		
 
+		<property name="road1" column="area_road_1" />
+		<property name="road2" column="area_road_2" />
+		<property name="road3" column="area_road_3" />
 		<property name="소재지" column="address" />
 		<property name="완료여부" column="done" />
 		<property name="물건번호" column="no" />

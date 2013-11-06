@@ -43,6 +43,36 @@ public class 물건 {
 	지역 지역_도;
 	지역 지역_시군구;
 	지역 지역_동읍면;
+	Integer road1;
+	Integer road2;
+	Integer road3;
+	
+
+
+
+	public Integer getRoad1() {
+		return road1;
+	}
+
+	public void setRoad1(Integer road1) {
+		this.road1 = road1;
+	}
+
+	public Integer getRoad2() {
+		return road2;
+	}
+
+	public void setRoad2(Integer road2) {
+		this.road2 = road2;
+	}
+
+	public Integer getRoad3() {
+		return road3;
+	}
+
+	public void setRoad3(Integer road3) {
+		this.road3 = road3;
+	}
 
 	String 사진1, 사진2;
 
@@ -637,6 +667,16 @@ public class 물건 {
 				물건인근매각통계Item.set물건(this);
 				add인근매각통계(물건인근매각통계Item);
 			}
+		}
+		
+		if (goods.getRoad1()!= null){
+			this.road1 =goods.getRoad1(); 
+		}
+		if (goods.getRoad2()!= null){
+			this.road2 =goods.getRoad2(); 
+		}
+		if (goods.getRoad3()!= null){
+			this.road3 =goods.getRoad3(); 
 		}
 	}
 

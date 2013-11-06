@@ -111,6 +111,7 @@ public class 사건내역Fetcher {
 		logger.info("청구금액:" + s.get청구금액());
 		logger.info("사건항고정지여부:" + s.get사건항고정지여부());
 		logger.info("병합:" + s.get병합());
+		System.out.println(html);
 	}
 
 	private void update담당계(담당계 담당계) {
