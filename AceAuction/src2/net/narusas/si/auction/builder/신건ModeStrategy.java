@@ -155,7 +155,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 					}
 					// 사진Collector.getInstance().add(사건, 감정평가서RawFile);
 
-					fill감정평가요항(사건, 감정평가서RawFiles.get(0), new물건List);
+//					fill감정평가요항(사건, 감정평가서RawFiles.get(0), new물건List);
 				}
 			}
 

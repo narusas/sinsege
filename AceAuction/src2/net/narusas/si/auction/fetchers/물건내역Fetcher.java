@@ -144,7 +144,7 @@ public class 물건내역Fetcher {
 				if (goods.get사건().get종류() == 사건종류.부동산) {
 					주소 주소 = new 주소Builder().parse(소재지);
 					if (goods.get소재지() == null || "".equals(goods.get소재지().trim())) {
-						update주소(goods, 주소);
+						update주소(goods, 주소, 소재지);
 					}
 					
 					start = html.indexOf("목록" + no+ " 소재지",start);
@@ -193,12 +193,16 @@ public class 물건내역Fetcher {
 
 
 
-	private void update주소(물건 goods, 주소 addr) {
+	private void update주소(물건 goods, 주소 addr, String 소재지) {
 
 		goods.set지역_도(addr.get시도());
 		goods.set지역_시군구(addr.get시군구());
 		goods.set지역_동읍면(addr.get읍면동());
 		goods.set소재지(addr.get소재지());
+		
+		new  주소Builder2().update(goods,  addr,  소재지) ;
+		
+		
 	}
 
 	private boolean fillBasicInfo(String html, 물건 goods) {

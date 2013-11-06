@@ -7,7 +7,9 @@ import java.io.IOException;
 
 import net.narusas.util.lang.NInputStream;
 
+import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpState;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -35,9 +37,10 @@ public class 대법원Fetcher extends PageFetcher {
 	}
 
 	public void prepare() throws HttpException, IOException {
-		if (isPrepared) {
-			return;
-		}
+		client = new HttpClient();
+		state = new HttpState();
+		client.setState(state);
+		
 		GetMethod m = get("/index.jsp");
 		m = get("/RetrieveMainInfo.laf");
 		// String html = m.getResponseBodyAsString();
