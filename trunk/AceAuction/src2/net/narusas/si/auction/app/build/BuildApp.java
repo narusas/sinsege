@@ -98,6 +98,7 @@ public class BuildApp extends App {
 		BuildController c = (BuildController) controller;
 		c.set법원List((JList) modelPanel.getComponentByName("courtList"));
 		c.set담당계List((JList) modelPanel.getComponentByName("chargeList"));
+		
 		c.set전체실행Button((JButton) controlPanel.getComponentByName("doAllBtn"));
 		c.set선택실행Button((JButton) controlPanel.getComponentByName("doSelectedBtn"));
 		c.set단일실행Button((JButton) controlPanel.getComponentByName("doSIngleEventBtn"));

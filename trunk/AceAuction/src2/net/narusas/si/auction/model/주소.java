@@ -9,8 +9,18 @@ public class 주소 {
 	지역 읍면동;
 	String 번지이하;
 	private String 소재지;
+	
+	net.narusas.si.auction.fetchers.주소통합Builder.통합주소 통합주소;
 
 	
+	public net.narusas.si.auction.fetchers.주소통합Builder.통합주소 get통합주소() {
+		return 통합주소;
+	}
+
+	public void set통합주소(net.narusas.si.auction.fetchers.주소통합Builder.통합주소 통합주소) {
+		this.통합주소 = 통합주소;
+	}
+
 	public void set주소(String 소재지) {
 		this.소재지 = 소재지;
 

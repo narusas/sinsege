@@ -144,7 +144,8 @@ public class 신건ModeStrategy implements ModeStrategy {
 			job.사건 = 사건;
 			job.strategy = this;
 			job.new물건List = new물건List;
-
+			do감정평가분석 = true; 
+			
 			// list.add(job);
 			if (do감정평가분석) {
 				List<File> 감정평가서RawFiles = new 사건감정평가서Fetcher().download(사건);
@@ -160,6 +161,7 @@ public class 신건ModeStrategy implements ModeStrategy {
 			}
 
 			save(사건);
+			
 
 			new 물건목록Batch(사건, new물건List).execute();
 		} catch (IOException e) {

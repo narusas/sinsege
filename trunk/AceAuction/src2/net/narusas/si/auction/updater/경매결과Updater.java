@@ -77,6 +77,9 @@ public class 경매결과Updater {
 			e.printStackTrace();
 			logger.info(사건.get사건번호() + "의 기일내역 페이지를 얻어오지 못했습니다. ");
 		}
+		catch(org.hibernate.ObjectNotFoundException ex){
+			logger.info(사건.get사건번호() + "을  DB 에서 읽어 오는데 오류가 발생했습니다. "+ ex.getMessage());
+		}
 
 	}
 

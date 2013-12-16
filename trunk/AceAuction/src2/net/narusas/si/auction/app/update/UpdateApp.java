@@ -63,7 +63,9 @@ public class UpdateApp extends BuildApp {
 		c.set법원List((JList) modelPanel.getComponentByName("courtList"));
 		c.set전체실행Button((JButton) controlPanel.getComponentByName("doAllBtn"));
 		c.set선택실행Button((JButton) controlPanel.getComponentByName("doSelectedBtn"));
+		
 		c.set단일실행Button((JButton) controlPanel.getComponentByName("doSIngleEventBtn"));
+		((UpdateController)c).set지정물건실행Button((JButton) controlPanel.getComponentByName("doSpecBtn"));
 		c.set단일사건TextField((JTextField) controlPanel.getComponentByName("singleEventYearTextField"),
 				(JTextField) controlPanel.getComponentByName("singleEventNoTextField"));
 

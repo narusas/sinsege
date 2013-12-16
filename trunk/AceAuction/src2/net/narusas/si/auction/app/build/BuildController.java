@@ -9,9 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -52,6 +50,7 @@ public class BuildController implements Controller {
 	private JRadioButton 등기부등본RadioBtn;
 	private JTextField 여기부터YearFilter;
 	private JTextField 여기부터NoFilter;
+	private JButton 지정물건실행Button;
 
 	public void set법원List(JList list) {
 		this.법원List = list;
@@ -137,7 +136,6 @@ public class BuildController implements Controller {
 					return;
 				}
 
-
 				final List<담당계> workset = new LinkedList<담당계>();
 				synchronized (a담당계ListModel) {
 					for (Object object : values) {
@@ -149,7 +147,6 @@ public class BuildController implements Controller {
 					start경매공매등기부등본(workset);
 					return;
 				}
-								
 
 				new Thread() {
 					@Override
@@ -287,8 +284,10 @@ public class BuildController implements Controller {
 		if (selected법원s == null || selected법원s.length == 0) {
 			return;
 		}
-		
-		new 경매공매등기부등본Batch((법원)selected법원s[0], workset).start();
+
+		new 경매공매등기부등본Batch((법원) selected법원s[0], workset).start();
 	}
+
+	
 
 }
