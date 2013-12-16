@@ -258,7 +258,7 @@ public class 사건감정평가서Fetcher {
 //			html = fetch(prefix, "/" + url);
 
 //			Pattern p2 = Pattern.compile("parent\\.aks2\\.location\\.href=\"([^\"]+)\"");
-			Pattern p2 = Pattern.compile("document.MainFrame.location\\s*=\\s*'([^']+)");
+			Pattern p2 = Pattern.compile("document.[^\\.]+.location\\s*=\\s*'([^']+)");
 			Matcher m2 = p2.matcher(html);
 			if (m2.find() == false) {
 				logger.info("감정평가서 PDF URL이 없습니다.");
@@ -316,7 +316,7 @@ public class 사건감정평가서Fetcher {
 //		html = fetch(prefix, "/" + url);
 
 //		Pattern p2 = Pattern.compile("parent\\.aks2\\.location\\.href=\"([^\"]+)\"");
-		Pattern p2 = Pattern.compile("document.MainFrame.location\\s*=\\s*'([^']+)");
+		Pattern p2 = Pattern.compile("document.[^\\.]+.location\\s*=\\s*'([^']+)");
 		Matcher m2 = p2.matcher(html);
 		if (m2.find() == false) {
 			logger.info("감정평가서 PDF URL이 없습니다.");

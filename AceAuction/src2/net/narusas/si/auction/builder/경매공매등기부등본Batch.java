@@ -97,6 +97,7 @@ public class 경매공매등기부등본Batch extends Thread {
 				if (대상_담당계에_속한_사건인가(event) == false) {
 					continue;
 				}
+				try {
 				logger.info("" + event.get사건번호() + " 사건 " + event.getSeq() + "에 대한 작업을 시작합니다.");
 				net.narusas.si.auction.model.사건 s = eventDao.find(court, event.get사건번호());
 				String html = f.fetch사건상세(event);
@@ -140,6 +141,11 @@ public class 경매공매등기부등본Batch extends Thread {
 
 				if (event.get토지등기부등본() != null) {
 					update등기부등본(물건, "http://img.ch24.co.kr/files/certify/" + event.get토지등기부등본(), "토지");
+
+				}
+				}
+				catch(Exception ex){
+					logger.info(" 오류 발생 :"+ ex.getMessage());
 
 				}
 			}

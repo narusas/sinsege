@@ -1,20 +1,29 @@
 package net.narusas.si.auction.app.update;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import net.narusas.si.auction.app.build.BuildController;
 import net.narusas.si.auction.model.법원;
+import net.narusas.si.auction.updater.물건Batch;
 import net.narusas.si.auction.updater.법원Updater;
 import net.narusas.si.auction.updater.사건Updater;
+
+import org.apache.commons.lang.StringUtils;
 
 public class UpdateController extends  BuildController {
 
@@ -26,6 +35,7 @@ public class UpdateController extends  BuildController {
 	private JTextField endDay;
 	private JCheckBox doneCheckbox;
 	private JComboBox typeCombo;
+	private JButton 지정물건실행Button;
 
 	public void enableControl(boolean b) {
 		super.enableControl(b);
@@ -35,6 +45,54 @@ public class UpdateController extends  BuildController {
 		endYear.setEditable(b);
 		endMonth.setEditable(b);
 		endDay.setEditable(b);
+	}
+	
+	public void set지정물건실행Button(JButton btn) {
+
+		this.지정물건실행Button = btn;
+		this.지정물건실행Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("#######");
+				final JFrame frame = new JFrame();
+				frame.setSize(200, 400);
+				frame.getContentPane().setLayout(new BorderLayout());
+				final JTextArea textArea = new JTextArea();
+				JScrollPane scrolPane = new JScrollPane(textArea);
+				frame.getContentPane().add(scrolPane, BorderLayout.CENTER);
+				JButton btn = new JButton("실행");
+				frame.getContentPane().add(btn, BorderLayout.SOUTH);
+				btn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						frame.setVisible(false);
+						String t = textArea.getText();
+						System.out.println(t);
+						if (t != null) {
+							t = t.trim();
+						}
+						String[] tokens = t.split("\n");
+						final List<Integer> ids = new ArrayList<Integer>();
+						for (String token : tokens) {
+							token = token.trim();
+							if (StringUtils.isEmpty(token)){
+								continue;
+							}
+							ids.add(Integer.parseInt(token.trim()));
+						}
+						new Thread() {
+							public void run() {
+								 물건Batch batch = new 물건Batch (ids);
+								 batch.execute();
+							}
+						}.start();
+						System.out.println("gogogo");
+					}
+				});
+				frame.setVisible(true);
+			}
+		});
 	}
 
 	@Override

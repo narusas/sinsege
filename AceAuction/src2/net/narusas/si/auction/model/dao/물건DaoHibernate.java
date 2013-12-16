@@ -40,6 +40,20 @@ public class 물건DaoHibernate extends GenericDaoHibernate<물건, Integer> imp
 		goods.get사건().set담당계(담당계);
 		return goods;
 	}
+	
+	@Override
+	public 물건 find(Integer id) {
+		DetachedCriteria crit = DetachedCriteria.forClass(물건.class);
+		HashMap<String, Object> target = new HashMap<String, Object>();
+		target.put("id", id);
+		crit.add(Restrictions.allEq(target));
+		List res = getHibernateTemplate().findByCriteria(crit);
+		if (res == null || res.size() == 0) {
+			return null;
+		}
+		물건 goods = (물건) res.get(0);
+		return goods;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -124,5 +138,7 @@ public class 물건DaoHibernate extends GenericDaoHibernate<물건, Integer> imp
 
 		super.update(t);
 	}
+
+	
 
 }

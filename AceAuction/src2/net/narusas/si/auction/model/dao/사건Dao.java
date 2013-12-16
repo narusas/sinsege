@@ -13,5 +13,7 @@ public interface 사건Dao extends GenericDao<사건, Long> {
 //	public 사건 find(법원 법원, 담당계 담당계, long 사건번호);
 
 	public 사건 find(법원 법원, long 사건번호);
+	
+	public 사건 find(Long id);
 
 }

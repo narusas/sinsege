@@ -1,5 +1,6 @@
 package net.narusas.si.auction.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -43,34 +44,34 @@ public class 물건 {
 	지역 지역_도;
 	지역 지역_시군구;
 	지역 지역_동읍면;
-	Integer road1;
-	Integer road2;
-	Integer road3;
+	Long road1;
+	Long road2;
+	BigDecimal road3;
 	
 
 
 
-	public Integer getRoad1() {
+	public Long getRoad1() {
 		return road1;
 	}
 
-	public void setRoad1(Integer road1) {
+	public void setRoad1(Long road1) {
 		this.road1 = road1;
 	}
 
-	public Integer getRoad2() {
+	public Long getRoad2() {
 		return road2;
 	}
 
-	public void setRoad2(Integer road2) {
+	public void setRoad2(Long road2) {
 		this.road2 = road2;
 	}
 
-	public Integer getRoad3() {
+	public BigDecimal getRoad3() {
 		return road3;
 	}
 
-	public void setRoad3(Integer road3) {
+	public void setRoad3(BigDecimal road3) {
 		this.road3 = road3;
 	}
 

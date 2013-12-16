@@ -37,19 +37,18 @@ public class 사건DaoHibernate extends GenericDaoHibernate<사건, Long> implem
 		return temp;
 	}
 
-
 	@Override
 	public 사건 find(법원 법원, long 사건번호) {
 		DetachedCriteria crit = DetachedCriteria.forClass(사건.class);
 		HashMap<String, Object> target = new HashMap<String, Object>();
-		 target.put("법원", 법원);
+		target.put("법원", 법원);
 		target.put("사건번호", 사건번호);
 		crit.add(Restrictions.allEq(target));
 		List res = getHibernateTemplate().findByCriteria(crit);
 		if (res == null || res.size() == 0) {
 			return null;
 		}
-		System.out.println("######## "+res);
+		System.out.println("######## " + res);
 		사건 event = (사건) res.get(0);
 		return update담당계(event);
 	}
@@ -61,6 +60,21 @@ public class 사건DaoHibernate extends GenericDaoHibernate<사건, Long> implem
 			event.set담당계(charge);
 		}
 		return event;
+	}
+
+	@Override
+	public 사건 find(Long id) {
+		DetachedCriteria crit = DetachedCriteria.forClass(사건.class);
+		HashMap<String, Object> target = new HashMap<String, Object>();
+		target.put("id", id);
+		crit.add(Restrictions.allEq(target));
+		List res = getHibernateTemplate().findByCriteria(crit);
+		if (res == null || res.size() == 0) {
+			return null;
+		}
+		System.out.println("######## " + res);
+		사건 event = (사건) res.get(0);
+		return update담당계(event);
 	}
 
 }
