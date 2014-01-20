@@ -10,14 +10,14 @@ public class 주소 {
 	String 번지이하;
 	private String 소재지;
 	
-	net.narusas.si.auction.fetchers.주소통합Builder.통합주소 통합주소;
+	net.narusas.si.auction.fetchers.AddressBuilder.통합주소 통합주소;
 
 	
-	public net.narusas.si.auction.fetchers.주소통합Builder.통합주소 get통합주소() {
+	public net.narusas.si.auction.fetchers.AddressBuilder.통합주소 get통합주소() {
 		return 통합주소;
 	}
 
-	public void set통합주소(net.narusas.si.auction.fetchers.주소통합Builder.통합주소 통합주소) {
+	public void set통합주소(net.narusas.si.auction.fetchers.AddressBuilder.통합주소 통합주소) {
 		this.통합주소 = 통합주소;
 	}
 
@@ -78,17 +78,11 @@ public class 주소 {
 	public final static Pattern slimAddrPattern2 = Pattern.compile("(.*[길로] \\d+)");
 
 	public String toSlimAddress() {
-
-		Matcher m1 = slimAddrPattern2.matcher(toString());
-		if (m1.find()) {
-			return m1.group(1);
+		if ( 통합주소.도로명 ==  null){
+			return 통합주소.동주소();
+		}else {
+			return  통합주소.도로명주소();
 		}
-
-		Matcher m = slimAddrPattern.matcher(toString());
-		if (m.find()) {
-			return m.group(1);
-		}
-		return toString();
 	}
 
 }

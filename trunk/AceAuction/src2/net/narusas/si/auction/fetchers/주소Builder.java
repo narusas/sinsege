@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.narusas.si.auction.app.App;
-import net.narusas.si.auction.fetchers.주소통합Builder.통합주소;
+import net.narusas.si.auction.fetchers.AddressBuilder.통합주소;
 import net.narusas.si.auction.model.주소;
 import net.narusas.si.auction.model.지역;
 import net.narusas.si.auction.model.dao.지역Dao;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class 주소Builder {
 	final Logger logger = LoggerFactory.getLogger("auction");
-	주소통합Builder 주소통합Builder = new 주소통합Builder();
+	AddressBuilder 주소통합Builder = new AddressBuilder();
 	void 지역정보갱신() {
 		
 		if (지역.최상위지역 == null || 지역.최상위지역.size()==0) {
@@ -67,20 +67,22 @@ public class 주소Builder {
 		// 시군구 검색
 
 		// 시군구 검색은 "성남시 분당구"처럼 두개의 단어로 된것 부터 검색한다.
-
-		지역 res = dao.findSub(parent, _통합주소.시군구);
-		if (res == null) {
-			지역 시군구 = new 지역();
-			시군구.set상위지역Code(parent.getId());
-			시군구.set지역명(_통합주소.시군구);
-			dao.save(시군구);
-			res = 시군구;
+		지역 res = null;
+		if (_통합주소.시군구 != null){
+			res = dao.findSub(parent, _통합주소.시군구);
+			if (res == null) {
+				지역 시군구 = new 지역();
+				시군구.set상위지역Code(parent.getId());
+				시군구.set지역명(_통합주소.시군구);
+				dao.save(시군구);
+				res = 시군구;
+			}
+			parent = res;
+			logger.info("시군구 코드:" + parent + " " + parent.getId());
+			addr.set시군구(parent);
 		}
-		parent = res;
-		logger.info("시군구 코드:" + parent + " " + parent.getId());
-		addr.set시군구(parent);
 
-		
+		res= null;
 		
 		// 읍면동 검색
 		if (_통합주소.읍면 != null){
@@ -115,6 +117,8 @@ public class 주소Builder {
 			parent = res;
 			logger.info("읍면동리 코드:" + parent);
 			addr.set읍면동(parent);
+		}else {
+			addr.set읍면동(null);
 		}
 		
 		if (_통합주소.번지 != null){

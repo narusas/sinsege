@@ -148,11 +148,23 @@ public class 부동산표시목록Builder {
 	private boolean isStartWithAddress(String 상세내역, 주소 주소) {
 		String[] lines = 상세내역.split("\n");
 		String startingLine = lines[0];
-
-		return startingLine.contains(주소.get시도().get지역명())//
-				|| startingLine.contains(주소.get시군구().get지역명())//
-				|| startingLine.contains(주소.get읍면동().get지역명())//
-		;
+		if (주소.get시도() != null){
+			if (startingLine.contains(주소.get시도().get지역명())){
+				return true;
+			}
+		}
+		if (주소.get시군구() != null){
+			if (startingLine.contains(주소.get시군구().get지역명())){
+				return true;
+			}
+		}
+		
+		if (주소.get읍면동()!=null) {
+			if (startingLine.contains(주소.get읍면동().get지역명())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private String removeStarting주소(String 상세내역, 주소 get주소) {
@@ -254,7 +266,7 @@ public class 부동산표시목록Builder {
 	}
 
 	void addBuilding(물건 물건, String detail, 부동산표시 item, int 목록번호) {
-		String floor = item.get주소().get번지이하();
+		String floor = item.get주소().get통합주소().번지이하;
 		String structure = null;
 		String area = null;
 		String 매각지분Comment = item.get매각지분();
