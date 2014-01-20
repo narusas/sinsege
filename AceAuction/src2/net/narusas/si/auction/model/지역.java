@@ -61,8 +61,11 @@ public class 지역 implements Serializable {
 	}
 
 	public boolean match지역명(String target) {
+		if (target == null) {return false;}
 		if (get대체지역명() != null) {
-			return target.contains(get지역명()) || get지역명().contains(target) || get대체지역명().contains(target);
+			return target.contains(get지역명())
+					|| get지역명().contains(target)
+					|| get대체지역명().contains(target);
 		}
 		return target.contains(get지역명()) || get지역명().contains(target);
 	}

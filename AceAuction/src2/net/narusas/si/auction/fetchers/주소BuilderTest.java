@@ -1,16 +1,16 @@
 package net.narusas.si.auction.fetchers;
 
 import junit.framework.TestCase;
-import net.narusas.si.auction.fetchers.주소통합Builder.통합주소;
+import net.narusas.si.auction.fetchers.AddressBuilder.통합주소;
 
 public class 주소BuilderTest extends TestCase {
 
-	private 주소통합Builder 주소Builder;
+	private AddressBuilder 주소Builder;
 	RoadConverter roadConverter;
 
 	@Override
 	protected void setUp() throws Exception {
-		주소Builder = new 주소통합Builder();
+		주소Builder = new AddressBuilder();
 		roadConverter =  new RoadConverter();
 	}
 	
@@ -28,9 +28,28 @@ public class 주소BuilderTest extends TestCase {
 	}
 	
 	public void test2(){
+		//경기도 포천시 신읍동 67-5
+		//서울특별시 광진구 아차산로 262, 디동 15층 1503호 (자양동,더샵스타시티)
+		assert소재지("서울특별시", 		"광진구",			null, 			null, 		null, 		"디동 15층 1503호 (자양동,더샵스타시티)",		"아차산로", 			262, null,  주소Builder.parse소재지("서울특별시 광진구 아차산로 262, 디동 15층 1503호 (자양동,더샵스타시티)"));
+
+		
+		assert소재지("경기도", 		"포천시",				null, 			"신읍동", 	"67-5", 	null, 									"중앙로", 			52, null,  	주소Builder.parse소재지("경기도 포천시 신읍동 67-5"));
 		assert소재지("경상남도", 	"창원시 마산회원구",		"내서읍", 		null, 		null, 		null, 									"중리상곡로", 			20, 1,  	주소Builder.parse소재지("경상남도 창원시 마산회원구 내서읍 중리상곡로 20-1"));
+		assert소재지("서울특별시",	"서초구",		 		null,	 		"우면동", 	"산21-22", 	null,									null, 	 			null, null,	주소Builder.parse소재지("서울특별시 서초구 우면동 산21-22"));
 		assert소재지("경상남도", 	"창원시 의창구",		"동읍", 			null, 		null, 		null, 									"용정길46번길",  		24, null,  	주소Builder.parse소재지("경상남도 창원시 의창구 동읍 용정길46번길 24"));
 		assert소재지("경상남도", 	"창원시 의창구",		"동읍", 			null, 		null, 		null,									"용정길46번길",  		24, 1,  	주소Builder.parse소재지("경상남도 창원시 의창구 동읍 용정길46번길 24-1"));
+		assert소재지("경상남도",	"창원시 마산회원구",		 null,	 		null, 		null, 		"6층 609호 (합성동,보보스존)",				"3·15대로", 	 		736, null,	주소Builder.parse소재지("(판매시설) 경상남도 창원시 마산회원구 3.15대로 736, 6층 609호 (합성동,보보스존)"));
+		assert소재지("경기도",		"군포시", 			 null,	 		null, 		null, 		"101동 13층 1303호 (당동,동아아파트)",		"군포로490번길", 	 	22, null,	주소Builder.parse소재지("(아파트) 경기도 군포시 군포로490번길 22, 101동 13층 1303호 (당동,동아아파트)"));
+		assert소재지("광주시",		null, 				 null,	 		"곤지암리", 	"124-2", 	null,									"광여로99번길", 	 	47, null,	주소Builder.parse소재지("(기타) 광주시 곤지암리 곤지암리 124-2"));
+		assert소재지("세종특별자치시",null, 				"조치원읍", 		"교리", 		"7-24", 	null,									"조치원5길", 	 		75, 5,		주소Builder.parse소재지("(대지) 세종특별자치시 조치원읍 교리 7-24"));
+		assert소재지("경기도", 		"남양주시", 			"수동면", 		null, 		null, 		"15층 1501호 (삼청장미9차아파트)",			"비룡로", 	 		164, null,	주소Builder.parse소재지("(아파트) 경기도 남양주시 수동면 비룡로 164, 15층 1501호 (삼청장미9차아파트)"));
+//		assert소재지(null, 		"포천시", 			"내촌면", 		"마명리", 	"109-5", 	"외 위지상 가동, 나동호에 소재", 				"부마로282번길",  		33, 40,		주소Builder.parse소재지("(기타) 포천시 내촌면 마명리 109-5외 위지상 가동, 나동호에 소재"));
+		assert소재지("경상북도", 	"포항시 북구", 		null, 			"동빈1가", 	"69-20", 	null, 									"해동로",  			285, 1, 	주소Builder.parse소재지("(대지) 경상북도 포항시 북구 동빈1가 69-20"));
+		assert소재지("인천광역시", 	"서구", 				null, 			null, 		null, 		null, 									"청마로148번길",  		47, null, 	주소Builder.parse소재지("인천광역시 서구 청마로 148번길47"));
+		assert소재지("인천광역시", 	"서구", 				null, 			null, 		null, 		null, 									"청마로148번길",  		47, 12, 	주소Builder.parse소재지("인천광역시 서구 청마로 148번길47-12"));
+		assert소재지("제주특별자치도","제주시", 			"구좌읍",			"세화리",		"산34", 		null, 									null, 				null,null, 	주소Builder.parse소재지("제주특별자치도 제주시 구좌읍 세화리 산34"));
+		assert소재지("경기도", 		"양주시", 			null,			"봉양동",		"산121-2", 	null, 									null, 				null,null, 	주소Builder.parse소재지("경기도 양주시 봉양동  산121-2"));
+		assert소재지("서울특별시", 	"동작구", 			null, 			"상도1동",	"801-1", 	null,	 								"상도로", 			294,1, 		주소Builder.parse소재지("서울특별시 동작구 상도1동 801-1"));
 		assert소재지("서울특별시",	"중구",				null, 			null, 		null, 		"25동 18층 1808호 (신당동,남산타운아파트)", 	"다산로",  			32, null,  	주소Builder.parse소재지("(아파트) 서울특별시 중구 다산로 32, 25동 18층 1808호 (신당동,남산타운아파트)"));
 		assert소재지("경상북도", 	"포항시 북구",			null,			null, 		null, 		"102동 1층 102호 (용흥동,1차우방타운)",  		"대안길",				56, null, 	주소Builder.parse소재지("경상북도 포항시 북구 대안길 56, 102동 1층 102호 (용흥동,1차우방타운)"));
 		assert소재지("인천광역시", 	"부평구", 			null, 			null, 		null, 		"117동 8층 801호 (삼산동,삼산타운주공아파트)", 	"굴포로",  			105, null, 	주소Builder.parse소재지("인천광역시 부평구 굴포로 105, 117동 8층 801호 (삼산동,삼산타운주공아파트)"));
@@ -52,7 +71,6 @@ public class 주소BuilderTest extends TestCase {
 		assert소재지("서울특별시", 	"노원구", 			null, 			"중계동",		"369-7", 	"중계2단지주공아파트종합상가 지하층 1호",	 		"한글비석로", 			332,null, 	주소Builder.parse소재지("서울특별시 노원구 중계동  369-7중계2단지주공아파트종합상가 지하층 1호"));
 		assert소재지("경기도", 		"남양주시", 			"와부읍",			"도곡리",		"1012", 	"한강우성아파트 106동 1층 102호",	 			"덕소로", 			270,null, 	주소Builder.parse소재지("경기도 남양주시 와부읍 도곡리 1012한강우성아파트 106동 1층 102호"));
 		assert소재지("서울특별시", 	"동대문구", 			null,			"제기동",		"892-66", 	"현대아파트 101동 8층 802호",	 			"정릉천동로", 			90,null, 	주소Builder.parse소재지("서울특별시 동대문구 제기동  892-66현대아파트 101동 8층 802호"));
-		assert소재지("경기도", 		"양주시", 			null,			"봉양동",		null, 		"산121-2",	 							null, 				null,null, 	주소Builder.parse소재지("경기도 양주시 봉양동  산121-2"));
 		assert소재지("경기도", 		"양주시", 			"광적면",			"우고리",		"465", 		null,	 								null, 				null,null, 	주소Builder.parse소재지("경기도 양주시 광적면 우고리 465"));
 		assert소재지("경기도", 		"양주시", 			"광적면",			"우고리",		"465", 		null,	 								null, 				null,null, 	주소Builder.parse소재지("경기도 양주시 광적면 우고리 465"));
 
