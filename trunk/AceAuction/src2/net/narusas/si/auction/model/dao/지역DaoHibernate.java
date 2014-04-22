@@ -84,5 +84,4 @@ public class 지역DaoHibernate extends GenericDaoHibernate<지역, Integer> imp
 
 		return (지역) res;
 	}
-
 }

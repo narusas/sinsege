@@ -31,15 +31,14 @@ public class 물건내역Fetcher {
 				String.valueOf(물건.get사건().get사건번호()), //
 				물건.get물건번호());
 		Exception e = null;
-		for(int i=0;i<3;i++){
+		for (int i = 0; i < 3; i++) {
 			try {
 				return 대법원Fetcher.getInstance().fetch(query);
 			} catch (Exception e1) {
 				e = e1;
-			}	
+			}
 		}
 		throw new IOException(e);
-		
 
 	}
 
@@ -56,13 +55,8 @@ public class 물건내역Fetcher {
 	}
 
 	private void fill인근매각표(String html, 물건 goods) {
-		if (html.contains("인근매각통계 표") == false 
-				|| 
-				(
-					html.contains("물건이 선박, 항공기, 권리에 해당하는 경우, 주소지 정보의 특성으로 인해 인근매각물건사례 정보를 제공하지 않습니다")
-					&& html.contains("검색결과가 없습니다.")
-				)
-			){
+		if (html.contains("인근매각통계 표") == false
+				|| (html.contains("물건이 선박, 항공기, 권리에 해당하는 경우, 주소지 정보의 특성으로 인해 인근매각물건사례 정보를 제공하지 않습니다") && html.contains("검색결과가 없습니다."))) {
 			return;
 		}
 		String chunk = html.substring(html.indexOf("<table class=\"Ltbl_list\" summary=\"인근매각통계 표\">"));
@@ -81,8 +75,7 @@ public class 물건내역Fetcher {
 		// return;
 		// }
 
-		Pattern p = Pattern.compile(
-				"<li><p class=\"law_title\">(\\d+\\)\\s*[^<]+)</p>\\s*<ul>\\s*<li>\\s*<span[^>]+>(.*)</span>",
+		Pattern p = Pattern.compile("<li><p class=\"law_title\">(\\d+\\)\\s*[^<]+)</p>\\s*<ul>\\s*<li>\\s*<span[^>]+>(.*)</span>",
 				Pattern.MULTILINE);
 		Matcher m = p.matcher(html);
 		StringBuffer buf = new StringBuffer();
@@ -95,37 +88,44 @@ public class 물건내역Fetcher {
 	}
 
 	private void fill표시목록(String html, 물건 goods) {
-		Sheet sheet = Sheet.parse(html, "<caption>목록내역</caption>", true, true);
+		try {
+			System.out.println(html);
+			Sheet sheet = Sheet.parse(html, "<caption>목록내역</caption>", true, true);
 
-		if (goods.get사건().get종류() == 사건종류.부동산) {
-			부동산표시목록Builder builder = new 부동산표시목록Builder();
-			for (int i = 0; i < sheet.rowSize(); i++) {
-				int 목록번호 = Integer.parseInt(sheet.valueAt(i, 0));
-				String 목록구분 = sheet.valueAt(i, 1);
-				String 상세내역 = sheet.valueAt(i, 2);
+			if (goods.get사건().get종류() == 사건종류.부동산) {
+				
+				부동산표시목록Builder builder = new 부동산표시목록Builder();
+				for (int i = 0; i < sheet.rowSize(); i++) {
+
+					int 목록번호 = Integer.parseInt(sheet.valueAt(i, 0));
+					String 목록구분 = sheet.valueAt(i, 1);
+					String 상세내역 = sheet.valueAt(i, 2);
+					try {
+						builder.build(goods, 목록번호, 목록구분, 상세내역);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 				try {
-					builder.build(goods, 목록번호, 목록구분, 상세내역);
+					builder.update종합(goods);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			try {
-				builder.update종합(goods);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if (goods.get사건().get종류() == 사건종류.자동차 || goods.get사건().get종류() == 사건종류.중장비) {
-			자동차표시목록Builder builder = new 자동차표시목록Builder();
-			builder.build(html, sheet, goods);
+			} else if (goods.get사건().get종류() == 사건종류.자동차 || goods.get사건().get종류() == 사건종류.중장비) {
+				자동차표시목록Builder builder = new 자동차표시목록Builder();
+				builder.build(html, sheet, goods);
 
-		} else if (goods.get사건().get종류() == 사건종류.선박) {
-			선박표시목록Builder builder = new 선박표시목록Builder();
-			builder.build(html, sheet, goods);
+			} else if (goods.get사건().get종류() == 사건종류.선박) {
+				선박표시목록Builder builder = new 선박표시목록Builder();
+				builder.build(html, sheet, goods);
+			}
+			// else if (goods.get사건().get종류() == 사건종류.중장비) {
+			// 중장비표시목록Builder builder = new 중장비표시목록Builder();
+			// builder.build(sheet, goods);
+			// }
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		// else if (goods.get사건().get종류() == 사건종류.중장비) {
-		// 중장비표시목록Builder builder = new 중장비표시목록Builder();
-		// builder.build(sheet, goods);
-		// }
 	}
 
 	private void fill소재지(String html, 물건 goods) {
@@ -134,38 +134,35 @@ public class 물건내역Fetcher {
 
 		while (m.find()) {
 			String no = m.group(1);
-			int 목록번호 =Integer.parseInt(no);
-			String 소재지 = HTMLUtils.strip(HTMLUtils.stripCRLF(HTMLUtils.findTHAndNextValueAsComplex(html, "목록" + no
-					+ " 소재지")));
-			logger.info("목록 "+목록번호+"의 소재지는 " + 소재지 + " 입니다. ");
-			int start = 0 ;
+			int 목록번호 = Integer.parseInt(no);
+			String 소재지 = HTMLUtils.strip(HTMLUtils.stripCRLF(HTMLUtils.findTHAndNextValueAsComplex(html, "목록" + no + " 소재지")));
+			logger.info("목록 " + 목록번호 + "의 소재지는 " + 소재지 + " 입니다. ");
+			int start = 0;
 			if (소재지 != null && "".equals(소재지.trim()) == false) {
 				// 사건이 부동산일때만 주소를 처리하고, 선박,자동차,중장비등일경우 그냥 소재지만 입력하게 함.
 				if (goods.get사건().get종류() == 사건종류.부동산) {
 					주소 주소 = new 주소Builder().parse(소재지);
-					if (goods.get소재지() == null || "".equals(goods.get소재지().trim())) {
-						update주소(goods, 주소, 소재지);
-					}
-					
-					start = html.indexOf("목록" + no+ " 소재지",start);
-					int end = html.indexOf("목록" + (목록번호+1)+ " 소재지", start);
-					end = end == -1 ? html.length()-1: end;
-					
+					// if (goods.get소재지() == null ||
+					// "".equals(goods.get소재지().trim())) {
+					update주소(goods, 주소, 소재지);
+					// }
+					start = html.indexOf("목록" + no + " 소재지", start);
+					int end = html.indexOf("목록" + (목록번호 + 1) + " 소재지", start);
+					end = end == -1 ? html.length() - 1 : end;
+
 					String chunk = html.substring(start, end);
-					start = end; 
-					
+					start = end;
+
 					String 공시지가 = fetch공시지가(chunk, goods);
 					goods.add부동산표시(Integer.parseInt(no), 주소, 공시지가);
-//										
-//					부동산표시 표시 = new 부동산표시();
-//					표시.set목록번호(목록번호);
-//					표시.set주소(주소);
-//					표시.set공시지가(공시지가);
-//					new 공시지가Fetcher().update(goods, 표시, chunk);	
-//					goods.add부동산표시(표시);
-					
-					
-					
+					//
+					// 부동산표시 표시 = new 부동산표시();
+					// 표시.set목록번호(목록번호);
+					// 표시.set주소(주소);
+					// 표시.set공시지가(공시지가);
+					// new 공시지가Fetcher().update(goods, 표시, chunk);
+					// goods.add부동산표시(표시);
+
 				} else {
 					주소 addr = new 주소();
 					addr.set시도(goods.get법원().get지역());
@@ -181,7 +178,7 @@ public class 물건내역Fetcher {
 			}
 		}
 	}
-	
+
 	private String fetch공시지가(String html, 물건 goods) {
 		try {
 			return new 공시지가Fetcher().fill공시지가(goods).from물건내역HTML(html).공시지가();
@@ -191,18 +188,17 @@ public class 물건내역Fetcher {
 		}
 	}
 
-
-
 	private void update주소(물건 goods, 주소 addr, String 소재지) {
 
 		goods.set지역_도(addr.get시도());
 		goods.set지역_시군구(addr.get시군구());
+		goods.set지역_시군구그룹(addr.get시군구그룹());
 		goods.set지역_동읍면(addr.get읍면동());
 		goods.set소재지(addr.get소재지());
-		
-		new  주소Builder2().update(goods,  addr,  소재지) ;
-		
-		
+		goods.setRoad1Group(addr.get통합주소().도로명그룹id);
+
+		new 주소Builder2().update(goods, addr, 소재지);
+
 	}
 
 	private boolean fillBasicInfo(String html, 물건 goods) {
@@ -274,7 +270,8 @@ public class 물건내역Fetcher {
 		String comment = 비고;
 		String garuantee_ratio = "10";
 		// 재매각, 보증금, 특별매각
-		if (comment != null && (comment.contains("재매각") || comment.contains("보증금") || comment.contains("특별매각") || comment.contains("매수신청보증액"))) {
+		if (comment != null
+				&& (comment.contains("재매각") || comment.contains("보증금") || comment.contains("특별매각") || comment.contains("매수신청보증액"))) {
 			Pattern p = Pattern.compile("(\\d+)%");
 			Matcher m = p.matcher(comment);
 			if (m.find()) {
