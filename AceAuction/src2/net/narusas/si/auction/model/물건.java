@@ -43,13 +43,12 @@ public class 물건 {
 
 	지역 지역_도;
 	지역 지역_시군구;
+	지역 지역_시군구그룹;
 	지역 지역_동읍면;
 	Long road1;
 	Long road2;
 	BigDecimal road3;
-	
-
-
+	Long road1Group;
 
 	public Long getRoad1() {
 		return road1;
@@ -369,6 +368,14 @@ public class 물건 {
 		this.지역_시군구 = 지역_시군구;
 	}
 
+	public 지역 get지역_시군구그룹() {
+		return 지역_시군구그룹;
+	}
+
+	public void set지역_시군구그룹(지역 지역_시군구그룹) {
+		this.지역_시군구그룹 = 지역_시군구그룹;
+	}
+
 	public 지역 get지역_동읍면() {
 		return 지역_동읍면;
 	}
@@ -395,7 +402,7 @@ public class 물건 {
 
 	@Override
 	public String toString() {
-		return ""+get물건번호();
+		return "" + get물건번호();
 	}
 
 	public void add부동산표시(부동산표시 _표시) {
@@ -409,7 +416,7 @@ public class 물건 {
 		}
 		부동산표시목록.add(_표시);
 	}
-	
+
 	public void add부동산표시(int no, 주소 주소, String 공시지가) {
 		if (부동산표시목록 == null) {
 			부동산표시목록 = new LinkedList<부동산표시>();
@@ -425,7 +432,6 @@ public class 물건 {
 		표시.set공시지가(공시지가);
 		부동산표시목록.add(표시);
 	}
-
 
 	public Collection<부동산표시> get부동산표시목록() {
 		return 부동산표시목록;
@@ -610,6 +616,24 @@ public class 물건 {
 
 	public void merge(물건 goods) {
 		// get사건().set종류(goods.get사건().get종류());
+		if (goods.get지역_도() != null) {
+			set지역_도(goods.get지역_도());
+		}
+		if (goods.get지역_시군구() != null) {
+			set지역_시군구(goods.get지역_시군구());
+		}
+
+		if (goods.get지역_동읍면() != null) {
+			set지역_동읍면(goods.get지역_동읍면());
+		}
+		if (goods.지역_시군구그룹 != null) {
+			this.지역_시군구그룹 = goods.지역_시군구그룹;
+		}
+
+		if (goods.getRoad1Group() != null) {
+			setRoad1Group(goods.getRoad1Group());
+		}
+
 		if (goods.get기일내역() != null) {
 			set기일내역(goods.get기일내역());
 		}
@@ -669,16 +693,22 @@ public class 물건 {
 				add인근매각통계(물건인근매각통계Item);
 			}
 		}
-		
-		if (goods.getRoad1()!= null){
-			this.road1 =goods.getRoad1(); 
+
+		if (goods.getRoad1() != null) {
+			this.road1 = goods.getRoad1();
 		}
-		if (goods.getRoad2()!= null){
-			this.road2 =goods.getRoad2(); 
+
+		if (goods.getRoad1Group() != null) {
+			this.road1Group = goods.getRoad1Group();
 		}
-		if (goods.getRoad3()!= null){
-			this.road3 =goods.getRoad3(); 
+
+		if (goods.getRoad2() != null) {
+			this.road2 = goods.getRoad2();
 		}
+		if (goods.getRoad3() != null) {
+			this.road3 = goods.getRoad3();
+		}
+
 	}
 
 	public String getPath() {
@@ -715,7 +745,6 @@ public class 물건 {
 			목록s = new ArrayList<목록>();
 		}
 		목록s.add(목록);
-		
 
 	}
 
@@ -725,11 +754,19 @@ public class 물건 {
 
 	public void set최선순위설정일자(String 최선순위설정일자) {
 		this.최선순위설정일자 = 최선순위설정일자;
-		
+
 	}
 
 	public String get최선순위설정일자() {
 		return 최선순위설정일자;
+	}
+
+	public Long getRoad1Group() {
+		return road1Group;
+	}
+
+	public void setRoad1Group(Long road1Group) {
+		this.road1Group = road1Group;
 	}
 
 }

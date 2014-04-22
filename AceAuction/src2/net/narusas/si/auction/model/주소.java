@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class 주소 {
 	지역 시도;
 	지역 시군구;
+	지역 시군구그룹;
 	지역 읍면동;
 	String 번지이하;
 	private String 소재지;
@@ -40,6 +41,15 @@ public class 주소 {
 
 	public void set시군구(지역 시군구) {
 		this.시군구 = 시군구;
+	}
+	
+
+	public 지역 get시군구그룹() {
+		return 시군구그룹;
+	}
+
+	public void set시군구그룹(지역 시군구그룹) {
+		this.시군구그룹 = 시군구그룹;
 	}
 
 	public 지역 get읍면동() {

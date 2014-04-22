@@ -15,6 +15,7 @@ import net.narusas.si.auction.app.Controller;
 import net.narusas.si.auction.app.Initializer;
 import net.narusas.si.auction.app.LogConsoleThread;
 import net.narusas.si.auction.builder.Mode;
+import net.narusas.si.auction.fetchers.주소승격Converter;
 
 import com.jeta.forms.components.panel.FormPanel;
 
@@ -25,6 +26,7 @@ public class BuildApp extends App {
 	private static final long serialVersionUID = -8456984555811789604L;
 
 	public static void main(String[] args) {
+		new 주소승격Converter();
 		new BuildApp().run();
 	}
 
