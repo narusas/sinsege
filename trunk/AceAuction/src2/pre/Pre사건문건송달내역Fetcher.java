@@ -1,4 +1,4 @@
-package net.narusas.si.auction.fetchers;
+package pre;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,48 +9,24 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.narusas.si.auction.builder.FileUploaderBG;
+import net.narusas.si.auction.fetchers.HTMLUtils;
+import net.narusas.si.auction.fetchers.대법원Fetcher;
 import net.narusas.si.auction.model.문건처리내역;
-import net.narusas.si.auction.model.사건;
 import net.narusas.si.auction.model.송달내역;
 import net.narusas.util.lang.NFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class 사건문건송달내역Fetcher {
+public class Pre사건문건송달내역Fetcher {
 	final Logger logger = LoggerFactory.getLogger("auction");
-
-	String fetch(사건 사건) throws IOException {
-		String query = MessageFormat.format("/RetrieveRealEstSaDetailInqMungunSongdalList.laf" //
-				+ "?jiwonNm={0}&saNo={1}" //
-		, HTMLUtils.encodeUrl(사건.get법원().get법원명()), String.valueOf(사건.get사건번호()));
-
-		return 대법원Fetcher.getInstance().fetch(query);
-	}
-	
-
-	String parse문건처리내역(String html) {
-		int startPos = html.indexOf("<table class=\"Ltbl_dt\" summary=\"문건처리내역 표\">");
-		if (startPos == -1) {
-			return "";
-		}
-		int endPos = html.indexOf("</table>", startPos);
-		return html.substring(startPos, endPos + 8);
-	}
-
-	String parse송달내역(String html) {
-		int startPos = html.indexOf("<table class=\"Ltbl_dt\" summary=\"송달내역 표\">");
-		int endPos = html.indexOf("</table>", startPos);
-		return html.substring(startPos, endPos + 8);
-	}
-
-	public String[] download(사건 사건) throws IOException {
-		logger.info("사건의 문서 송달내역 페이지를 다운로드합니다");
-		File path = new File("download/" + 사건.getPath());
+	public String[] download(사건기본정보 사건) throws IOException {
+		File path = new File("download/" + 사건.getPath()); 
 		if (path.exists() == false) {
 			path.mkdirs();
 		}
-		String html = fetch(사건);
+		
+		String html = fetch(사건.jiwon, 사건.saNo);
 		String 문건처리내역 = parse문건처리내역(html);
 		if (문건처리내역 != null && "".equals(문건처리내역.trim()) == false) {
 			update사건문건처리내역(사건,문건처리내역);
@@ -69,8 +45,31 @@ public class 사건문건송달내역Fetcher {
 
 		return new String[] { 문건처리내역, 송달내역 };
 	}
+	
+	String parse문건처리내역(String html) {
+		int startPos = html.indexOf("<table class=\"Ltbl_dt\" summary=\"문건처리내역 표\">");
+		if (startPos == -1) {
+			return "";
+		}
+		int endPos = html.indexOf("</table>", startPos);
+		return html.substring(startPos, endPos + 8);
+	}
 
-	private void update사건문건처리내역(사건 사건, String text) {
+	String parse송달내역(String html) {
+		int startPos = html.indexOf("<table class=\"Ltbl_dt\" summary=\"송달내역 표\">");
+		int endPos = html.indexOf("</table>", startPos);
+		return html.substring(startPos, endPos + 8);
+	}
+	
+	String fetch(String  법원명,  String  사건번호) throws IOException {
+		String query = MessageFormat.format("/RetrieveRealEstSaDetailInqMungunSongdalList.laf" //
+				+ "?jiwonNm={0}&saNo={1}" //
+		, HTMLUtils.encodeUrl(법원명), 사건번호);
+
+		return 대법원Fetcher.getInstance().fetch(query);
+	}
+	
+	private void update사건문건처리내역(사건기본정보 사건, String text) {
 		text = text.substring(text.indexOf("<tbody>"));
 		String[] chunks = text.split("<tr>");
 		Pattern p = Pattern.compile("<td[^>]+>([^<]+)</td>\\s+<td>\\s+([^<]+)</td>\\s+<td>\\s+([^<]+)</td>");
@@ -90,10 +89,10 @@ public class 사건문건송달내역Fetcher {
 			item.set결과(결과);
 			items.add(item);
 		}
-		사건.set문건처리내역(items);
+		사건.문건처리내역 = items;
 	}
 
-	private void update송달내역(사건 사건, String text) {
+	private void update송달내역(사건기본정보 사건, String text) {
 		text = text.substring(text.indexOf("</tr>"));
 		String[] chunks = text.split("<tr>");
 		Pattern p = Pattern.compile("<td[^>]*>([^<]+)</td>\\s*<td[^>]*>([^<]+)</td>\\s*<td[^>]*>([^<]+)</td>");
@@ -112,7 +111,6 @@ public class 사건문건송달내역Fetcher {
 			item.set송달결과(송달결과);
 			items.add(item);
 		}
-		사건.set송달내역(items);
+		사건.송달내역 = items;
 	}
-
 }

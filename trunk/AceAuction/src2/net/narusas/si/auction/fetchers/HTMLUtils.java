@@ -134,4 +134,25 @@ public class HTMLUtils {
 	public static String encodeUrl(String txt) {
 		return encodeUrl(txt, "euc-kr");
 	}
+
+	static Pattern tdPattern = Pattern.compile("<td[^>]*>([^<]*)</td[^>]*>", Pattern.MULTILINE);
+	public static List<String> findTDs(String src) {
+		List<String> res = new ArrayList<String>();
+		int pos = 0;
+		while(true) {
+			int start =  src.indexOf("<td", pos);
+			if (start == -1){
+				break;
+			}
+			int end =  src.indexOf("</td", start);
+			String chunk = src.substring(start, end+5);
+//			System.out.println("###"+chunk);
+			Matcher m = tdPattern.matcher(chunk);
+			if(m.find()) {
+				res.add(m.group(1).trim());
+			}
+			pos = end;
+		}
+		return res;
+	}
 }

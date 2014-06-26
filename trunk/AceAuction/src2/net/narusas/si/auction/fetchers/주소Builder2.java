@@ -156,7 +156,7 @@ public class 주소Builder2 {
 		
 		
 		Integer road_area =  null;
-		JdbcTemplate template = (JdbcTemplate) App.context.getBean("jdbcTemplate");
+		JdbcTemplate template = getJdbcTemplate();
 		{
 //		if (goods.getRoad1() == null && res.도로명 == null){
 			logger.info("ROAD1 갱신 작업을 시작합니다");
@@ -276,5 +276,9 @@ public class 주소Builder2 {
 		}
 		
 		logger.info("도로명 주소를 찾을수 없습니다. ");
+	}
+	
+	protected JdbcTemplate getJdbcTemplate() {
+		return (JdbcTemplate) App.context.getBean("jdbcTemplate");
 	}
 }

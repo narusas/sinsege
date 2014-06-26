@@ -51,8 +51,13 @@ public class 경매결과Updater {
 
 			for (물건 old물건 : goodsList) {
 				logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "의 기일내역을 갱신합니다. ");
-				if (완료물건_진행여부  == false && old물건.is완료여부()) {
+				if (완료물건_진행여부 == false && old물건.is완료여부()) {
 					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 완료된 물건입니다.");
+					continue;
+				}
+
+				if ("취하".equals(old물건.get기일결과())) {
+					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 취하된 물건입니다.");
 					continue;
 				}
 				물건 newGoods = 사건.get물건By물건번호(old물건.get물건번호());
@@ -76,9 +81,8 @@ public class 경매결과Updater {
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.info(사건.get사건번호() + "의 기일내역 페이지를 얻어오지 못했습니다. ");
-		}
-		catch(org.hibernate.ObjectNotFoundException ex){
-			logger.info(사건.get사건번호() + "을  DB 에서 읽어 오는데 오류가 발생했습니다. "+ ex.getMessage());
+		} catch (org.hibernate.ObjectNotFoundException ex) {
+			logger.info(사건.get사건번호() + "을  DB 에서 읽어 오는데 오류가 발생했습니다. " + ex.getMessage());
 		}
 
 	}
