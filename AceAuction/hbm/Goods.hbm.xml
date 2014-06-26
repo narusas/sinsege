@@ -20,8 +20,13 @@
 			lazy="false" />
 		<many-to-one name="지역_동읍면" class="지역" column="area_code_3"
 			lazy="false" />
+		<many-to-one name="지역_시군구그룹" class="지역" column="area2_grp"
+			lazy="false" />
+			
+			
 		
-
+		<property name="road1Group" column="road1_grp" />
+		
 		<property name="road1" column="area_road_1" />
 		<property name="road2" column="area_road_2" />
 		<property name="road3" column="area_road_3" />
