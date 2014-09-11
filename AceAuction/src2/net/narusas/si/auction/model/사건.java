@@ -61,6 +61,11 @@ public class 사건 {
 		this.eventYear = Integer.parseInt(m.group(1));
 		this.eventNo = Integer.parseInt(m.group(2));
 	}
+	
+	public String to사건번호Full() {
+		//20070130025941
+		return eventYear+"0130"+String.format("%06d", eventNo);
+	}
 
 	public Long get담당계Id() {
 		return 담당계Id;

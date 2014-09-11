@@ -49,6 +49,8 @@ public class 물건 {
 	Long road2;
 	BigDecimal road3;
 	Long road1Group;
+	
+	String address2;
 
 	public Long getRoad1() {
 		return road1;
@@ -768,5 +770,15 @@ public class 물건 {
 	public void setRoad1Group(Long road1Group) {
 		this.road1Group = road1Group;
 	}
+
+	public String getAddress2() {
+		return address2;
+	}
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	
+	
 
 }
