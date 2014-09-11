@@ -17,6 +17,7 @@ import net.narusas.si.auction.model.주소;
 import net.narusas.si.auction.model.토지;
 import net.narusas.util.TextUtil;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,8 +57,9 @@ public class 부동산표시목록Builder {
 	boolean hasLandRight = false;
 	boolean has전유부분 = false;
 
-	public void build(물건 goods, int 목록번호, String 목록구분, String 상세내역) {
+	public void build(물건 goods, int 목록번호, String 목록구분, String 상세내역, int index) {
 		상세내역 = convertAreaUnit(상세내역);
+		updateAddress2(goods,  상세내역, index);
 
 		부동산표시 표시 = goods.get부동산표시(목록번호);
 		if (goods.get사건().get종류() == 사건종류.부동산 && 표시 != null && isStartWithAddress(상세내역, 표시.get주소())) {
@@ -144,7 +146,30 @@ public class 부동산표시목록Builder {
 
 	}
 
-	
+	// 도로명 주소일때 구 주소가 있는지 여부를 확인해  ac_goods.address2 에 넣어 주는 기능
+	private void updateAddress2(물건 goods, String 상세내역, int index) {
+		if (index >0){
+			return;
+		}
+		if (상세내역.contains("[도로명 주소]") == false){
+			return;
+		}
+		String temp =  HTMLUtils.converHTMLSpecialChars(상세내역.substring(0,  상세내역.indexOf("[도로명 주소]"))).trim();
+		String[] list = temp.split("\n");
+		if (temp.contains(" 표시")){
+			temp = list[1].trim();
+		}
+		else {
+			temp = list[0].trim();
+		}
+		if (StringUtils.isEmpty(temp) || StringUtils.isNotEmpty(goods.getAddress2())){
+			return;
+		}
+		logger.info("기존 주소:"+ temp);
+		goods.setAddress2(temp);
+	}
+
+
 	private boolean isStartWithAddress(String 상세내역, 주소 주소) {
 		String[] lines = 상세내역.split("\n");
 		String startingLine = lines[0];

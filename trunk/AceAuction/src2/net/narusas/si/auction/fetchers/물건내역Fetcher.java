@@ -101,7 +101,7 @@ public class 물건내역Fetcher {
 					String 목록구분 = sheet.valueAt(i, 1);
 					String 상세내역 = sheet.valueAt(i, 2);
 					try {
-						builder.build(goods, 목록번호, 목록구분, 상세내역);
+						builder.build(goods, 목록번호, 목록구분, 상세내역, i);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -131,7 +131,7 @@ public class 물건내역Fetcher {
 	private void fill소재지(String html, 물건 goods) {
 		Pattern p = Pattern.compile("목록(\\d+)\\s*소재지");
 		Matcher m = p.matcher(html);
-
+		boolean finded = false;
 		while (m.find()) {
 			String no = m.group(1);
 			int 목록번호 = Integer.parseInt(no);
@@ -142,9 +142,15 @@ public class 물건내역Fetcher {
 				// 사건이 부동산일때만 주소를 처리하고, 선박,자동차,중장비등일경우 그냥 소재지만 입력하게 함.
 				if (goods.get사건().get종류() == 사건종류.부동산) {
 					주소 주소 = new 주소Builder().parse(소재지);
+					if (finded == false){
+						finded = true;	
+						update주소(goods, 주소, 소재지);
+					}
+					
+					
 					// if (goods.get소재지() == null ||
 					// "".equals(goods.get소재지().trim())) {
-					update주소(goods, 주소, 소재지);
+					
 					// }
 					start = html.indexOf("목록" + no + " 소재지", start);
 					int end = html.indexOf("목록" + (목록번호 + 1) + " 소재지", start);
@@ -153,7 +159,9 @@ public class 물건내역Fetcher {
 					String chunk = html.substring(start, end);
 					start = end;
 
-					String 공시지가 = fetch공시지가(chunk, goods);
+					// 2014.07.07  온나라 사이트 연계가 이상해서 생략 
+//					String 공시지가 = fetch공시지가(chunk, goods);
+					String 공시지가 = "";
 					goods.add부동산표시(Integer.parseInt(no), 주소, 공시지가);
 					//
 					// 부동산표시 표시 = new 부동산표시();
@@ -164,16 +172,20 @@ public class 물건내역Fetcher {
 					// goods.add부동산표시(표시);
 
 				} else {
+					
 					주소 addr = new 주소();
 					addr.set시도(goods.get법원().get지역());
-					goods.set지역_도(goods.get법원().get지역());
-					goods.set소재지(소재지);
+					if (finded == false){
+						goods.set지역_도(goods.get법원().get지역());
+						goods.set소재지(소재지);
+					}
 
 					부동산표시 표시 = new 부동산표시();
 					표시.set목록번호(목록번호);
 					표시.set주소(addr);
 
 					goods.add부동산표시(표시);
+					finded = true;
 				}
 			}
 		}
