@@ -100,7 +100,7 @@ public class BuildApp extends App {
 		BuildController c = (BuildController) controller;
 		c.set법원List((JList) modelPanel.getComponentByName("courtList"));
 		c.set담당계List((JList) modelPanel.getComponentByName("chargeList"));
-		
+
 		c.set전체실행Button((JButton) controlPanel.getComponentByName("doAllBtn"));
 		c.set선택실행Button((JButton) controlPanel.getComponentByName("doSelectedBtn"));
 		c.set단일실행Button((JButton) controlPanel.getComponentByName("doSIngleEventBtn"));
@@ -112,13 +112,15 @@ public class BuildApp extends App {
 		c.set신건RadioBtn((JRadioButton) controlPanel.getComponentByName("newbieBtn"));
 		c.set매각물건명세서RadioBtn((JRadioButton) controlPanel.getComponentByName("goodsStatementBtn"));
 		c.set등기부등본RadioBtn((JRadioButton) controlPanel.getComponentByName("attestedBtn"));
+		c.set현장조사서이미지RadioBtn((JRadioButton) controlPanel.getComponentByName("placeImageBtn"));
 
 		c.setClearLogButton((JButton) logPanel.getComponentByName("clearLogBtn"));
 		c.setLogTetArea((JTextArea) logPanel.getComponentByName("logTextArea"));
+		
+		c.setMergedEvent((JTextField) controlPanel.getComponentByName("mergedYear"),
+				(JTextField) controlPanel.getComponentByName("mergedNo"));
 
 	}
-
-	
 
 	public Initializer createInitializer() {
 		return new Initializer();
