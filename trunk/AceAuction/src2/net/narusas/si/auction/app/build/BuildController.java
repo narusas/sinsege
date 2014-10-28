@@ -26,9 +26,11 @@ import net.narusas.si.auction.builder.Mode;
 import net.narusas.si.auction.builder.경매공매등기부등본Batch;
 import net.narusas.si.auction.builder.담당계Batch;
 import net.narusas.si.auction.builder.담당계목록Batch;
+import net.narusas.si.auction.builder.현장조사서이미지Batch;
 import net.narusas.si.auction.model.담당계;
 import net.narusas.si.auction.model.법원;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +53,9 @@ public class BuildController implements Controller {
 	private JTextField 여기부터YearFilter;
 	private JTextField 여기부터NoFilter;
 	private JButton 지정물건실행Button;
+	private JRadioButton 현장조사서이미지RadioBtn;
+	private JTextField mergedYearTextField;
+	private JTextField mergedNoTextField;
 
 	public void set법원List(JList list) {
 		this.법원List = list;
@@ -181,23 +186,49 @@ public class BuildController implements Controller {
 				if (values.length == 0) {
 					return;
 				}
-				String eventYear = 단일사건YearTextField.getText();
+				final String eventYear = 단일사건YearTextField.getText();
 				String eventNo = 단일사건NoTextField.getText();
 				if (eventNo == null || "".equals(eventNo.trim()) || eventYear == null || "".equals(eventYear.trim())) {
 					return;
 				}
+				
 				int eventYearValue = Integer.parseInt(eventYear);
 				int eventNoValue = Integer.parseInt(eventNo);
 
-				final long 사건번호 = Long.parseLong(MessageFormat.format("{0,number,0000}013{1,number,0000000}", eventYearValue, eventNoValue));
+				final String 사건번호Str = MessageFormat.format("{0,number,0000}013{1,number,0000000}", eventYearValue, eventNoValue);
+				
+				final long 사건번호 = Long.parseLong(사건번호Str);
+				final String[] 사건번호Strs = new String[2];
+				사건번호Strs[0] = 사건번호Str;
+				
+				String mergedEventYear = mergedYearTextField.getText();
+				String mergedEventNo = mergedNoTextField.getText();
+				if (StringUtils.isNotEmpty(mergedEventYear) && StringUtils.isNotEmpty(mergedEventNo) ) {
+					int mergedEventYearValue = Integer.parseInt(mergedEventYear);
+					int mergedEventNoValue = Integer.parseInt(mergedEventNo);
+					final String merged사건번호Str = MessageFormat.format("{0,number,0000}013{1,number,0000000}", mergedEventYearValue, mergedEventNoValue);
+					사건번호Strs[1] = merged사건번호Str;
+//					final long merged사건번호 = Long.parseLong(merged사건번호Str);
+	
+				}
+				
 
 				final 담당계 charge = (담당계) values[0];
-				new Thread() {
-					@Override
-					public void run() {
-						new 담당계Batch(charge, 사건번호).execute();
-					}
-				}.start();
+				if (BuildApp.mode == Mode.현장조사서이미지) {
+					new Thread() {
+						@Override
+						public void run() {
+							new 현장조사서이미지Batch(charge.get소속법원(), charge, eventYear, 사건번호Strs[0], 사건번호Strs[1]).execute();
+						}
+					}.start();
+				} else {
+					new Thread() {
+						@Override
+						public void run() {
+							new 담당계Batch(charge, 사건번호).execute();
+						}
+					}.start();
+				}
 
 			}
 		});
@@ -264,6 +295,20 @@ public class BuildController implements Controller {
 		});
 	}
 
+	public void set현장조사서이미지RadioBtn(JRadioButton 현장조사서이미지RadioBtn) {
+		this.현장조사서이미지RadioBtn = 현장조사서이미지RadioBtn;
+
+		this.현장조사서이미지RadioBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				enableControl(true);
+				BuildApp.mode = Mode.현장조사서이미지;
+			}
+		});
+
+	}
+
 	public void set기간TextFields(JTextField startYear, JTextField startMonth, JTextField startDay, JTextField endYear, JTextField endMonth,
 			JTextField endDay) {
 
@@ -288,6 +333,11 @@ public class BuildController implements Controller {
 		new 경매공매등기부등본Batch((법원) selected법원s[0], workset).start();
 	}
 
+	public void setMergedEvent(JTextField mergedYearTextField, JTextField mergedNoTextField) {
+		this.mergedYearTextField = mergedYearTextField;
+		this.mergedNoTextField = mergedNoTextField;
+
+	}
 	
 
 }
