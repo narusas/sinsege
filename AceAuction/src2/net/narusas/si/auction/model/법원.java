@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.narusas.si.auction.fetchers.HTMLUtils;
+
 public class 법원 implements Serializable {
 
 	// 법원목록이 static인 이유는 각 법원이 담당계 workset을 메모리상에 유지해야 하기 때문이다.
 
-	public static List<법원> 법원목록 ;
+	public static List<법원> 법원목록;
 
 	private Integer 법원코드;
 
@@ -16,8 +18,8 @@ public class 법원 implements Serializable {
 
 	private String 스피드옥션_법원코드;
 	private Integer 경매공매_법원코드;
-	private String  법원경매_법원명 ;
-	
+	private String 법원경매_법원명;
+
 	private 법원 상위법원;
 
 	지역 지역;
@@ -125,6 +127,10 @@ public class 법원 implements Serializable {
 
 	public void set법원경매_법원명(String 법원경매_법원명) {
 		this.법원경매_법원명 = 법원경매_법원명;
+	}
+
+	public String get법원명UrlEncoded() {
+		return HTMLUtils.encodeUrl(법원명);
 	}
 
 }
