@@ -34,6 +34,7 @@
 		<property name="완료여부" column="done" />
 		<property name="물건번호" column="no" />
 		<property name="물건종별" column="type_code" />
+		<property name="address2" column="address2" />
 
 
 		<!--
