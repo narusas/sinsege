@@ -42,26 +42,26 @@
 		</component>
 
 		<bag name="당사자목록" table="ac_participant" cascade="all,delete-orphan"
-			lazy="false">
+			lazy="true">
 			<key column="event_no" />
 			<one-to-many class="당사자" />
 		</bag>
 
 		<bag name="부동산점유관계" table="ac_occupation" cascade="all,delete-orphan"
-			lazy="false">
+			lazy="true">
 			<key column="event_no" />
 			<one-to-many class="점유관계" />
 		</bag>
 		
 		
 		<bag name="문건처리내역" table="ac_document_history" cascade="all,delete-orphan"
-			lazy="false">
+			lazy="true">
 			<key column="event_no" />
 			<one-to-many class="문건처리내역" />
 		</bag>
 		
 		<bag name="송달내역" table="ac_delivery_history" cascade="all,delete-orphan"
-			lazy="false">
+			lazy="true">
 			<key column="event_no" />
 			<one-to-many class="송달내역" />
 		</bag>
