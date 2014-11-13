@@ -52,7 +52,7 @@ public class PlanAppController {
 							for (사건 fetched사건 : 사건List) {
 								사건 사건 = 사건dao.find(법원, fetched사건.get사건번호());
 								try {
-									new 경매결과Updater(사건, false, "전체",null,null, true).execute();
+									new 경매결과Updater(사건,fetched사건, false, "전체",null,null, true).execute();
 								} catch (Exception e) {
 									e.printStackTrace();
 									logger.info("처리중에 오류가 발생했습니다:"+e.getMessage());

@@ -31,7 +31,7 @@ public class 사건Updater extends Thread {
 		if (old == null) {
 			logger.info("해당 사건이 DB에 입력되어 있지 않습나다");
 		}
-		new 경매결과Updater(old, useDone, 종류선택, null, null, false).execute();
+		new 경매결과Updater(old, null, useDone, 종류선택, null, null, false).execute();
 	}
 
 }

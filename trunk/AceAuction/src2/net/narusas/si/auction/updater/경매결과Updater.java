@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import net.narusas.si.auction.app.App;
 import net.narusas.si.auction.fetchers.사건기일내역Fetcher;
@@ -25,9 +26,11 @@ public class 경매결과Updater {
 	private Date 시작일;
 	private Date 종료일;
 	private boolean 완료물건_진행여부;
+	private net.narusas.si.auction.model.사건 fetched사건;
 
-	public 경매결과Updater(사건 사건, boolean useDone, String 결과종류, Date 시작일, Date 종료일, boolean 완료물건_진행여부) {
+	public 경매결과Updater(사건 사건, 사건 fetched사건, boolean useDone, String 결과종류, Date 시작일, Date 종료일, boolean 완료물건_진행여부) {
 		this.사건 = 사건;
+		this.fetched사건 = fetched사건;
 		this.useDone = useDone;
 		this.결과종류 = 결과종류;
 		this.시작일 = 시작일;
@@ -50,15 +53,29 @@ public class 경매결과Updater {
 			f.update(사건);
 
 			for (물건 old물건 : goodsList) {
+				if (new Random(System.currentTimeMillis()).nextBoolean()){
+					continue;
+				}
+				if (fetched사건 != null) {
+					if (isTargetGoods(old물건)){
+						logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 매각예정물건에 있는 물건입니다. ");
+					}
+					else {
+						continue;
+					}
+				}
+//			물건 old물건 = goodsList.get(0);
 				logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "의 기일내역을 갱신합니다. ");
 				if (완료물건_진행여부 == false && old물건.is완료여부()) {
 					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 완료된 물건입니다.");
-					continue;
+					return;
+//					continue;
 				}
 
 				if ("취하".equals(old물건.get기일결과())) {
 					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 취하된 물건입니다.");
-					continue;
+					return;
+//					continue;
 				}
 				물건 newGoods = 사건.get물건By물건번호(old물건.get물건번호());
 				기일내역 old기일 = old물건.get기일내역();
@@ -85,6 +102,16 @@ public class 경매결과Updater {
 			logger.info(사건.get사건번호() + "을  DB 에서 읽어 오는데 오류가 발생했습니다. " + ex.getMessage());
 		}
 
+	}
+
+	private boolean isTargetGoods(물건 old물건) {
+		for(int i=0;i<fetched사건.get물건목록().size();i++){
+			물건 target = fetched사건.get물건목록().get(i);
+			if (target.get물건번호().equals(old물건.get물건번호())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void fetch기일결과(물건 old물건) throws IOException {

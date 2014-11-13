@@ -3,11 +3,14 @@ package net.narusas.si.auction.fetchers;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.법원;
 import net.narusas.si.auction.model.사건;
 
@@ -95,20 +98,22 @@ public class 매각예정_사건목록Fetcher {
 	}
 	
 	List<사건> parseSagunList(String html) {
+		Map<String,사건 > saguns = new HashMap<String,  사건 >();
 		Pattern p = Pattern
 				.compile("onclick=\"javascript:detailCaseSrch\\('([^']+)',\\s+'([^']+)',\\s+'([^']+)'\\);");
 		Matcher m = p.matcher(html);
 		List<사건> list = new LinkedList<사건>();
 		while (m.find()) {
-			list.add(parseSagun(m, html));
+			list.add(parseSagun(saguns, m, html));
 		}
 
 		return list;
 	}
 	
-	사건 parseSagun(Matcher m, String html) {
+	사건 parseSagun(Map<String, 사건> saguns, Matcher m, String html) {
 		String sagunNo = m.group(2);
 		long 사건번호 = Long.parseLong(sagunNo);
+		int 물건번호 =  Integer.parseInt(m.group(3));
 		int index = html.indexOf("Ltbl_list_lvl0", m.end());
 		if (index == -1) {
 			index = html.indexOf("Ltbl_list_lvl1", m.end());
@@ -124,10 +129,20 @@ public class 매각예정_사건목록Fetcher {
 		}
 
 		String chunk = html.substring(m.end(), index);
-
 		사건 sagun = new 사건();
+		if (saguns.containsKey(sagunNo)){
+			sagun = saguns.get(sagunNo);
+		}else {
+			saguns.put(sagunNo, sagun);
+		}
+
+		
 		sagun.set사건번호(사건번호);
 		sagun.set신건(chunk.contains("신건"));
+		물건  goods = new  물건() ;
+		goods.set물건번호(물건번호);
+		goods.set사건(sagun);
+		sagun.add물건(goods) ;
 		System.out.println(sagun);
 		return sagun;
 	}

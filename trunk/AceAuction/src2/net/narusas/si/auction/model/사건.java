@@ -1,6 +1,7 @@
 package net.narusas.si.auction.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -472,6 +473,13 @@ public class 사건 {
 
 	public void set문건처리내역(List<문건처리내역> 문건처리내역) {
 		this.문건처리내역 = 문건처리내역;
+	}
+
+	public void add물건(물건 goods) {
+		if(물건목록 == null){
+			물건목록 = new ArrayList<물건>();
+		}
+		물건목록.add(goods);
 	}
 	
 

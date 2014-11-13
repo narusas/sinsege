@@ -38,9 +38,9 @@ public class 법원Updater extends Thread {
 
 	@Override
 	public void run() {
-//		logger.info(법원.get법원명() + "의 기일내역을 갱신합니다.");
-//		매각예정_사건목록Fetcher f = new 매각예정_사건목록Fetcher();
-//		사건Dao 사건dao = (사건Dao) App.context.getBean("사건DAO");
+		logger.info(법원.get법원명() + "의 기일내역을 갱신합니다.");
+		매각예정_사건목록Fetcher f = new 매각예정_사건목록Fetcher();
+		사건Dao 사건dao = (사건Dao) App.context.getBean("사건DAO");
 //		try {
 //			logger.info(법원.get법원명() + "의 사건 목록을 매각결과검색에서 가져 옵니다. 사건수에 따라 시간이 많이 걸릴수 있습니다. ");
 //			List<사건> 사건List = f.fetchAll(법원);
@@ -48,7 +48,7 @@ public class 법원Updater extends Thread {
 //			for (사건 fetched사건 : 사건List) {
 //				사건 사건 = 사건dao.find(법원, fetched사건.get사건번호());
 //				try {
-//					new 경매결과Updater(사건, useDone, 결과종류, start, end).execute();
+//					new 경매결과Updater(사건, useDone, 결과종류, start, end, true).execute();
 //				} catch (Exception e) {
 //					e.printStackTrace();
 //					logger.info("처리중에 오류가 발생했습니다:"+e.getMessage());
@@ -58,18 +58,18 @@ public class 법원Updater extends Thread {
 //			e.printStackTrace();
 //			logger.info("처리중에 오류가 발생했습니다:"+e.getMessage());
 //		}
-
+//
 		담당계Dao 담당계dao = (담당계Dao) App.context.getBean("담당계DAO");
 		List<담당계> 담당계List = 담당계dao.find(법원, start, end);
 		if (담당계List == null || 담당계List.size() == 0) {
 			logger.info("지정된 기간안에 처리된 사건이 없습니다. ");
 		}
-		사건Dao 사건dao = (사건Dao) App.context.getBean("사건DAO");
+//		사건Dao 사건dao = (사건Dao) App.context.getBean("사건DAO");
 		for (담당계 담당계 : 담당계List) {
 			List<사건> 사건List = 사건dao.findBy(담당계);
 			for (사건 사건 : 사건List) {
 				try {
-					new 경매결과Updater(사건, useDone, 결과종류, start, end,완료물건_진행여부).execute();
+					new 경매결과Updater(사건, null, useDone, 결과종류, start, end,완료물건_진행여부).execute();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

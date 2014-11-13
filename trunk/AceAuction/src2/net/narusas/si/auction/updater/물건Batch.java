@@ -39,7 +39,7 @@ public class 물건Batch {
 			logger.info("물건이 속한 사건의  ID:"+goods.get사건().getId());
 			사건  event =  사건dao.find(goods.get사건().getId());
 			logger.info("물건이 속한 사건:"+event);
-			new 경매결과Updater( event, true, "전체", null, null, true).execute();
+			new 경매결과Updater( event, null, true, "전체", null, null, true).execute();
 			
 			
 		}
