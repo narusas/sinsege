@@ -2,6 +2,7 @@ package net.narusas.si.auction.builder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,9 +41,11 @@ public class 현장조사서이미지Batch implements ModeStrategy {
 			if ( StringUtils.isNotEmpty(merged사건번호Strs)){
 				target사건번호  = merged사건번호Strs;
 			}
-//			for(int targetRow=1 ;targetRow<5; targetRow++){
-//				logger.info(" 사진 페이지 "+ targetRow+" 에 접속합니다. ");
-				String path = "/RetrieveSaPhotoInfo.laf?jiwonNm="+법원.get법원명UrlEncoded()+"&saNo="+target사건번호+"&targetRow=1&chcCd=000162&sourcOrdHoi=1&ordHoi=";
+			int index = 0;
+			HashSet<String> urls = new HashSet<String>();
+			for(int targetRow=1 ;targetRow<=5; targetRow++){
+				logger.info(" 사진 페이지 "+ targetRow+" 에 접속합니다. ");
+				String path = "/RetrieveSaPhotoInfo.laf?jiwonNm="+법원.get법원명UrlEncoded()+"&saNo="+target사건번호+"&targetRow="+targetRow+"&chcCd=000162&sourcOrdHoi=1&ordHoi=";
 				String url = "https://www.courtauction.go.kr"+path;
 				logger.info("현장조사서 사진  URL 에 접속합니다. "+ url);
 				
@@ -86,6 +89,11 @@ public class 현장조사서이미지Batch implements ModeStrategy {
 				
 				
 				logger.info(" 다운로드 할 이미지의  URL 은 https://www.courtauction.go.kr"+  imgUrl+"  입니다." );
+				if (urls.contains(imgUrl)){
+					logger.info(" 이미 처리한 이미지  URL  입니다." );
+					 continue;
+				}
+				urls.add(imgUrl);
 				
 				Random r = new Random(System.currentTimeMillis());
 				File file = new File(Math.abs(r.nextInt())+".jpg");
@@ -101,12 +109,13 @@ public class 현장조사서이미지Batch implements ModeStrategy {
 						+ 담당계.get담당계코드() + "/" + 사건번호Str + "/";
 				
 				logger.info("이미지 업로드 경로:"+filePath);
-//				String uploadFileName = "pic_courtauction_1"+ targetRow+".jpg";
-				String uploadFileName = "pic_courtauction_0.jpg";
+				String uploadFileName = "pic_courtauction_"+ (index)+".jpg";
+				index++;
+//				String uploadFileName = "pic_courtauction_0.jpg";
 				logger.info("이미지 파일명: "+uploadFileName);
 				FileUploaderBG.getInstance().upload(filePath, uploadFileName, file);
 				System.out.println(html);
-//			}
+			}
 			
 			
 			

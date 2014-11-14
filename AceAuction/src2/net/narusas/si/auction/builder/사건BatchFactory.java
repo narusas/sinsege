@@ -14,7 +14,7 @@ public class 사건BatchFactory {
 		case 등기부등본:
 			return new 등기부등본ModeStrategy(사건);
 		case 현장조사서이미지:
-			return null;
+			return  null;
 		}
 		return null;
 	}
