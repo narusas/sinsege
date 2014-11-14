@@ -53,9 +53,6 @@ public class 경매결과Updater {
 			f.update(사건);
 
 			for (물건 old물건 : goodsList) {
-				if (new Random(System.currentTimeMillis()).nextBoolean()){
-					continue;
-				}
 				if (fetched사건 != null) {
 					if (isTargetGoods(old물건)){
 						logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 매각예정물건에 있는 물건입니다. ");
@@ -64,7 +61,6 @@ public class 경매결과Updater {
 						continue;
 					}
 				}
-//			물건 old물건 = goodsList.get(0);
 				logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "의 기일내역을 갱신합니다. ");
 				if (완료물건_진행여부 == false && old물건.is완료여부()) {
 					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 완료된 물건입니다.");
