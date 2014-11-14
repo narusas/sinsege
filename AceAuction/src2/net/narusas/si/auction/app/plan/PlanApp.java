@@ -23,7 +23,9 @@ public class PlanApp {
 		controller = new PlanAppController();
 		controller.bind(view);
 		view.bind(controller);
+		view.setSize(650, 480);
 		view.setVisible(true);
+		
 		center();
 		initLogger();
 	}
