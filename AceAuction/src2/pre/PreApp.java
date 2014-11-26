@@ -150,6 +150,50 @@ public class PreApp {
 		});
 		button_2.setBounds(384, 45, 117, 29);
 		frame.getContentPane().add(button_2);
+		
+		JButton button_3 = new JButton("전체 실행");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				전체실행();
+			}
+		});
+		button_3.setBounds(384, 75, 117, 29);
+		frame.getContentPane().add(button_3);
+	}
+
+	protected void 전체실행() {
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new Thread() {
+					public void run() {
+						for(int i=1; i<jiwonComboBox.getModel().getSize();i++){
+							String jiwon = (String) jiwonComboBox.getModel().getElementAt(i);
+							log(" 법원  "+ jiwon+" 를 실행합니다. ");
+							chargeList = fetcher.fetch담당계(jiwon);
+							for (담당계 charge : chargeList) {
+								log(" 담당계: "+ charge+" 를 실행합니다. ");
+								try {
+									sagunList = fetcher.fetch사건목록(jiwon, charge.id, charge.name);
+									for (사건 sagun : sagunList) {
+										String saNo = sagun.eventNo;
+										try {
+											handleInfoReal(jiwon, saNo, sagun);
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+								}	
+							}
+						}
+					};
+				}.start();
+				
+				
+			}});		
 	}
 
 	protected void 법원목록() {
