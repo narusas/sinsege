@@ -46,11 +46,17 @@ public class 경매결과Updater {
 			logger.info("물건 목록을 가지지 못한 사건입니다. 사건 처리를 종료합니다");
 			return;
 		}
-		사건기일내역Fetcher f = new 사건기일내역Fetcher();
 		기일내역Dao 기일내역Dao = (기일내역Dao) App.context.getBean("기일내역DAO");
 		try {
+			
 			사건.set물건목록(fake물건목록(goodsList));
-			f.update(사건);
+			
+			사건내역Fetcher 사건내역Fetcher  = new 사건내역Fetcher();
+			List<물건> fetchedGoodsList = 사건내역Fetcher.fetch물건목록(사건);
+			
+			
+			사건기일내역Fetcher 사건기일내역Fetcher = new 사건기일내역Fetcher();
+			사건기일내역Fetcher.update(사건, fetchedGoodsList);
 
 			for (물건 old물건 : goodsList) {
 				if (fetched사건 != null) {

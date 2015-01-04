@@ -2,14 +2,19 @@ package net.narusas.si.auction.fetchers;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.narusas.si.auction.converters.금액Converter;
 import net.narusas.si.auction.model.기일;
+import net.narusas.si.auction.model.목록;
 import net.narusas.si.auction.model.물건;
 import net.narusas.si.auction.model.사건;
 
@@ -20,24 +25,25 @@ import net.narusas.si.auction.model.사건;
  * 
  */
 public class 사건기일내역Fetcher {
+	final Logger logger = LoggerFactory.getLogger("auction");
 
 	public String fetch(사건 event) throws IOException {
 		String query = MessageFormat.format("/RetrieveRealEstSaDetailInqGiilList.laf"
 				+ "?jiwonNm={0}&saNo={1}&srnID=PNO102018&_SRCH_SRNID=PNO102005", //
-				
+
 				HTMLUtils.encodeUrl(event.get법원().get법원명()),//
 				String.valueOf(event.get사건번호()));
 		return 대법원Fetcher.getInstance().fetch(query);
 	}
 
-	public void parse(사건 event, String html) {
-		System.out.println("parse:"+event);
+	public void parse(사건 event, String html, List<물건> fetchedGoodsList) {
+		System.out.println("parse:" + event);
 		Sheet sheet = Sheet.parse(html, "<caption>기일내역</caption>", true, true);
 		물건 goods = null;
 
 		List<물건> items = new LinkedList<물건>();
 		for (int i = 0; i < sheet.rowSize(); i++) {
-			System.out.println("###:"+sheet.rowColumnSize(i)+"="+sheet.valueAt(i, sheet.rowColumnSize(i)-1));
+			System.out.println("###:" + sheet.rowColumnSize(i) + "=" + sheet.valueAt(i, sheet.rowColumnSize(i) - 1));
 			// 물건번호, 감정평가액이 있는 줄이 column size가 7.
 			if (sheet.rowColumnSize(i) == 7) {
 				goods = init물건(event, sheet, i);
@@ -46,24 +52,58 @@ public class 사건기일내역Fetcher {
 				}
 				items.add(goods);
 				String 기일결과 = sheet.valueAt(i, 6);
-				if (isIgnorable(기일결과)){
+				if (isIgnorable(기일결과)) {
 					goods = null;
 				}
 			} else if (sheet.rowColumnSize(i) == 5) {
 				if (goods == null) {
 					continue;
 				}
-				
-				if (add기일(sheet, goods, i)==false) {
+
+				if (add기일(sheet, goods, i) == false) {
 					goods = null;
 				}
 			}
 		}
 
 		for (물건 물건 : items) {
-			handleResult(물건);
+			if (fetchedGoodsList != null) {
+				물건 fetched물건 = findInFetchedGoodsList(물건, fetchedGoodsList);
+				if (fetched물건 != null) {
+					ArrayList<목록> 목록List = fetched물건.get목록s();
+					if (목록List != null && 목록List.size() > 0) {
+						목록 목록 = 목록List.get(0);
+						if ("미종국".equals(목록.getComment())) {
+							logger.info("물건 :" + 물건.get물건번호() + " 는 물건 비고가 미종국 사건입니다. 기일 내역을 읽습니다. ");
+							handleResult(물건);
+						} else {
+							logger.info("물건 :" + 물건.get물건번호() + " 는 물건 비고가  " + 목록.getComment() + " 인 사건입니다. 기일 결과로 물건 비고 정보를 사용합니다. ");
+							물건.set기일결과(목록.getComment());
+						}
+					}
+				}
+				else {
+					handleResult(물건);
+				}
+			}
+
+			else {
+				handleResult(물건);
+			}
 		}
 
+	}
+
+	private 물건 findInFetchedGoodsList(물건 물건, List<물건> fetchedGoodsList) {
+		if (fetchedGoodsList == null) {
+			return null;
+		}
+		for (물건 fetchedGoods : fetchedGoodsList) {
+			if (물건.get물건번호().equals(fetchedGoods.get물건번호())) {
+				return fetchedGoods;
+			}
+		}
+		return null;
 	}
 
 	boolean isEmpty(String src) {
@@ -238,8 +278,7 @@ public class 사건기일내역Fetcher {
 		String 기일 = extractDate(기일Raw);
 		String 기간start = null, 기간end = null;
 		if (기일Raw.contains("~")) {
-			Pattern scopePattern = Pattern.compile("(\\d\\d\\d\\d\\.\\d+\\.\\d+)\\s*~\\s*(\\d\\d\\d\\d\\.\\d+\\.\\d+)",
-					Pattern.MULTILINE);
+			Pattern scopePattern = Pattern.compile("(\\d\\d\\d\\d\\.\\d+\\.\\d+)\\s*~\\s*(\\d\\d\\d\\d\\.\\d+\\.\\d+)", Pattern.MULTILINE);
 			m = scopePattern.matcher(기일Raw);
 
 			if (m.find()) {
@@ -262,8 +301,7 @@ public class 사건기일내역Fetcher {
 		String 기일 = extractDate(기일Raw);
 		String 기간start = null, 기간end = null;
 		if (기일Raw.contains("~")) {
-			Pattern scopePattern = Pattern.compile("(\\d\\d\\d\\d\\.\\d+\\.\\d+)\\s*~\\s*(\\d\\d\\d\\d\\.\\d+\\.\\d+)",
-					Pattern.MULTILINE);
+			Pattern scopePattern = Pattern.compile("(\\d\\d\\d\\d\\.\\d+\\.\\d+)\\s*~\\s*(\\d\\d\\d\\d\\.\\d+\\.\\d+)", Pattern.MULTILINE);
 			Matcher m = scopePattern.matcher(기일Raw);
 
 			if (m.find()) {
@@ -285,7 +323,7 @@ public class 사건기일내역Fetcher {
 	}
 
 	private boolean isIgnorable(String 기일결과) {
-		return 기일결과.contains("매각") && 기일결과.contains("(") && 기일결과.contains("원") &&기일결과.contains(")");
+		return 기일결과.contains("매각") && 기일결과.contains("(") && 기일결과.contains("원") && 기일결과.contains(")");
 	}
 
 	private String extractDate(String str) {
@@ -297,8 +335,8 @@ public class 사건기일내역Fetcher {
 		return null;
 	}
 
-	public void update(사건 사건) throws IOException {
-		parse(사건, fetch(사건));
+	public void update(사건 사건, List<물건> fetchedGoodsList) throws IOException {
+		parse(사건, fetch(사건), fetchedGoodsList);
 	}
 
 }

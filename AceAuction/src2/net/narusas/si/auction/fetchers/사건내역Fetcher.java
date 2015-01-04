@@ -56,7 +56,7 @@ public class 사건내역Fetcher {
 
 					logger.info("기일내역 페이지를 분석합니다");
 					사건기일내역Fetcher 기일내역Fetcher = new 사건기일내역Fetcher();
-					기일내역Fetcher.update(s);
+					기일내역Fetcher.update(s, null);
 				}
 				return true;
 			} catch (Exception e) {
@@ -64,6 +64,18 @@ public class 사건내역Fetcher {
 			}
 		}
 		throw new IOException(ex);
+	}
+	
+	public List<물건> fetch물건목록(사건  s) throws IOException{
+		logger.info("사건 내역 페이지를 얻어옵니다: " + s.get사건번호());
+		String html = fetch(s);
+		logger.info("사건 페이지를 분석합니다");
+		parseHTML(s, html);
+
+		List<물건> goodsList = parse물건(s, html);
+		logger.info("물건 목록:" + goodsList);
+		
+		return goodsList;
 	}
 
 	public String fetch(사건 s) throws IOException {
