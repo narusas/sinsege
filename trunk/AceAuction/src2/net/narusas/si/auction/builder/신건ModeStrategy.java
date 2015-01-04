@@ -32,6 +32,7 @@ import net.narusas.util.lang.NFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class 신건ModeStrategy implements ModeStrategy {
 	final Logger logger = LoggerFactory.getLogger("auction");
@@ -249,6 +250,14 @@ public class 신건ModeStrategy implements ModeStrategy {
 		} else {
 			dao.saveOrUpdate(사건);
 		}
+		
+		if ( 사건.getId() ==  null){
+			return;
+		}
+		logger.info("AC_PRE_EVENT 의 사건을 갱신합니다.  Jiwnon:"+ 사건.get법원().get법원명()+" sano:"+사건.get사건번호());
+		JdbcTemplate template = (JdbcTemplate) App.context.getBean("jdbcTemplate");
+		template.update("update ac_pre_event set isCompleted='Y' where jiwon = ? and sano = ?", new Object[]{사건.get법원().get법원명(), 사건.get사건번호()});
+		 
 	}
 
 	private 사건 validate(사건 event) {
