@@ -220,6 +220,7 @@
 		<property name="목적" column="use_for" />
 		<property name="목적2" column="use_for2" />
 		<property name="매각지분" column="sell_comment" />
+		<property name="매각지분계산결과" column="law_kind" />
 		<property name="공시지가" column="public_price" />
 	</class>
 
