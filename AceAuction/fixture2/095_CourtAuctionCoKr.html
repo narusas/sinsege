@@ -1,0 +1,944 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+	<meta name="subject" content="한국법원경매정보" />
+	<meta name="description" content="경매물건정보,경매상담,무료경매상담,컨설팅,경매자료,동영상강의" />
+	<meta name="keywords" content="법원경매정보,무료경매상담,컨설팅,경매지식제공,동영상강의" />
+	<title>:::국내최강의 경매정보 [한국법원경매정보]:::</title>
+	<link rel="shortcut icon" href="/images/main/kca_icon.ico">
+	<link rel="stylesheet" type="text/css" href="/include/style_maemul.css" />
+	<script language="javascript" src="/js/jquery.min.js"></script>
+	<script language="javascript" src="/js/jquery.printElement.min.js"></script>
+	<script language="javascript" src="/js/common.js"></script>
+	
+	<script language="javascript">
+		function setCookiepop( name, value, expiredays ){
+			 var todayDate = new Date();
+			 todayDate.setDate( todayDate.getDate() + expiredays );
+			 document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 			 
+		}	
+		setCookiepop('_sa','서울중앙지법#2013-17248-1#http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374572_1-1.jpg','1');
+	</script>
+	
+	<script language="javascript">
+		var server = "http://service.kcai.co.kr"
+		var index = "1109620"
+		var bubwon = "서울중앙지법"
+		var kye = "경매1계"
+		var num1 = "2013"
+		var num2 = "17248"
+		var num3 = "1"
+		var addr1 = "서울 강남구 수서동"
+		var addr2 = "713"
+		var addr3 = "수서현대벤쳐빌 6층 617호"
+
+		var mulist = [];
+		var mu_size = 10;
+		var mu_page = 1;
+		var mu_maxpage = 1;
+		var mu_total=0;
+
+		$(document).ready(function() 
+		{
+			var url1 = server+'/partner/DevInfo.aspx?bubwon='+ encodeURI(bubwon)+'&kye='+ encodeURI(kye);
+			$.getJSON(url1 + "&jsoncallback=?", function(data){
+				if(data != null && data.phone!='') {
+					$('#phone').html('(☎ '+ data.phone +')');
+				}
+			});
+			var url2 = server+'/partner/JuminCenter.aspx?addr1='+ encodeURI(addr1)+'&addr2='+ encodeURI(addr2)+'&addr3='+ encodeURI(addr3);
+			$.getJSON(url2 + "&jsoncallback=?", function(data){
+				if(data != null && data.phone!='') {
+					if(data.dong2!='') joffice = data.dong2;
+					else joffice = data.dong;
+					$('#jmcenter').html('관할주민센터: '+ joffice +'<br>☎ '+ data.phone);
+				}
+			});
+			var url3 = server+'/partner/MulgunNumber.aspx?bubwon='+ encodeURI(bubwon) +'&num1='+ num1+'&num2='+ num2;
+			$.getJSON(url3 + "&jsoncallback=?", function(data){
+				if(data != null && data.length>1) {
+					mu_total = data.length;
+					mu_maxpage = Math.ceil(mu_total/5);
+					var str='';
+					$.each(data, function(i, item) {
+						var pg = Math.ceil((i+1)/mu_size);
+						mulist.push(item);
+						if(item==num3) mu_page = pg;
+					});
+					$('#mul_number').html('['+ num3 +']');
+					goPageMul(mu_page);
+					$('.mm_num').show();
+				} else {
+					$('.mm_num').hide();
+				}
+			});
+
+			$('#favor2').mouseover(function(){
+				var pos = $(this).position();
+				$('#memo').css({'left':pos.left-230, 'top':pos.top+10});
+				$('#memo').show();
+			}).mouseout(function(){
+				$('#memo').hide();
+			});
+
+			$('.thumb').mouseover(function(){
+				changePhoto($(this).attr('src'));
+			});
+
+			initFavor();
+
+		});
+
+		function changePhoto(thumb){
+			var s = thumb.replace(/view_thumb.php\?fn=/,'');
+			$('#bigimg').attr('src', s);
+		}
+
+		function initFavor(){
+			var url = '../mypage/favorite.asp?index='+index;
+			$.getJSON(url, function(data){
+				if(data.length>0) {
+					$('#favor1').hide();
+					var str='';
+					$.each(data, function(i, item) {
+						if(item.memo!='') str += item.memo.replace(/\n/,"<br>")+ "<br>\n";
+					});
+					if(str=='')	str = '메모가 없습니다.';
+					$('#memo').html(str);
+					$('#favor2').show();
+				} else {
+					$('#favor1').show();
+					$('#favor2').hide();
+				}
+			});
+		}
+		function addFavor(){
+			var url = '../mypage/favorite_add.asp?'+$('#form3').serialize();
+			favorwin = window.open(url,'caFavorite','width=670,height=400,scrollbars=yes,toolbar=no,resizable=no,left=0,top=0');
+			favorwin.focus();
+		}
+
+		function goPageMul(go){
+			if(go <= 0 || go > mu_maxpage) return;
+
+			var startnum = (go-1)*mu_size;
+			if(startnum < 0) startnum = 0;
+			var stopnum = startnum+mu_size;
+			if(stopnum > mu_total) stopnum = mu_total;
+			if(startnum < mu_total) {
+				$('#mul_block').empty();
+				var str='';
+				for(var i=startnum; i<stopnum; i++) {
+					var item = mulist[i];
+					if(item != num3)
+						str += ' <a href="javascript:goDetail('+item+')">'+ item +'</a>';
+					else
+						str += ' <a href="javascript:goDetail('+item+')"><font color="#ff6600"><b>'+ item +'</b></font></a>';
+				}
+				if(go > 1) str = ' <a href="javascript:goPageMul('+(go-1)+')">◀</a> '+ str;
+				if(go < mu_maxpage) str += ' <a href="javascript:goPageMul('+(go+1)+')">▶</a> ';
+				
+				$('#mul_block').html(str);
+				mu_page = go;
+			}
+		}
+		function goDetail(no){
+			//$('[name="num3"]','#form2').val(no);
+			//$('#form2').submit();
+			document.form2.num3.value = no;
+			document.form2.bubwon.value = '서울중앙지법';
+			document.form2.action = '/maemul/maemul_view.asp';
+			document.form2.submit();
+		}
+		function goDetailMul(bubwon,num1,num2,num3){
+			document.location.href= '/maemul/maemul_view.asp?bubwon='+bubwon+'&num1='+num1+'&num2='+num2+'&num3='+num3;;
+		}
+
+		function printView() {
+			var qry = '?bubwon='+bubwon+'&num1='+num1+'&num2='+num2+'&num3='+num3;
+			var url = 'maemul_print.asp'+ qry;
+			//if($.browser.msie == true && $.browser.version.substr(0,1) <= 7) {
+			//	url = 'maemul_print2.asp'+ qry;
+			//}
+
+			prnwin = window.open(url,'caPrint','width=825,height=800,scrollbars=yes,toolbar=no,resizable=no,left=0,top=0');
+			prnwin.focus();
+		}
+
+	</script>
+	<!--  LOG corp Web Analitics & Live Chat  START -->
+	<script  type="text/javascript">
+	//<![CDATA[
+	function logCorpAScript(){
+		HTTP_MSN_MEMBER_NAME= "김창환";/*member name*/
+		var prtc=(document.location.protocol=="https:")?"https://":"http://";
+		var hst=prtc+"cnf.http.or.kr";
+		var rnd="r"+(new  Date().getTime()*Math.random()*9);
+		this.ch=function(){
+			if(document.getElementsByTagName("head")[0]){this.dls();}else{window.setTimeout(logCorpAnalysis.ch,30)}
+		}
+		this.dls=function(){
+			var  h=document.getElementsByTagName("head")[0];
+			var  s=document.createElement("script");s.type="text/jav"+"ascript";try{s.defer=true;}catch(e){};try{s.async=true;}catch(e){};
+			if(h){s.src=hst+"/UsrConfig/c/Conf_courtauction.js?s="+rnd;h.appendChild(s);}
+		}
+		this.init= function(){
+			document.write('<img src="'+hst+'/[sr].gif?d='+rnd+'"  style="width:1px;height:1px;position:absolute;" alt="" onload="logCorpAnalysis.ch()" />');
+		}
+	}
+	if(typeof logCorpAnalysis=="undefined"){ var logCorpAnalysis=new logCorpAScript();logCorpAnalysis.init(); }
+	//]]>
+	</script>
+	<noscript><img src="http://heeil.http.or.kr/HTTP_MSN/Messenger/Noscript.asp?key=courtauction" border="0" style="display:none;width:0;height:0;" /></noscript>
+	<!-- LOG corp Web Analitics & Live Chat END  --> 
+</head>
+
+<body>
+<div id="mm_wrap">
+	<div id="mm_header">
+		<ul>
+			<li class="mm_counsel_num"><img src="../images/header/call_num.gif" /></li>
+			<li class="mm_logo"><img src="../images/header/logo.gif" /></li>
+			<li class="mm_btn">
+				<table cellspacing="5" cellpadding="0" border="0" align="right">
+				<tr>
+					<td>
+						<img id="favor1" src="../images/maemul/btn_mm_top_02.gif" alt="관심등록" border="0" onclick="addFavor()" class="hand" />
+						<img id="favor2" src="../images/maemul/btn_mm_top_05.gif" alt="관심물건 메모보기" border="0" style="display:none;" />
+						<img src="../images/maemul/btn_mm_top_01.gif" alt="오류신고" border="0" onclick="openError('서울중앙지법',2013,17248,1)" class="hand" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img id="elprint" src="../images/maemul/btn_mm_top_03.gif" alt="인쇄하기" border="0" class="hand" onclick="printView()" />
+					</td>
+				</tr>
+				</table>
+			</li>
+		</ul>
+	</div>	
+	<!-- 경매타이틀 -->
+	<div id="mm_content_box">
+		<div id="mm_title">
+			<ul>
+				<li class="title_txt">▼ 서울중앙지법경매1계 <span id="phone"></span></li>
+				<li class="mm_num" style="display:none;">
+					<table cellpadding="0" cellspacing="0" border="0" align="right">
+					<tr>
+						<td><img src="../images/maemul/maemul_view_numbg_l.png" /></td>
+						<td bgcolor="#f4f9ff">
+							<div id="mul_block">
+								<img src="../images/maemul/icon_num_arrow_pre.gif" border="0" title="이전" style="padding:5px 5px 0 0;" />
+								
+								<img src="../images/maemul/icon_num_arrow_next.gif" border="0" title="다음" style="padding:5px 0 0 5px;" />
+							</div>
+						</td>
+						<td><img src="../images/maemul/maemul_view_numbg_r.png" /></td>
+					</tr>
+					</table>
+				</li>
+			</ul>
+		</div>
+		<div id="mm_content">
+			<!-- 경매정보 -->
+			<div id="mm_content_info_00">
+				<table width="796" cellspacing="0" cellpadding="0" border="0">						
+				<tr>
+					<td width="90" bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">사건번호</font></td>
+					<td width="147" bgcolor="#ffffff" align="left" style="padding:5px 0 2px 7px;">
+						<font class="list_case_num"><div style="float:left;">2013-17248</div><div id="mul_number" style="float:left;"></div></font>
+					</td>
+					<td width="90" bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;" class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">매각기일</font></td>
+					<td colspan="2" bgcolor="#ffffff" align="left" valign="middle" style="padding:5px 0 2px 7px;">
+						<font class="list_date_num">2014-07-08 ( 10:00)</font></td>
+					<td width="172" bgcolor="#f2f7fa" align="center" style="padding:5px 0 2px 0;" class="list_left_line"><font class="list_now">진행</font></td>
+				</tr>
+				<tr><td height="1" colspan="6" bgcolor="#7391c3"></td></tr>
+				<tr>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">소재지</font></td>
+					<td colspan="3" bgcolor="#ffffff" align="left" style="padding:5px 5px 5px 7px;"><font class="list_address">서울 강남구 수서동 713 수서현대벤쳐빌 6층 617호</font>
+					
+					</td>
+					<td bgcolor="#ffffff" align="right">
+						<img src="../images/maemul/btn_view_map.gif" alt="지도보기" border="0" align="absmiddle" style="float:right; cursor:pointer;" onclick="DetailPop('11')" />
+					</td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 5px 7px;">
+						<div id="jmcenter" class="list_center"></div>
+					</td>
+				</tr>
+				<tr><td height="1" colspan="6" bgcolor="#7391c3"></td></tr>
+				<tr >
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">종별</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 2px 5px;">오피스텔/사무실/원룸</td>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;" class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">채권자</font></td>
+					<td width="212" bgcolor="#ffffff" align="left" style="padding:5px 2px 2px 5px;">국민은행</td>
+					<td width="97" bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">감정가</font></td>
+					<td bgcolor="#ffffff" align="right" style="padding:5px 5px 2px 3px;"><font class="list_price">652,000,000</font></td>
+				</tr>
+				<tr><td height="1" colspan="6" bgcolor="#7391c3"></td></tr>
+				<tr>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">경매구분</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 2px 7px;">임의경매</td>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;" class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">채무자</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 2px 7px;">영동스틸</td>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">최저입찰가</font></td>
+					<td bgcolor="#ffffff" align="right" style="padding:5px 5px 2px 3px;">
+						<font class="list_price"><strong>(80.0%)</strong> 521,600,000</font></td>
+				</tr>
+				<tr><td height="1" colspan="6" bgcolor="#7391c3"></td></tr>
+				<tr>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">매각구분</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 2px 7px;">일반매각/기일입찰</td>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;" class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">소유자</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 0 2px 7px;">영동스틸</td>
+					<td bgcolor="#f2f7fa" align="left" style="padding:5px 0 2px 7px;"class="list_left_line"><img src="../images/maemul/icon_arrow_01.gif" align="absmiddle" />&nbsp;<font class="list_title">입찰보증금</font></td>
+					<td bgcolor="#ffffff" align="left" style="padding:5px 7px 2px 7px;">최저가의 10%</td>
+				</tr>
+				<tr><td height="1" colspan="6" bgcolor="#7391c3"></td></tr>				
+				</table>
+			</div>
+			<!-- 경매사진 -->
+			<div id="mm_content_info_01">
+				<img id="bigimg" src="http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374572_1-1.jpg" width="356" height="246" alt="사진 더보기" onclick="DetailPop('01')" class="hand" style="border:1px #000 solid;" />
+				<div>
+					<ul>
+					<li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374572_1-1.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374580_1-2.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374589_1-3.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374592_1-4.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374691_1-5.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374712_1-6.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374715_1-7.jpg' class='thumb' /></li><li style='float:left; padding:1px;'><img src='http://file.ggi.co.kr/KyungMae_New/noWater/bub_pic/101/2013/201317248@13374709_1-8.jpg' class='thumb' /></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 경매진행현황 -->
+			<table cellspacing="0" cellpadding="0" border="0" width="400">
+	<tr>
+		<td><img src="../images/maemul/maemul_view_title_01.gif" alt="경매진행현황"  style="padding:3px 0 0 0;" /></td>
+	</tr>
+	<tr>
+		<td style="padding:7px 0 0 0;">
+			<table width="400" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df">						
+				<tr height="16">
+					<td width="50" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>회차</strong></td>
+					<td width="90" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>매각기일</strong></td>
+					<td width="120" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>최저매각금액</strong></td>
+					<td width="70" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>%</strong></td>
+					<td width="70" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>결과</strong></td>
+				</tr>
+			
+							<tr height="15">
+								<td bgcolor="#ffffff" align="center" style="padding:2px;">1</td>
+								<td bgcolor="#ffffff" align="center" style="padding:2px;">2014.06.03</td>
+								<td bgcolor="#ffffff" align="right" style="padding:2px 7px 2px 2px;">652,000,000</td>
+								<td bgcolor="#ffffff" align="right" style="padding:2px 7px 2px 2px;">100.0%</td>
+								<td bgcolor="#ffffff" align="center" style="padding:2px;">유찰</td>
+							</tr>
+						
+							<tr height="15">
+								<td bgcolor="#ffffff" align="center" style="padding:2px;">2</td>
+								<td bgcolor="#ffffff" align="center" style="padding:2px;">2014.07.08</td>
+								<td bgcolor="#ffffff" align="right" style="padding:2px 7px 2px 2px;">521,600,000</td>
+								<td bgcolor="#ffffff" align="right" style="padding:2px 7px 2px 2px;">80.0%</td>
+								<td bgcolor="#ffffff" align="center" style="padding:2px;"><font class='blue_12b'>진행</font></td>
+							</tr>
+						
+		</table>
+	</tr>
+</table>
+
+			
+			<!-- 감정평가현황 -->
+			<div id="mm_content_info_03">
+			
+				<table cellspacing="0" cellpadding="0" border="0" width="775" ID="Table1">
+					<tr>
+						<td style="padding:0 0 0 10px;"  height="20" background="../images/maemul/maemul_view_title_02.gif" align="right"><img src="../images/maemul/btn_mm_01.gif" alt="토지이용계획확인" align="absmiddle" border="0" onclick="pop_landuse()" class="hand" /></a>&nbsp;<a href="http://www.kreic.org/realtyprice/login/loginCheck.login" target="_blank"><img src="../images/maemul/btn_mm_10.gif" alt="공시지가확인" align="absmiddle" border="0" /></a>&nbsp;<img src="../images/maemul/btn_mm_03.gif" alt="감정평가서" align="absmiddle" border="0" onclick="DetailPop('02')" class="hand" /></td>
+					</tr>
+				</table>			
+				<table>
+	<tr>
+		<td style="padding:7px 0 0 0;" >
+			<table width="775" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df" style = "margin:auto;">						
+				<tr height="16">
+					<td width="130" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>토지</strong></td>
+					<td width="125" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>건물</strong></td>
+					<td width="125" bgcolor="#f2f7fa" align="center" style="padding:2px;"><font class="orange_12b">제시외건물(포함)</font></td>
+					<td width="120" bgcolor="#f2f7fa" align="center" style="padding:2px;"><font class="blue_12b">제시외건물(제외)</font></td>
+					<td width="120" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>기타(기계기구)</strong></td>
+					<td width="125" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>합계</strong></td>
+				</tr>
+				<tr height="15">
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">267,320,000 원</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">384,680,000 원</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">0 원</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">X</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">0 원</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">652,000,000 원</td>
+				</tr>
+				<tr height="15">
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">
+						12.5㎡&nbsp;<font class="list_center">(3.8평)</font></td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">
+						97.6㎡&nbsp;<font class="list_center">(29.5평)</font></td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+				</tr>
+				<tr height="15">
+					<td bgcolor="#f2f7fa" align="center" style="padding:2px;"><font class="red_12">비고 ▷</font></td>
+					<td bgcolor="#f2f7fa" align="center" style="padding:2px;">감정기관/감정일자</td>
+					<td colspan="4" bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 10px;">삼성감정 / 2013-05-23</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+			</div>			
+			
+			<!-- 특이사항 -->
+			<div class="special_notice">
+				<table width="775" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df" ID="Table2">	
+					<tr height="16">
+						<td width="80" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>특이사항</strong></td>
+						<td width="690" bgcolor="#ffffff" align="left" style="padding:8px;">공부상:판매시설및업무시설</td>
+					</tr>
+				</table>
+			</div>
+						
+			
+			<!-- 경매물건현황 -->
+			<div id="mm_content_info_04">
+				<ul>
+					<li class="mm_content_info_04_tt"><div class="blue_12" style="float:left; padding:6px 0 0 140px;">◈ 보존등기일: 2002-09-16</div></li>
+					<li class="mag7">
+					<table width="775" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df" ID="Table1">
+	<tr height="16">
+		<td width="55" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>구분</strong></td>
+		<td width="90" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>지번</strong></td>
+		<td colspan="3" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>용도/구조/면적특성</strong></td>
+		<td width="85" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>단가(㎡당)</strong></td>
+		<td width="90" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>감정평가액</strong></td>
+		<td width="170" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>비  고</strong></td>
+	</tr>
+	
+			<tr height="15">
+	
+				<td rowspan="1" bgcolor="#ffffff" align="center" style="padding:2px;">토지</td>
+	
+				<td bgcolor="#ffffff" align="center" style="padding:2px;"><b></b></td>
+				<td colspan="3" bgcolor="#ffffff" align="center" style="padding:2px;"><table width='100%' cellpadding='0' cellspacing='0' border='0' ID='Table2'><tr><td>:대지 12.5㎡<font color='#777777'>(3.8평)</font></td><td width='7'></td><td align='center'>5421.9㎡</td><td width='20' align='center'><font color='#888888'>×</font></td><td align='center'><u>&nbsp;&nbsp;12.5&nbsp;&nbsp;</u><br>5421.9</td></tr></table></td>
+				<td bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+				<td bgcolor="#ffffff" align="center" style="padding:2px;">267,320,000</td>
+				<td bgcolor="#ffffff" style="padding:2px 4px;"></td>
+			</tr>				
+	
+				<tr height="15">
+	
+					<td rowspan="1" bgcolor="#ffffff" align="center" style="padding:2px;">건물</td>
+	
+					<td rowspan="1" bgcolor="#ffffff" align="center" style="padding:2px;"><b></b><div></div></td>
+	
+					<td colspan="3" bgcolor="#ffffff" align="center" style="padding:2px;">97.6㎡<font color='#777777'>(29.5평)</font></td>
+	
+					<td rowspan="1" bgcolor="#ffffff" align="center" style="padding:2px;"></td>
+					<td rowspan="1" bgcolor="#ffffff" align="center" style="padding:2px;">384,680,000</td>
+	
+					<td bgcolor="#ffffff" style="padding:2px 4px;">총 20층 /6층 창고<br />공용포함:194.8</td>
+				</tr>
+	
+</table>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="special_notice">
+				<table width="775" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df">
+				<tr height="15">
+					<td width="55" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>기타</strong></td>
+					<td colspan="5" bgcolor="#ffffff" align="left" style="padding:8px;">&nbsp;철골철근콘크리트조지붕 / 지하철3호선수서역북측인근위치 / 주위아파트단지,오피스텔,근린시설등혼재한일반상업지대 / 차량진입및주.정차가능,제반대중교통사정보통 / 인근노선버스(정)및지하철3호선및분당선수서역소재 / 사다리형등고평탄지 / 단지북측,동측왕복2차선,남측왕복8차선도로각각접함 / 도로접함 / 과밀억제권역 / 상대정화구역 / 일반상업지역 / 한강폐기물매립시설설치제한지역 / 비행안전구역(6구역,전술) / 대공방어협조구역(77257m) / 지구단위계획구역(수서택지개발지구) / 제한보호구역(전술항공5km)</td>
+				</tr>
+				</table>
+			</div>
+			
+			<!-- 단지현황 -->
+			<div id="mm_content_info_05"></div>
+
+			<!-- 임대차내역 -->
+			<div id="mm_content_info_06"></div>
+
+			<!-- 등기부현황 -->
+			<div id="mm_content_info_07">
+			
+		<ul>
+			<li class="mm_content_info_07_tt">
+			
+				<div class="blue_12" style="float:left; padding:6px 0 0 140px;">◈ 등기열람일 : 2014-05-16</div>
+			
+			<div style="float:right;">
+				<img src="../images/maemul/btn_mm_07.gif" alt="등기부등본" align="absmiddle" border="0" onclick="DetailPop('03')" class="hand" />&nbsp;<img src="../images/maemul/btn_mm_08.gif" alt="수익률분석표" align="absmiddle" border="0" onclick="pop_Suik()" class="hand" />&nbsp;<img src="../images/maemul/btn_mm_09.gif" alt="종합권리분석/예상배당표" align="absmiddle" border="0" onclick="pop_Anal()" class="hand" />
+			</div>
+		</li>
+
+		<li class="mag7">
+			<table width="775" cellspacing="1" cellpadding="0" border="0" bgcolor="#cad7df" ID="Table4">	
+				<tr height="16">
+					<td width="45" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>순위</strong></td>
+					<td width="80" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>성립일자</strong></td>
+					<td width="70" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>권리종류</strong></td>
+					<td width="140" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>권리자</strong></td>
+					<td width="105" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>권리금액</strong></td>
+					<td width="85" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>소멸여부</strong></td>
+					<td width="200" bgcolor="#f2f7fa" align="center" style="padding:2px;"><strong>비고</strong></td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">1</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2010-04-30</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">소유권</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">영동스틸</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">0</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">전소유자:어윤주</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">2</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2011-11-25</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">근저</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">국민은행 영등포로</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">2,280,000,000</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="malso">소멸<span style='font-size: 11px;'>(말소기준)</span></div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;"></td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">3</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-04</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">신용보증기금 양재</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">3,270,000,000</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 33493 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">4</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-05</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">한성에스아이</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">70,000,000</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 33786 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">5</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-07</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2011신보그레이트제3차유동화전문</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">500,000,000</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 493 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">6</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-14</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">현대제철</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">593,687,094</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 541 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">7</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-19</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">서울보증보험 강남신용지원</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">565,688,881</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 34499 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">8</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-21</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">경성철강외1</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">203,655,542</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 1432 서울동부지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">9</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-02-28</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">가압</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">문배철강</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">73,848,500</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013 카단 35472 서울중앙지법</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">10</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-03-20</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">압류</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">국민건강보험공단 강남동부지사</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">0</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;"></td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">11</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-05-10</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">임의</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">국민은행 여신관리집중</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">0</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;">2013타경17248<br />신청청구액: <font color=#cc0000>1,918,351,718</font>원</td>
+				</tr>
+
+				<tr height="15">
+					<td width="45 " bgcolor="#ffffff" align="center" style="padding:2px;">12</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">2013-09-12</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">압류</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;">삼성세무서</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">0</td>
+					<td bgcolor="#ffffff" align="center" style="padding:2px;"><div class="somyul">소멸</div></td>
+					<td bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 5px;"></td>
+				</tr>
+
+				<tr><td colspan="7" height="1" bgcolor="#f2f7fa"></td></tr>
+				<tr height="16">
+					<td colspan="4" bgcolor="#f2f7fa" align="center" style="padding:2px;">권리금액 합계</td>
+					<td bgcolor="#ffffff" align="right" style="padding:2px 5px 2px 2px;">7,556,880,017</td>
+					<td colspan="2" width="270" bgcolor="#ffffff" align="left" style="padding:2px 2px 2px 10px;"></td>
+				</tr>
+				</table>
+			</li>
+
+	</ul>
+
+			</div>
+
+			<!-- 낙찰사례리스트 -->
+			<div id="mm_content_info_08"></div>
+
+			<!-- 유사진행물건 -->
+			<div id="mm_content_info_09"></div>
+		</div>
+		<div id="mm_footer"><img src="../images/maemul/mm_footer.gif" /></div>
+	</div>
+
+	<div id="mm_quick" style="position:relative;">
+		<div id="mm_quick_list_01">
+			<ul>
+				<li class="mm_quick_title"><img src="../images/maemul/mm_quickbar_title.gif" align="absmiddle" /></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('01')">현장사진</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('02')">감정평가서</a></li>
+				
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('03')">등기부등본</a></li>
+				
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('04')">사건진행내역</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('05')">기일내역</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('06')">문건처리내역</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('07')">매각물건명세서</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('08')">점유관계조사서</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('09')">임대차조사서</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('10')">부동산표시목록</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:DetailPop('11')">위성지도보기</a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:if(window.open('http://map.naver.com/?kind=all&query=서울 강남구 수서동 713&cadastral=on&level=0','naver','menubar=0,scrollbars=no, resizable=1')){}">네이버지적도</a></li>
+			</ul>
+		</div>
+		<div id="mm_quick_list_02">
+			<ul>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:pop_Anal()"><font class="blue_12">종합권리분석/<br>&nbsp;&nbsp;예상배당표</font></a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:pop_Myungdo()"><font class="blue_12">명도비용계산</font></a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:pop_Cost()"><font class="blue_12">등기비용계산</font></a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:pop_Boho(1)"><font class="blue_12">주택임대차보호법</font></a></li>
+				<li><img src="../images/common/icon_arrow.gif" align="absmiddle" /><a href="javascript:pop_Boho(2)"><font class="blue_12">상가임대차보호법</font></a></li>
+			</ul>
+		</div>
+		<div class="title_btn_close"><img src="../images/maemul/btn_close.gif" border="0" alt="창닫기" onclick="window.close()" class="hand" /></div>
+		<div id="mm_quick_list_03"><img src="../images/maemul/mm_coun1.gif" align="absmiddle" onclick="openConsult('서울중앙지법',2013,17248,1)" class="hand" /></div>
+		
+	</div>
+</div>
+
+<div id="memo" style="display:none; position:absolute; width:260px;height:auto; z-index:100; background:#ffe066; border:1px solid #bbbbbb; padding:10px;"></div>
+
+<form id="form1" name="form1" method="post">
+<input type="hidden" name="idx" value="1109620">
+<input type="hidden" name="bubwon" value="%EC%84%9C%EC%9A%B8%EC%A4%91%EC%95%99%EC%A7%80%EB%B2%95">
+<input type="hidden" name="kye" value="%EA%B2%BD%EB%A7%A41%EA%B3%84">
+<input type="hidden" name="num1" value="2013">
+<input type="hidden" name="num2" value="17248">
+<input type="hidden" name="num3" value="1">
+<input type="hidden" name="pop">
+<input type="hidden" name="yongdo" value="%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94/%EC%82%AC%EB%AC%B4%EC%8B%A4/%EC%9B%90%EB%A3%B8">
+<input type="hidden" name="addr1" value="%EC%84%9C%EC%9A%B8 %EA%B0%95%EB%82%A8%EA%B5%AC %EC%88%98%EC%84%9C%EB%8F%99">
+<input type="hidden" name="addr2" value="713">
+<input type="hidden" name="addr3" value="%EC%88%98%EC%84%9C%ED%98%84%EB%8C%80%EB%B2%A4%EC%B3%90%EB%B9%8C 6%EC%B8%B5 617%ED%98%B8">
+<input type="hidden" name="dungki1" value="">
+<input type="hidden" name="dungki2" value="http://File.ggi.co.kr/kyungmae_new/Dungki/101/2013/201317248@9173452_1-1+D.pdf">
+<input type="hidden" name="gamfile" value="http://File.ggi.co.kr/kyungmae_new/gamjung/101/2013/201317248@13352655-1.PDF">
+</form>
+
+<form id="form2" name="form2" method="post">
+<input type="hidden" name="index" value="1109620">
+<input type="hidden" name="bubwon" value="%EC%84%9C%EC%9A%B8%EC%A4%91%EC%95%99%EC%A7%80%EB%B2%95">
+<input type="hidden" name="kye" value="%EA%B2%BD%EB%A7%A41%EA%B3%84">
+<input type="hidden" name="num1" value="2013">
+<input type="hidden" name="num2" value="17248">
+<input type="hidden" name="num3" value="1">
+<input type="hidden" name="nakprice" value="521600000">
+<input type="hidden" name="yongdo" value="%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94/%EC%82%AC%EB%AC%B4%EC%8B%A4/%EC%9B%90%EB%A3%B8">
+<input type="hidden" name="addr1" value="%EC%84%9C%EC%9A%B8 %EA%B0%95%EB%82%A8%EA%B5%AC %EC%88%98%EC%84%9C%EB%8F%99">
+<input type="hidden" name="state">
+<input type="hidden" name="allot" value="2013-07-29">
+<input type="hidden" name="yusastate" value="%EC%A7%84%ED%96%89%EB%AC%BC%EA%B1%B4" ID="Hidden1">
+</form>
+
+<form id="form3" method="post">
+<input type="hidden" name="num">
+<input type="hidden" name="id" value="radio">
+<input type="hidden" name="partner" value="courtauction">
+<input type="hidden" name="groupcode">
+<input type="hidden" name="index" value="1109620">
+<input type="hidden" name="memo">
+<input type="hidden" name="bubwon" value="%EC%84%9C%EC%9A%B8%EC%A4%91%EC%95%99%EC%A7%80%EB%B2%95">
+<input type="hidden" name="sano" value="2013-17248-1">
+<input type="hidden" name="address" value="%EC%84%9C%EC%9A%B8 %EA%B0%95%EB%82%A8%EA%B5%AC %EC%88%98%EC%84%9C%EB%8F%99 713 %EC%88%98%EC%84%9C%ED%98%84%EB%8C%80%EB%B2%A4%EC%B3%90%EB%B9%8C 6%EC%B8%B5 617%ED%98%B8">
+</form>
+
+<form id="form4" method="post">
+<input type="hidden" name="yongdo" value="%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94/%EC%82%AC%EB%AC%B4%EC%8B%A4/%EC%9B%90%EB%A3%B8">
+<input type="hidden" name="addr1" value="%EC%84%9C%EC%9A%B8 %EA%B0%95%EB%82%A8%EA%B5%AC %EC%88%98%EC%84%9C%EB%8F%99">
+<input type="hidden" name="addr2" value="713">
+<input type="hidden" name="addr3" value="%EC%88%98%EC%84%9C%ED%98%84%EB%8C%80%EB%B2%A4%EC%B3%90%EB%B9%8C 6%EC%B8%B5 617%ED%98%B8">
+<input type="hidden" name="area_m2" value="97.59">
+</form>
+
+<form id="form5" name="form5" method="post">
+<input type="hidden" name="yongdo" value="%EC%98%A4%ED%94%BC%EC%8A%A4%ED%85%94/%EC%82%AC%EB%AC%B4%EC%8B%A4/%EC%9B%90%EB%A3%B8">
+<input type="hidden" name="addr" value="%EC%84%9C%EC%9A%B8 %EA%B0%95%EB%82%A8%EA%B5%AC %EC%88%98%EC%84%9C%EB%8F%99">
+<input type="hidden" name="state">
+<input type="hidden" name="sdate">
+<input type="hidden" name="edate">
+</form>
+
+<script language="javascript">
+	var nak_sdate = "2011-07-03"
+	var nak_edate = "2014-07-03"
+
+	$(document).ready(function() 
+	{
+		ajax_imcha();
+		//	ajax_dungki();
+		ajax_danji();
+		ajax_yusa_nakchal();
+		ajax_yusa_jin();
+
+		function ajax_danji(){
+			$.ajax({
+				url: 'maemul_view_danji.asp?'+$('#form4').serialize(),
+				beforeSend: function(xhr){ },				
+				success: function(data, status, xhr){
+					$('#mm_content_info_05').html(data);
+					if(data=='') $('#mm_content_info_05').hide();
+				},
+				error: function(xhr, status, e){ 
+					$('#mm_content_info_05').hide();
+				}
+			});
+		}
+		function ajax_imcha(){
+			$.ajax({
+				url: 'maemul_view_imcha.asp?'+$('#form2').serialize(),
+				beforeSend: function(xhr){ },
+				success: function(data, status, xhr){
+					$('#mm_content_info_06').html(data);
+				},
+				error: function(xhr, status, e){ }
+			});
+		}
+		function ajax_yusa_nakchal(){
+			$.ajax({
+				url: 'maemul_view_yusa_nakchal.asp?'+$('#form2').serialize(),
+				beforeSend: function(xhr){ },
+				success: function(data, status, xhr){
+					$('#mm_content_info_08').html(data);
+				},
+				error: function(xhr, status, e){ }
+			});
+		}
+		function ajax_yusa_jin(){
+			$.ajax({
+				url: 'maemul_view_yusa_jinhaeng.asp?'+$('#form2').serialize(),
+				beforeSend: function(xhr){ },
+				success: function(data, status, xhr){
+					$('#mm_content_info_09').html(data);
+				},
+				error: function(xhr, status, e){ }
+			});
+		}
+
+		$(window).scroll(moveRightbar);
+		$(window).resize(moveRightbar);
+		function moveRightbar(){
+			var pos = $(window).scrollTop();
+			if(pos > 84) pos -= 74;
+			$('#mm_quick').css({'top':pos});
+		}
+
+	});
+
+	function dummy(){}
+	function ajax_dungki(){
+		$.ajax({
+			url: 'maemul_view_dungki.asp?'+$('#form2').serialize(),
+			beforeSend: function(xhr){ },
+			success: function(data, status, xhr){
+				if(data=='NONE'){
+					setTimeout("ajax_dungki()", 1500);
+				} else {
+					$('#mm_content_info_07').html(data);
+				}
+			},
+			error: function(xhr, status, e){ },
+			complete : function(xhr, status) {
+
+			}
+		});
+	}
+
+</script>
+
+<script language="javascript">
+
+	var wl = screen.width;
+	var wt = screen.height;
+
+	function DetailPop(pop){
+		var w = 980;
+		var h = 650;
+		l = wl-w;
+		t = 0;
+		$('[name="pop"]').val(pop);
+		var url = 'detailpop.asp?'+$('#form1').serialize();
+		winpop = window.open(url,'caDetailPop','width='+w+',height='+h+',left='+l+',top='+t+',status=yes,scrollbars=no,resizable=yes');
+		winpop.focus();
+		
+		
+	}
+	function pop_landuse(){
+		var w = 760;
+		var h = 800;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_landuse.asp?'+$('#form4').serialize();
+		landwin = window.open(url,'caLanduse','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		landwin.focus();
+    }
+	function pop_Suik(){
+		var w = 820;
+		var h = 800;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_suikchart.asp?'+$('#form2').serialize();
+		suikwin = window.open(url,'caSuik','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		suikwin.focus();
+	}
+	function pop_Anal(mid){
+		var w = 760;
+		var h = 800;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_anal.asp?'+$('#form1').serialize();
+		analwin = window.open(url,'caAnalysis','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		analwin.focus();
+    }
+	function pop_Nakchal(){
+		var w = 815;
+		var h = 700;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_nakchal.asp?'+$('#form5').serialize();
+		nakwin = window.open(url,'caYusaNak','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		nakwin.focus();
+    }
+	function pop_RealPrice(){
+		var w = 720;
+		var h = 700;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_real.asp?'+$('#form4').serialize();
+		realwin = window.open(url,'caRealPrice','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		realwin.focus();
+    }
+	function pop_Yusa(){
+		var w = 680;
+		var h = 710;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_yusa.asp?'+$('#form5').serialize();
+		nakwin = window.open(url,'caYusaJin','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		nakwin.focus();
+    }
+	function pop_Cost(){
+		var w = 580;
+		var h = 700;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_cost.asp'
+		popwin = window.open(url,'caCost','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		popwin.focus();
+    }
+	function pop_Myungdo(){
+		var w = 560;
+		var h = 680;
+		l = wl-w;
+		t = 0;
+		var url = 'pop_myungdo.asp'
+		popwin = window.open(url,'caMyungdo','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=no,toolbar=no,resizable=no');
+		popwin.focus();
+    }
+	function pop_Boho(n){
+		var w = 617;
+		var h = 720;
+		l = wl-w;
+		t = 0;
+		if(n==1) url = 'pop_jutaek.asp';
+		else url = 'pop_sanga.asp';
+		popwin = window.open(url,'BohoImdaecha','width='+w+',height='+h+',left='+l+',top='+t+',scrollbars=yes,toolbar=no,resizable=no');
+		popwin.focus();
+    }
+
+	function openError(bub,n1,n2,n3){
+		var url = "/board/err.asp?bubwon="+ bub +"&num1="+ n1 +"&num2="+ n2 +"&num3="+ n3;
+		win = window.open(url,'errwrite','width=500,height=550,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizeable=no,left=50,top=50');
+		win.focus();
+	}
+	function openConsult(bub,n1,n2,n3){
+		var url = "/board/quick.asp?bubwon="+ bub +"&num1="+ n1 +"&num2="+ n2 +"&num3="+ n3;
+		win = window.open(url,'errwrite','width=500,height=550,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizeable=no,left=50,top=50');
+		win.focus();
+	}
+
+</script>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1990904-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+

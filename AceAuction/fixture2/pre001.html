@@ -1,0 +1,3282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>대한민국법원 법원경매정보_배당요구종기공고</title>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" />
+<link rel="SHORTCUT ICON" href="/images/favicon.ico" />
+<link href="/common/css/sub.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/sub_2.css" rel="stylesheet" type="text/css" />
+<link href="/common/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="/common/js/_epjs.js"></script>
+<script type="text/javascript" src="/common/js/auction.js"></script>
+<script type="text/javascript" src="/common/js/common.js"></script>
+<script type="text/javascript" src="/common/js/xsync.js"></script>
+<script type="text/JavaScript">
+	// F5, F11를 통한 소스보기 제어
+	document.onkeydown = function( e ) {
+		key = ( e ) ? e.keyCode : event.keyCode;
+		if ( key==116 || key==122 ) {
+			if ( e ) {   // For non IE
+				e.preventDefault();
+			}
+			else {    // For IE
+				event.keyCode = 0;
+				event.returnValue = false;
+			}
+		}
+	}
+		
+	// 마우스 Context Menu 제어
+	document.oncontextmenu = function( e ) {
+		return false;
+	}
+	// 마우스 drag와 block select 제어
+	document.ondragstart = function( e ) {
+		return false;
+	}
+	document.onselectstart = function( e ) {
+		return false;
+	}
+
+</script>
+
+<script type="text/javascript" src="/common/js/por_common.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+
+//검색방법
+function changeDisplay( pType ){
+	if ( pType == "sa_Sel" )	{
+		document.getElementById("idBubBox").style.display = "";
+		document.getElementById("idJpBox").style.display = "none";
+		document.getElementById("idSaBox1").style.display = "";
+		document.getElementById("idSaBox2").style.display = "";
+		document.getElementById("idLocBox").style.display = "none";
+		document.getElementById("idRoadBox").style.display = "none";
+	}else if( pType == "loc_Sel" ){
+		document.getElementById("idBubBox").style.display = "none";
+		document.getElementById("idJpBox").style.display = "none";
+		document.getElementById("idSaBox1").style.display = "none";
+		document.getElementById("idSaBox2").style.display = "none";
+		document.getElementById("idLocBox").style.display = "";
+		document.getElementById("idRoadBox").style.display = "none";
+	}else if ( pType == "bub_Sel" )	{
+		document.getElementById("idBubBox").style.display = "";
+		document.getElementById("idJpBox").style.display = "";
+		document.getElementById("idSaBox1").style.display = "none";
+		document.getElementById("idSaBox2").style.display = "none";
+		document.getElementById("idLocBox").style.display = "none";
+		document.getElementById("idRoadBox").style.display = "none";
+	}else if ( pType == "road_Sel" )	{
+		document.getElementById("idBubBox").style.display = "none";
+		document.getElementById("idJpBox").style.display = "none";
+		document.getElementById("idSaBox1").style.display = "none";
+		document.getElementById("idSaBox2").style.display = "none";
+		document.getElementById("idLocBox").style.display = "none";
+		document.getElementById("idRoadBox").style.display = "";
+	}
+}
+
+//검색
+function srch(vUrl)
+{	
+	var frm = document.frm1;
+	var vBocd = document.getElementById("idJiwonNm");
+	//검색방법선택값
+	var chkSrch=0;
+	for(var i=0; i<frm.srchMthd.length; i++){
+		if(frm.srchMthd[i].checked == true){
+			chkSrch = frm.srchMthd[i].value;
+			break;
+		}
+	}
+	//공백제거
+	var tmpSrchVal = frm.ihrelNm.value;
+	var srchVal = "";
+	if(tmpSrchVal.length!=0){
+		for(var idx=0; idx<tmpSrchVal.length; idx++){
+			if(tmpSrchVal.charAt(idx)!=' '){
+				srchVal = srchVal+tmpSrchVal.charAt(idx);
+			}
+		}
+	}
+
+	if(chkSrch==1 && vBocd.value==""){
+		alert('법원을 선택하세요.');
+		vBocd.focus();
+	}else if(chkSrch==1 && frm.jpDeptCd.value==""){
+		alert('담당계(부서)를 선택하세요.');
+		frm.jpDeptCd.focus();
+	}else if(chkSrch==2 && vBocd.value==""){
+		alert('법원을 선택하세요.');
+		vBocd.focus();
+	}else if(chkSrch==2 && (isNaN(Number(frm.saSer.value)) || Number(frm.saSer.value)==0)){
+		alert('사건번호를 올바르게 입력하세요.');
+		frm.saSer.focus();
+	}else if(chkSrch==2 && srchVal.length==0){
+		alert('이해관계인명을 입력하세요.');
+		frm.ihrelNm.focus();
+	}else if(chkSrch==2 && srchVal.length==1){
+		alert('이해관계인명을 2자 이상 입력하세요.');
+		frm.ihrelNm.focus();
+	}else if(chkSrch==2 && srchVal.length>=2 && !spSrchVal(srchVal)){
+		alert('특수문자를 입력할 수 없습니다. \n예) !＠#$%^&*<>/()?');
+		frm.ihrelNm.focus();
+	}else if(chkSrch==3 && frm.daepyoSidoCd.value==""){
+		alert('시/도를 선택하세요.');
+		frm.daepyoSidoCd.focus();
+	}else if(chkSrch==3 && frm.daepyoSiguCd.value==""){
+		alert('시/군/구를 선택하세요.');
+		frm.daepyoSiguCd.focus();
+	}else if(chkSrch==3 && frm.daepyoDongCd.value==""){
+		alert('읍/면/동을 선택하세요.');
+		frm.daepyoDongCd.focus();
+	}else if(chkSrch==4 && frm.rd1Cd.value==""){
+		alert('시/도를 선택하세요.');
+		frm.rd1Cd.focus();
+	}else if(chkSrch==4 && frm.rd2Cd.value==""){
+		alert('시/군/구를 선택하세요.');
+		frm.rd2Cd.focus();
+	}else if(chkSrch==4 && frm.rd3Rd4Cd.value==""){
+		alert('도로명을 선택하세요.');
+		frm.rd3Rd4Cd.focus();
+	}else{
+		frm.ihrelNm.value = srchVal;
+		porActSubmit(frm, vUrl, "" , "PNO101005");
+	}
+}
+
+//사건상세조회 - 배당요구종기공고는 공통 js적용 안됨.
+function showSaDetail(vUrl, vBoCd, vSaNo, vMthd, vInx)
+{
+	
+	saveIdx(vSaNo+vInx);
+	var frm = document.frm2;
+	frm.jiwonNm.value = vBoCd;
+	frm.saNo.value = vSaNo;
+	porActSubmit(frm, vUrl, "" , "PNO102018");
+}
+
+//부동산등의 표시
+function pageOpen( vUrl, vBoCd, vSaNo, vOrdGyuljGbncd, vBdygjgiDay)
+{
+	var frm = document.frm2;
+	frm.jiwonNm.value = vBoCd;
+	frm.saNo.value = vSaNo;
+	frm.ordGyuljGbncd.value = vOrdGyuljGbncd;
+	frm.bdygjgiDay.value = vBdygjgiDay;
+
+	var popUpFocus = window.open("","PNO101006","height=520, width=757,top=20,left=50,resizable=no,scrollbars=yes,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	actSubmit(frm, vUrl,  "PNO101006");
+	popUpFocus.focus();
+}
+
+//도로명 자음 변경시
+function changeRealRoadCode(){
+	cfAjaxRoadSelectCode(document.getElementById("idRealVowel"), 'idRd1Cd', 'idRd2Cd', 'idRd3Rd4Cd', '/RetrieveRealRoadCodeList.ajax', 'BR');
+}
+
+// 페이지 초기설정
+function init(){
+	
+	var tmpIdx = ""
+	if(getCookie("locIdx") != null && getCookie("locIdx") != ""){
+		tmpIdx = getCookie("locIdx");
+		setCookie("locIdx", "", 1);
+		location.href = "#"+tmpIdx;
+	}
+}
+
+//]]>
+</script>
+</head>
+<body onload="javascript:init();">
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">
+//<![CDATA[
+window.name = "main";
+
+
+function porCopyForm(source, target, delFlg, typeChkFlg, delWord) {
+	var renFlg = false;
+	var delCnt = 0;
+
+	if ( source == null || source == undefined || source == "" ) return;
+	if ( target == null || target == undefined || target == "" ) return;
+	if ( delWord == null || delWord == undefined || delWord == "" ) {
+		renFlg = false;
+	} else {
+		renFlg = true;
+	}
+
+	if ( typeChkFlg == null || typeChkFlg == undefined ) {
+		typeChkFlg = false;
+	}
+
+	if (delFlg == true) {
+		for (var i=target.elements.length-1; i >= 0 ; i--) {
+			target.removeChild(target.elements[i]);
+		}
+	}
+
+	for (var i=0; i < source.elements.length; i++) {
+		if (typeChkFlg == true) {
+			if (source.elements[i].type == "checkbox") {
+				if (!source.elements[i].checked) continue;
+			}
+			if (source.elements[i].type == "radio") {
+				if (!source.elements[i].checked) continue;
+			}
+		}
+
+		var input = document.createElement("input");
+		input.type = "hidden";
+		if (renFlg) {
+			if ( source.elements[i].name.indexOf(delWord) == 0 ) { 
+				input.name = source.elements[i].name.substring(delWord.length);
+				delCnt = delCnt + 1;
+			} else {
+				input.name = source.elements[i].name;
+			}
+		} else {
+			input.name = source.elements[i].name;
+		}
+		input.value = source.elements[i].value;
+
+		target.appendChild(input);
+	}
+
+	return delCnt;
+}
+
+/**
+* 화면 네비게이션을 위한 submit 
+*/
+function porActSubmit(oform, action, target, scrid, loginFlg, preSrnId) {
+	var menuForm;
+
+	if (loginFlg == "1") {
+		if (cfmLogin() == false) {
+			return;
+		} 
+	}
+
+	if (preSrnId == null || preSrnId == undefined) {
+		preSrnId = "";
+	}
+
+	if ( oform == undefined || oform == null || oform == "" ) {
+		document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+		document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+		document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+		document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "N";
+
+		porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "");
+		porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "");
+
+		menuForm = document.__MENU_FRM_REFLESH;
+	} else {
+		if ( oform.ownerDocument.location.href != document.location.href ) { 
+			document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+			document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+			document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+			document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "Y";
+
+			porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "");
+			porCopyForm(oform, document.__MENU_FRM_REFLESH, false, true, "");
+			porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "");
+			menuForm = document.__MENU_FRM_REFLESH;
+		} else {
+			if ( oform.elements["_NEXT_CMD"] == null ||  
+				 oform.elements["_NEXT_CMD"] == undefined) {
+				document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = action;
+				document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = scrid;
+				document.__MENU_FRM_BEFINFO.elements["_PRE_SRNID"].value = preSrnId;
+				document.__MENU_FRM_BEFINFO.elements["_FORM_YN"].value = "Y";
+
+				porCopyForm(document.__MENU_FRM_BEFINFO, oform, false, false, "");
+				porCopyForm(document.__MENU_FRM_CURSRN, oform, false, false, "");
+			} else {
+				oform.elements["_NEXT_CMD"].value = action;
+				oform.elements["_NEXT_SRNID"].value = scrid;
+				oform.elements["_PRE_SRNID"].value = preSrnId;
+				oform.elements["_FORM_YN"].value = "Y";
+			}
+
+			menuForm = oform;
+		}
+	}
+
+	menuForm.method = "POST";
+	menuForm.target = target;
+
+	if (action.indexOf("/") >= 0) {
+		actSubmit(menuForm, action, "_self");
+	} else {
+		actSubmit(menuForm, ("/"+ action), "_self");
+	}
+}
+/**
+* 이전 화면으로 돌아가는 기능을 한다.
+*/
+function porBefSrnActSubmit() {
+	var naviCmd = document.__MENU_FRM_BEFINFO.elements["_NAVI_CMD"].value.split("^");
+	var naviSrnId = document.__MENU_FRM_BEFINFO.elements["_NAVI_SRNID"].value.split("^");
+	var tmp1 = "";
+	var tmp2 = "";
+	if (naviCmd.length < 1) return;
+
+	for (var i=0 ; i < (naviCmd.length - 1); i++) {
+		if (tmp1 != "") {
+			tmp1 = tmp1 + "^";
+			tmp2 = tmp2 + "^";
+		}
+		tmp1 = tmp1 + naviCmd[i];
+		tmp2 = tmp2 + naviSrnId[i];
+	}
+
+	document.__MENU_FRM_BEFINFO.elements["_NAVI_CMD"].value = tmp1;
+	document.__MENU_FRM_BEFINFO.elements["_NAVI_SRNID"].value = tmp2;
+	document.__MENU_FRM_BEFINFO.elements["_NEXT_CMD"].value = naviCmd[naviCmd.length - 1];
+	document.__MENU_FRM_BEFINFO.elements["_NEXT_SRNID"].value = naviSrnId[naviSrnId.length - 1];
+
+	var paramCnt = porCopyForm(document.__MENU_FRM_BEFINFO, document.__MENU_FRM_REFLESH, true, false, "_P_");
+
+	if (paramCnt == 0) {
+		porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, false, false, "_C_");
+	}
+
+	document.__MENU_FRM_REFLESH.method = "POST";
+	var action = naviCmd[naviCmd.length - 1];
+	if (action.indexOf("/") >= 0) {
+		actSubmit(document.__MENU_FRM_REFLESH, action, "_self");
+	} else {
+		actSubmit(document.__MENU_FRM_REFLESH, ("/"+ action), "_self");
+	}
+}
+
+
+function porReload(action, scrid) {
+	if (action == null || action == undefined || action == "") {
+		action = document.__MENU_FRM_BEFINFO.elements["_CUR_CMD"].value;
+	}
+
+	if (scrid == null || scrid == undefined || scrid == "") {
+		scrid = document.__MENU_FRM_BEFINFO.elements["_CUR_SRNID"].value;
+	}
+
+	porCopyForm(document.__MENU_FRM_CURSRN, document.__MENU_FRM_REFLESH, true, false, "_C_");
+	porActSubmit(document.__MENU_FRM_REFLESH, action, "_self", scrid);
+}
+
+
+function porAppendRetrieveParam(appendForm) {
+	if (appendForm == null || appendForm == undefined || appendForm == "") return;
+	porCopyForm(document.__MENU_FRM_CURSRN, appendForm, false, false, "_C_");	
+}
+
+
+function porSetCmd(pageForm) {
+	if (pageForm == null || pageForm == undefined || pageForm == "") return;
+
+	if ( pageForm.elements["_NEXT_CMD"] != null && 
+	     pageForm.elements["_NEXT_CMD"] != undefined ) {
+	     	     
+	     //////////////IE8 관련 스크립트 처리//////////////////////////////////////////////          
+	     //현상 : IE8 호환성모드 제거시 페이징처리할때 pageForm의 action값이 null("")임에도 불구하고 
+	     //      action값에 default 주소값(www.courtauction.go.kr)이 전달되어 pameter 값이 엉킴.     
+	     //처리내용 : action값이 ""인 경우 기존모듈, ""이 아닌경우 강제로 ""값 삽입함                
+	     /////////////////////////////////////////////////////////////////////////////               
+	     if(pageForm.action == "")                                                                   
+	     {	                                                                                         
+	     	pageForm.elements["_NEXT_CMD"].value = pageForm.action;                                    
+	     }                                                                                           
+	     else{                                                                                       
+	     	pageForm.elements["_NEXT_CMD"].value = ""; 
+	     }                                   
+	}
+}
+
+// 로그아웃
+function logout(){
+	document.__MENU_FRM_BEFINFO.elements["_LOGOUT_CHK"].value = "LOGOUT";
+	porActSubmit("","RetrieveMainInfo.laf","","PNO102000");
+}
+
+// 지도검색 팝업
+function popupMap(vGubun){
+	var retnId;
+	if(getCookie('mapGuide')=='Y' || vGubun == 1){
+		//지도팝업 바로이동
+		retnId = window.open("/PopupMap.laf","PNO104001","height=700, width=915,top=20,left=50,resizable=no,scrollbars=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}else{
+		//안내팝업이동
+		retnId = window.open("/PopupMapGuide.laf","PNO104008","height=353, width=540,top=20,left=50,resizable=no,scrollbars=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}
+	retnId.focus();
+}
+
+// 로그인 팝업
+function popupLogin(){
+	var retnId = window.open("/RetrieveHwonLogin.laf","PNO102012","height=390, width=540,top=20,left=50,resizable=no,toolbar=no, location=no, directories=no, status=no, menubar=no");
+	retnId.focus();
+}
+
+// 로그인 여부 
+function cfmLogin(){
+	if("" == ""){
+		if(confirm("로그인하셔야 이용하실 수 있습니다. 로그인 하시겠습니까?")){
+			popupLogin();
+		}else{
+			return false;
+		}
+		return false;
+	}else{
+		return  true;
+	}	
+}
+
+// 물건상세정보 보기
+function detSrch(vJiwonNm, vSaNo, vMaemulSer, vBoGbn){
+	document.getElementById("bonJiwonNm").value = vJiwonNm;		
+	document.getElementById("bonMaemulSer").value = vMaemulSer;
+	if(vBoGbn == "B"){
+		document.getElementById("bonSaNo").value = vSaNo;
+		porActSubmit(document.bonForm, "/RetrieveRealEstCarHvyMachineMulDetailInfo.laf", "", "PNO102015", "", "PNO102001");
+	}else{
+		document.getElementById("bonMvSaNo").value = vSaNo;
+		porActSubmit(document.bonForm, "RetrieveMvEstMulDetailInfo.laf", "", "PNO102017", "", "PNO102003");
+	}
+}
+
+// 최근조회물건  아래로 이동
+var rctCnt = 1; //인덱스 카운트
+function moveDown(){
+ 	// 조회 물건  갯수
+	var totCnt = Number(document.getElementById("idBonCnt").value);
+	
+	if (rctCnt + 4 <= totCnt) {  
+		// 모든 물건 가리기
+		for(var i = 0; i <= totCnt; i++){
+				document.getElementById("bon"+i).style.display = "none";
+		}
+		// 인덱스 카운트 증가
+		rctCnt++;
+	
+		// 화면에 표시될 물건 
+		for(var i = rctCnt; i< rctCnt+4; i++){
+			document.getElementById("bon"+i).style.display = "block";
+		}
+	}
+}
+
+// 최근조회물건  위로 이동
+function moveUp(){
+ 	// 조회 물건  갯수
+	var totCnt = Number(document.getElementById("idBonCnt").value);
+
+	if (rctCnt > 0 ) {
+		// 모든 물건 가리기
+		for(var i = 0; i <= totCnt; i++){
+				document.getElementById("bon"+i).style.display = "none";
+		}
+		// 인덱스 카운트 감소
+		rctCnt--;
+		
+		// 화면에 표시될 물건 
+		for(var i = rctCnt; i< rctCnt+4; i++){
+			document.getElementById("bon"+i).style.display = "block";
+		}
+	}
+}
+//사이트이용안내 팝업
+function siteGuidPopup(vUrl){
+	var frm = document.tailPopForm;
+	var popUpFocus = window.open("","PAS103019","height=655, width=740, top=20,left=50, resizable=no, scrollbars=no, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	actSubmit(frm, vUrl, "PAS103019");
+	popUpFocus.focus();
+}
+
+// 화면하단 팝업
+function popupTail(vUrl, vSrnId, vHeightSize){
+	var frm = document.tailPopForm;
+	var popUpFocus = "";
+	if(vSrnId =="PAS103016" || vSrnId =="PAS103021" ){
+		popUpFocus = window.open("",vSrnId,"height="+vHeightSize+", width=740, top=20,left=50, resizable=no, scrollbars=no, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}else{
+		popUpFocus = window.open("",vSrnId,"height="+vHeightSize+", width=757, top=20,left=50, resizable=no, scrollbars=yes, toolbar=no, location=no, directories=no, status=no, menubar=no");
+	}
+	if(vSrnId=="PAS103017"){
+		frm.srnGbn.value = "1";
+	}else if(vSrnId=="PAS103018"){
+		frm.srnGbn.value = "2";
+	}
+	actSubmit(frm, vUrl, vSrnId);
+	popUpFocus.focus();
+}
+
+// 화면하단 링크연결
+function tailLinkOpen(vUrl){
+	if(vUrl != "" && vUrl !=undefined){
+		window.open(vUrl, "_blank");
+	}else{
+		return;
+	}
+}
+
+//]]>
+</script>
+
+<form name="bonForm" action="">
+	<input name="jiwonNm" id="bonJiwonNm" type="hidden" value="" />
+	<input name="saNo" id="bonSaNo" type="hidden" value="" />
+	<input name="mvSaNo" id="bonMvSaNo" type="hidden" value="" />
+	<input name="maemulSer" id="bonMaemulSer" type="hidden" value="" />
+</form>
+
+<form name="tailPopForm" action="">
+  <input type="hidden" id="idSrnGbn" name="srnGbn" value="" />
+</form>
+
+<form name="__MENU_FRM_BEFINFO" action="">
+<input type="hidden" name="_NAVI_CMD" value="" />
+<input type="hidden" name="_NAVI_SRNID" value="" />
+<input type="hidden" name="_SRCH_SRNID" value="" />
+<input type="hidden" name="_CUR_CMD" value="RetrieveBdangYoguJonggiNotify.laf" />
+<input type="hidden" name="_CUR_SRNID" value="" />
+<input type="hidden" name="_NEXT_CMD" value="" />
+<input type="hidden" name="_NEXT_SRNID" value="" />
+<input type="hidden" name="_PRE_SRNID" value="" />
+<input type="hidden" name="_LOGOUT_CHK" value="" />
+<input type="hidden" name="_FORM_YN" value="" />
+</form>
+
+<form name="__MENU_FRM_CURSRN" action="">
+<input type="hidden" name="_C_saYear" value="2014" />
+<input type="hidden" name="_C_jiwonNm" value="서울중앙지방법원" />
+<input type="hidden" name="_C_srnID" value="PNO101005" />
+<input type="hidden" name="_C_jpDeptCd" value="1001" />
+<input type="hidden" name="_C_srchMthd" value="1" />
+
+</form>
+
+<form name="__MENU_FRM_REFLESH" action="">
+</form>
+
+
+<div id="master">
+<div id="header">
+<div id="logo"><a href="#" onclick='javascript:porActSubmit("","RetrieveMainInfo.laf","","PNO102000");  return false;'>
+	<img src="/images/logo.jpg" alt="대법원 법원경매정보 홈페이지로 바로가기" width="218" height="42" /></a></div>
+<hr />
+<div id="topmenu">
+<div id="topmenu_rbg"></div>
+<div id="topmenu_h">
+<ul>
+
+	<li><a href="#" class="w" onclick="javascript:popupLogin(); return false;">
+		<img src="/images/topmenu_login.gif" alt="로그인" id="topmenu_login" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+	<li><a href="#" class="w" onclick='javascript:porActSubmit("","HwonGaipRealNmCfm.laf","","PAS101005");  return false;'>
+		<img src="/images/topmenu_join.gif" alt="회원가입" id="topmenu_join" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+
+	<li><a href="#"	onclick='javascript:porActSubmit("","SiteMap.laf","","PAS103014");  return false;'>
+		<img src="/images/topmenu_sitemap.gif" alt="사이트맵" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></li>
+</ul>
+</div>
+<div id="topmenu_lbg"></div>
+<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+<hr />
+ 
+<div id="menu">
+	<a href="#"	onfocus="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')" title="메인메뉴 시작"></a> 
+	
+
+<h1><a href="#" onfocus="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show');
+	sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+	<img src="/images/menu_01.gif" alt="경매공고" onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide')" /></a></h1>
+
+<div id="menu_s_1"
+	onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveGongjiItemList.laf","","PAS103001");  return false;'><img src="/images/menu_01_on.gif" alt="경매공고" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_1_son"
+	onmouseover="sh_layers('menu_s_1','','show');sh_layers('menu_s_1_son','','show')"
+	onmouseout="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveGongjiItemList.laf","","PAS103001");  return false;'>
+	<img src="/images/menu_s_1_01.gif" alt="공지사항" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO101005");  return false;'>
+	<img src="/images/menu_s_1_02.gif" alt="배당요구종기공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveRealEstMgakNotifySrch.laf","","PNO101001");  return false;'>
+	<img src="/images/menu_s_1_03.gif" alt="부동산매각공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveMvEstMgakNotifySrch.laf","","PNO101003");  return false;'>
+	<img src="/images/menu_s_1_04.gif" alt="동산매각공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO101007");  return false;'>
+	<img src="/images/menu_s_1_05.gif" alt="최고공고" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_1','','hide');sh_layers('menu_s_1_son','','hide');
+	sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show');
+	sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+	<img src="/images/menu_02.gif" alt="경매물건" onmouseover="sh_layers('menu_s_2','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide')" /></a></h1>
+
+<div id="menu_s_2"
+	onmouseover="sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'><img src="/images/menu_02_on.gif" alt="경매물건" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_2_son"
+	onmouseover="sh_layers('menu_s_2','','show');sh_layers('menu_s_2_son','','show')"
+	onmouseout="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'>
+	<img src="/images/menu_s_2_01.gif" alt="물건상세검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick="javascript:popupMap(0); return false;">
+	<img src="/images/menu_s_2_02.gif" alt="지도검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102005");  return false;'>
+	<img src="/images/menu_s_2_03.gif" alt="기일별검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102009");  return false;'>
+	<img src="/images/menu_s_2_04.gif" alt="자동차중기검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102011");  return false;'>
+	<img src="/images/menu_s_2_05.gif" alt="다수조회물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102012");  return false;'>
+	<img src="/images/menu_s_2_06.gif" alt="다수관심물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102007");  return false;'>
+	<img src="/images/menu_s_2_07.gif" alt="매각예정물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102027");  return false;'>
+	<img src="/images/menu_s_2_08.gif" alt="매각결과검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102014");  return false;'>
+	<img src="/images/menu_s_2_09.gif" alt="경매사건검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_2','','hide');sh_layers('menu_s_2_son','','hide');
+	sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show');
+	sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+	<img src="/images/menu_03.gif" alt="매각통계" 
+	onmouseover="sh_layers('menu_s_3','','show')" onmouseout="sh_layers('menu_s_3','','hide')" /></a></h1>
+
+<div id="menu_s_3"
+	onmouseover="sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show')"
+	onmouseout="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RealYearMaeTong.laf","","PST104001");  return false;'><img src="/images/menu_03_on.gif" alt="매각통계" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_3_son"
+	onmouseover="sh_layers('menu_s_3','','show');sh_layers('menu_s_3_son','','show')"
+	onmouseout="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealYearMaeTong.laf","","PST104001");  return false;'>
+	<img src="/images/menu_s_3_01.gif" alt="연도별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealBubMaeTong.laf","","PST101001");  return false;'>
+	<img src="/images/menu_s_3_02.gif" alt="법원별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealRgnMaeTong.laf","","PST102001");  return false;'>
+	<img src="/images/menu_s_3_03.gif" alt="지역별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RealUtilMaeTong.laf","","PST103001");  return false;'>
+	<img src="/images/menu_s_3_04.gif" alt="용도별매각통계" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_3','','hide');sh_layers('menu_s_3_son','','hide');
+	sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show');
+	sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+	<img src="/images/menu_04.gif" alt="경매지식"
+	onmouseover="sh_layers('menu_s_4','','show')" onmouseout="sh_layers('menu_s_4','','hide')" /></a></h1>
+
+<div id="menu_s_4"
+	onmouseover="sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show')"
+	onmouseout="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","AucJlReal.laf","","PAS102001");  return false;'><img src="/images/menu_04_on.gif" alt="경매지식" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_4_son"
+	onmouseover="sh_layers('menu_s_4','','show');sh_layers('menu_s_4_son','','show')"
+	onmouseout="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","AucJlReal.laf","","PAS102001");  return false;'>
+	<img src="/images/menu_s_4_01.gif" alt="경매절차" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucTermInq.laf","","PAS102004");  return false;'>
+	<img src="/images/menu_s_4_02.gif" alt="경매용어" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucFormList.laf","","PAS102005");  return false;'>
+	<img src="/images/menu_s_4_03.gif" alt="경매서식" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","IpchalGuid.laf","","PAS102007");  return false;'>
+	<img src="/images/menu_s_4_04.gif" alt="입찰안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","MsuSinchongZoneLeeGuid.laf","","PAS102008");  return false;'>
+	<img src="/images/menu_s_4_05.gif" alt="매수신청대리안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","AucExpRealEst.laf","","PAS102009");  return false;'>
+	<img src="/images/menu_s_4_06.gif" alt="경매비용" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","HouseLeaseQnA.laf","","PAS102013");  return false;'>
+	<img src="/images/menu_s_4_07.gif" alt="관련법률" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+
+<h1><a href="#" onfocus="sh_layers('menu_s_4','','hide');sh_layers('menu_s_4_son','','hide');
+	sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show');
+	sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+	<img src="/images/menu_05.gif" alt="이용안내"
+	onmouseover="sh_layers('menu_s_5','','show')" onmouseout="sh_layers('menu_s_5','','hide')" /></a></h1>
+
+<div id="menu_s_5"
+	onmouseover="sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show')"
+	onmouseout="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveOfferServs.laf","","PAS103003");  return false;'><img src="/images/menu_05_on.gif" alt="이용안내" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_5_son"
+	onmouseover="sh_layers('menu_s_5','','show');sh_layers('menu_s_5_son','','show')"
+	onmouseout="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveOfferServs.laf","","PAS103003");  return false;'>
+	<img src="/images/menu_s_5_01.gif" alt="제공서비스" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveAucBubwSrch.laf","","PAS103004B");  return false;'>
+	<img src="/images/menu_s_5_02.gif" alt="집행기관" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick="siteGuidPopup('/SiteUseGuid.laf'); return false;">
+	<img src="/images/menu_s_5_03.gif" alt="사이트이용안내" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveFaqMokrok.laf","","PAS103009");  return false;'>
+	<img src="/images/menu_s_5_04.gif" alt="FAQ" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","SiteMap.laf","","PAS103014");  return false;'>
+	<img src="/images/menu_s_5_06.gif" alt="사이트맵" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+
+
+<h1 class="last_menu"><a href="#" onfocus="sh_layers('menu_s_5','','hide');sh_layers('menu_s_5_son','','hide');
+	sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')">
+	<img src="/images/menu_06.gif" alt="나의경매"
+	onmouseover="sh_layers('menu_s_6','','show')" onmouseout="sh_layers('menu_s_6','','hide')" /></a></h1>
+
+<div id="menu_s_6"
+	onmouseover="sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')"
+	onmouseout="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+<p><a href="#" onclick='javascript:porActSubmit("","RetrieveIljung.laf","","PPE401001","1");  return false;'><img src="/images/menu_06_on.gif" alt="나의경매" /></a></p>
+<p><img src="/images/menu_s_bg_arrow.gif" alt="" /></p>
+</div>
+<div id="menu_s_6_son"
+	onmouseover="sh_layers('menu_s_6','','show');sh_layers('menu_s_6_son','','show')"
+	onmouseout="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')">
+<div class="son_bg_l"></div>
+<div class="son_h">
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","HwonInfoUpdPswdCfm.laf","","PAS101004","1");  return false;'>
+	<img src="/images/menu_s_6_01.gif" alt="회원정보관리" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveIljung.laf","","PPE401001","1");  return false;'>
+	<img src="/images/menu_s_6_02.gif" alt="일정관리" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitRealGwansimMul.laf","","PPE101002","1");  return false;'>
+	<img src="/images/menu_s_6_03.gif" alt="관심물건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveGwansimSaMokrok.laf","","PPE201001","1");  return false;'>
+	<img src="/images/menu_s_6_04.gif" alt="관심사건" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveJajuUseSrchJog.laf","","PPE501001","1");  return false;'>
+	<img src="/images/menu_s_6_05.gif" alt="자주쓰는검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveGwansimCls.laf","","PPE701001","1");  return false;'>
+	<img src="/images/menu_s_6_06.gif" alt="나의설정" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+	<li><a href="#" onclick='javascript:porActSubmit("","RetrieveMyMvInfoMokrok.laf","","PPE301001","1");  return false;'>
+	<img src="/images/menu_s_6_07.gif" alt="나의동산집행정보" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a>&nbsp;</li>
+</ul>
+</div>
+<div class="son_bg_r"></div>
+</div>
+<a href="#" onfocus="sh_layers('menu_s_6','','hide');sh_layers('menu_s_6_son','','hide')" title="메인메뉴 끝"></a>
+</div>
+
+<hr />
+
+
+<div id="qk_today">
+
+<div id="qk">
+<h3><img src="/images/quick_title.gif" alt="퀵메뉴" /></h3>
+<ul>
+	<li><a href="#" onclick='javascript:porActSubmit("","InitMulSrch.laf","","PNO102001");  return false;'><img src="/images/quick_01.gif" alt="물건상세검색" /></a></li>
+	<li><a href="#" onclick="javascript:popupMap(0); return false;"><img	src="/images/quick_02.gif" alt="지도검색" /></a></li>
+	<li><a href="#" onclick="siteGuidPopup('/SiteUseGuid.laf'); return false;"><img src="/images/quick_03.gif" alt="사이트이용안내" /></a></li>
+	<li><a href="#"	onclick='javascript:porActSubmit("","RetrieveFaqMokrok.laf","","PAS103009");  return false;'><img src="/images/quick_04.gif" alt="FAQ" /></a></li>
+	<li><a href="http://glaw.scourt.go.kr/" target="_blank"><img src="/images/quick_05.gif" alt="종합법률정보" /></a></li>
+</ul>
+<div id="qk_btm"><img src="/images/quick_bottom.gif" alt="" /></div>
+</div>
+
+<div id="qk_alert"><a href="#" onclick="popupTail('/IpchalAttenItem.laf', 'PAS103021', '520'); return false;"><img src="/images/ic_alert_qk.gif" alt="입찰참가전 유의사항"/></a></div>
+
+</div>
+ 
+
+
+
+<div id="middler">
+
+
+
+
+
+<div id="contents">
+
+
+<div id="location">
+	<img src="/images/ic_home.gif" alt="" /><span class="location_off">HOME</span>
+	<img src="/images/ic_arrow_blue.gif" alt="" /><span class="location_off">경매공고</span>
+	<img src="/images/ic_arrow_blue.gif" alt="" /><span	class="location_on">배당요구종기공고</span>
+</div>
+
+
+<div id="contents_title">
+<h2><img src="/images/title_con_1_02.gif" alt="배당요구종기공고" /></h2>
+</div>
+<hr />
+
+
+
+<form name="frm1" action="" class="table_contents">
+<input type="hidden" name="srnID" value="PNO101005" />
+	<div class="Ltbl_srch_topbg"></div>
+	<div class="Ltbl_srch_midbg">
+	<div class="srch_box">
+	<div class="srch_1hd_long">검색방법</div>
+	<div class="srch_dt">
+	<label for="idSrchMthd1"><input name="srchMthd" type="radio" id="idSrchMthd1" value="1"
+		checked='checked'
+		onclick="changeDisplay('bub_Sel')" />법원/담당계 &nbsp;</label> 
+	<label for="idSrchMthd2"><input name="srchMthd" type="radio" id="idSrchMthd2" value="2"
+		
+		onclick="changeDisplay('sa_Sel')" />사건번호/이해관계인명 &nbsp;</label> 
+	<label for="idSrchMthd3"><input name="srchMthd" type="radio" id="idSrchMthd3"	value="3"
+		
+		onclick="changeDisplay('loc_Sel')" />소재지(지번주소)&nbsp;</label>
+	<label for="idSrchMthd4"><input name="srchMthd" type="radio" id="idSrchMthd4"	value="4"
+		
+		onclick="changeDisplay('road_Sel')" />소재지(새주소)&nbsp;</label>
+	</div>
+	<div class="clear"></div>
+	</div>
+	
+	<div class="srch_box">
+	<div id="idBubBox" style='display: '>
+	<div class="srch_1hd_long"><label for="idJiwonNm">법원</label></div>
+	<div class="srch_dt">
+	 
+	<select name ="jiwonNm" id="idJiwonNm" onchange="cfAjaxSelectCode(this,'idJpDeptCode','/RetrieveJpDeptNonAllCodeList.ajax')"> 
+<option selected="selected" value="서울중앙지방법원">서울중앙지방법원</option> 
+<option value="서울동부지방법원">서울동부지방법원</option> 
+<option value="서울서부지방법원">서울서부지방법원</option> 
+<option value="서울남부지방법원">서울남부지방법원</option> 
+<option value="서울북부지방법원">서울북부지방법원</option> 
+<option value="의정부지방법원">의정부지방법원</option> 
+<option value="고양지원">고양지원</option> 
+<option value="인천지방법원">인천지방법원</option> 
+<option value="부천지원">부천지원</option> 
+<option value="수원지방법원">수원지방법원</option> 
+<option value="성남지원">성남지원</option> 
+<option value="여주지원">여주지원</option> 
+<option value="평택지원">평택지원</option> 
+<option value="안산지원">안산지원</option> 
+<option value="안양지원">안양지원</option> 
+<option value="춘천지방법원">춘천지방법원</option> 
+<option value="강릉지원">강릉지원</option> 
+<option value="원주지원">원주지원</option> 
+<option value="속초지원">속초지원</option> 
+<option value="영월지원">영월지원</option> 
+<option value="청주지방법원">청주지방법원</option> 
+<option value="충주지원">충주지원</option> 
+<option value="제천지원">제천지원</option> 
+<option value="영동지원">영동지원</option> 
+<option value="대전지방법원">대전지방법원</option> 
+<option value="홍성지원">홍성지원</option> 
+<option value="논산지원">논산지원</option> 
+<option value="천안지원">천안지원</option> 
+<option value="공주지원">공주지원</option> 
+<option value="서산지원">서산지원</option> 
+<option value="대구지방법원">대구지방법원</option> 
+<option value="안동지원">안동지원</option> 
+<option value="경주지원">경주지원</option> 
+<option value="김천지원">김천지원</option> 
+<option value="상주지원">상주지원</option> 
+<option value="의성지원">의성지원</option> 
+<option value="영덕지원">영덕지원</option> 
+<option value="포항지원">포항지원</option> 
+<option value="대구서부지원">대구서부지원</option> 
+<option value="부산지방법원">부산지방법원</option> 
+<option value="부산동부지원">부산동부지원</option> 
+<option value="울산지방법원">울산지방법원</option> 
+<option value="창원지방법원">창원지방법원</option> 
+<option value="마산지원">마산지원</option> 
+<option value="진주지원">진주지원</option> 
+<option value="통영지원">통영지원</option> 
+<option value="밀양지원">밀양지원</option> 
+<option value="거창지원">거창지원</option> 
+<option value="광주지방법원">광주지방법원</option> 
+<option value="목포지원">목포지원</option> 
+<option value="장흥지원">장흥지원</option> 
+<option value="순천지원">순천지원</option> 
+<option value="해남지원">해남지원</option> 
+<option value="전주지방법원">전주지방법원</option> 
+<option value="군산지원">군산지원</option> 
+<option value="정읍지원">정읍지원</option> 
+<option value="남원지원">남원지원</option> 
+<option value="제주지방법원">제주지방법원</option> 
+</select> 
+
+	</div>
+	</div>
+	
+	
+	<div id="idJpBox" style='display: '>
+	<div class="srch_2hd"><label for="idJpDeptCode">담당계</label></div>
+	<div class="srch_dt">
+	<select name="jpDeptCd" id="idJpDeptCode" style="width:115px">
+		<option value="1001" selected="selected">경매1계</option>
+<option value="1002">경매2계</option>
+<option value="1003">경매3계</option>
+<option value="1004">경매4계</option>
+<option value="1005">경매5계</option>
+<option value="1006">경매6계</option>
+<option value="1007">경매7계</option>
+<option value="1008">경매8계</option>
+<option value="1009">경매9계</option>
+<option value="1010">경매10계</option>
+<option value="1011">경매11계</option>
+<option value="1012">경매12계</option>
+<option value="1013">경매13계</option>
+<option value="1014">경매14계</option>
+<option value="1015">경매15계</option>
+<option value="1021">경매21계</option>
+<option value="1022">경매22계</option>
+
+	</select></div>
+	</div>
+	
+	
+	<div id="idSaBox1" style="display: 
+		none">
+	<div class="srch_2hd"><label for="idSaYear">사건번호</label></div>
+	<div class="srch_dt">
+		<select name="saYear" id="idSaYear"><option value="2014" selected="selected">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option></select>
+	 타경 <input name="saSer" type="text" onkeydown="return cfNumeric(event);" onkeypress="srchAbleWord(event);"
+		value=""
+		class="tf_s" maxlength="7" style="ime-mode:disabled" title="사건일련번호" /></div>
+	</div>
+	
+	
+	<div id="idLocBox" style="display: 
+		none">
+	<div class="srch_1hd_long">소재지</div>
+	<div class="srch_dt">
+	 
+	<select	name="daepyoSidoCd" id="idSidoCode"	onchange="cfAjaxSiguSelectCode(this, 'idSiguCode', 'idDongCode',  
+		'/RetrieveSiguCodeList.ajax', 'B')" title="시도">
+		<option value="">시/도</option>
+		<option value="11">서울특별시</option>
+<option value="26">부산광역시</option>
+<option value="27">대구광역시</option>
+<option value="28">인천광역시</option>
+<option value="29">광주광역시</option>
+<option value="30">대전광역시</option>
+<option value="31">울산광역시</option>
+<option value="36">세종특별자치시</option>
+<option value="41">경기도</option>
+<option value="42">강원도</option>
+<option value="43">충청북도</option>
+<option value="44">충청남도</option>
+<option value="45">전라북도</option>
+<option value="46">전라남도</option>
+<option value="47">경상북도</option>
+<option value="48">경상남도</option>
+<option value="49">제주도</option>
+<option value="50">제주특별자치도</option>
+
+	</select> 
+	 
+	<select name="daepyoSiguCd" id="idSiguCode"	onchange="cfAjaxDongSelectCode(this, 'idSidoCode', 'idDongCode', 
+		'/RetrieveDongCodeList.ajax', 'B')" title="시군구">
+		<option value="">시/군/구</option>
+		
+	</select> 
+	 
+	<select name="daepyoDongCd" id="idDongCode" title="읍면동">
+		<option value="">읍/면/동</option>
+		
+	</select>
+	</div>
+	</div>
+	
+	
+	<div id="idRoadBox" style="display: 
+		none">
+	<div class="srch_1hd_long">소재지</div>
+	<div class="srch_dt">
+	 
+	<select	name="rd1Cd" id="idRd1Cd" onchange="cfAjaxSiguSelectCode(this, 'idRd2Cd', 'idRd3Rd4Cd',  
+		'/RetrieveSiguCodeList.ajax', 'BR')" title="시도">
+		<option value="">시/도</option>
+		<option value="11">서울특별시</option>
+<option value="26">부산광역시</option>
+<option value="27">대구광역시</option>
+<option value="28">인천광역시</option>
+<option value="29">광주광역시</option>
+<option value="30">대전광역시</option>
+<option value="31">울산광역시</option>
+<option value="36">세종특별자치시</option>
+<option value="41">경기도</option>
+<option value="42">강원도</option>
+<option value="43">충청북도</option>
+<option value="44">충청남도</option>
+<option value="45">전라북도</option>
+<option value="46">전라남도</option>
+<option value="47">경상북도</option>
+<option value="48">경상남도</option>
+<option value="50">제주특별자치도</option>
+<option value="99">기타</option>
+
+	</select>
+	 
+	<select name="rd2Cd" id="idRd2Cd" onchange="cfAjaxRoadSelectCode(this.form.realVowel, 'idRd1Cd', 'idRd2Cd', 'idRd3Rd4Cd', 
+		'/RetrieveRealRoadCodeList.ajax', 'BR')" title="시군구">
+		<option value="">시/군/구</option>
+		
+	</select>
+	
+	<select name="realVowel" title="도로명 자음" id="idRealVowel" onchange="changeRealRoadCode()" > 
+<option value="35207_45207" selected="selected">ㄱ</option> 
+<option value="45207_45795">ㄴ</option> 
+<option value="45795_46971">ㄷ</option> 
+<option value="46971_47559">ㄹ</option> 
+<option value="47559_48147">ㅁ</option> 
+<option value="48147_49323">ㅂ</option> 
+<option value="49323_50499">ㅅ</option> 
+<option value="50499_51087">ㅇ</option> 
+<option value="51087_52263">ㅈ</option> 
+<option value="52263_52851">ㅊ</option> 
+<option value="52851_53439">ㅋ</option> 
+<option value="53439_54027">ㅌ</option> 
+<option value="54027_54615">ㅍ</option> 
+<option value="54615_55203">ㅎ</option> 
+<option value="00000_35207">기타</option> 
+</select> 
+	
+	<select name="rd3Rd4Cd" id="idRd3Rd4Cd" title="도로명">
+		<option value="">도로명</option>
+		
+	</select> 
+	</div>
+	</div>
+	
+	
+	<div class="clear"></div>
+	</div>
+	
+	
+	<div class="srch_box" id="idSaBox2"	style="display: 
+		none">
+	<div class="srch_1hd_long"><label for="idIhrelNm">이해관계인명</label></div>
+	<div class="srch_dt">
+	<input type="text" name="ihrelNm" value=""
+		class="tf_m" maxlength="100" style="ime-mode:active" onkeypress="if(event.keyCode==13) srch('RetrieveBdangYoguJonggiNotify.laf'); srchAbleWord(event);" 
+		id="idIhrelNm" /></div>
+	<div class="clear"></div>
+	</div>
+	
+	</div>
+
+
+<div class="Ltbl_srch_botbg">
+<div class="Ltbl_srch_btn">
+	<a href="#"	onclick="srch('RetrieveBdangYoguJonggiNotify.laf');return false;">
+	<img src="/images/btn_ic_search_01.gif" alt="검색" onmouseover="changeImg(event)" onmouseout="restoreImg(event)" /></a></div>
+</div>
+</form>
+ 
+
+
+<form name="frm2" action="" class="table_contents">
+<input type="hidden" name="jiwonNm" value="" /> 
+<input type="hidden" name="saNo" value="" /> 
+<input type="hidden" name="ordGyuljGbncd" value="" /> 
+<input type="hidden" name="bdygjgiDay" value="" /> 
+<input type="hidden" name="srnID" value="PNO101005" />
+<div class="table_title">
+<h3>배당요구종기공고</h3>
+</div>
+<table class="Ltbl_list" summary="배당요구종기공고 표">
+	<caption>배당요구종기공고</caption>
+	<thead>
+		<tr>
+			<th width="15%" rowspan="2">사건번호</th>
+			<th rowspan="2">소재지</th>
+			<th width="9%">소유자</th>
+			<th width="11%">공고일</th>
+			<th width="10%">담당계</th>
+			<th width="8%" rowspan="2">부동산<br />
+			등의<br />
+			표시</th>
+		</tr>
+		<tr>
+			<th>채무자</th>
+			<th>경매개시<br />
+			결정일자</th>
+			<th>배당요구<br />
+			종기일</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300038880" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130003888', 
+			'1', 0);return false;">
+			서울중앙지방법원<br />
+			2014타경3888</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구  종로 183, 2층 제이2042호 (인의동,효성주얼리시티)
+			 외 1건</td>
+			
+			<td>
+
+			김옥영
+
+			 
+
+			</td>
+			
+			<td>2014.02.10</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130003888', 
+			'0004821', '20140428');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			김옥영
+
+			 
+
+			</td>
+			
+			<td>2014.02.05</td>
+			
+			<td>2014.04.28</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300039561" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130003956', 
+			'1' , 1);return false;">
+			서울중앙지방법원<br />
+			2014타경3956</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 성북구 정릉동  716-83  3층 2호
+			</td>
+			
+			<td>
+
+			윤종식
+
+			 
+
+			</td>
+			
+			<td>2014.02.10</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130003956', 
+			'0004821', '20140428');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			윤종식
+
+			 
+
+			</td>
+			
+			<td>2014.02.06</td>
+			
+			<td>2014.04.28</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300041952" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004195', 
+			'1' , 2);return false;">
+			서울중앙지방법원<br />
+			2014타경4195</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  논현로63길 16, 3층 310호 (역삼동,역삼종합시장더블루)
+			</td>
+			
+			<td>
+
+			장유경
+
+			 
+
+			</td>
+			
+			<td>2014.02.12</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004195', 
+			'0004821', '20140428');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			장유경
+
+			 
+
+			</td>
+			
+			<td>2014.02.10</td>
+			
+			<td>2014.04.28</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300042633" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004263', 
+			'1' , 3);return false;">
+			서울중앙지방법원<br />
+			2014타경4263</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  개포로110길 43, 102동 11층 1101호 (일원동,개포한신아파트)
+			</td>
+			
+			<td>
+
+			김남수
+
+			 
+
+			</td>
+			
+			<td>2014.02.12</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004263', 
+			'0004821', '20140428');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			장산종합건설주식회사
+
+			 외 2명 
+
+			</td>
+			
+			<td>2014.02.10</td>
+			
+			<td>2014.04.28</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300045084" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004508', 
+			'1' , 4);return false;">
+			서울중앙지방법원<br />
+			2014타경4508</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구 방배동  856-16  지층 1호
+			</td>
+			
+			<td>
+
+			강순례
+
+			 
+
+			</td>
+			
+			<td>2014.02.17</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004508', 
+			'0004821', '20140507');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			양동순
+
+			 
+
+			</td>
+			
+			<td>2014.02.12</td>
+			
+			<td>2014.05.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300046905" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004690', 
+			'1' , 5);return false;">
+			서울중앙지방법원<br />
+			2014타경4690</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  자곡로 21, 212동 5층 506호 (세곡동,엘에이치푸르지오)
+			</td>
+			
+			<td>
+
+			김복구
+
+			 
+
+			</td>
+			
+			<td>2014.02.18</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004690', 
+			'0004821', '20140507');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			신주용
+
+			 
+
+			</td>
+			
+			<td>2014.02.13</td>
+			
+			<td>2014.05.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300048506" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004850', 
+			'1' , 6);return false;">
+			서울중앙지방법원<br />
+			2014타경4850</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  강남대로84길 33, 8층 829호 (역삼동,대우디오빌플러스)
+			</td>
+			
+			<td>
+
+			김미은
+
+			 
+
+			</td>
+			
+			<td>2014.02.19</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004850', 
+			'0004821', '20140507');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			김미은
+
+			 
+
+			</td>
+			
+			<td>2014.02.14</td>
+			
+			<td>2014.05.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300051367" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130005136', 
+			'1' , 7);return false;">
+			서울중앙지방법원<br />
+			2014타경5136</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 봉천동  1-1434  1층 101호
+			</td>
+			
+			<td>
+
+			망)한기담의 상속인 서장순
+
+			 외 4명 
+
+			</td>
+			
+			<td>2014.02.19</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130005136', 
+			'0004821', '20140507');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			망)한기담의 상속인 서장순
+
+			 외 4명 
+
+			</td>
+			
+			<td>2014.02.17</td>
+			
+			<td>2014.05.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300053418" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130005341', 
+			'1' , 8);return false;">
+			서울중앙지방법원<br />
+			2014타경5341</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구 청담동  59-13 대우로얄카운티5 11층 1101호
+			</td>
+			
+			<td>
+
+			주식회사펄슨[변경전:펄슨개발주식회사]
+
+			 
+
+			</td>
+			
+			<td>2014.02.21</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130005341', 
+			'0004821', '20140507');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			주식회사펄슨[변경전:펄슨개발주식회사]
+
+			 
+
+			</td>
+			
+			<td>2014.02.18</td>
+			
+			<td>2014.05.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="201401300043799" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130004379', 
+			'1' , 9);return false;">
+			서울중앙지방법원<br />
+			2014타경4379</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 신림동  251-324 
+			 외 1건</td>
+			
+			<td>
+
+			이희영
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130004379', 
+			'0004821', '20140512');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			이희영
+
+			 
+
+			</td>
+			
+			<td>2014.02.21</td>
+			
+			<td>2014.05.12</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000559410" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130005594', 
+			'1' , 10);return false;">
+			서울중앙지방법원<br />
+			2014타경5594</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 동작구 상도동  24-113 동아골든빌 지1층 비101호
+			</td>
+			
+			<td>
+
+			차은실
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130005594', 
+			'0004821', '20140512');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			차은실
+
+			 
+
+			</td>
+			
+			<td>2014.02.20</td>
+			
+			<td>2014.05.12</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000566211" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130005662', 
+			'1' , 11);return false;">
+			서울중앙지방법원<br />
+			2014타경5662</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 봉천동  736-5 알프스타워오피스텔 4층 403호
+			</td>
+			
+			<td>
+
+			신사운
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130005662', 
+			'0004821', '20140512');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			신사운
+
+			 
+
+			</td>
+			
+			<td>2014.02.20</td>
+			
+			<td>2014.05.12</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000600912" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006009', 
+			'1' , 12);return false;">
+			서울중앙지방법원<br />
+			2014타경6009</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 중구 충무로4가  48-3 
+			 외 7건</td>
+			
+			<td>
+
+			양기순
+
+			 
+
+			</td>
+			
+			<td>2014.02.27</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006009', 
+			'0004821', '20140513');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			회생회사 주식회사 페이퍼플라자의 관리인 박용재
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>2014.05.13</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000609213" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006092', 
+			'1' , 13);return false;">
+			서울중앙지방법원<br />
+			2014타경6092</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 동작구  보라매로5길 51, 지하1층 127호 (신대방동,롯데타워)
+			</td>
+			
+			<td>
+
+			박화영
+
+			 
+
+			</td>
+			
+			<td>2014.02.27</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006092', 
+			'0004821', '20140513');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			박화영
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>2014.05.13</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000610814" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006108', 
+			'1' , 14);return false;">
+			서울중앙지방법���<br />
+			2014타경6108</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 신림동  646-138  1층 101호
+			</td>
+			
+			<td>
+
+			성진선미 주식회사
+
+			 
+
+			</td>
+			
+			<td>2014.02.27</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006108', 
+			'0004821', '20140513');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			성진선미 주식회사
+
+			 
+
+			</td>
+			
+			<td>2014.02.25</td>
+			
+			<td>2014.05.13</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000638215" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006382', 
+			'1' , 15);return false;">
+			서울중앙지방법원<br />
+			2014타경6382</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 성북구  북악산로1길 63 
+			 외 1건</td>
+			
+			<td>
+
+			박민
+
+			 외 1명 
+
+			</td>
+			
+			<td>2014.03.02</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006382', 
+			'0004821', '20140516');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			박민
+
+			 외 1명 
+
+			</td>
+			
+			<td>2014.02.27</td>
+			
+			<td>2014.05.16</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000625216" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006252', 
+			'1' , 16);return false;">
+			서울중앙지방법원<br />
+			2014타경6252</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 중구  퇴계로56가길 22-5 
+			 외 1건</td>
+			
+			<td>
+
+			최금환
+
+			 
+
+			</td>
+			
+			<td>2014.03.06</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006252', 
+			'0004821', '20140520');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			구민경
+
+			 
+
+			</td>
+			
+			<td>2014.03.03</td>
+			
+			<td>2014.05.20</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000709517" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007095', 
+			'1' , 17);return false;">
+			서울중앙지방법원<br />
+			2014타경7095</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구 양재동  325-5  지층 비01호
+			</td>
+			
+			<td>
+
+			김미선
+
+			 
+
+			</td>
+			
+			<td>2014.03.06</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007095', 
+			'0004821', '20140520');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			이순갑
+
+			 
+
+			</td>
+			
+			<td>2014.03.04</td>
+			
+			<td>2014.05.20</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000714918" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007149', 
+			'1' , 18);return false;">
+			서울중앙지방법원<br />
+			2014타경7149</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 중구  명동8가길 22, 1층 103호 (충무로2가,충무로패션몰리지상가)
+			 외 7건</td>
+			
+			<td>
+
+			주식회사지엔유나이티드
+
+			 
+
+			</td>
+			
+			<td>2014.03.06</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007149', 
+			'0004821', '20140520');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			주식회사지엔유나이티드
+
+			 
+
+			</td>
+			
+			<td>2014.03.04</td>
+			
+			<td>2014.05.20</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000732319" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007323', 
+			'1' , 19);return false;">
+			서울중앙지방법원<br />
+			2014타경7323</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구 청담동  106-21  5층 501호
+			</td>
+			
+			<td>
+
+			이관규
+
+			 
+
+			</td>
+			
+			<td>2014.03.10</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007323', 
+			'0004821', '20140526');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			최삼동
+
+			 
+
+			</td>
+			
+			<td>2014.03.06</td>
+			
+			<td>2014.05.26</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000745320" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007453', 
+			'1' , 20);return false;">
+			서울중앙지방법원<br />
+			2014타경7453</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구  난곡로 167, 102동 5층 505호 (신림동,임광관악파크)
+			</td>
+			
+			<td>
+
+			오선숙
+
+			 
+
+			</td>
+			
+			<td>2014.03.11</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007453', 
+			'0004821', '20140526');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			오선숙
+
+			 
+
+			</td>
+			
+			<td>2014.03.07</td>
+			
+			<td>2014.05.26</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000758321" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007583', 
+			'1' , 21);return false;">
+			서울중앙지방법원<br />
+			2014타경7583</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구  신반포로33길 64, 1동 9층 903호
+			</td>
+			
+			<td>
+
+			이현희
+
+			 
+
+			</td>
+			
+			<td>2014.03.11</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007583', 
+			'0004821', '20140526');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			이현희
+
+			 
+
+			</td>
+			
+			<td>2014.03.10</td>
+			
+			<td>2014.05.26</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2012013002461422" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20120130024614', 
+			'1' , 22);return false;">
+			서울중앙지방법원<br />
+			2012타경24614</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 신림동  496-13 
+			 외 1건</td>
+			
+			<td>
+
+			최명자
+
+			 
+
+			</td>
+			
+			<td>2014.03.13</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20120130024614', 
+			'0004821', '20140527');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			최명자
+
+			 
+
+			</td>
+			
+			<td>2012.08.02</td>
+			
+			<td>2014.05.27</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000781123" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007811', 
+			'1' , 23);return false;">
+			서울중앙지방법원<br />
+			2014타경7811</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구 우면동  57 대림아파트 102동 9층 903호
+			</td>
+			
+			<td>
+
+			정은경
+
+			 
+
+			</td>
+			
+			<td>2014.03.13</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007811', 
+			'0004821', '20140527');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			정은경
+
+			 
+
+			</td>
+			
+			<td>2014.03.12</td>
+			
+			<td>2014.05.27</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000793424" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130007934', 
+			'1' , 24);return false;">
+			서울중앙지방법원<br />
+			2014타경7934</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구 청운동  3-150 인텔빌라 에이동 1층 3호
+			</td>
+			
+			<td>
+
+			란인택
+
+			 
+
+			</td>
+			
+			<td>2014.03.15</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130007934', 
+			'0004821', '20140529');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			주식회사 로드스타
+
+			 
+
+			</td>
+			
+			<td>2014.03.13</td>
+			
+			<td>2014.05.29</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000636825" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130006368', 
+			'1' , 25);return false;">
+			서울중앙지방법원<br />
+			2014타경6368</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울 관악구 관천로12길 3  203호(신림동)
+			</td>
+			
+			<td>
+
+			우근서
+
+			 
+
+			</td>
+			
+			<td>2014.03.18</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130006368', 
+			'0004821', '20140602');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			우근서
+
+			 
+
+			</td>
+			
+			<td>2014.02.27</td>
+			
+			<td>2014.06.02</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000841826" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130008418', 
+			'1' , 26);return false;">
+			서울중앙지방법원<br />
+			2014타경8418</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구 관철동  19-10 
+			 외 1건</td>
+			
+			<td>
+
+			박재일
+
+			 
+
+			</td>
+			
+			<td>2014.03.20</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130008418', 
+			'0004821', '20140603');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			박재일
+
+			 
+
+			</td>
+			
+			<td>2014.03.19</td>
+			
+			<td>2014.06.03</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000849427" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130008494', 
+			'1' , 27);return false;">
+			서울중앙지방법원<br />
+			2014타경8494</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 동작구  신대방11길 25 
+			 외 1건</td>
+			
+			<td>
+
+			박인규
+
+			 
+
+			</td>
+			
+			<td>2014.03.20</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130008494', 
+			'0004821', '20140603');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			박인규
+
+			 
+
+			</td>
+			
+			<td>2014.03.19</td>
+			
+			<td>2014.06.03</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000908428" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130009084', 
+			'1' , 28);return false;">
+			서울중앙지방법원<br />
+			2014타경9084</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			부산 동래구 사직북로47번길 9  2층(사직동)
+			</td>
+			
+			<td>
+
+			유한회사 수지닷컴
+
+			 
+
+			</td>
+			
+			<td>2014.03.25</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130009084', 
+			'0004821', '20140609');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			김은경
+
+			 
+
+			</td>
+			
+			<td>2014.02.20</td>
+			
+			<td>2014.06.09</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000879129" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130008791', 
+			'1' , 29);return false;">
+			서울중앙지방법원<br />
+			2014타경8791</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구  평창10길 7-6, 3층 302호 (평창동,하이스트빌)
+			</td>
+			
+			<td>
+
+			이진
+
+			 
+
+			</td>
+			
+			<td>2014.03.26</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130008791', 
+			'0004821', '20140609');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			이진
+
+			 
+
+			</td>
+			
+			<td>2014.03.21</td>
+			
+			<td>2014.06.09</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000902230" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130009022', 
+			'1' , 30);return false;">
+			서울중앙지방법원<br />
+			2014타경9022</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구 논현동  124-10  비동 지하층 2호
+			</td>
+			
+			<td>
+
+			권혁진
+
+			 
+
+			</td>
+			
+			<td>2014.03.27</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130009022', 
+			'0004821', '20140610');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			권혁진
+
+			 
+
+			</td>
+			
+			<td>2014.03.25</td>
+			
+			<td>2014.06.10</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000904631" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130009046', 
+			'1' , 31);return false;">
+			서울중앙지방법원<br />
+			2014타경9046</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  압구정로29길 71, 25동 9층 906호 (압구정동,현대아파트)
+			</td>
+			
+			<td>
+
+			김상규
+
+			 
+
+			</td>
+			
+			<td>2014.03.27</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130009046', 
+			'0004821', '20140610');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			김상규
+
+			 
+
+			</td>
+			
+			<td>2014.03.25</td>
+			
+			<td>2014.06.10</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000949732" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130009497', 
+			'1' , 32);return false;">
+			서울중앙지방법원<br />
+			2014타경9497</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구  동광로1길 112, 13층 104-1303호 (방배동,롯데캐슬헤론)
+			</td>
+			
+			<td>
+
+			진중환
+
+			 
+
+			</td>
+			
+			<td>2014.04.03</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130009497', 
+			'0004821', '20140617');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			이동춘
+
+			 
+
+			</td>
+			
+			<td>2014.03.31</td>
+			
+			<td>2014.06.17</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013000971833" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130009718', 
+			'1' , 33);return false;">
+			서울중앙지방법원<br />
+			2014타경9718</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구 신교동  17-46  101호
+			 외 1건</td>
+			
+			<td>
+
+			우철
+
+			 
+
+			</td>
+			
+			<td>2014.04.07</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130009718', 
+			'0004821', '20140623');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			우철
+
+			 
+
+			</td>
+			
+			<td>2014.04.02</td>
+			
+			<td>2014.06.23</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001043534" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130010435', 
+			'1' , 34);return false;">
+			서울중앙지방법원<br />
+			2014타경10435</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  논현로51길 25, 8층 807호 (도곡동,현대그린아파트)
+			</td>
+			
+			<td>
+
+			최진희
+
+			 
+
+			</td>
+			
+			<td>2014.04.14</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130010435', 
+			'0004821', '20140630');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			최진희
+
+			 
+
+			</td>
+			
+			<td>2014.04.10</td>
+			
+			<td>2014.06.30</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001063335" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130010633', 
+			'1' , 35);return false;">
+			서울중앙지방법원<br />
+			2014타경10633</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구  언주로30길 13, 에이동 13층 1304호 (도곡동,대림아크로빌)
+			</td>
+			
+			<td>
+
+			백영운
+
+			 
+
+			</td>
+			
+			<td>2014.04.14</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130010633', 
+			'0004821', '20140630');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			백영운
+
+			 
+
+			</td>
+			
+			<td>2014.04.11</td>
+			
+			<td>2014.06.30</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001086236" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130010862', 
+			'1' , 36);return false;">
+			서울중앙지방법원<br />
+			2014타경10862</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 종로구 평창동  562-66 
+			</td>
+			
+			<td>
+
+			전창우
+
+			 
+
+			</td>
+			
+			<td>2014.04.17</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130010862', 
+			'0004821', '20140701');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			전창우
+
+			 
+
+			</td>
+			
+			<td>2014.04.15</td>
+			
+			<td>2014.07.01</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001106337" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130011063', 
+			'1' , 37);return false;">
+			서울중앙지방법원<br />
+			2014타경11063</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 중구 신당동  432-1659  1층 101호
+			</td>
+			
+			<td>
+
+			이용희
+
+			 
+
+			</td>
+			
+			<td>2014.04.21</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130011063', 
+			'0004821', '20140707');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			강기화
+
+			 
+
+			</td>
+			
+			<td>2014.04.17</td>
+			
+			<td>2014.07.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001108738" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130011087', 
+			'1' , 38);return false;">
+			서울중앙지방법원<br />
+			2014타경11087</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 서초구 방배동  463-24 프라임빌라 3층 302호
+			</td>
+			
+			<td>
+
+			김영록
+
+			 
+
+			</td>
+			
+			<td>2014.04.21</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130011087', 
+			'0004821', '20140707');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			김영록
+
+			 
+
+			</td>
+			
+			<td>2014.04.17</td>
+			
+			<td>2014.07.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001129239" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130011292', 
+			'1' , 39);return false;">
+			서울중앙지방법원<br />
+			2014타경11292</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 강남구 개포동  1211-2  나동 2층 201호
+			</td>
+			
+			<td>
+
+			김재성
+
+			 
+
+			</td>
+			
+			<td>2014.04.23</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130011292', 
+			'0004821', '20140707');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			김재성
+
+			 
+
+			</td>
+			
+			<td>2014.04.18</td>
+			
+			<td>2014.07.07</td>
+		</tr>
+
+		<tr class="Ltbl_list_lvl0">
+			
+			<td rowspan="2">
+			
+			<a href="#"	name="2014013001152040" onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20140130011520', 
+			'1' , 40);return false;">
+			서울중앙지방법원<br />
+			2014타경11520</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 동작구 동작동  102-71 현대타운하우스 1,2층 101호
+			</td>
+			
+			<td>
+
+			박용태
+
+			 
+
+			</td>
+			
+			<td>2014.04.23</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20140130011520', 
+			'0004821', '20140707');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl0">
+			
+			<td>
+
+			박용태
+
+			 
+
+			</td>
+			
+			<td>2014.04.22</td>
+			
+			<td>2014.07.07</td>
+		</tr>
+
+	</tbody>
+</table>
+
+<div class="page_sum">
+<div class="page1">[총 <span>41</span>건]</div>
+</div>
+
+</form>
+ 
+<br />
+
+
+<div class="table_contents">
+<div class="table_title">
+<h3>배당요구종기 연기공고</h3>
+</div>
+<table class="Ltbl_list" summary="배당요구종기 연기공고 표">
+	<caption>배당요구종기 연기공고</caption>
+	<thead>
+		<tr>
+			<th width="15%" rowspan="2">사건번호</th>
+			<th rowspan="2">소재지</th>
+			<th width="9%">소유자</th>
+			<th width="11%">공고일</th>
+			<th width="10%">담당계</th>
+			<th width="8%" rowspan="2">부동산<br />
+			등의<br />
+			표시</th>
+		</tr>
+		<tr>
+			<th>채무자</th>
+			<th>경매개시<br />
+			결정일자</th>
+			<th>배당요구<br />
+			종기일</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr class="Ltbl_list_lvl1">
+			
+			<td rowspan="2">
+			
+			<a href="#"	onclick="showSaDetail('RetrieveRealEstDetailInqSaList.laf', 
+			'서울중앙지방법원', '20130130034205', 
+			'1');return false;">
+			서울중앙지방법원<br />
+			2013타경34205</a></td>
+			
+			<td class="txtleft" rowspan="2">
+			서울특별시 관악구 남현동  1079-3 
+			 외 59건</td>
+			
+			<td>
+
+			경성연립재건축주택조합
+
+			 외 1명 
+
+			</td>
+			
+			<td>2014.02.13</td>
+			
+			<td>경매1계</td>
+			
+			<td rowspan="2"><a href="#"	onclick="pageOpen('/RetrieveBdangYoguJonggiNotifyMokrokList.laf',
+			'서울중앙지방법원', '20130130034205', 
+			'0004822', '20140528');return false;">
+			목록<img src="/images/ic_list.gif" alt="목록" /></a></td>
+		</tr>
+		<tr class="Ltbl_list_lvl1">
+			
+			<td>
+
+			경성연립재건축주택조합
+
+			 외 1명 
+
+			</td>
+			
+			<td>2013.11.12</td>
+			
+			<td>2014.05.28</td>
+		</tr>
+
+		</tbody>
+	</table>
+
+<div class="page_sum">
+	<div class="page1">[총 <span>1</span>건]</div>
+</div>
+
+</div>
+
+<br />
+
+	
+ 
+
+<br />
+
+<div class="jisi1">
+<h3>사용설명</h3>
+<div class="jisi1_top"></div>
+<ul>
+  <li>사건번호/이해관계인명으로 검색할 경우, 사건번호와 이해관계인명을 모두 입력해야 하며, 소재지로 검색할 경우<br/>읍/면/동을 반드시 선택해야 합니다. </li>
+</ul>
+<div class="jisi1_bottom"></div>
+</div>
+ 
+
+<div class="jisi2">
+<h3>유의사항</h3>
+<div class="jisi2_top"></div>
+<ul>
+  <li>배당요구종기란 실체법상 우선변제청구권이 있는 채권자, 집행력 있는 정본을 가진 채권자 및 경매신청의 등기 후<br/>가압류한 채권자가 배당요구를 할 수 있는 기간입니다.</li>
+  <li>조회된 사건들은 경매개시 결정이 되었으므로 배당을 받아야 할 채권을 가지고 있는 채권자는 배당요구의 종기까지<br/>법원에 원금, 이자, 비용 및 부대채권을 포함한 채권액을 신고하시기 바랍니다. 만일, 배당요구의 종기까지 배당요구를 <br/>하지 않으면 배당에서 배제되오니 각별히 유의하시기 바랍니다.</li>
+</ul>
+<div class="jisi2_bottom"></div>
+</div>
+
+</div>
+
+
+
+
+</div>
+</div>
+<div id="footer_container">
+  <div id="footer">
+    <h3 class="none">하단영역</h3>
+      <ul>
+        <li><a href="#" onclick="popupTail('/PersonalInfoUseYakgwan.laf', 'PAS103018', '520'); return false;"><img src="/images/footer_04.gif" alt="이용약관" /></a></li>
+        <li><a href="#" onclick="popupTail('/PersonalInfoUseYakgwan.laf', 'PAS103017', '520'); return false;"><img src="/images/footer_05.gif" alt="개인정보처리방침" /></a></li>
+        <li><a href="#" onclick="popupTail('/CopyrightProtection.laf', 'PAS103016', '410'); return false;"><img src="/images/footer_01.gif" alt="저작권정책" /></a></li>
+        <li><a href="#" onclick="popupTail('/UseAttenItem.laf', 'PAS103015', '520'); return false;"><img src="/images/footer_02.gif" alt="이용시 유의사항" /></a></li>
+        <li class="nobar"><a href="#" onclick="popupTail('/BubwAucInfo.laf', 'PAS103020', '520'); return false;"><img src="/images/footer_03.gif" alt="법원경매정보 링크" /></a></li>
+        <li class="ft_list">
+          <select name="전국법원" title="전국법원" onchange="tailLinkOpen(this.value)">
+            <option value="">전국법원</option>
+            <option value="">―――――――――――</option>
+            <option value="http://www.scourt.go.kr">대한민국법원</option>
+            <option value="http://www.scourt.go.kr/supreme/index.html">대법원</option>
+            <option value="http://slgodung.scourt.go.kr">서울고등법원</option>
+            <option value="http://djgodung.scourt.go.kr">대전고등법원</option>
+            <option value="http://dggodung.scourt.go.kr">대구고등법원</option>
+            <option value="http://bsgodung.scourt.go.kr">부산고등법원</option>
+            <option value="http://gjgodung.scourt.go.kr">광주고등법원</option>
+            <option value="http://patent.scourt.go.kr">특허법원</option>
+            <option value="http://seoul.scourt.go.kr">서울중앙지법</option>
+            <option value="http://sldongbu.scourt.go.kr">서울동부지법</option>
+            <option value="http://slnambu.scourt.go.kr">서울남부지법</option>
+            <option value="http://slbukbu.scourt.go.kr">서울북부지법</option>
+            <option value="http://slseobu.scourt.go.kr">서울서부지법</option>
+            <option value="http://slfamily.scourt.go.kr">서울가정법원</option>
+            <option value="http://sladmin.scourt.go.kr">서울행정법원</option>
+            <option value="http://uijeongbu.scourt.go.kr">의정부지방법원</option>
+            <option value="http://incheon.scourt.go.kr">인천지방법원</option>
+            <option value="http://suwon.scourt.go.kr">수원지방법원</option>
+            <option value="http://chuncheon.scourt.go.kr">춘천지방법원</option>
+            <option value="http://daejeon.scourt.go.kr">대전지방법원</option>
+            <option value="http://cheongju.scourt.go.kr">청주지방법원</option>
+            <option value="http://daegu.scourt.go.kr">대구지방법원</option>
+            <option value="http://busan.scourt.go.kr">부산지방법원</option>
+            <option value="http://ulsan.scourt.go.kr">울산지방법원</option>
+            <option value="http://changwon.scourt.go.kr">창원지방법원</option>
+            <option value="http://gwangju.scourt.go.kr">광주지방법원</option>
+            <option value="http://jeonju.scourt.go.kr">전주지방법원</option>
+            <option value="http://jeju.scourt.go.kr">제주지방법원</option>
+          </select>
+        </li>
+        <li class="ft_list">
+          <select name="대법원관련" title="대법원관련" onchange="tailLinkOpen(this.value)">
+            <option value="">대법원 관련</option>
+            <option value="">――――――――――――</option>
+            <option value="http://library.scourt.go.kr">법원도서관</option>
+            <option value="http://jrti.scourt.go.kr">사법연수원</option>
+            <option value="http://edu.scourt.go.kr">법원공무원교육원</option>
+            <option value="http://www.iros.go.kr">인터넷등기서비스</option>
+            <option value="http://ekt.scourt.go.kr">전자공탁홈페이지</option>
+          </select>
+        </li>
+        <li class="ft_list">
+          <select name="공공기관관련" title="공공기관관련" onchange="tailLinkOpen(this.value)">
+            <option value="">공공기관관련</option>
+            <option value="">――――――――――――――――</option>
+            <option value="http://nts.go.kr">국세청</option>
+            <option value="http://www.kab.co.kr">한국감정원</option>
+            <option value="http://kapanet.co.kr">한국감정협회</option>
+            <option value="http://member.kapanet.co.kr">표준공시지가</option>
+            <option value="http://www.onbid.co.kr">온비드</option>
+            <option value="http://luris.moct.go.kr">토지이용규제정보시스템</option>
+            <option value="http://www.moct.go.kr">국토해양부</option>
+          </select>
+        </li>
+      </ul>
+  </div>
+  <div class="txtcenter">
+  
+    <img src="/images/copyright.gif" alt="copyright ⓒ supreme court of korea. all rights reserved" />&nbsp;
+    <img src="/images/tailuhd_info.gif" alt="홈페이지 이용·장애 문의 02-3480-1715(평일 9시~18시)"/>
+    <font color="#c8c8c8">.</font>
+  </div>
+</div>
+</body>
+</html>
