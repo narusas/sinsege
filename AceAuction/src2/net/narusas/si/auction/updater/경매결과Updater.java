@@ -53,48 +53,66 @@ public class 경매결과Updater {
 			
 			사건내역Fetcher 사건내역Fetcher  = new 사건내역Fetcher();
 			List<물건> fetchedGoodsList = 사건내역Fetcher.fetch물건목록(사건);
+			boolean is정지  = false;
+			if (사건.get사건항고정지여부() != null && (사건.get사건항고정지여부().contains("정지")||사건.get사건항고정지여부().contains("항고"))){
+				logger.info("사건이 정지/항고 상태입니다. ");
+				is정지  = true;
+			}
 			
 			
 			사건기일내역Fetcher 사건기일내역Fetcher = new 사건기일내역Fetcher();
 			사건기일내역Fetcher.update(사건, fetchedGoodsList);
 
-			for (물건 old물건 : goodsList) {
+			for (물건 oldSaved물건 : goodsList) {
+				if (is정지 && "매각".equals(oldSaved물건.get기일결과()) == false){
+					logger.info(사건.get사건번호() + ":" + oldSaved물건.get물건번호() + " 를 정지 처리합니다. ");
+					oldSaved물건.set기일결과("정지");
+					물건dao.saveOrUpdate(oldSaved물건);
+					continue;
+					
+				}
 				if (fetched사건 != null) {
-					if (isTargetGoods(old물건)){
-						logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 매각예정물건에 있는 물건입니다. ");
+					if (isTargetGoods(oldSaved물건)){
+						logger.info(사건.get사건번호() + ":" + oldSaved물건.get물건번호() + "는 매각예정물건에 있는 물건입니다. ");
 					}
 					else {
 						continue;
 					}
 				}
-				logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "의 기일내역을 갱신합니다. ");
-				if (완료물건_진행여부 == false && old물건.is완료여부()) {
-					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 완료된 물건입니다.");
-					return;
-//					continue;
+				logger.info(사건.get사건번호() + ":" + oldSaved물건.get물건번호() + "의 기일내역을 갱신합니다. ");
+				if (완료물건_진행여부 == false && oldSaved물건.is완료여부()) {
+					logger.info(사건.get사건번호() + ":" + oldSaved물건.get물건번호() + "는 이미 완료된 물건입니다.");
+//					return;
+					continue;
 				}
 
-				if ("취하".equals(old물건.get기일결과())) {
-					logger.info(사건.get사건번호() + ":" + old물건.get물건번호() + "는 이미 취하된 물건입니다.");
-					return;
-//					continue;
+				if ("취하".equals(oldSaved물건.get기일결과())) {
+					logger.info(사건.get사건번호() + ":" + oldSaved물건.get물건번호() + "는 이미 취하된 물건입니다.");
+//					return;
+					continue;
 				}
-				물건 newGoods = 사건.get물건By물건번호(old물건.get물건번호());
-				기일내역 old기일 = old물건.get기일내역();
-				old물건.merge(newGoods);
-				if (isEmpty(newGoods) == false) {
-					기일내역Dao.removeFor(old물건);
-				} else {
-					fetch기일결과(old물건);
-					old물건.set기일내역(old기일);
+				물건 newFakeGoods = 사건.get물건By물건번호(oldSaved물건.get물건번호());
+				if (newFakeGoods != null){
+					기일내역 old기일 = oldSaved물건.get기일내역();
+					oldSaved물건.merge(newFakeGoods);
+					if (isEmpty(newFakeGoods) == false) {
+						기일내역Dao.removeFor(oldSaved물건);
+					} else {
+						fetch기일결과(oldSaved물건);
+						oldSaved물건.set기일내역(old기일);
+					}	
 				}
+				else {
+					oldSaved물건.set기일결과( 사건.get종국결과());
+				}
+				
 
 				if (useDone) {
-					old물건.set완료여부(true);
+					oldSaved물건.set완료여부(true);
 				}
 
-				logger.info("유찰수 :" + old물건.get유찰수() + ", 결과=" + old물건.get기일결과() + ", 내역=" + old물건.get기일내역());
-				물건dao.saveOrUpdate(old물건);
+				logger.info("유찰수 :" + oldSaved물건.get유찰수() + ", 결과=" + oldSaved물건.get기일결과() + ", 내역=" + oldSaved물건.get기일내역());
+				물건dao.saveOrUpdate(oldSaved물건);
 			}
 
 		} catch (IOException e) {
@@ -137,3 +155,4 @@ public class 경매결과Updater {
 		return res;
 	}
 }
+//

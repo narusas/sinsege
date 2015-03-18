@@ -3,6 +3,8 @@ package net.narusas.si.auction.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
 public class 주소 {
 	지역 시도;
 	지역 시군구;
@@ -94,5 +96,25 @@ public class 주소 {
 			return  통합주소.도로명주소();
 		}
 	}
+	
+	public String to토지주소() {
+		if (통합주소.번지이하 != null){
+			return 통합주소.동리+" "+통합주소.번지+" "+통합주소.번지이하;
+		}
+		
+		return 통합주소.동리+" "+통합주소.번지;
+//		
+//		if (읍면동.toString().endsWith("읍") || 읍면동.toString().endsWith("면")){
+//			return  번지이하;
+//		}
+//		return toString();
+//		if ( 통합주소.동주소() ==  null){
+//			return 통합주소.동주소();
+//		}else {
+		
+//			return toString();
+//		}
+	}
+	
 
 }

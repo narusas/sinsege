@@ -77,6 +77,7 @@ public class 사건내역Fetcher {
 		
 		return goodsList;
 	}
+	
 
 	public String fetch(사건 s) throws IOException {
 		Exception ee = null;
@@ -96,7 +97,7 @@ public class 사건내역Fetcher {
 	public void parseHTML(사건 s, String html) {
 		String 담당계 = HTMLUtils.findTHAndNextValue(html, "담당계");
 		if (담당계 != null && 담당계.contains("전화")) {
-			Pattern p = Pattern.compile("전화 : (.*)");
+			Pattern p = Pattern.compile("전화 : ([^\\(]*)");
 			Matcher m = p.matcher(담당계);
 			if (m.find()) {
 				String 전화 = m.group(1);
@@ -112,7 +113,7 @@ public class 사건내역Fetcher {
 		s.set접수일자(HTMLUtils.toDate(HTMLUtils.findTHAndNextValue(html, "접수일자")));
 		s.set청구금액(toLong(금액Converter.convert(HTMLUtils.findTHAndNextValue(html, "청구금액"))));
 		s.set사건항고정지여부(HTMLUtils.findTHAndNextValue(html, "사건항고/정지여부"));
-		// s.set종국결과(HTMLUtils.findTHAndNextValue(html, "종국결과"));
+		 s.set종국결과(HTMLUtils.findTHAndNextValue(html, "종국결과"));
 		// s.set종국일자(HTMLUtils.findTHAndNextValue(html, "종국일자"));
 
 		handl병합(s, html);
@@ -123,7 +124,7 @@ public class 사건내역Fetcher {
 		logger.info("청구금액:" + s.get청구금액());
 		logger.info("사건항고정지여부:" + s.get사건항고정지여부());
 		logger.info("병합:" + s.get병합());
-		System.out.println(html);
+//		System.out.println(html);
 	}
 
 	private void update담당계(담당계 담당계) {
@@ -205,7 +206,7 @@ public class 사건내역Fetcher {
 	}
 
 	public List<물건> parse물건(사건 event, String html) {
-		Pattern p = Pattern.compile("<th[^>]*>물건번호</th>\\s*<td[^>]*>\\s*(\\d+)&nbsp;\\s+<a", Pattern.MULTILINE);
+		Pattern p = Pattern.compile("<th[^>]*>물건번호</th>\\s*<td[^>]*>\\s*(\\d+)&nbsp;\\s+", Pattern.MULTILINE);
 		Matcher m = p.matcher(html);
 		List<물건> res = new LinkedList<물건>();
 
@@ -237,14 +238,14 @@ public class 사건내역Fetcher {
 			String comment = null;
 
 			String rest = chunk.substring(m.end());
-
+			String buNo = null;
 			Pattern popupPattern = Pattern.compile("regiBU\\('(\\d+)");
 			Matcher m2 = popupPattern.matcher(rest);
-			if (m2.find() == false) {
-				return;
+			if (m2.find()) {
+				buNo = m2.group(1);
 			}
 
-			String buNo = m2.group(1);
+			
 			Pattern typePattern = Pattern.compile("<th[^>]*>목록구분</th>\\s*<td[^>]+>([^<]+)</td>");
 			Matcher m3 = typePattern.matcher(rest);
 			if (m3.find()) {

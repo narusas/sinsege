@@ -27,8 +27,7 @@ public class 부동산표시목록Builder {
 	public final static Pattern unitPattern1 = Pattern.compile("(((\\d+평) *|(\\d+홉) *|(\\d+작) *)+)", Pattern.MULTILINE);
 
 	/** The Constant unitPattern2. */
-	public final static Pattern unitPattern2 = Pattern.compile("(((\\d+정)\\s*|(\\d+단)\\s*|(\\d+무)\\s*)+(\\d)*보)",
-			Pattern.MULTILINE);
+	public final static Pattern unitPattern2 = Pattern.compile("(((\\d+정)\\s*|(\\d+단)\\s*|(\\d+무)\\s*)+(\\d)*보)", Pattern.MULTILINE);
 
 	/** The 단unit. */
 	static Pattern 단unit = Pattern.compile("(\\d+)단", Pattern.MULTILINE);
@@ -59,7 +58,7 @@ public class 부동산표시목록Builder {
 
 	public void build(물건 goods, int 목록번호, String 목록구분, String 상세내역, int index) {
 		상세내역 = convertAreaUnit(상세내역);
-		updateAddress2(goods,  상세내역, index);
+		updateAddress2(goods, 상세내역, index);
 
 		부동산표시 표시 = goods.get부동산표시(목록번호);
 		if (goods.get사건().get종류() == 사건종류.부동산 && 표시 != null && isStartWithAddress(상세내역, 표시.get주소())) {
@@ -95,7 +94,7 @@ public class 부동산표시목록Builder {
 			} else if (chunk.contains("매각지분")) {
 				표시.set매각지분(chunk);
 			} else if (chunk.contains("제시외건물") || chunk.contains("제시외 건물")) {
-				if (! chunk.matches("제시외\\s*건물\\s*매각\\s*제외")) {
+				if (!chunk.matches("제시외\\s*건물\\s*매각\\s*제외")) {
 					parse제시외(goods, 목록번호, 표시, chunk);
 				}
 
@@ -127,7 +126,7 @@ public class 부동산표시목록Builder {
 
 			addBuilding(goods, 상세내역, 표시, 목록번호);
 			hasBuilding = true;
-			// 
+			//
 			// if (has대지권(상세내역)) {
 			if (표시.get대지권() != null) {
 				goods.add대지권(표시.get대지권());
@@ -146,46 +145,44 @@ public class 부동산표시목록Builder {
 
 	}
 
-	// 도로명 주소일때 구 주소가 있는지 여부를 확인해  ac_goods.address2 에 넣어 주는 기능
+	// 도로명 주소일때 구 주소가 있는지 여부를 확인해 ac_goods.address2 에 넣어 주는 기능
 	private void updateAddress2(물건 goods, String 상세내역, int index) {
-		if (index >0){
+		if (index > 0) {
 			return;
 		}
-		if (상세내역.contains("[도로명 주소]") == false){
+		if (상세내역.contains("[도로명 주소]") == false) {
 			return;
 		}
-		String temp =  HTMLUtils.converHTMLSpecialChars(상세내역.substring(0,  상세내역.indexOf("[도로명 주소]"))).trim();
+		String temp = HTMLUtils.converHTMLSpecialChars(상세내역.substring(0, 상세내역.indexOf("[도로명 주소]"))).trim();
 		String[] list = temp.split("\n");
-		if (temp.contains(" 표시")){
+		if (temp.contains(" 표시")) {
 			temp = list[1].trim();
-		}
-		else {
+		} else {
 			temp = list[0].trim();
 		}
-		if (StringUtils.isEmpty(temp) || StringUtils.isNotEmpty(goods.getAddress2())){
+		if (StringUtils.isEmpty(temp) || StringUtils.isNotEmpty(goods.getAddress2())) {
 			return;
 		}
-		logger.info("기존 주소:"+ temp);
+		logger.info("기존 주소:" + temp);
 		goods.setAddress2(temp);
 	}
-
 
 	private boolean isStartWithAddress(String 상세내역, 주소 주소) {
 		String[] lines = 상세내역.split("\n");
 		String startingLine = lines[0];
-		if (주소.get시도() != null){
-			if (startingLine.contains(주소.get시도().get지역명())){
+		if (주소.get시도() != null) {
+			if (startingLine.contains(주소.get시도().get지역명())) {
 				return true;
 			}
 		}
-		if (주소.get시군구() != null){
-			if (startingLine.contains(주소.get시군구().get지역명())){
+		if (주소.get시군구() != null) {
+			if (startingLine.contains(주소.get시군구().get지역명())) {
 				return true;
 			}
 		}
-		
-		if (주소.get읍면동()!=null) {
-			if (startingLine.contains(주소.get읍면동().get지역명())){
+
+		if (주소.get읍면동() != null) {
+			if (startingLine.contains(주소.get읍면동().get지역명())) {
 				return true;
 			}
 		}
@@ -209,31 +206,29 @@ public class 부동산표시목록Builder {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	private void parse제시외(물건 goods, int 목록번호, 부동산표시 표시, String chunk) {
-		
-		if (chunk.indexOf("\n") != -1){
+
+		if (chunk.indexOf("\n") != -1) {
 			chunk = chunk.substring(chunk.indexOf("\n")).trim();
 		}
 		제시외건물Parser.parse(goods, chunk, 목록번호, 표시.get주소());
 	}
 
+	// private int parse제시외(물건 goods, int 목록번호, 부동산표시 표시, List<String> chunks,
+	// int i) {
 
-//	private int parse제시외(물건 goods, int 목록번호, 부동산표시 표시, List<String> chunks, int i) {
-		
-		
-		
-//		for (int k = i + 1; k < chunks.size(); k++) {
-//			String temp = chunks.get(k);
-//			if ("".equals(temp.trim())) {
-//				i = k;
-//				break;
-//			}
-//
-//			제시외건물Parser.parse(goods, chunks.get(k), 목록번호, 표시.get주소());
-//		}
-//		return i;
-//	}
+	// for (int k = i + 1; k < chunks.size(); k++) {
+	// String temp = chunks.get(k);
+	// if ("".equals(temp.trim())) {
+	// i = k;
+	// break;
+	// }
+	//
+	// 제시외건물Parser.parse(goods, chunks.get(k), 목록번호, 표시.get주소());
+	// }
+	// return i;
+	// }
 
 	String calc매각대상(boolean 건물이있는가, boolean 건물지분이있는가, boolean 토지가있는가, boolean 토지지분이있는가, String comment) {
 		String presentation = "";
@@ -282,8 +277,8 @@ public class 부동산표시목록Builder {
 	boolean is건물제외비고(String comment) {
 		// 매각에서 제외되는~,법정지상권,제시외건물,건물,지상에
 		return comment != null
-				&& (comment.contains("매각에서 제외되는") || comment.contains("법정지상권") || comment.contains("제시외건물")
-						|| comment.contains("건물") || comment.contains("지상에"));
+				&& (comment.contains("매각에서 제외되는") || comment.contains("법정지상권") || comment.contains("제시외건물") || comment.contains("건물") || comment
+						.contains("지상에"));
 	}
 
 	boolean has대지권(String detail) {
@@ -310,11 +305,11 @@ public class 부동산표시목록Builder {
 			logger.info("추가할 위 지상 건물의 수는 " + floors.size());
 			for (층형 f : floors) {
 				logger.info("insert 위 지상 building floor=" + f.getText() + " str=" + structure + " area=" + f.getArea());
-				건물 st = new 건물(물건,// 
-						item.get주소().toSlimAddress(),// 
-						f.getText(),// 
+				건물 st = new 건물(물건,//
+						item.get주소().toSlimAddress(),//
+						f.getText(),//
 						"", //
-						f.getArea(),// 
+						f.getArea(),//
 						"위지상", //
 						detail, //
 						item.get매각지분());
@@ -322,14 +317,14 @@ public class 부동산표시목록Builder {
 				물건.add건물(st);
 			}
 		} else {
-			건물 st = new 건물(물건,// 
-					item.get주소().toSlimAddress(),// 
+			건물 st = new 건물(물건,//
+					item.get주소().toSlimAddress(),//
 					net.narusas.si.auction.converters.건물현황_층형Converter.convert(floor),//
 					건물현황_구조Converter.convert(structure), //
 					현황주소Converter.convert(area),//
-					detail,// 
+					detail,//
 					매각지분Comment);
-			logger.info("insert building "// 
+			logger.info("insert building "//
 					+ "address=" + item.get주소().toString()//
 					+ "floor=" + 건물현황_층형Converter.convert(floor)//
 					+ " str=" + 건물현황_구조Converter.convert(structure)//
@@ -344,7 +339,8 @@ public class 부동산표시목록Builder {
 	}
 
 	private 토지 addLand(물건 goods, 부동산표시 표시, String 상세내역) {
-		String address = 현황주소Converter.convert(표시.get주소().toSlimAddress());
+//		String address = 현황주소Converter.convert(표시.get주소().toSlimAddress());
+		String address = 현황주소Converter.convert(표시.get주소().to토지주소());
 		String use = 부동산표시TypeMatcher.matchStart토지(상세내역);
 		String area = parse대지면적(상세내역);
 		String 매각지분 = parse지분(표시.get매각지분());
@@ -436,12 +432,12 @@ public class 부동산표시목록Builder {
 
 		return temp2.trim();
 	}
-	
-	public static String removeCommaInNumber(String src){
+
+	public static String removeCommaInNumber(String src) {
 		Pattern p = Pattern.compile("([\\d,]+)");
 		Matcher m = p.matcher(src);
 		String res = src;
-		while(m.find()){
+		while (m.find()) {
 			String token = m.group(1);
 			res = res.replace(token, token.replaceAll(",", ""));
 		}
@@ -516,11 +512,9 @@ public class 부동산표시목록Builder {
 		String temp = lines[0].trim();
 		for (int i = 1; i < lines.length; i++) {
 			String line = lines[i];
-			if (temp != null && temp.startsWith("제시외")  && isStartWithNumber(line.trim())){
+			if (temp != null && temp.startsWith("제시외") && isStartWithNumber(line.trim())) {
 				temp += "\n" + line;
-			}
-			else 
-				if (countHeadSpace(line) == 0 && !line.equals("") || isMainStart(line) ) {
+			} else if (countHeadSpace(line) == 0 && !line.equals("") || isMainStart(line)) {
 				result.add(temp);
 				temp = line;
 			} else {
@@ -533,11 +527,11 @@ public class 부동산표시목록Builder {
 
 	private static boolean isStartWithNumber(String line) {
 		line = line.trim();
-		if (line.length()==0){
+		if (line.length() == 0) {
 			return false;
 		}
-		char ch =line.charAt(0);
-		
+		char ch = line.charAt(0);
+
 		return Character.isDigit(ch);
 	}
 
