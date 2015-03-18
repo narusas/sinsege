@@ -55,11 +55,14 @@ public class ONBIDBuilderApp extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (groupList.getSelectedValue() == null) {
+				 Object[] selected = groupList.getSelectedValues();
+				if (selected == null) {
 					return;
 				}
-				fetch((공매일정) groupList.getSelectedValue());
-
+				
+				for(int i=0; i<selected.length;i++) {
+					fetch((공매일정) selected[i]);
+				}
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -230,10 +230,14 @@ public class 사건 {
 	}
 
 	public List<물건> get물건목록() {
+		
 		return 물건목록;
 	}
 
 	public Collection<당사자> get당사자목록() {
+		if (당사자목록 == null){
+			당사자목록 = new ArrayList<당사자>();
+		}
 		return 당사자목록;
 	}
 

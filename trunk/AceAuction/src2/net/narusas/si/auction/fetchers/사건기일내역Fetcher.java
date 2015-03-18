@@ -37,7 +37,7 @@ public class 사건기일내역Fetcher {
 	}
 
 	public void parse(사건 event, String html, List<물건> fetchedGoodsList) {
-		System.out.println("parse:" + event);
+		System.out.println("parse :" + event);
 		Sheet sheet = Sheet.parse(html, "<caption>기일내역</caption>", true, true);
 		물건 goods = null;
 
@@ -70,7 +70,7 @@ public class 사건기일내역Fetcher {
 			if (fetchedGoodsList != null) {
 				물건 fetched물건 = findInFetchedGoodsList(물건, fetchedGoodsList);
 				if (fetched물건 != null) {
-					ArrayList<목록> 목록List = fetched물건.get목록s();
+					ArrayList<목록> 목록List = fetched물건.get목록s(); 
 					if (목록List != null && 목록List.size() > 0) {
 						목록 목록 = 목록List.get(0);
 						if ("미종국".equals(목록.getComment())) {

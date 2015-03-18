@@ -238,10 +238,10 @@ public class 물건내역Fetcher {
 		// 물건종류.contains("중기") || 물건종류.contains("선박"))
 		// ) {
 
-		if (물건종류 == null || "".equals(물건종류.trim())) {
-			logger.info("물건 종류가 처리가능한 종류가 아닙니다. " + 물건종류);
-			return false;
-		}
+//		if (물건종류 == null || "".equals(물건종류.trim())) {
+//			logger.info("물건 종류가 처리가능한 종류가 아닙니다. " + 물건종류);
+//			return false;
+//		}
 
 		Integer no = 물건종별Stage1.parse물건종류(물건종류);
 		goods.set물건종별(no);

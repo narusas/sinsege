@@ -242,9 +242,9 @@ public class PreFetcher {
 		// System.out.println(list);
 		info.당사자목록 = list;
 		
-		Pre사건문건송달내역Fetcher  f = new Pre사건문건송달내역Fetcher();
-		f.download(info);
-		
+//		Pre사건문건송달내역Fetcher  f = new Pre사건문건송달내역Fetcher();
+//		f.download(info);
+//		
 		 
 		return info;
 	}
