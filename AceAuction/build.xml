@@ -92,8 +92,11 @@
 			</fileset>
 		</copy>
 		<copy file="builder.exe" todir="${dist}" />
+		
 		<copy file="updater.exe" todir="${dist}" />
 		<copy file="atested.exe" todir="${dist}" />
+		<copy file="pre.bat" todir="${dist}" />
+				
 
 	</target>
 
